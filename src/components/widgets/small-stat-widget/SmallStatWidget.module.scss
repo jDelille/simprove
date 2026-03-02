@@ -1,11 +1,7 @@
+@use "@/styles/mixins" as *;
+
 .widget {
-  flex: 1;
-  border: 1px solid var(--border);
-  height: 100%;
-  border-radius: 8px;
-  padding: 1rem;
-  background-color: var(--bg);
-  position: relative;
+  @include widget();
   max-height: 332px;
   .header {
     padding-bottom: 0.75rem;
