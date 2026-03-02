@@ -9,6 +9,7 @@ import {
 } from "../widgets";
 import { Average } from "next/font/google";
 import AveragesGraphWidget from "../widgets/averages-graph-widget/AveragesGraphWidget";
+import WeakestConsistencyWidget from "../widgets/weakest-consistency-widget/WeakestConsistencyWidget";
 
 const Dashboard = () => {
   const { user } = useUser();
@@ -52,6 +53,7 @@ const Dashboard = () => {
         </div>
         <div className={styles.row}>
           {/* Widget: Weakest consistency */}
+          <WeakestConsistencyWidget />
           {/* Widget: Miss tendency */}
         </div>
       </div>
