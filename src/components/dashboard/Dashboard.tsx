@@ -1,3 +1,4 @@
+import SmallStatWidget from "../widgets/small-stat-widget/SmallStatWidget";
 import styles from "./Dashboard.module.scss";
 
 const Dashboard = () => {
@@ -7,9 +8,37 @@ const Dashboard = () => {
       <div className={styles.column}>
         <div className={styles.row}>
             {/* Widget: Total shots tracked */}
+            <SmallStatWidget 
+                title="Total Shots Tracked"
+                value={1234}
+                metric="shots"
+                trend="up"
+                trendText="15% increase from last month"
+            />
             {/* Widget: Sessions this month */}
+            <SmallStatWidget 
+                title="Sessions This Month"
+                value={12}
+                metric="sessions"
+                trend="up"
+                trendText="15% increase from last month"
+            />
             {/* Widget: Longest carry */}
+            <SmallStatWidget 
+                title="Longest Carry"
+                value={1234}
+                metric="yards"
+                trend="up"
+                trendText="15% increase from last month"
+            />
             {/* Widget: Most practiced club */}
+            <SmallStatWidget 
+                title="Most Practiced Club"
+                value={"7I"}
+                metric="shots"
+                trend="up"
+                trendText="15% increase from last month"
+            />
         </div>
         <div className={styles.row}>
             {/* Widget: Average graph */}
