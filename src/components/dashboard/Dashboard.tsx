@@ -7,6 +7,8 @@ import {
   RecentActivityWidget,
   SmallStatWidget,
 } from "../widgets";
+import { Average } from "next/font/google";
+import AveragesGraphWidget from "../widgets/averages-graph-widget/AveragesGraphWidget";
 
 const Dashboard = () => {
   const { user } = useUser();
@@ -45,7 +47,9 @@ const Dashboard = () => {
             trendText="15% increase from last month"
           />
         </div>
-        <div className={styles.row}>{/* Widget: Average graph */}</div>
+        <div className={styles.row}>
+          <AveragesGraphWidget />
+        </div>
         <div className={styles.row}>
           {/* Widget: Weakest consistency */}
           {/* Widget: Miss tendency */}
