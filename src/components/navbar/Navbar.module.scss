@@ -1,0 +1,43 @@
+@use "../../styles/mixins" as *;
+
+.navbar {
+  height: 62px;
+  width: 100%;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  background-color: var(--bg);
+  color: var(--text);
+  .navbarContent {
+    @include contentWidth;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    .logo {
+      font-size: 22px;
+      font-weight: 700;
+      width: 100px;
+    }
+    .navbarActions {
+      display: flex;
+      align-items: center;
+      margin-left: 3rem;
+      margin-right: 1rem;
+      width: 100%;
+
+      ul {
+        display: flex;
+        gap: 1rem;
+
+        li {
+          a {
+            color: var(--lightgray);
+            text-decoration: none;
+            font-size: 13px;
+          }
+        }
+      }
+    }
+  }
+}
