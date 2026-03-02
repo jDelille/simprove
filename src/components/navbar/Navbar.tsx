@@ -6,14 +6,17 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "./Navbar.module.scss";
+import { useUser } from "@/hooks/useUser";
+import { LuSun } from "react-icons/lu";
 
 type AuthAction = "login" | "signup" | "logout";
 
-
 const Navbar = () => {
   const pathname = usePathname();
-  const { theme, toggleTheme } = useTheme();
   const router = useRouter();
+
+  const { theme, toggleTheme } = useTheme();
+  const { user, loading } = useUser();
 
   const handleAuthClick = async (type: AuthAction) => {
     if (type === "login") {
@@ -58,7 +61,49 @@ const Navbar = () => {
             ))}
           </ul>
         </div>
-        <div className={styles.navbarAuth}></div>
+        <div className={styles.navbarAuth}>
+          <div className={styles.navbarAuth}>
+            <LuSun
+              size={18}
+              className={styles.themeIcon}
+              onClick={toggleTheme}
+            />
+
+            {!loading && !user && (
+              <>
+                <button
+                  className={styles.authButton}
+                  onClick={() => handleAuthClick("login")}
+                >
+                  Login
+                </button>
+                <button
+                  className={styles.authButton}
+                  onClick={() => handleAuthClick("signup")}
+                >
+                  Sign Up
+                </button>
+              </>
+            )}
+            {!loading && user && (
+              <>
+                <div className={styles.uploadBtnContainer}>
+                  <button className={styles.uploadButton}>Upload</button>
+                </div>
+                <div
+                  className={styles.userAvatar}
+                  onClick={() => router.push("/profile")}
+                ></div>
+                <button
+                  className={styles.authButton}
+                  onClick={() => handleAuthClick("logout")}
+                >
+                  Logout
+                </button>
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </nav>
   );

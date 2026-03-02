@@ -39,5 +39,24 @@
         }
       }
     }
+    .navbarAuth {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .themeIcon {
+        cursor: pointer;
+      }
+
+      .userAvatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        background-color: var(--border);
+        cursor: pointer;
+      }
+    }
   }
 }
