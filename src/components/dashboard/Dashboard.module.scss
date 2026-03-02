@@ -1,4 +1,6 @@
 .dashboard {
+    display: flex;
+    gap: 2rem;
     .column {
         width: 75%;
         display: flex;
@@ -11,7 +13,6 @@
         .row {
             display: flex;
             gap: 1rem;
-            
         }
     }
 }

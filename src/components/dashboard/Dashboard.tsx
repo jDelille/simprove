@@ -1,7 +1,14 @@
+"use client";
+
+import { useUser } from "@/hooks/useUser";
+import RecentActivityWidget from "../widgets/recent-activity-widget/RecentActivityWidget";
 import SmallStatWidget from "../widgets/small-stat-widget/SmallStatWidget";
 import styles from "./Dashboard.module.scss";
 
 const Dashboard = () => {
+
+    const {user} = useUser()
+
   return (
     <div className={styles.dashboard}>
       {/* left side */}
@@ -52,6 +59,7 @@ const Dashboard = () => {
       <div className={styles.column}>
         <div className={styles.row}>
             {/* Widget: Recent activity */}
+            <RecentActivityWidget userId={user?.id} />
         </div>
         <div className={styles.row}>
             {/* Widget: Lesson plan */}
