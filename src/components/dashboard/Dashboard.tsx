@@ -44,9 +44,9 @@ const Dashboard = () => {
           <SmallStatWidget
             title="Most Practiced Club"
             value={"7I"}
-            metric="shots"
+            metric=""
             trend="up"
-            trendText="15% increase from last month"
+            trendText="289 shots this month"
           />
         </div>
         <div className={styles.row}>

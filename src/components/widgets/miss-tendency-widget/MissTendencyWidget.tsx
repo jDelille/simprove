@@ -44,7 +44,7 @@ const MissTendencyWidget = () => {
           </div>
           <div className={styles.message}>
             <p>
-              Consistent right miss (8.2 yds avg). Face is open (+2.4°) — try a
+              Consistent <strong>right miss (8.2 yds avg)</strong> . Face is <strong>open (+2.4°)</strong> — try a
               slightly stronger grip or earlier forearm rotation.
             </p>
           </div>
