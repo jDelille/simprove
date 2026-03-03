@@ -10,7 +10,7 @@ import { useState } from "react";
 
 const Sessions = () => {
   const { user } = useUser();
-  const { sessions } = useSessions(user?.id || "");
+  const { data: sessions = [], isLoading } = useSessions(user?.id || "");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [sortField, setSortField] = useState<"date" | "shots">("date");
 

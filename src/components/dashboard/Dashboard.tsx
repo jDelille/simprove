@@ -16,7 +16,7 @@ import { profile } from "console";
 
 const Dashboard = () => {
   const { user } = useUser();
-  const { sessions } = useSessions(user?.id);
+  const { data: sessions = [], isLoading } = useSessions(user?.id || "");
 
   const profileMetrics = calculateProfileStats({
     userId: user?.id,
