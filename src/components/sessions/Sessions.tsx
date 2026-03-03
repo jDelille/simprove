@@ -5,48 +5,64 @@ import SortBy from "../sort-by/SortBy";
 import styles from "./Sessions.module.scss";
 import { useUser } from "@/hooks/useUser";
 import moment from "moment";
+import SessionCard from "../session-card/SessionCard";
+import { useState } from "react";
 
 const Sessions = () => {
   const { user } = useUser();
-  const { sessions, loading } = useSessions(user?.id || "");
+  const { sessions } = useSessions(user?.id || "");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+  const [sortField, setSortField] = useState<"date" | "shots">("date");
 
-  // console.log(sessions)
-
-  const groupedByMonth = sessions.reduce((group: any, session: any) => {
-    const date = moment(session.session_date).format("MMM YYYY");
-
-    if (!group[date]) {
-      group[date] = [];
+  const sortedSessions = [...sessions].sort((a, b) => {
+    if (sortField === "date") {
+      const dateA = new Date(a.session_date).getTime();
+      const dateB = new Date(b.session_date).getTime();
+      return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
+    } else {
+      const shotsA = a.shots?.length || 0;
+      const shotsB = b.shots?.length || 0;
+      return sortOrder === "asc" ? shotsA - shotsB : shotsB - shotsA;
     }
+  });
 
-    group[date].push(session);
-    group[date].date = date;
-    return group;
-  }, {});
+  const groupedByMonth =
+    sortField === "date"
+      ? sortedSessions.reduce((group: any, session: any) => {
+          const monthKey = moment(session.session_date).format("MMM YYYY");
+          if (!group[monthKey]) {
+            group[monthKey] = { date: monthKey, sessions: [] };
+          }
+          group[monthKey].sessions.push(session);
+          return group;
+        }, {})
+      : { "All Sessions": { date: "All Sessions", sessions: sortedSessions } };
 
- 
-  const sessionArray = Object.values(groupedByMonth).map((group: any) => ({
-    date: group.date,
-    sessions: group,
-  }));
-
-  console.log(sessionArray)
+  const sessionArray = Object.values(groupedByMonth);
 
   return (
     <div className={styles.sessions}>
-      <SortBy options={["Date", "Shot count", "Best carry", "Ball Speed"]} />
+      <SortBy
+        options={["Date", "Shot count"]}
+        numOfSessions={sessions.length}
+        sortField={sortField}
+        setSortField={setSortField}
+        sortOrder={sortOrder}
+        setSortOrder={setSortOrder}
+      />
+
       {sessionArray.map((group: any) => (
         <div key={group.date} className={styles.sessionGroup}>
-          <h2>{group.date}</h2>
-          {group.sessions.map((session: any) => (
-            <div key={session.id} className={styles.sessionCard}>
-              <h3>{session.session_name}</h3>
-              <p>{moment(session.session_date).format("MMMM Do YYYY, h:mm:ss a")}</p>
-              <p>Shots: {session.shot_count}</p>
-              <p>Best carry: {session.best_carry} yards</p>
-              <p>Best ball speed: {session.best_ball_speed} mph</p>
-            </div>
-          ))}
+          <h2 className={styles.groupDate}>
+            {group.date} <span>{group.sessions.length} sessions</span>
+          </h2>
+          <ul className={styles.sessionsList}>
+            {group.sessions.map((session: any) => (
+              <li key={session.id}>
+                <SessionCard session={session} />
+              </li>
+            ))}
+          </ul>
         </div>
       ))}
     </div>

@@ -20,8 +20,15 @@
             border-radius: 4px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 2px;
             cursor: pointer;
+            background-color: var(--bg);
         }
+    }
+
+    .numOfSessions {
+        font-size: 12px;
+        color: var(--lightgray);
+        margin-left: auto;
     }
 }

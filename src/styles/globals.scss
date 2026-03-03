@@ -41,7 +41,7 @@ html.dark {
   --good: #194a4f;
   --bad: #452b3c;
   --neutral: #12233d;
-  --bg3: #1f2838;
+  --bg3: #1c222e;
   --selectedBg: #43587b;
   --selectedBorder: #4e9aeb;
   --lightBg: #222d40;
@@ -53,7 +53,7 @@ body {
 
 .page {
   padding-top: 2rem;
-  background-color: var(--bg);
+  background-color: var(--secondaryBg);
   color: var(--text);
   height: fit-content;
   min-height: 100vh;
@@ -71,7 +71,7 @@ body {
         flex-direction: column;
         gap: 10px;
         h1 {
-          font-size: 22px;
+          font-size: 26px;
         }
         p {
           font-size: 14px;

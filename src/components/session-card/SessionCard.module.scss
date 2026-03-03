@@ -1,0 +1,37 @@
+.sessionCard {
+  flex: 1;
+  padding: 1rem;
+  background-color: var(--bg);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  .title {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    .name {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .info {
+      color: var(--lightgray);
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  }
+
+  .stats {
+    display: flex;
+    background-color: var(--bg3);
+    flex: 1;
+    margin-top: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+
+  }
+}

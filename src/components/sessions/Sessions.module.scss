@@ -1,0 +1,26 @@
+.sessions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .groupDate {
+        font-size: 14px;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: var(--text);
+        width: 100%;
+        display: flex;
+        span {
+            text-transform: none;
+            margin-left: auto;
+            font-size: 12px;
+        }
+    }
+
+   .sessionsList {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+}
