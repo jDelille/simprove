@@ -4,6 +4,7 @@ export type Averages = {
   avgCarry: number;
   avgSpeed: number;
   avgOffline: number;
+  avgSpin: number;
   count: number;
   mostUsedClub?: string;
   mostUsedClubCount?: number;
@@ -16,6 +17,7 @@ export function calculateAverages(shots: Shot[]): Averages {
       avgCarry: 0,
       avgSpeed: 0,
       avgOffline: 0,
+      avgSpin: 0,
       count: 0,
       mostUsedClub: undefined,
       mostUsedClubCount: undefined,
@@ -45,6 +47,7 @@ export function calculateAverages(shots: Shot[]): Averages {
       acc.avgCarry += shot?.carry ?? 0;
       acc.avgSpeed = peakBallSpeed ?? 0;
       acc.avgOffline += shot?.offline ?? 0;
+      acc.avgSpin += shot?.backSpin ?? 0;
       acc.count++;
       acc.mostUsedClub = mostUsedClubName;
       acc.mostUsedClubCount = mostUsedClubCount;
@@ -55,6 +58,7 @@ export function calculateAverages(shots: Shot[]): Averages {
       avgCarry: 0,
       avgSpeed: 0,
       avgOffline: 0,
+      avgSpin: 0,
       count: 0,
       mostUsedClub: mostUsedClubName,
       mostUsedClubCount: mostUsedClubCount,
@@ -66,6 +70,7 @@ export function calculateAverages(shots: Shot[]): Averages {
     avgCarry: totals.avgCarry / totals.count,
     avgSpeed: totals.avgSpeed,
     avgOffline: totals.avgOffline / totals.count,
+    avgSpin: totals.avgSpin / totals.count,
     count: totals.count,
     mostUsedClub: totals.mostUsedClub,
     mostUsedClubCount: totals.mostUsedClubCount,
@@ -85,6 +90,7 @@ export function getClubAverages(shots: Shot[]) {
         avgCarry: 0,
         avgSpeed: 0,
         avgOffline: 0,
+        avgSpin: 0,
         count: 0,
       };
     }
@@ -94,6 +100,7 @@ export function getClubAverages(shots: Shot[]) {
     club.avgCarry += shot.carry ?? 0;
     club.avgSpeed += shot.ballSpeed ?? 0;
     club.avgOffline += shot.offline ?? 0;
+    club.avgSpin += shot.backSpin ?? 0;
     club.count++;
   });
 
@@ -101,6 +108,7 @@ export function getClubAverages(shots: Shot[]) {
     club.avgCarry /= club.count;
     club.avgSpeed /= club.count;
     club.avgOffline /= club.count;
+    club.avgSpin /= club.count;
   });
 
   return clubData;

@@ -4,34 +4,48 @@ import React, { useMemo, useState } from "react";
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 import styles from "./AveragesGraphWidget.module.scss";
+import { getClubAverages } from "@/lib/shots/averages";
+import { useSessions } from "@/hooks/useSessions";
 
-const AveragesGraphWidget: React.FC = () => {
-  const [selectedMetric, setSelectedMetric] = useState<any>("avgCarry");
+type AveragesGraphWidgetProps = {
+  userId: string;
+};
 
-  // Dummy average yard data
-  const clubStats = [
-    { club: "DR", avgYards: 255, avgOffline: 12 },
-    { club: "3W", avgYards: 230, avgOffline: 10 },
-    { club: "5W", avgYards: 215, avgOffline: 8 },
-    { club: "3I", avgYards: 190, avgOffline: 10 },
-    { club: "4I", avgYards: 180, avgOffline: 6 },
-    { club: "5I", avgYards: 170, avgOffline: 8 },
-    { club: "6I", avgYards: 175, avgOffline: 4 },
-    { club: "7I", avgYards: 165, avgOffline: 12 },
-    { club: "8I", avgYards: 155, avgOffline: 8 },
-    { club: "9I", avgYards: 140, avgOffline: 8 },
-    { club: "PW", avgYards: 125, avgOffline: 8 },
-    { club: "GW", avgYards: 110, avgOffline: 7 },
-    { club: "SW", avgYards: 95, avgOffline: 4 },
-    { club: "LW", avgYards: 80, avgOffline: 4 },
+type MetricKey = "avgCarry" | "avgSpeed" | "avgOffline" | "avgSpin" | "count";
+
+const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = (props) => {
+  const [selectedMetric, setSelectedMetric] = useState<MetricKey>("avgCarry");
+  const { data: sessions = [], isLoading } = useSessions(props.userId);
+  const clubOrder = [
+    "SW",
+    "PW",
+    "I9",
+    "I8",
+    "I7",
+    "I6",
+    "I5",
+    "I4",
+    "W5",
+    "W3",
+    "3H",
+    "5H",
+    "DR",
   ];
 
-  const chartOptions = useMemo(() => {
-    const categories = clubStats.map((stat) => stat.club);
+  const clubStats = getClubAverages(
+    sessions.flatMap((session) => session.shots),
+  );
 
-    const seriesData = clubStats.map((stat) => ({
+  const clubStatsArray = Object.entries(clubStats)
+    .map(([club, stats]) => ({ club, ...stats }))
+    .sort((a, b) => clubOrder.indexOf(a.club) - clubOrder.indexOf(b.club));
+
+  const chartOptions = useMemo(() => {
+    const categories = clubStatsArray.map((stat) => stat.club);
+
+    const seriesData = clubStatsArray.map((stat) => ({
       name: stat.club,
-      y: stat.avgOffline,
+      y: stat[selectedMetric] || 0,
       color: "#2ABB7F",
     }));
 
@@ -94,13 +108,13 @@ const AveragesGraphWidget: React.FC = () => {
         },
       ],
     };
-  }, []);
+  }, [selectedMetric, clubStatsArray]);
 
   const controls = [
     { label: "Avg Carry", key: "avgCarry" },
     { label: "Avg Offline", key: "avgOffline" },
-    { label: "Avg Ball Speed", key: "avgBallSpeed" },
-    { label: "Avg Back Spin", key: "avgBackSpin" },
+    { label: "Avg Ball Speed", key: "avgSpeed" },
+    { label: "Avg Back Spin", key: "avgSpin" },
   ];
 
   return (
@@ -121,7 +135,7 @@ const AveragesGraphWidget: React.FC = () => {
                   : styles.control
               }
               onClick={() =>
-                setSelectedMetric(control.key as keyof (typeof clubStats)[0])
+                setSelectedMetric(control.key as MetricKey)
               }
             >
               <p>{control.label}</p>

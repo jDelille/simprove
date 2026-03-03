@@ -62,7 +62,7 @@ const Dashboard = () => {
           />
         </div>
         <div className={styles.row}>
-          <AveragesGraphWidget />
+          <AveragesGraphWidget userId={user?.id || ""} />
         </div>
         <div className={styles.row}>
           {/* Widget: Weakest consistency */}
