@@ -10,22 +10,22 @@ type RecentActivityWidgetProps = {
 };
 
 const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = (props) => {
-  const activities = useActivities(props.userId);
-  const isActivityLoading = activities.loading;
+  const { data, isLoading } = useActivities(props.userId);
+
+  console.log(data)
+  const { latestThreeActivities = [] } = data || {};
 
   return (
     <div className={styles.widget}>
-      {!activities.activities.length && !isActivityLoading && (
-        <p>No recent activity</p>
-      )}
-      {isActivityLoading && <p>Loading...</p>}
+      {!latestThreeActivities.length && !isLoading && <p>No recent activity</p>}
+      {isLoading && <p>Loading...</p>}
 
       <div className={styles.header}>
         <p>Recent Activity</p>
       </div>
 
       <ul>
-        {activities.latestThreeActivities.map((activity: any) => (
+        {latestThreeActivities.map((activity: any) => (
           <li key={activity.id}>
             {activity.type === "SESSION_CREATED" && (
               <div className={styles.activity}>

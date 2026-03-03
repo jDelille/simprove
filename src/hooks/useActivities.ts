@@ -1,47 +1,62 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
+import { useQuery } from "@tanstack/react-query";
+
+export type Activity = {
+  id: string;
+  user_id: string;
+  type: string;
+  title: string;
+  description?: string;
+  created_at: string;
+  storage_path?: string;
+  data?: any;
+};
+
+export type ActivitiesData = {
+  allActivities: Activity[];
+  latestThreeActivities: Activity[];
+};
 
 export const useActivities = (userId?: string) => {
-    const [activities, setActivities] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
+  return useQuery<ActivitiesData>({
+    queryKey: ["activity", userId],
+    queryFn: async () => {
 
-    useEffect(() => {
-        if (!userId) {
-            setLoading(false);
-            return;
-        }
+      const { data: activityRows, error: tableError } = await supabase
+        .from("activity")
+        .select("*")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false });
 
-        const fetchActivities = async () => {
-            setLoading(true);
+      if (tableError) throw tableError;
 
-            // Check current auth session
-            const { data: authData } = await supabase.auth.getUser();
-            if (!authData.user) {
-                setLoading(false);
-                return;
-            }
+      const activitiesWithData: Activity[] = await Promise.all(
+        activityRows.map(async (row: any) => {
+          if (!row.storage_path) return row;
 
-            // Fetch activities
-            const { data, error } = await supabase
-                .from("activity")
-                .select("*")
-                .eq("user_id", userId)
-                .order("created_at", { ascending: false });
+          const { data: fileData, error: storageError } = await supabase.storage
+            .from("activity")
+            .download(row.storage_path);
 
-            if (error) {
-                console.error("Error fetching activities:", error);
-                setActivities([]);
-            } else {
-                setActivities(data ?? []);
-            }
+          if (storageError) return { ...row, error: "Failed to fetch activity data" };
 
-            setLoading(false);
-        };
+          const text = await fileData.text();
+          const parsed = JSON.parse(text);
 
-        fetchActivities();
-    }, [userId]);
+          return { ...row, data: parsed };
+        })
+      );
 
-    return { activities, loading, latestThreeActivities: activities.slice(0, 3) };
+      console.log("Fetched activities with data:", activitiesWithData);
+
+      return {
+        allActivities: activitiesWithData,
+        latestThreeActivities: activitiesWithData.slice(0, 3),
+      };
+    },
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    gcTime: 1000 * 60 * 10, // 10 minutes
+  });
 };
