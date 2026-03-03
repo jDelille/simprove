@@ -8,13 +8,16 @@ import Link from "next/link";
 import styles from "./Navbar.module.scss";
 import { useUser } from "@/hooks/useUser";
 import { LuSun } from "react-icons/lu";
+import useModal from "@/hooks/useModal";
+import Modal from "../modal/Modal";
+import UploadCsv from "../upload-csv/UploadCsv";
 
 type AuthAction = "login" | "signup" | "logout";
 
 const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
-
+  const { openModal, modals, closeModal } = useModal();
   const { theme, toggleTheme } = useTheme();
   const { user, loading } = useUser();
 
@@ -88,7 +91,10 @@ const Navbar = () => {
             {!loading && user && (
               <>
                 <div className={styles.uploadBtnContainer}>
-                  <button className={styles.uploadButton}>Upload</button>
+                  <button
+                    children="Upload"
+                    onClick={() => openModal("upload")}
+                  />
                 </div>
                 <div
                   className={styles.userAvatar}
@@ -105,6 +111,15 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
+      {/* Modals */}
+      <Modal
+        isOpen={modals["upload"] || false}
+        onClose={() => closeModal("upload")}
+        title="Upload Lauch Monitor Data"
+        body={<UploadCsv />}
+        description="Upload a CSV file file your launch monitor. (Trackman, FlightScope, Square Golf, etc.)"
+      />
     </nav>
   );
 };
