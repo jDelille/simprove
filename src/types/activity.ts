@@ -1,0 +1,6 @@
+export type ActivityType =
+  | 'SESSION_CREATED'
+  | 'BADGE_EARNED'
+  | 'LESSON_STARTED'
+  | 'LESSON_COMPLETED'
+  | 'CHALLENGE_COMPLETED'

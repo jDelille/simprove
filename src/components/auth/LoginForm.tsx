@@ -22,7 +22,7 @@ const LoginForm = () => {
 
     if (error) {
       alert("Error logging in: " + error.message);
-      console.log(email, password);
+      // console.log(email, password);
     } else {
       redirect("/dashboard");
     }
