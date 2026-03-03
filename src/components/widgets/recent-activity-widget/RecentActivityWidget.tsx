@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./RecentActivityWidget.module.scss";
 import { useActivities } from "@/hooks/useActivities";
-import { activityDateFormat } from "@/utils/format-date/ActivityDateFormat";
+import { activityDateFormat } from "@/lib/format-date/ActivityDateFormat";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { FaTrophy } from "react-icons/fa";
 

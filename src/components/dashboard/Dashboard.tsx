@@ -3,17 +3,29 @@
 import { useUser } from "@/hooks/useUser";
 import styles from "./Dashboard.module.scss";
 import {
+  AveragesGraphWidget,
   LessonPlanWidget,
+  MissTendencyWidget,
   RecentActivityWidget,
   SmallStatWidget,
+  WeakestConsistencyWidget,
 } from "../widgets";
-import { Average } from "next/font/google";
-import AveragesGraphWidget from "../widgets/averages-graph-widget/AveragesGraphWidget";
-import WeakestConsistencyWidget from "../widgets/weakest-consistency-widget/WeakestConsistencyWidget";
-import MissTendencyWidget from "../widgets/miss-tendency-widget/MissTendencyWidget";
+import { calculateProfileStats } from "@/lib/profile-stats/ProfileStats";
+import { useSessions } from "@/hooks/useSessions";
+import { profile } from "console";
 
 const Dashboard = () => {
   const { user } = useUser();
+  const { sessions } = useSessions(user?.id);
+
+  const profileMetrics = calculateProfileStats({
+    userId: user?.id,
+    shots: sessions.flatMap((session) => session.shots),
+    sessionLength: sessions.length,
+    // club: selectedClub,
+  });
+
+  console.log(profileMetrics)
 
   return (
     <div className={styles.dashboard}>
@@ -22,31 +34,31 @@ const Dashboard = () => {
         <div className={styles.row}>
           <SmallStatWidget
             title="Total Shots Tracked"
-            value={1234}
+            value={profileMetrics.count}
             metric="shots"
             trend="up"
             trendText="15% increase from last month"
           />
           <SmallStatWidget
             title="Sessions This Month"
-            value={12}
+            value={profileMetrics.sessionLength}
             metric="sessions"
             trend="up"
             trendText="15% increase from last month"
           />
           <SmallStatWidget
             title="Longest Carry"
-            value={1234}
+            value={Number(profileMetrics.longestCarry?.toFixed(1)) || 0}
             metric="yards"
             trend="up"
             trendText="15% increase from last month"
           />
           <SmallStatWidget
             title="Most Practiced Club"
-            value={"7I"}
+            value={profileMetrics.mostUsedClub || "N/A"}
             metric=""
             trend="up"
-            trendText="289 shots this month"
+            trendText={`${profileMetrics.mostUsedClubCount || 0} total shots`}
           />
         </div>
         <div className={styles.row}>

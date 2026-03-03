@@ -1,0 +1,24 @@
+export type Shot = {
+  id: string;
+  aoa: number;
+  backSpin: number;
+  ballSpeed: number;
+  carry: number;
+  club: string;
+  decent: number;
+  distanceToPin: string;
+  dynamicLoft: number | null;
+  faceToPath: number;
+  faceToTarget: number;
+  hi: number;
+  hla: number;
+  loft: number;
+  offline: number;
+  path: number;
+  peakHeight: number;
+  sideSpin: number;
+  totalDistance: number;
+  vi: number;
+  vla: number;
+  sessionId?: string;
+};

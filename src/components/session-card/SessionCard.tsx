@@ -1,4 +1,4 @@
-import { activityDateFormat } from "@/utils/format-date/ActivityDateFormat";
+import { activityDateFormat } from "@/lib/format-date/ActivityDateFormat";
 import styles from "./SessionCard.module.scss";
 import moment from "moment";
 import Stat from "./stat/Stat";
