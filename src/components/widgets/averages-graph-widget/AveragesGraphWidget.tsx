@@ -13,9 +13,12 @@ type AveragesGraphWidgetProps = {
 
 type MetricKey = "avgCarry" | "avgSpeed" | "avgOffline" | "avgSpin" | "count";
 
-const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = (props) => {
+const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
+  userId,
+}) => {
   const [selectedMetric, setSelectedMetric] = useState<MetricKey>("avgCarry");
-  const { data: sessions = [], isLoading } = useSessions(props.userId);
+  const { data: sessions = [], isLoading } = useSessions(userId);
+
   const clubOrder = [
     "SW",
     "PW",
@@ -32,20 +35,28 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = (props) => {
     "DR",
   ];
 
-  const clubStats = getClubAverages(
-    sessions.flatMap((session) => session.shots),
-  );
+  // Define labels + units
+  const controls: { key: MetricKey; label: string; unit?: string }[] = [
+    { key: "avgCarry", label: "Avg Carry", unit: "yds" },
+    { key: "avgSpeed", label: "Avg Ball Speed", unit: "mph" },
+    { key: "avgOffline", label: "Avg Offline", unit: "yds" },
+    { key: "avgSpin", label: "Avg Back Spin", unit: "rpm" },
+    { key: "count", label: "Total Shots" },
+  ];
+
+  const metric = controls.find((c) => c.key === selectedMetric);
+
+  const clubStats = getClubAverages(sessions.flatMap((s) => s.shots));
 
   const clubStatsArray = Object.entries(clubStats)
     .map(([club, stats]) => ({ club, ...stats }))
     .sort((a, b) => clubOrder.indexOf(a.club) - clubOrder.indexOf(b.club));
 
   const chartOptions = useMemo(() => {
-    const categories = clubStatsArray.map((stat) => stat.club);
-
-    const seriesData = clubStatsArray.map((stat) => ({
-      name: stat.club,
-      y: stat[selectedMetric] || 0,
+    const categories = clubStatsArray.map((s) => s.club);
+    const seriesData = clubStatsArray.map((s) => ({
+      name: s.club,
+      y: s[selectedMetric] || 0,
       color: "var(--chartGreen)",
     }));
 
@@ -56,61 +67,24 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = (props) => {
         height: 350,
         animation: false,
       },
-      title: {
-        text: "",
-        style: {
-          fontSize: "14px",
-          fontWeight: "600",
-        },
-      },
+      title: { text: "" },
       credits: { enabled: false },
       legend: { enabled: false },
-      xAxis: {
-        categories,
-        lineWidth: 0,
-        tickLength: 0,
-        labels: {
-          style: {
-            fontSize: "11px",
-            fontWeight: "700",
-            color: "var(--lightgray)",
-          },
-        },
-      },
-      yAxis: {
-        title: { text: undefined },
-        gridLineWidth: 0,
-        gridLineColor: "var(--border)",
-        lineWidth: 0,
-        labels: {
-          style: {
-            color: "var(--lightgray)",
-            fontSize: "11px",
-            fontWeight: "700",
-          },
-        },
-        animation: false,
-      },
+      xAxis: { categories, lineWidth: 0, tickLength: 0 },
+      yAxis: { title: { text: undefined }, gridLineWidth: 0, lineWidth: 0 },
       tooltip: {
         useHTML: true,
         backgroundColor: "transparent",
         borderWidth: 0,
         shadow: false,
         padding: 0,
-        shape: "square",
-
-        style: {
-          background: "transparent",
-        },
-
         positioner: function (
           this: Highcharts.Tooltip,
           labelWidth: number,
           labelHeight: number,
           point: Highcharts.Point,
-        ) {
+        ): { x: number; y: number } {
           const chart = this.chart;
-
           const plotLeft = chart.plotLeft;
           const plotTop = chart.plotTop;
           const plotWidth = chart.plotWidth;
@@ -123,48 +97,31 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = (props) => {
           let x = pointX + 40;
           let y = pointY - labelHeight / 3;
 
-          if (x + labelWidth > rightEdge) {
-            x = pointX - labelWidth - 20;
-          }
-
-          if (y < plotTop) {
-            y = plotTop;
-          }
+          if (x + labelWidth > rightEdge) x = pointX - labelWidth - 20;
+          if (y < plotTop) y = plotTop;
 
           return { x, y };
         },
-
         formatter: function (this: Highcharts.Point) {
+          const metricUnit = metric?.unit ? ` ${metric.unit}` : "";
           return `
-      <div class="${styles.tooltip}">
-        <div class="${styles.tooltipClub}">
-          ${this.name}
-        </div>
-        <div class="${styles.tooltipValue}">
-          <ul>
-            <li>
-              Average carry: <span>${Number(this.y).toFixed(1)}</span>
-            </li>
-            <li>
-              Total shots: <span>${Number(this.y).toFixed(1)}</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    `;
+            <div class="${styles.tooltip}">
+              <div class="${styles.tooltipClub}">${this.name}</div>
+              <div class="${styles.tooltipValue}">
+                <ul>
+                  <li>${metric?.label}: <span>${Number(this.y).toFixed(1)}${metricUnit}</span></li>
+                  <li>Total Shots: <span>${Number(this.y).toFixed(0)}</span></li>
+                </ul>
+              </div>
+            </div>
+          `;
         },
       },
       plotOptions: {
         column: {
-          borderRadius: {
-            where: "all",
-            radius: 6,
-          },
+          borderRadius: { where: "all", radius: 6 },
           borderWidth: 0,
-          animation: {
-            duration: 800,
-            easing: "easeOutBounce",
-          },
+          animation: { duration: 800, easing: "easeOutBounce" },
         },
       },
       series: [
@@ -175,18 +132,15 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = (props) => {
             events: {
               mouseOver: function (this: Highcharts.Point) {
                 const chart = this.series.chart;
-
-                chart.series[0].points.forEach((point: any) => {
-                  if (point !== this) {
-                    point.graphic.animate({ opacity: 0.1 }, { duration: 200 });
-                  }
+                chart.series[0].points.forEach((p: any) => {
+                  if (p !== this)
+                    p.graphic.animate({ opacity: 0.1 }, { duration: 200 });
                 });
               },
               mouseOut: function (this: Highcharts.Point) {
                 const chart = this.series.chart;
-
-                chart.series[0].points.forEach((point: any) => {
-                  point.graphic.animate({ opacity: 1 }, { duration: 200 });
+                chart.series[0].points.forEach((p: any) => {
+                  p.graphic.animate({ opacity: 1 }, { duration: 200 });
                 });
               },
             },
@@ -194,35 +148,28 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = (props) => {
         },
       ],
     };
-  }, [selectedMetric, clubStatsArray]);
-
-  const controls = [
-    { label: "Avg Carry", key: "avgCarry" },
-    { label: "Avg Offline", key: "avgOffline" },
-    { label: "Avg Ball Speed", key: "avgSpeed" },
-    { label: "Avg Back Spin", key: "avgSpin" },
-  ];
+  }, [selectedMetric, clubStatsArray, metric]);
 
   return (
     <div className={styles.graphContainer}>
       <div className={styles.header}>
         <div className={styles.text}>
-          <p className={styles.selectedMetric}>{selectedMetric}</p>
-          <span>Say something here</span>
+          <p className={styles.selectedMetric}>
+            {metric?.label}
+          </p>
+          <span>Performance by club</span>
         </div>
 
         <div className={styles.chartControls}>
-          {controls.map((control) => (
+          {controls.map((c) => (
             <div
-              key={control.key}
+              key={c.key}
               className={
-                control.key === selectedMetric
-                  ? styles.activeControl
-                  : styles.control
+                c.key === selectedMetric ? styles.activeControl : styles.control
               }
-              onClick={() => setSelectedMetric(control.key as MetricKey)}
+              onClick={() => setSelectedMetric(c.key)}
             >
-              <p>{control.label}</p>
+              <p>{c.label}</p>
             </div>
           ))}
         </div>
