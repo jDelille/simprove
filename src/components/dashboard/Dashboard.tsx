@@ -25,7 +25,7 @@ const Dashboard = () => {
     // club: selectedClub,
   });
 
-  console.log(profileMetrics)
+  // console.log(profileMetrics)
 
   return (
     <div className={styles.dashboard}>

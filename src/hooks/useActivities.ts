@@ -49,7 +49,7 @@ export const useActivities = (userId?: string) => {
         })
       );
 
-      console.log("Fetched activities with data:", activitiesWithData);
+      // console.log("Fetched activities with data:", activitiesWithData);
 
       return {
         allActivities: activitiesWithData,

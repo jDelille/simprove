@@ -12,7 +12,7 @@ type RecentActivityWidgetProps = {
 const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = (props) => {
   const { data, isLoading } = useActivities(props.userId);
 
-  console.log(data)
+  // console.log(data)
   const { latestThreeActivities = [] } = data || {};
 
   return (

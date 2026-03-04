@@ -1,71 +1,107 @@
 .graphContainer {
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 1rem;
-    padding-bottom: 0;
-    width: 100%;
-    background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem;
+  padding-bottom: 0;
+  width: 100%;
+  background-color: var(--bg);
 
-    .header {
-        padding-bottom: 1.5rem;
-        font-weight: 500;
-        font-size: 18px;
-        padding-left: 10px;
-        display: flex;
-        justify-content: space-between;
+  .header {
+    padding-bottom: 1.5rem;
+    font-weight: 500;
+    font-size: 18px;
+    padding-left: 10px;
+    display: flex;
+    justify-content: space-between;
 
-        .text {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
+    .text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
 
-            span {
-                font-size: 13px;
-                font-weight: 400;
-                color: var(--lightgray);
-            }
-        }
-
-        .chartControls {
-            background-color: var(--secondaryBg);
-            width: fit-content;
-            height: 50px;
-            padding: 5px 10px;
-            display: flex;
-            align-items: center;
-            border-radius: 6px;
-            gap: 5px;
-
-            .control,
-            .activeControl {
-                font-size: 12px;
-                font-weight: 500;
-                cursor: pointer;
-                width: fit-content;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                padding: 8px;
-                border-radius: 4px;
-            }
-
-            .activeControl {
-                background-color: var(--bg);
-                width: fit-content;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                padding: 8px;
-                box-shadow: 0 .2rem .4rem #0000000d;
-                border-radius: 4px;
-            }
-
-            .control {
-                &:hover {
-                    background-color: rgba(255, 255, 255, 0.377);
-
-                }
-            }
-        }
+      span {
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--lightgray);
+      }
     }
+
+    .chartControls {
+      background-color: var(--secondaryBg);
+      width: fit-content;
+      height: 50px;
+      padding: 5px 10px;
+      display: flex;
+      align-items: center;
+      border-radius: 6px;
+      gap: 5px;
+
+      .control,
+      .activeControl {
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        width: fit-content;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        border-radius: 4px;
+      }
+
+      .activeControl {
+        background-color: var(--bg);
+        width: fit-content;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        box-shadow: 0 0.2rem 0.4rem #0000000d;
+        border-radius: 4px;
+      }
+
+      .control {
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.377);
+        }
+      }
+    }
+  }
+
+  .tooltip {
+    background-color: var(--popupBg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  
+    color: var(--text);
+    width: 200px;
+    .tooltipClub {
+      border-bottom: 1px solid var(--border);
+      padding: 10px 1rem;
+      font-size: 22px;
+      font-weight: 600;
+    }
+    .tooltipValue {
+      font-size: 14px;
+      padding: 1rem;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      ul {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        li {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          span {
+            color: var(--accent);
+          }
+        }
+      }
+    }
+  }
 }

@@ -25,8 +25,6 @@ export async function uploadSession({
 }: UploadSessionProps): Promise<Session> {
   const filePath = `sessions/${userId}/${Date.now()}.json`;
 
-  console.log(sessionDate)
-
   // Upload to storage
   const { error: uploadError } = await supabase.storage
     .from("sessions")

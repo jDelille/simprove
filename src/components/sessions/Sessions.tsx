@@ -14,6 +14,8 @@ const Sessions = () => {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [sortField, setSortField] = useState<"date" | "shots">("date");
 
+  console.log(sessions)
+
   const sortedSessions = [...sessions].sort((a, b) => {
     if (sortField === "date") {
       const dateA = new Date(a.session_date).getTime();
