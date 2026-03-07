@@ -9,6 +9,8 @@ export type Averages = {
   mostUsedClub?: string;
   mostUsedClubCount?: number;
   longestCarry?: number;
+  peakBallSpeed?: number;
+  clubsHit: string[];
 };
 
 export function calculateAverages(shots: Shot[]): Averages {
@@ -22,36 +24,44 @@ export function calculateAverages(shots: Shot[]): Averages {
       mostUsedClub: undefined,
       mostUsedClubCount: undefined,
       longestCarry: undefined,
-
+      peakBallSpeed: undefined,
+      clubsHit: [],
     };
   }
 
   const peakBallSpeed = Math.max(...shots.map((shot) => shot?.ballSpeed ?? 0));
 
-  const mostUsedClub = shots.reduce((acc, shot) => {
-    if (!shot.club) return acc;
-    acc[shot.club] = (acc[shot.club] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
+  const mostUsedClub = shots.reduce(
+    (acc, shot) => {
+      if (!shot.club) return acc;
+      acc[shot.club] = (acc[shot.club] || 0) + 1;
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
 
   const mostUsedClubName = Object.keys(mostUsedClub).reduce((a, b) =>
-    mostUsedClub[a] > mostUsedClub[b] ? a : b
+    mostUsedClub[a] > mostUsedClub[b] ? a : b,
   );
 
   const mostUsedClubCount = mostUsedClub[mostUsedClubName];
 
   const longestCarry = Math.max(...shots.map((shot) => shot?.carry ?? 0));
 
+  const clubsHit = Array.from(new Set(shots.map((shot) => shot.club).filter(Boolean))) as string[];
+
   const totals = shots.reduce(
     (acc, shot) => {
       acc.avgCarry += shot?.carry ?? 0;
-      acc.avgSpeed = peakBallSpeed ?? 0;
+      acc.avgSpeed += shot.ballSpeed ?? 0;
       acc.avgOffline += shot?.offline ?? 0;
       acc.avgSpin += shot?.backSpin ?? 0;
       acc.count++;
       acc.mostUsedClub = mostUsedClubName;
       acc.mostUsedClubCount = mostUsedClubCount;
       acc.longestCarry = longestCarry;
+      acc.peakBallSpeed = peakBallSpeed;
+      acc.clubsHit = clubsHit;
       return acc;
     },
     {
@@ -63,22 +73,25 @@ export function calculateAverages(shots: Shot[]): Averages {
       mostUsedClub: mostUsedClubName,
       mostUsedClubCount: mostUsedClubCount,
       longestCarry: longestCarry,
-    }
+      peakBallSpeed: peakBallSpeed,
+      clubsHit: clubsHit,
+    },
   );
 
   return {
     avgCarry: totals.avgCarry / totals.count,
-    avgSpeed: totals.avgSpeed,
+    avgSpeed: totals.avgSpeed / totals.count,
     avgOffline: totals.avgOffline / totals.count,
     avgSpin: totals.avgSpin / totals.count,
     count: totals.count,
     mostUsedClub: totals.mostUsedClub,
     mostUsedClubCount: totals.mostUsedClubCount,
     longestCarry: totals.longestCarry,
+    peakBallSpeed: totals.peakBallSpeed,
+    clubsHit: totals.clubsHit,
   };
 }
 
-// 🔹 Grouped averages (for charts later)
 export function getClubAverages(shots: Shot[]) {
   const clubData: Record<string, Averages> = {};
 
@@ -92,6 +105,11 @@ export function getClubAverages(shots: Shot[]) {
         avgOffline: 0,
         avgSpin: 0,
         count: 0,
+        mostUsedClub: shot.club,
+        mostUsedClubCount: 0,
+        longestCarry: 0,
+        peakBallSpeed: 0,
+        clubsHit: [],
       };
     }
 

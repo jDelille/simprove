@@ -67,21 +67,6 @@ body {
     padding: 0 2rem;
     margin: 0 auto;
 
-    .page-header {
-      display: flex;
-      flex-direction: column;
-      .page-title {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        h1 {
-          font-size: 26px;
-        }
-        p {
-          font-size: 14px;
-          color: var(--lightgray);
-        }
-      }
-    }
+
   }
 }
