@@ -1,0 +1,45 @@
+@use "@/styles/mixins" as *;
+
+.widget {
+  @include widget();
+  .header {
+    @include widgetHeader();
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    li {
+        display: flex;
+        width: 100%;
+        border-bottom: 1px solid var(--border);
+        font-size: 12px;
+        padding: 8px 0;
+        justify-content: space-between;
+        align-items: center;
+        &:nth-last-child(1) {
+            border-bottom: none;
+        }
+
+        .statValue {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            .trend {
+                background-color: #f0f7f3;
+                padding: 3px 5px;
+                border-radius: 2px;
+                color: #2d6b4f;
+                p {
+                    display: flex;
+                    align-items: center;
+                    font-weight: 500;
+                }
+            }
+        }
+
+    }
+  }
+}

@@ -6,6 +6,7 @@ import { FaAngleLeft } from "react-icons/fa";
 import { useSession } from "@/hooks/useSession";
 import moment from "moment";
 import { SmallStatWidget } from "../widgets";
+import VsLastSessionWidget from "../widgets/vs-last-session-widget/VsLastSessionWidget";
 
 const Session = () => {
   const router = useRouter();
@@ -65,11 +66,19 @@ const Session = () => {
               trendText="Personal Best"
             />
           </div>
+          <div className={styles.row}>{/* Club Breakdown */}</div>
+          <div className={styles.row}>
+            {/* Miss Tendency */}
+            {/* Launch & spin */}
+          </div>
+          <div className={styles.row}>{/* Session analysis */}</div>
         </div>
         <div className={styles.column}>
           <div className={styles.row}>
-            {/* Widget: Vs Last Session */}
+            <VsLastSessionWidget />
           </div>
+          <div className={styles.row}>{/* Shot distribution */}</div>
+          <div className={styles.row}>{/* Vs lifetime average */}</div>
         </div>
       </div>
     </div>
