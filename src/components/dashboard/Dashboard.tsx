@@ -13,6 +13,8 @@ import {
 import { calculateProfileStats } from "@/lib/profile-stats/ProfileStats";
 import { useSessions } from "@/hooks/useSessions";
 import { calculateTrend, formatTrend, groupByMonth } from "@/lib/stats/trends";
+import { get } from "http";
+import { getWeakestClubs } from "@/lib/stats/weakestClubs";
 
 const Dashboard = () => {
   const { user } = useUser();
@@ -67,8 +69,9 @@ const Dashboard = () => {
   const carryTrend = calculateTrend(longestThisMonth, longestLastMonth);
   const { text: carryTrendText, color: carryTrendColor } = formatTrend(carryTrend);
 
-  console.log(carryTrend)
-  console.log(shotsTrend)
+  const weakestClubs = getWeakestClubs(shots);
+
+  console.log(weakestClubs)
 
   return (
     <div className={styles.dashboard}>
@@ -116,7 +119,7 @@ const Dashboard = () => {
         </div>
 
         <div className={styles.row}>
-          <WeakestConsistencyWidget />
+          <WeakestConsistencyWidget shots={shots}/>
           <MissTendencyWidget />
         </div>
       </div>

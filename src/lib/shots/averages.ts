@@ -5,16 +5,16 @@ export type Averages = {
   avgSpeed: number;
   avgOffline: number;
   avgSpin: number;
+  avgfaceToTarget: number;
+  avgLaunchAngle: number;
+  avgPeakHeight: number;
+  avgDescent: number;
   count: number;
   mostUsedClub?: string;
   mostUsedClubCount?: number;
   longestCarry?: number;
   peakBallSpeed?: number;
   clubsHit: string[];
-  avgfaceToTarget: number;
-  avgLaunchAngle: number;
-  avgPeakHeight: number;
-  avgDescent: number;
 };
 
 export function calculateAverages(shots: Shot[]): Averages {
@@ -24,16 +24,16 @@ export function calculateAverages(shots: Shot[]): Averages {
       avgSpeed: 0,
       avgOffline: 0,
       avgSpin: 0,
+      avgfaceToTarget: 0,
+      avgLaunchAngle: 0,
+      avgPeakHeight: 0,
+      avgDescent: 0,
       count: 0,
       mostUsedClub: undefined,
       mostUsedClubCount: undefined,
       longestCarry: undefined,
       peakBallSpeed: undefined,
       clubsHit: [],
-      avgfaceToTarget: 0,
-      avgLaunchAngle: 0,
-      avgPeakHeight: 0,
-      avgDescent: 0,
     };
   }
 
@@ -56,7 +56,9 @@ export function calculateAverages(shots: Shot[]): Averages {
 
   const longestCarry = Math.max(...shots.map((shot) => shot?.carry ?? 0));
 
-  const clubsHit = Array.from(new Set(shots.map((shot) => shot.club).filter(Boolean))) as string[];
+  const clubsHit = Array.from(
+    new Set(shots.map((shot) => shot.club).filter(Boolean)),
+  ) as string[];
 
   const totals = shots.reduce(
     (acc, shot) => {
@@ -64,16 +66,17 @@ export function calculateAverages(shots: Shot[]): Averages {
       acc.avgSpeed += shot.ballSpeed ?? 0;
       acc.avgOffline += shot?.offline ?? 0;
       acc.avgSpin += shot?.backSpin ?? 0;
+      acc.avgfaceToTarget = shot.faceToTarget ?? 0;
+      acc.avgLaunchAngle = shot?.vla ?? 0;
+      acc.avgPeakHeight = shot.peakHeight ?? 0;
+      acc.avgDecent = shot.decent ?? 0;
       acc.count++;
       acc.mostUsedClub = mostUsedClubName;
       acc.mostUsedClubCount = mostUsedClubCount;
       acc.longestCarry = longestCarry;
       acc.peakBallSpeed = peakBallSpeed;
       acc.clubsHit = clubsHit;
-      acc.avgfaceToTarget = shot.faceToTarget ?? 0;
-      acc.avgLaunchAngle = shot?.vla ?? 0;
-      acc.avgPeakHeight = shot.peakHeight ?? 0;
-      acc.avgDecent = shot.decent ?? 0;
+
       return acc;
     },
     {
@@ -81,16 +84,16 @@ export function calculateAverages(shots: Shot[]): Averages {
       avgSpeed: 0,
       avgOffline: 0,
       avgSpin: 0,
+      avgfaceToTarget: 0,
+      avgLaunchAngle: 0,
+      avgPeakHeight: 0,
+      avgDecent: 0,
       count: 0,
       mostUsedClub: mostUsedClubName,
       mostUsedClubCount: mostUsedClubCount,
       longestCarry: longestCarry,
       peakBallSpeed: peakBallSpeed,
       clubsHit: clubsHit,
-      avgfaceToTarget: 0,
-      avgLaunchAngle: 0,
-      avgPeakHeight: 0,
-      avgDecent: 0,
     },
   );
 
@@ -99,16 +102,16 @@ export function calculateAverages(shots: Shot[]): Averages {
     avgSpeed: totals.avgSpeed / totals.count,
     avgOffline: totals.avgOffline / totals.count,
     avgSpin: totals.avgSpin / totals.count,
+    avgfaceToTarget: totals.avgfaceToTarget / totals.count,
+    avgLaunchAngle: totals.avgLaunchAngle / totals.count,
+    avgPeakHeight: totals.avgPeakHeight / totals.count,
+    avgDescent: totals.avgDecent / totals.count,
     count: totals.count,
     mostUsedClub: totals.mostUsedClub,
     mostUsedClubCount: totals.mostUsedClubCount,
     longestCarry: totals.longestCarry,
     peakBallSpeed: totals.peakBallSpeed,
     clubsHit: totals.clubsHit,
-    avgfaceToTarget: totals.avgfaceToTarget / totals.count,
-    avgLaunchAngle: totals.avgLaunchAngle / totals.count,
-    avgPeakHeight: totals.avgPeakHeight / totals.count,
-    avgDescent: totals.avgDecent / totals.count,
   };
 }
 
@@ -124,16 +127,16 @@ export function getClubAverages(shots: Shot[]) {
         avgSpeed: 0,
         avgOffline: 0,
         avgSpin: 0,
+        avgfaceToTarget: 0,
+        avgLaunchAngle: 0,
+        avgPeakHeight: 0,
+        avgDescent: 0,
         count: 0,
         mostUsedClub: shot.club,
         mostUsedClubCount: 0,
         longestCarry: 0,
         peakBallSpeed: 0,
         clubsHit: [],
-        avgfaceToTarget: 0,
-        avgLaunchAngle: 0,
-        avgPeakHeight: 0,
-        avgDescent: 0,
       };
     }
 

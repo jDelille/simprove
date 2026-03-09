@@ -35,18 +35,26 @@ export function calculateTrend(current: number, previous: number): Trend {
   };
 }
 
-export function groupByMonth<T extends { sessionDate?: string | Date } | { session_date?: string }>(
-  items: T[],
-): Record<string, { date: string; sessions: T[] }> {
-  return items.reduce((group, item) => {
-    const dateStr = "sessionDate" in item ? item.sessionDate : ("session_date" in item ? item.session_date : undefined);
-    if (!dateStr) return group;
+export function groupByMonth<
+  T extends { sessionDate?: string | Date } | { session_date?: string },
+>(items: T[]): Record<string, { date: string; sessions: T[] }> {
+  return items.reduce(
+    (group, item) => {
+      const dateStr =
+        "sessionDate" in item
+          ? item.sessionDate
+          : "session_date" in item
+            ? item.session_date
+            : undefined;
+      if (!dateStr) return group;
 
-    const monthKey = moment(dateStr).format("MMM YYYY");
-    if (!group[monthKey]) group[monthKey] = { date: monthKey, sessions: [] };
-    group[monthKey].sessions.push(item);
-    return group;
-  }, {} as Record<string, { date: string; sessions: T[] }>);
+      const monthKey = moment(dateStr).format("MMM YYYY");
+      if (!group[monthKey]) group[monthKey] = { date: monthKey, sessions: [] };
+      group[monthKey].sessions.push(item);
+      return group;
+    },
+    {} as Record<string, { date: string; sessions: T[] }>,
+  );
 }
 
 export function getShotsByMonth(shots: Shot[]) {
@@ -72,12 +80,21 @@ export type TrendWithColor = {
   color: string;
 };
 
-export const formatTrend = (trend: { percentChange: number; direction: "increase" | "decrease" | "none" }): TrendWithColor => {
+export const formatTrend = (trend: {
+  percentChange: number;
+  direction: "increase" | "decrease" | "none";
+}): TrendWithColor => {
   switch (trend.direction) {
     case "increase":
-      return { text: `${trend.percentChange}% increase from last month`, color: "var(--accent)" };
+      return {
+        text: `${trend.percentChange}% increase from last month`,
+        color: "var(--accent)",
+      };
     case "decrease":
-      return { text: `${trend.percentChange}% decrease from last month`, color: "#c93c32" };
+      return {
+        text: `${trend.percentChange}% decrease from last month`,
+        color: "#c93c32",
+      };
     case "none":
     default:
       return { text: "No change from last month", color: "var(--lightgray)" };
