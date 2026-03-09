@@ -9,7 +9,7 @@
 // Colors
 html.light {
   --bg: #fff;
-  --secondaryBg: #f5f7fa;
+  --secondaryBg: #f7f7f7;
   --messageBg: #f3f5f9;
   --text: #030712;
   --border: #ebeef4;
@@ -28,29 +28,31 @@ html.light {
   --chartGreen: #29ba7e;
   --popupBg: #fff;
   --yellow: #facd39;
+  --activeCellBG: #f0f7f3;
 }
 
 html.dark {
-  --bg: #161B1F;
-  --secondaryBg: #0F1214;
-  --messageBg: #232A2F;
+  --bg: #161b1f;
+  --secondaryBg: #0f1214;
+  --messageBg: #232a2f;
   --text: #fff;
-  --border: #1E2428;
-  --lightgray: #8A9490;
+  --border: #1e2428;
+  --lightgray: #8a9490;
   --dividerColor: #364153;
   --accent: #2abb7f;
   --secondaryAccent: #9b94f1;
-  --chartRowColor: #232A2F;
+  --chartRowColor: #232a2f;
   --good: #194a4f;
   --bad: #452b3c;
   --neutral: #12233d;
   --bg3: #1c222e;
   --selectedBg: #43587b;
   --selectedBorder: #4e9aeb;
-  --lightBg: #232A2F;
+  --lightBg: #232a2f;
   --chartGreen: #7fe3b9;
-  --popupBg: #0F1214;
+  --popupBg: #0f1214;
   --yellow: #facd39;
+  --activeCellBG: #194a4f;
 }
 
 body {
@@ -68,15 +70,13 @@ body {
     width: 1440px;
     padding: 0 2rem;
     margin: 0 auto;
-
-
   }
 }
 
-
-.ClubBreakdownWidget-module-scss-module__0GQQFW__shotTableContainer .ClubBreakdownWidget-module-scss-module__0GQQFW__value {
-    all: unset;
-    display: flex;
-    flex-direction: row !important;
-    gap: 3px;
-  }
+.ClubBreakdownWidget-module-scss-module__0GQQFW__shotTableContainer
+  .ClubBreakdownWidget-module-scss-module__0GQQFW__value {
+  all: unset;
+  display: flex;
+  flex-direction: row !important;
+  gap: 3px;
+}

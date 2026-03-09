@@ -18,6 +18,7 @@
       font-size: 22px;
       font-weight: 700;
       width: 100px;
+      color: var(--text);
     }
     .navbarActions {
       display: flex;
@@ -35,6 +36,15 @@
             color: var(--lightgray);
             text-decoration: none;
             font-size: 13px;
+
+            &:hover {
+              color: var(--text);
+            }
+          }
+
+          .activeNavLink {
+            color: var(--text);
+            // font-weight: 600;
           }
         }
       }
@@ -44,6 +54,10 @@
       display: flex;
       align-items: center;
       gap: 1rem;
+
+      svg {
+        cursor: pointer;
+      }
 
       .themeIcon {
         cursor: pointer;

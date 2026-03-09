@@ -11,7 +11,7 @@ import { LuSun } from "react-icons/lu";
 import useModal from "@/hooks/useModal";
 import Modal from "../modal/Modal";
 import UploadCsv from "../upload-csv/UploadCsv";
-import { FaBell } from "react-icons/fa";
+import { FaRegBell } from "react-icons/fa";
 import Button from "../button/Button";
 
 type AuthAction = "login" | "signup" | "logout";
@@ -50,16 +50,27 @@ const Navbar = () => {
   const hiddenPaths = ["/auth/login", "/auth/signup"];
   if (hiddenPaths.includes(pathname)) return null;
 
+  console.log(pathname);
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbarContent}>
-        <h1 className={styles.logo}>simprove</h1>
+        <Link href={"/dashboard"} className={styles.logo}>
+          simprove
+        </Link>
 
         <div className={styles.navbarActions}>
           <ul>
             {navLinks.map((link) => (
               <li key={link.key}>
-                <Link className={styles.navLink} href={link.href}>
+                <Link
+                  className={
+                    pathname.includes(link.href)
+                      ? styles.activeNavLink
+                      : styles.navLink
+                  }
+                  href={link.href}
+                >
                   {link.label}
                 </Link>
               </li>
@@ -72,10 +83,10 @@ const Navbar = () => {
               size={18}
               className={styles.themeIcon}
               onClick={toggleTheme}
+              color="var(--lightgray)"
             />
 
-            <FaBell />
-
+            <FaRegBell color="var(--lightgray)" />
 
             {!loading && !user && (
               <>
@@ -96,7 +107,7 @@ const Navbar = () => {
             {!loading && user && (
               <>
                 <div className={styles.uploadBtnContainer}>
-                  <Button 
+                  <Button
                     variant="secondary"
                     children="Upload"
                     onClick={() => openModal("upload")}
