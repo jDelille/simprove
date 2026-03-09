@@ -12,11 +12,8 @@ type CalculateProfileStatsProps = {
 export function calculateProfileStats({ userId, shots, sessionLength, club   }: CalculateProfileStatsProps) {
     const averages = calculateAverages(shots);
 
-    // const clubTrend = getClubCarryTrend(shots, club);
-
     return {
         ...averages,
         sessionLength,
-        // clubTrend,
     }
 }

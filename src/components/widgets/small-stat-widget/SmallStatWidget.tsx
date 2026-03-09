@@ -6,8 +6,9 @@ type SmallStatWidgetProps = {
   title: string;
   value: string | number;
   metric: string;
-  trend: "up" | "down" | "neutral";
+  trend: "increase" | "decrease" | "none" | null;
   trendText: string;
+  trendColor?: string; 
 };
 
 const SmallStatWidget: React.FC<SmallStatWidgetProps> = (props) => {
@@ -19,10 +20,10 @@ const SmallStatWidget: React.FC<SmallStatWidgetProps> = (props) => {
         <span>{props.metric}</span>
       </div>
       <div className={styles.change}>
-        {props.trend === "up" && <FaArrowUp />}
-        {props.trend === "down" && <FaArrowDown className={styles.down} />}
-        {props.trend === "neutral" && <FaMinus className={styles.neutral} />}
-        <p>{props.trendText}</p>
+        {props.trend === "increase" && <FaArrowUp color={props.trendColor}/>}
+        {props.trend === "decrease" && <FaArrowDown className={styles.down} color={props.trendColor} />}
+        {props.trend === "none" && <FaMinus className={styles.neutral} color={props.trendColor}/>}
+        <p style={{ color: props.trendColor }}>{props.trendText}</p>
       </div>
     </div>
   );

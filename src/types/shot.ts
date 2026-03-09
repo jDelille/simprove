@@ -21,4 +21,5 @@ export type Shot = {
   vi: number;
   vla: number;
   sessionId?: string;
+  sessionDate?: string; // ISO date string
 };
