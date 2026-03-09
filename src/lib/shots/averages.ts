@@ -11,6 +11,7 @@ export type Averages = {
   longestCarry?: number;
   peakBallSpeed?: number;
   clubsHit: string[];
+  avgfaceToTarget: number;
 };
 
 export function calculateAverages(shots: Shot[]): Averages {
@@ -26,6 +27,7 @@ export function calculateAverages(shots: Shot[]): Averages {
       longestCarry: undefined,
       peakBallSpeed: undefined,
       clubsHit: [],
+      avgfaceToTarget: 0,
     };
   }
 
@@ -62,6 +64,7 @@ export function calculateAverages(shots: Shot[]): Averages {
       acc.longestCarry = longestCarry;
       acc.peakBallSpeed = peakBallSpeed;
       acc.clubsHit = clubsHit;
+      acc.avgfaceToTarget = shot.faceToTarget ?? 0;
       return acc;
     },
     {
@@ -75,6 +78,7 @@ export function calculateAverages(shots: Shot[]): Averages {
       longestCarry: longestCarry,
       peakBallSpeed: peakBallSpeed,
       clubsHit: clubsHit,
+      avgfaceToTarget: 0,
     },
   );
 
@@ -89,6 +93,7 @@ export function calculateAverages(shots: Shot[]): Averages {
     longestCarry: totals.longestCarry,
     peakBallSpeed: totals.peakBallSpeed,
     clubsHit: totals.clubsHit,
+    avgfaceToTarget: totals.avgfaceToTarget / totals.count,
   };
 }
 
@@ -110,6 +115,7 @@ export function getClubAverages(shots: Shot[]) {
         longestCarry: 0,
         peakBallSpeed: 0,
         clubsHit: [],
+        avgfaceToTarget: 0,
       };
     }
 
@@ -119,6 +125,7 @@ export function getClubAverages(shots: Shot[]) {
     club.avgSpeed += shot.ballSpeed ?? 0;
     club.avgOffline += shot.offline ?? 0;
     club.avgSpin += shot.backSpin ?? 0;
+    club.avgfaceToTarget += shot.faceToTarget ?? 0;
     club.count++;
   });
 
@@ -127,6 +134,7 @@ export function getClubAverages(shots: Shot[]) {
     club.avgSpeed /= club.count;
     club.avgOffline /= club.count;
     club.avgSpin /= club.count;
+    club.avgfaceToTarget /= club.count;
   });
 
   return clubData;

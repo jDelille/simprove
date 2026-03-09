@@ -12,6 +12,7 @@ import ClubBreakdownWidget, {
 } from "../widgets/club-breakdown-widget/ClubBreakdownWidget";
 import { useMemo, useState } from "react";
 import { getClubAverages } from "@/lib/shots/averages";
+import FaceAngleWidget from "../widgets/face-angle-widget/FaceAngleWidget";
 
 const Session = () => {
   const router = useRouter();
@@ -34,10 +35,10 @@ const Session = () => {
       : session.shots.filter((s: any) => s.club === selectedClub);
   }, [session?.shots, selectedClub]);
 
+  const clubAverages = getClubAverages(filteredShots);
+
   const tableData: ShotRow[] = useMemo(() => {
     if (!filteredShots?.length) return [];
-
-    const clubAverages = getClubAverages(filteredShots);
 
     return Object.entries(clubAverages).map(([club, stats]) => ({
       id: club,
@@ -102,10 +103,8 @@ const Session = () => {
             <ClubBreakdownWidget data={tableData} />
           </div>
           <div className={styles.row}>
-            {/* Miss Tendency */}
-            <MissTendencyWidget  />
-            {/* Launch & spin */}
-            
+            <MissTendencyWidget />
+            <FaceAngleWidget clubAverages={clubAverages} />
           </div>
           <div className={styles.row}>{/* Session analysis */}</div>
         </div>
