@@ -106,6 +106,10 @@
           &:nth-of-type(11) {
             border-right: 1px solid var(--border);
           }
+
+          .value {
+            display: flex;
+          }
         }
 
         .activeCell {
@@ -114,6 +118,8 @@
       }
     }
   }
+
+  
 
   .value {
     display: flex;

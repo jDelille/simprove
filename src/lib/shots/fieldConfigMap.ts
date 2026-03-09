@@ -34,7 +34,7 @@ export const SHOT_FIELDS: ShotField[] = [
   { key: "dynamicLoft", label: "Dynamic Loft", unit: "deg", section: "club" },
 
   // Flight
-  { key: "peakHeight", label: "Peak Height", unit: "ft", section: "flight" },
+  { key: "avgPeakHeight", label: "Peak Height", unit: "ft", section: "flight" },
   { key: "decent", label: "Descent", unit: "deg", section: "flight" },
 
   // Advanced
@@ -48,7 +48,7 @@ export const BREAKDOWN_FIELDS: ShotField[] = [
     { key: "ballSpeed", label: "Ball Speed", unit: "mph", section: "launch" },  
     { key: "avgOffline", label: "Avg Offline", unit: "yds", section: "distance" },
     { key: "avgBackSpin", label: "Avg Backspin", unit: "rpm", section: "spin" },    
-    { key: "launchAngle", label: "Launch Angle", unit: "deg", section: "launch" },  
-    { key: "peakHeight", label: "Peak Height", unit: "ft", section: "flight" },
-    { key: "decent", label: "Descent", unit: "deg", section: "flight" },
+    { key: "avgLaunch", label: "Launch Angle", unit: "deg", section: "launch" },  
+    { key: "avgPeakHeight", label: "Peak Height", unit: "ft", section: "flight" },
+    { key: "avgDescent", label: "Descent", unit: "deg", section: "flight" },
 ]

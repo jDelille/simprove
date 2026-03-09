@@ -28,6 +28,8 @@ const ClubBreakdownWidget: React.FC<ShotTableProps> = ({ data }) => {
     {},
   );
 
+  console.log(data)
+
   const getOfflineColor = (value: number | null) => {
     if (value === null) return styles.neutral;
     const abs = Math.abs(value);
@@ -89,7 +91,7 @@ const ClubBreakdownWidget: React.FC<ShotTableProps> = ({ data }) => {
     );
 
     return [...dataColumns];
-  }, [selectedRowIds]);
+  }, [selectedRowIds, maxShots]);
 
   const table = useReactTable({
     data,

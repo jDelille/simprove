@@ -12,6 +12,9 @@ export type Averages = {
   peakBallSpeed?: number;
   clubsHit: string[];
   avgfaceToTarget: number;
+  avgLaunchAngle: number;
+  avgPeakHeight: number;
+  avgDescent: number;
 };
 
 export function calculateAverages(shots: Shot[]): Averages {
@@ -28,6 +31,9 @@ export function calculateAverages(shots: Shot[]): Averages {
       peakBallSpeed: undefined,
       clubsHit: [],
       avgfaceToTarget: 0,
+      avgLaunchAngle: 0,
+      avgPeakHeight: 0,
+      avgDescent: 0,
     };
   }
 
@@ -65,6 +71,9 @@ export function calculateAverages(shots: Shot[]): Averages {
       acc.peakBallSpeed = peakBallSpeed;
       acc.clubsHit = clubsHit;
       acc.avgfaceToTarget = shot.faceToTarget ?? 0;
+      acc.avgLaunchAngle = shot?.vla ?? 0;
+      acc.avgPeakHeight = shot.peakHeight ?? 0;
+      acc.avgDecent = shot.decent ?? 0;
       return acc;
     },
     {
@@ -79,6 +88,9 @@ export function calculateAverages(shots: Shot[]): Averages {
       peakBallSpeed: peakBallSpeed,
       clubsHit: clubsHit,
       avgfaceToTarget: 0,
+      avgLaunchAngle: 0,
+      avgPeakHeight: 0,
+      avgDecent: 0,
     },
   );
 
@@ -94,6 +106,9 @@ export function calculateAverages(shots: Shot[]): Averages {
     peakBallSpeed: totals.peakBallSpeed,
     clubsHit: totals.clubsHit,
     avgfaceToTarget: totals.avgfaceToTarget / totals.count,
+    avgLaunchAngle: totals.avgLaunchAngle / totals.count,
+    avgPeakHeight: totals.avgPeakHeight / totals.count,
+    avgDescent: totals.avgDecent / totals.count,
   };
 }
 
@@ -116,6 +131,9 @@ export function getClubAverages(shots: Shot[]) {
         peakBallSpeed: 0,
         clubsHit: [],
         avgfaceToTarget: 0,
+        avgLaunchAngle: 0,
+        avgPeakHeight: 0,
+        avgDescent: 0,
       };
     }
 
@@ -126,6 +144,9 @@ export function getClubAverages(shots: Shot[]) {
     club.avgOffline += shot.offline ?? 0;
     club.avgSpin += shot.backSpin ?? 0;
     club.avgfaceToTarget += shot.faceToTarget ?? 0;
+    club.avgLaunchAngle += shot.vla ?? 0;
+    club.avgPeakHeight += shot.peakHeight ?? 0;
+    club.avgDescent += shot.decent ?? 0;
     club.count++;
   });
 
@@ -135,6 +156,9 @@ export function getClubAverages(shots: Shot[]) {
     club.avgOffline /= club.count;
     club.avgSpin /= club.count;
     club.avgfaceToTarget /= club.count;
+    club.avgLaunchAngle /= club.count;
+    club.avgPeakHeight /= club.count;
+    club.avgDescent /= club.count;
   });
 
   return clubData;

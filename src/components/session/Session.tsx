@@ -24,8 +24,7 @@ const Session = () => {
   const { data: session, isLoading, error } = useSession(sessionId);
 
   const sessionDate = moment(session?.created_at).format("MMMM D, YYYY");
-
-  console.log(session);
+  
 
   const filteredShots = useMemo(() => {
     if (!session?.shots) return [];
@@ -48,8 +47,13 @@ const Session = () => {
       ballSpeed: stats.avgSpeed,
       avgOffline: stats.avgOffline,
       avgBackSpin: stats.avgSpin,
+      avgLaunch: stats.avgLaunchAngle,
+      avgPeakHeight: stats.avgPeakHeight,
+      avgDescent: stats.avgDescent,
     }));
   }, [filteredShots]);
+
+  console.log(tableData)
 
   return (
     <div className={styles.session}>
