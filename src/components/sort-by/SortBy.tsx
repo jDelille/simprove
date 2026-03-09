@@ -3,7 +3,6 @@ import { IoIosArrowRoundDown, IoIosArrowRoundUp } from "react-icons/io";
 
 type SortByProps = {
   options?: string[];
-  numOfSessions: number;
   sortField?: "date" | "shots";
   setSortField?: (field: "date" | "shots") => void;
   sortOrder?: "asc" | "desc";
@@ -12,7 +11,6 @@ type SortByProps = {
 
 const SortBy: React.FC<SortByProps> = ({
   options,
-  numOfSessions,
   sortField,
   setSortField,
   sortOrder,
@@ -61,7 +59,6 @@ const SortBy: React.FC<SortByProps> = ({
           })}
       </ul>
 
-      <p className={styles.numOfSessions}>{numOfSessions} sessions</p>
     </div>
   );
 };

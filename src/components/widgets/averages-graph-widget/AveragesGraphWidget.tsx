@@ -83,8 +83,9 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
       },
       yAxis: {
         title: { text: undefined },
-        gridLineWidth: 0,
+        gridLineWidth: 1,
         lineWidth: 0,
+        gridLineColor: "var(--border)",
         labels: {
           style: {
             color: "var(--lightgray)", 
