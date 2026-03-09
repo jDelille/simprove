@@ -70,8 +70,28 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
       title: { text: "" },
       credits: { enabled: false },
       legend: { enabled: false },
-      xAxis: { categories, lineWidth: 0, tickLength: 0 },
-      yAxis: { title: { text: undefined }, gridLineWidth: 0, lineWidth: 0 },
+      xAxis: {
+        categories,
+        lineWidth: 0,
+        tickLength: 0,
+        labels: {
+          style: {
+            color: "var(--lightgray)", 
+            fontSize: "12px",
+          },
+        },
+      },
+      yAxis: {
+        title: { text: undefined },
+        gridLineWidth: 0,
+        lineWidth: 0,
+        labels: {
+          style: {
+            color: "var(--lightgray)", 
+            fontSize: "12px",
+          },
+        },
+      },
       tooltip: {
         useHTML: true,
         backgroundColor: "transparent",
@@ -154,9 +174,7 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
     <div className={styles.graphContainer}>
       <div className={styles.header}>
         <div className={styles.text}>
-          <p className={styles.selectedMetric}>
-            {metric?.label}
-          </p>
+          <p className={styles.selectedMetric}>{metric?.label}</p>
           <span>Performance by club</span>
         </div>
 

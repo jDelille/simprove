@@ -11,6 +11,8 @@ import { LuSun } from "react-icons/lu";
 import useModal from "@/hooks/useModal";
 import Modal from "../modal/Modal";
 import UploadCsv from "../upload-csv/UploadCsv";
+import { FaBell } from "react-icons/fa";
+import Button from "../button/Button";
 
 type AuthAction = "login" | "signup" | "logout";
 
@@ -72,6 +74,9 @@ const Navbar = () => {
               onClick={toggleTheme}
             />
 
+            <FaBell />
+
+
             {!loading && !user && (
               <>
                 <button
@@ -91,7 +96,8 @@ const Navbar = () => {
             {!loading && user && (
               <>
                 <div className={styles.uploadBtnContainer}>
-                  <button
+                  <Button 
+                    variant="secondary"
                     children="Upload"
                     onClick={() => openModal("upload")}
                   />
@@ -100,12 +106,12 @@ const Navbar = () => {
                   className={styles.userAvatar}
                   onClick={() => router.push("/profile")}
                 ></div>
-                <button
+                {/* <button
                   className={styles.authButton}
                   onClick={() => handleAuthClick("logout")}
                 >
                   Logout
-                </button>
+                </button> */}
               </>
             )}
           </div>

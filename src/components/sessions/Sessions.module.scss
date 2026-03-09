@@ -68,7 +68,7 @@
       }
 
       .mostUsedClub {
-        background-color: var(--bg3);
+        background-color: var(--lightBg);
         width: 65px;
         height: fit-content;
         border: 1px solid var(--border);
@@ -92,7 +92,7 @@
       .stat {
         flex: 1;
         font-size: 14px;
-        background-color: var(--bg3);
+        background-color: var(--lightBg);
         padding: 10px;
         border-radius: 6px;
         border: 1px solid var(--border);
@@ -138,6 +138,7 @@
     border-radius: 8px;
     overflow: hidden;
     border: 1px solid var(--border);
+
     &:nth-last-of-type(1) {
       border-bottom: none;
     }
@@ -148,6 +149,8 @@
       text-transform: uppercase;
       display: flex;
       justify-content: space-between;
+      color: var(--lightgray);
+
       ul {
         display: flex;
         li {

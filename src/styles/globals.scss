@@ -27,28 +27,30 @@ html.light {
   --lightBg: #edf1f556;
   --chartGreen: #29ba7e;
   --popupBg: #fff;
+  --yellow: #facd39;
 }
 
 html.dark {
-  --bg: #19212e;
-  --secondaryBg: #11131c;
-  --messageBg: #222d40;
+  --bg: #161B1F;
+  --secondaryBg: #0F1214;
+  --messageBg: #232A2F;
   --text: #fff;
-  --border: #303c53;
-  --lightgray: #d1d5dc;
+  --border: #1E2428;
+  --lightgray: #8A9490;
   --dividerColor: #364153;
   --accent: #2abb7f;
   --secondaryAccent: #9b94f1;
-  --chartRowColor: #1f2838;
+  --chartRowColor: #232A2F;
   --good: #194a4f;
   --bad: #452b3c;
   --neutral: #12233d;
   --bg3: #1c222e;
   --selectedBg: #43587b;
   --selectedBorder: #4e9aeb;
-  --lightBg: #222d40;
+  --lightBg: #232A2F;
   --chartGreen: #7fe3b9;
-  --popupBg: #11131c;
+  --popupBg: #0F1214;
+  --yellow: #facd39;
 }
 
 body {

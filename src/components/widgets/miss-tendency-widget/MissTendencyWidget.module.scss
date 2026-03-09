@@ -62,7 +62,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      background-color: var(--bg3);
+      background-color: var(--lightBg);
       padding: 10px;
       font-size: 12px;
       gap: 5px;
@@ -77,7 +77,7 @@
 
   .message {
     width: 100%;
-    background-color: var(--bg3);
+      background-color: var(--lightBg);
     border-radius: 6px;
     font-size: 13px;
     line-height: 21px;
