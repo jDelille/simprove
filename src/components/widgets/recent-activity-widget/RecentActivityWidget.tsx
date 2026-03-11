@@ -1,9 +1,12 @@
+"use client";
+
 import React from "react";
 import styles from "./RecentActivityWidget.module.scss";
 import { useActivities } from "@/hooks/useActivities";
 import { activityDateFormat } from "@/lib/format-date/ActivityDateFormat";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { FaTrophy } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 type RecentActivityWidgetProps = {
   userId: string;
@@ -11,9 +14,12 @@ type RecentActivityWidgetProps = {
 
 const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = (props) => {
   const { data, isLoading } = useActivities(props.userId);
+  const router = useRouter();
 
   // console.log(data)
   const { latestThreeActivities = [] } = data || {};
+
+  console.log(data)
 
   return (
     <div className={styles.widget}>
@@ -28,7 +34,7 @@ const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = (props) => {
         {latestThreeActivities.map((activity: any) => (
           <li key={activity.id}>
             {activity.type === "SESSION_CREATED" && (
-              <div className={styles.activity}>
+              <div className={styles.activity} onClick={() => router.push(`/session/${activity.entity_id}`)}>
                 <div
                   className={styles.icon}
                   style={{ backgroundColor: "#E5F4EA" }}
@@ -48,7 +54,7 @@ const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = (props) => {
             )}
 
             {activity.type === "BADGE_EARNED" && (
-              <div className={styles.activity}>
+              <div className={styles.activity} >
                 <div
                   className={styles.icon}
                   style={{ backgroundColor: "#FFF8E1" }}
@@ -56,12 +62,12 @@ const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = (props) => {
                   <FaTrophy color="#f7c04a" size={20} />
                 </div>
                 <div className={styles.body}>
-                  <p className={styles.title}>
-                    {activity.title}{" "}
+                  <div className={styles.title}>
+                    <p className={styles.name}>{activity.title}</p>
                     <span className={styles.date}>
                       {activityDateFormat(activity.created_at)} ago
                     </span>
-                  </p>
+                  </div>
                   <p className={styles.description}>{activity.description}</p>
                 </div>
               </div>

@@ -17,6 +17,13 @@
       align-items: center;
       gap: 10px;
       font-size: 14px;
+      cursor: pointer;
+
+      &:hover {
+        .title {
+          text-decoration: underline;
+        }
+      }
 
       .icon {
         min-width: 30px;
@@ -36,11 +43,12 @@
         .title {
           width: 100%;
           font-size: 12px;
-          display: flex;
 
           .date {
             margin-left: auto;
             color: var(--lightgray);
+            position: absolute;
+            right: 1rem;
           }
         }
 

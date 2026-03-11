@@ -13,6 +13,8 @@ import Modal from "../modal/Modal";
 import UploadCsv from "../upload-csv/UploadCsv";
 import { FaRegBell } from "react-icons/fa";
 import Button from "../button/Button";
+import { useState } from "react";
+import UserMenu from "../user-menu/UserMenu";
 
 type AuthAction = "login" | "signup" | "logout";
 
@@ -22,6 +24,8 @@ const Navbar = () => {
   const { openModal, modals, closeModal } = useModal();
   const { theme, toggleTheme } = useTheme();
   const { user, loading } = useUser();
+
+  const [openMenu, setOpenMenu] = useState(false);
 
   const handleAuthClick = async (type: AuthAction) => {
     if (type === "login") {
@@ -36,6 +40,8 @@ const Navbar = () => {
         router.push("/auth/login");
       }
     }
+
+    setOpenMenu(false);
   };
 
   const navLinks = [
@@ -115,14 +121,15 @@ const Navbar = () => {
                 </div>
                 <div
                   className={styles.userAvatar}
-                  onClick={() => router.push("/profile")}
+                  onClick={() => setOpenMenu(!openMenu)}
                 ></div>
-                {/* <button
-                  className={styles.authButton}
-                  onClick={() => handleAuthClick("logout")}
-                >
-                  Logout
-                </button> */}
+
+                {openMenu && (
+                  <UserMenu
+                    onLogout={() => handleAuthClick("logout")}
+                    setOpenMenu={setOpenMenu}
+                  />
+                )}
               </>
             )}
           </div>

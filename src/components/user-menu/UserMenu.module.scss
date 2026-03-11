@@ -1,0 +1,42 @@
+.menu {
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  position: absolute;
+  right: 0rem;
+  top: 55px;
+  width: 170px;
+  height: fit-content;
+  z-index: 999;
+
+  ul {
+    font-size: 14px;
+    li {
+      display: flex;
+      font-size: 12px;
+      padding: 10px 1rem;
+      cursor: pointer;
+      color: var(--lightgray);
+      &:hover {
+        color: var(--text);
+      }
+    }
+    .name {
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      font-weight: 500;
+      gap: 5px;
+      padding: 1rem;
+      cursor: default;
+      color: var(--text);
+
+      .handle {
+        color: var(--lightgray);
+        font-size: 12px;
+        font-weight: 400;
+      }
+    }
+  }
+}
