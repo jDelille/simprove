@@ -12,6 +12,8 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
 
   const [selectedTab, setSelectedTab] = useState("Overview");
 
+  
+
   const followers = [
     { name: "Alice", color: "#49de80" },
     { name: "Bob", color: "#fa7516" },

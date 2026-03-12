@@ -5,10 +5,12 @@
   top: calc(286px + 2rem);
   width: 100%;
   @include contentWidth();
+  padding-right: 2rem;
   .layout {
     display: flex;
     width: 100%;
     gap: 1rem;
+    padding-right: 2rem;
     .column {
       width: 75%;
       height: 500px;
