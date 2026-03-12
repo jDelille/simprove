@@ -10,7 +10,6 @@
     padding-bottom: 1.5rem;
     font-weight: 500;
     font-size: 18px;
-    padding-left: 10px;
     display: flex;
     justify-content: space-between;
 
@@ -30,7 +29,6 @@
       background-color: var(--secondaryBg);
       width: fit-content;
       height: 50px;
-      padding: 5px 10px;
       display: flex;
       align-items: center;
       border-radius: 6px;
@@ -50,7 +48,7 @@
       }
 
       .activeControl {
-        background-color: var(--bg);
+        background-color: var(--border);
         width: fit-content;
         height: 100%;
         display: flex;

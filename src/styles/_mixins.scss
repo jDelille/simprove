@@ -4,9 +4,8 @@
 
 @mixin widgetHeader {
   padding-bottom: 0.75rem;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--lightgray);
-  font-weight: 400;
   display: flex;
   flex-direction: column;
   gap: 10px;
