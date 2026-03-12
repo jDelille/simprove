@@ -114,7 +114,7 @@ const Navbar = () => {
               <>
                 <div className={styles.uploadBtnContainer}>
                   <Button
-                    variant="secondary"
+                    variant="upload"
                     children="Upload"
                     onClick={() => openModal("upload")}
                   />

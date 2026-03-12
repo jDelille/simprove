@@ -1,0 +1,29 @@
+@use "@/styles/mixins" as *;
+
+.widget {
+  @include widget();
+
+  .header {
+    @include widgetHeader();
+  }
+  
+  .content {
+    ul {
+        display: flex;
+        flex-direction: column;
+        li {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            &:nth-of-type(3) {
+                border-bottom: none;
+            }
+            .value {
+                font-weight: 500;
+            }
+        }
+    }
+  }
+}

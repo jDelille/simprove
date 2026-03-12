@@ -17,13 +17,38 @@
   }
 }
 
+.primary {
+  background-color: var(--accent);
+  padding: 7px 12px;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  &:hover {
+    background-color: darken(#2abb7f, 10%);
+  }
+}
+
 .secondary {
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  padding: 7px 12px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 500;
+  &:hover {
+    background-color: darken(white, 10%);
+  }
+}
+
+.upload {
   background-color: var(--yellow);
   padding: 7px 12px;
   color: #000;
   font-size: 12px;
   font-weight: 500;
   &:hover {
-    background-color: darken(#facd39, 20%);
+    background-color: darken(#facd39, 10%);
   }
 }
+
+

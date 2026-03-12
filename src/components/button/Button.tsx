@@ -4,7 +4,7 @@ import styles from "./Button.module.scss";
 type ButtonProps = {
   children: React.ReactNode;
   onClick?: () => void;
-  variant: "primary" | "secondary";
+  variant: "primary" | "secondary" | "upload";
 };
 
 const Button: React.FC<ButtonProps> = ({ children, onClick, variant }) => {
