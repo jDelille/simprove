@@ -78,28 +78,28 @@ const Session = () => {
               title="Best Carry"
               value={100}
               metric="yds"
-              trend="up"
+              trend="increase"
               trendText="Personal Best"
             />
             <SmallStatWidget
               title="Best Carry"
               value={100}
               metric="yds"
-              trend="up"
+              trend="increase"
               trendText="Personal Best"
             />
             <SmallStatWidget
               title="Best Carry"
               value={100}
               metric="yds"
-              trend="up"
+              trend="increase"
               trendText="Personal Best"
             />
             <SmallStatWidget
               title="Best Carry"
               value={100}
               metric="yds"
-              trend="up"
+              trend="increase"
               trendText="Personal Best"
             />
           </div>

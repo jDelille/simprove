@@ -5,14 +5,20 @@ import styles from "./ProfileHeader.module.scss";
 import Avatar from "../avatar/Avatar";
 import Button from "../button/Button";
 import ContentTabs from "../content-tabs/ContentTabs";
+import { useParams } from "next/navigation";
+import { useUser } from "@/hooks/useUser";
+import { useRouter } from "next/navigation";
 
 type ProfileHeaderProps = {};
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
+  const { id } = useParams();
+  const { user } = useUser();
+  const router = useRouter();
 
   const [selectedTab, setSelectedTab] = useState("Overview");
 
-  
+  const isUserProfile = id === user?.id;
 
   const followers = [
     { name: "Alice", color: "#49de80" },
@@ -37,7 +43,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
           <div className={styles.bio}>
             <p>Bio goes here...</p>
           </div>
-           <div className={styles.followers}>
+          <div className={styles.followers}>
             <div style={{ display: "flex", alignItems: "center" }}>
               {followers.slice(0, 4).map((f, i) => (
                 <div
@@ -48,7 +54,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
                     borderRadius: "50%",
                     background: f.color,
                     border: `2px solid var(--bg)`,
-                    marginLeft: i > 0 ? -6 : 0, 
+                    marginLeft: i > 0 ? -6 : 0,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -69,18 +75,24 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
           </div>
         </div>
         <div className={styles.actions}>
-          <Button variant="primary" children="Follow" />
-          <Button variant="secondary" children="Share" />
+          {!isUserProfile ? (
+            <>
+              <Button variant="primary" children="Follow" />
+              <Button variant="secondary" children="Share" />
+            </>
+          ) : (
+            <Button variant="primary" children="Edit Profile" onClick={() => router.push('/settings/edit-profile')}/>
+          )}
         </div>
       </div>
       <div className={styles.tabsContainer}>
-        <ContentTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+        <ContentTabs
+          selectedTab={selectedTab}
+          setSelectedTab={setSelectedTab}
+        />
       </div>
     </div>
   );
 };
 
 export default ProfileHeader;
-
-
-         

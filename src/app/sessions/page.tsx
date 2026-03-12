@@ -4,7 +4,6 @@ const SessionsPage = () => {
   return (
     <div className="page">
       <div className="page-content">
-        
         <Sessions />
       </div>
     </div>

@@ -1,0 +1,23 @@
+@use '@/styles/mixins' as *;
+
+
+.widget {
+    @include widget();
+    border-radius: 12px !important;
+
+    ul {
+        li {
+            padding: 10px;
+            font-size: 13px;
+            cursor: pointer;
+            border-radius: 6px;
+            color: var(--lightgray);
+        }
+
+        li.active {
+            color: #15a357;
+            background-color: #dcfce7;
+            font-weight: 600;
+        }
+    }
+}
