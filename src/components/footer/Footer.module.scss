@@ -1,0 +1,31 @@
+@use "@/styles/mixins" as *;
+
+.footer {
+  height: 65px;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+  background-color: var(--bg);
+  .footerContent {
+    @include contentWidth();
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+    color: var(--lightgray);
+    justify-content: space-between;
+
+    .links {
+        ul {
+            display: flex;
+            gap: 1rem;
+            li {
+                a {
+                    color: var(--lightgray);
+                }
+            }
+        }
+    }
+  }
+}

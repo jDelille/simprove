@@ -1,0 +1,31 @@
+@use "@/styles/mixins" as *;
+
+.dangerZone {
+  @include widget();
+  background: var(--dangerBg);
+  border: 1px solid var(--dangerBorder);
+
+  .header {
+    @include widgetHeader();
+    gap: 4px;
+    p {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--dangerText);
+    }
+    span {
+        color: var(--lightgray);
+    }
+  }
+
+  .content {
+    display: flex;
+    gap: 1rem;
+    padding-top: 1rem;
+
+    button {
+        font-size: 13px;
+        font-weight: 600;
+    }
+  }
+}

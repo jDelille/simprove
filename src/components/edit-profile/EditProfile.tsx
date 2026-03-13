@@ -3,9 +3,16 @@
 import { useState } from "react";
 import styles from "./EditProfile.module.scss";
 import SettingsNavWidget from "../widgets/settings-nav-widget/SettingsNavWidget";
+import EditAvatar from "./edit-avatar/EditAvatar";
+import EditProfileInfo from "./edit-profile-info/EditProfileInfo";
+import EditLogin from "./edit-login/EditLogin";
+import DangerZone from "./danger-zone/DangerZone";
+import { useUser } from "@/hooks/useUser";
 
 const EditProfile = () => {
   const [selectedSection, setSelectedSection] = useState("Account");
+  const {user, profile} = useUser();
+
   return (
     <div className={styles.editProfile}>
       <div className={styles.pageHeader}>
@@ -25,10 +32,10 @@ const EditProfile = () => {
           </div>
         </div>
         <div className={styles.column}>
-            {/* Profile pic */}
-            {/* Profile info */}
-            {/* Login and security */}
-            {/* Danger zone (delete all sessions / account) */}
+            <EditAvatar avatar={profile?.avatar_path} />
+            <EditProfileInfo profile={profile} />
+            <EditLogin profile={profile}/>
+            <DangerZone />
         </div>
       </div>
     </div>

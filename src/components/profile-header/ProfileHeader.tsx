@@ -13,7 +13,7 @@ type ProfileHeaderProps = {};
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
   const { id } = useParams();
-  const { user } = useUser();
+  const { user, profile} = useUser();
   const router = useRouter();
 
   const [selectedTab, setSelectedTab] = useState("Overview");
@@ -31,7 +31,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
     <div className={styles.profileHeader}>
       <div className={styles.headerContent}>
         <div className={styles.avatarContainer}>
-          <Avatar />
+          <Avatar src={profile?.avatar_path} />
         </div>
         <div className={styles.userInfo}>
           <p className={styles.name}>Username</p>

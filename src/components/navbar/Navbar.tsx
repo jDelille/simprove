@@ -15,6 +15,7 @@ import { FaRegBell } from "react-icons/fa";
 import Button from "../button/Button";
 import { useState } from "react";
 import UserMenu from "../user-menu/UserMenu";
+import Avatar from "../avatar/Avatar";
 
 type AuthAction = "login" | "signup" | "logout";
 
@@ -23,7 +24,7 @@ const Navbar = () => {
   const router = useRouter();
   const { openModal, modals, closeModal } = useModal();
   const { theme, toggleTheme } = useTheme();
-  const { user, loading } = useUser();
+  const { user, loading, profile } = useUser();
 
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -122,7 +123,9 @@ const Navbar = () => {
                 <div
                   className={styles.userAvatar}
                   onClick={() => setOpenMenu(!openMenu)}
-                ></div>
+                >
+                  <Avatar src={profile?.avatar_path} />
+                </div>
 
                 {openMenu && (
                   <UserMenu

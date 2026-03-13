@@ -29,6 +29,9 @@ html.light {
   --popupBg: #fff;
   --yellow: #facd39;
   --activeCellBG: #f0f7f3;
+  --dangerBg: #fef2f2;
+  --dangerBorder: #fecaca;
+  --dangerText: #ef4444;
 }
 
 html.dark {
@@ -53,11 +56,16 @@ html.dark {
   --popupBg: #0f1214;
   --yellow: #facd39;
   --activeCellBG: #194a4f;
+  --dangerBg: #2A1515;
+  --dangerBorder: #5C2323;
+  --dangerText: #F87171;
 }
 
 body {
   font-family: var(--font-inter), sans-serif;
   background-color: var(--secondaryBg);
+  display: flex;
+  flex-direction: column;
 }
 
 .page {
@@ -65,7 +73,7 @@ body {
   background-color: var(--secondaryBg);
   color: var(--text);
   height: fit-content;
-  min-height: 100vh;
+  min-height: calc(100vh - 65px);
 
   .page-content {
     width: 1440px;

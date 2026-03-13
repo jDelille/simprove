@@ -5,23 +5,56 @@ import { supabase } from "@/lib/supabase/client";
 
 export const useUser = () => {
   const [user, setUser] = useState<any>(null);
+  const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const session = supabase.auth.getSession().then(({ data }) => {
-      setUser(data.session?.user ?? null);
-      setLoading(false);
-    });
+  const fetchProfile = async (userId: string) => {
+    const { data, error } = await supabase
+      .from("users")
+      .select("*")
+      .eq("id", userId)
+      .single();
 
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
+    if (!error && data) {
+      setProfile(data);
+    }
+  };
+
+  useEffect(() => {
+    const init = async () => {
+      const { data } = await supabase.auth.getSession();
+
+      const authUser = data.session?.user ?? null;
+      setUser(authUser);
+
+      if (authUser) {
+        await fetchProfile(authUser.id);
+      }
+
       setLoading(false);
-    });
+    };
+
+    init();
+
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      async (_event, session) => {
+        const authUser = session?.user ?? null;
+        setUser(authUser);
+
+        if (authUser) {
+          await fetchProfile(authUser.id);
+        } else {
+          setProfile(null);
+        }
+
+        setLoading(false);
+      }
+    );
 
     return () => {
       listener.subscription.unsubscribe();
     };
   }, []);
 
-  return { user, loading };
+  return { user, profile, loading };
 };
