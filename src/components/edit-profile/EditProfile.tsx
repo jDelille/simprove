@@ -11,7 +11,27 @@ import { useUser } from "@/hooks/useUser";
 
 const EditProfile = () => {
   const [selectedSection, setSelectedSection] = useState("Account");
-  const {user, profile} = useUser();
+  const { user, profile } = useUser();
+
+  const renderSection = () => {
+    switch (selectedSection) {
+      case "Account":
+        return (
+          <>
+            <EditAvatar avatar={profile?.avatar_path} />
+            <EditProfileInfo profile={profile} />
+            <EditLogin profile={profile} />
+            <DangerZone />
+          </>
+        );
+      case "Preferences":
+        return <div>Preferences content goes here</div>;
+      case "Privacy":
+        return <div>Privacy content goes here</div>;
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className={styles.editProfile}>
@@ -32,10 +52,7 @@ const EditProfile = () => {
           </div>
         </div>
         <div className={styles.column}>
-            <EditAvatar avatar={profile?.avatar_path} />
-            <EditProfileInfo profile={profile} />
-            <EditLogin profile={profile}/>
-            <DangerZone />
+          {renderSection()}
         </div>
       </div>
     </div>
