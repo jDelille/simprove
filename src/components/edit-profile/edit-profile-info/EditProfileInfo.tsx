@@ -44,7 +44,7 @@ const EditProfileInfo: React.FC<EditProfileInfoProps> = ({ profile }) => {
 
   const handleSave = async () => {
     await uploadProfileInfo({
-      userId: profile.id,
+      userId: profile?.id,
       displayName: form.displayName,
       username: form.username,
       bio: form.bio,

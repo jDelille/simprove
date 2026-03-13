@@ -18,7 +18,9 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
 
   const [selectedTab, setSelectedTab] = useState("Overview");
 
-  const isUserProfile = id === user?.id;
+  const isUserProfile = id === profile?.id;
+
+  console.log(profile)
 
   const followers = [
     { name: "Alice", color: "#49de80" },
@@ -34,14 +36,14 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
           <Avatar src={profile?.avatar_path} />
         </div>
         <div className={styles.userInfo}>
-          <p className={styles.name}>Username</p>
+          <p className={styles.name}>{profile?.display_name}</p>
           <div className={styles.handle}>
-            <p>@username</p>
+            <p>@{profile?.username}</p>
             <p>-</p>
             <p>Member since 2026</p>
           </div>
           <div className={styles.bio}>
-            <p>Bio goes here...</p>
+            <p>{profile?.bio || "Bio goes here..."}</p>
           </div>
           <div className={styles.followers}>
             <div style={{ display: "flex", alignItems: "center" }}>

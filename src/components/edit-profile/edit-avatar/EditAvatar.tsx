@@ -31,7 +31,7 @@ const EditAvatar: React.FC<EditAvatarProps> = ({ avatar }) => {
     if (!user) return;
 
     await uploadProfilePicture({
-      userId: user.id,
+      userId: user?.id,
       file,
     });
   };

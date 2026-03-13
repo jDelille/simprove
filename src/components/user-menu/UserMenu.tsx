@@ -12,10 +12,10 @@ type UserMenuProps = {
 const UserMenu: React.FC<UserMenuProps> = ({ onLogout, setOpenMenu }) => {
 
   const router = useRouter();
-  const {user} = useUser();
+  const {user, profile} = useUser();
 
   const handleProfileClick = () => {
-    router.push(`/profile/${user?.id}`);
+    router.push(`/profile/${profile?.id}`);
     setOpenMenu(false);
   }
 
@@ -23,8 +23,8 @@ const UserMenu: React.FC<UserMenuProps> = ({ onLogout, setOpenMenu }) => {
     <div className={styles.menu}>
       <ul>
         <li className={styles.name}>
-          <p>John Doe</p>
-          <p className={styles.handle}>@john.doe</p>
+          <p>{profile?.display_name}</p>
+          <p className={styles.handle}>@{profile?.username}</p>
         </li>
         <li onClick={handleProfileClick}>Profile</li>
         <li>Settings</li>

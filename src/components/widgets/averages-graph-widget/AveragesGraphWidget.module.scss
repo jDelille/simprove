@@ -26,13 +26,14 @@
     }
 
     .chartControls {
-      background-color: var(--secondaryBg);
+      background-color: var(--chartControlsBG);
       width: fit-content;
       height: 50px;
       display: flex;
       align-items: center;
       border-radius: 6px;
       gap: 5px;
+      padding: 5px;
 
       .control,
       .activeControl {
@@ -48,7 +49,7 @@
       }
 
       .activeControl {
-        background-color: var(--border);
+        background-color: var(--bg);
         width: fit-content;
         height: 100%;
         display: flex;

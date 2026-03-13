@@ -18,8 +18,8 @@ type SessionGroup = {
 type GroupedSessions = Record<string, SessionGroup>;
 
 const Sessions = () => {
-  const { user } = useUser();
-  const { data: sessions = [], isLoading } = useSessions(user?.id || "");
+  const { user, profile } = useUser();
+  const { data: sessions = [], isLoading } = useSessions(profile?.id || "");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [sortField, setSortField] = useState<"date" | "shots">("date");
   const router = useRouter();
