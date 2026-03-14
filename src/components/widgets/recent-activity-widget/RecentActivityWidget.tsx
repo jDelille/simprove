@@ -15,11 +15,8 @@ type RecentActivityWidgetProps = {
 const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = (props) => {
   const { data, isLoading } = useActivities(props.userId);
   const router = useRouter();
-
-  // console.log(data)
+  
   const { latestThreeActivities = [] } = data || {};
-
-  console.log(data)
 
   return (
     <div className={styles.widget}>
