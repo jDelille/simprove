@@ -13,17 +13,16 @@ import {
 import { calculateProfileStats } from "@/lib/profile-stats/ProfileStats";
 import { useSessions } from "@/hooks/useSessions";
 import { calculateTrend, formatTrend, groupByMonth } from "@/lib/stats/trends";
-import { get } from "http";
 import { getWeakestClubs } from "@/lib/stats/weakestClubs";
 
 const Dashboard = () => {
-  const { user } = useUser();
-  const { data: sessions = [] } = useSessions(user?.id || "");
+  const {profile } = useUser();
+  const { data: sessions = [] } = useSessions(profile?.id || "");
 
   const shots = sessions.flatMap((session) => session.shots);
 
   const profileMetrics = calculateProfileStats({
-    userId: user?.id,
+    userId: profile?.id,
     shots,
     sessionLength: sessions.length,
   });
@@ -115,7 +114,7 @@ const Dashboard = () => {
         </div>
 
         <div className={styles.row}>
-          <AveragesGraphWidget userId={user?.id || ""} />
+          <AveragesGraphWidget userId={profile?.id || ""} />
         </div>
 
         <div className={styles.row}>
@@ -127,7 +126,7 @@ const Dashboard = () => {
       {/* right side */}
       <div className={styles.column}>
         <div className={styles.row}>
-          <RecentActivityWidget userId={user?.id} />
+          <RecentActivityWidget userId={profile?.id} />
         </div>
 
         <div className={styles.row}>

@@ -5,7 +5,11 @@ import { supabase } from "@/lib/supabase/client";
 
 export const useUser = () => {
   const [user, setUser] = useState<any>(null);
-  const [profile, setProfile] = useState<any>(null);
+  const [profile, setProfile] = useState<any>(() => {
+    if (typeof window === "undefined") return null;
+    const cached = localStorage.getItem("profile");
+    return cached ? JSON.parse(cached) : null;
+  });
   const [loading, setLoading] = useState(true);
 
   const fetchProfile = async (userId: string) => {
@@ -17,6 +21,7 @@ export const useUser = () => {
 
     if (!error && data) {
       setProfile(data);
+      localStorage.setItem("profile", JSON.stringify(data));
     }
   };
 
@@ -45,6 +50,7 @@ export const useUser = () => {
           await fetchProfile(authUser.id);
         } else {
           setProfile(null);
+          localStorage.removeItem("profile");
         }
 
         setLoading(false);

@@ -65,5 +65,5 @@ export function getDeviationColor(deviation: number) {
   if (deviation <= 5) return "#4caf50"; // green
   if (deviation <= 10) return "#ffeb3b"; // yellow
   if (deviation <= 20) return "var(--secondaryAccent)"; // orange
-  return "var(--lightgray)"; // red
+  return "var(--dangerText)"; // red
 }
