@@ -3,7 +3,7 @@
 import { supabase } from "@/lib/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 
-export const useSessions = (userId: string) => {
+export const useSessions = (userId: string | null) => {
   return useQuery({
     queryKey: ["sessions", userId],
 

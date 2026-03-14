@@ -9,18 +9,18 @@ import { useParams } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
 import { useRouter } from "next/navigation";
 
-type ProfileHeaderProps = {};
+type ProfileHeaderProps = {
+  userId: string;
+};
 
-const ProfileHeader: React.FC<ProfileHeaderProps> = () => {
+const ProfileHeader: React.FC<ProfileHeaderProps> = ({userId}) => {
   const { id } = useParams();
-  const { user, profile} = useUser();
+  const { profile } = useUser();
   const router = useRouter();
 
   const [selectedTab, setSelectedTab] = useState("Overview");
 
-  const isUserProfile = id === profile?.id;
-
-  console.log(profile)
+  const isUserProfile = id === userId;
 
   const followers = [
     { name: "Alice", color: "#49de80" },

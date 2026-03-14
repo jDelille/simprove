@@ -1,6 +1,5 @@
 "use client";
 
-import { useUser } from "@/hooks/useUser";
 import styles from "./Dashboard.module.scss";
 import {
   AveragesGraphWidget,
@@ -11,26 +10,25 @@ import {
   WeakestConsistencyWidget,
 } from "../widgets";
 import { calculateProfileStats } from "@/lib/profile-stats/ProfileStats";
-import { useSessions } from "@/hooks/useSessions";
 import { calculateTrend, formatTrend, groupByMonth } from "@/lib/stats/trends";
 import { getWeakestClubs } from "@/lib/stats/weakestClubs";
 
-const Dashboard = () => {
-  const {profile } = useUser();
-  const { data: sessions = [] } = useSessions(profile?.id || "");
+type DashboardProps = {
+  sessions: any[];
+  userId: string;
+};
 
+const Dashboard = ({ sessions, userId }: DashboardProps) => {
   const shots = sessions.flatMap((session) => session.shots);
 
   const profileMetrics = calculateProfileStats({
-    userId: profile?.id,
+    userId: userId,
     shots,
     sessionLength: sessions.length,
   });
 
   const groupedSessions = groupByMonth(sessions);
   const groupedShots = groupByMonth(shots);
-
-  console.log(sessions);
 
   const currentMonthKey = new Date().toLocaleString("default", {
     month: "short",
@@ -69,8 +67,6 @@ const Dashboard = () => {
   const { text: carryTrendText, color: carryTrendColor } = formatTrend(carryTrend);
 
   const weakestClubs = getWeakestClubs(shots);
-
-  console.log(weakestClubs)
 
   return (
     <div className={styles.dashboard}>
@@ -114,7 +110,7 @@ const Dashboard = () => {
         </div>
 
         <div className={styles.row}>
-          <AveragesGraphWidget userId={profile?.id || ""} />
+          <AveragesGraphWidget userId={userId} />
         </div>
 
         <div className={styles.row}>
@@ -126,7 +122,7 @@ const Dashboard = () => {
       {/* right side */}
       <div className={styles.column}>
         <div className={styles.row}>
-          <RecentActivityWidget userId={profile?.id} />
+          <RecentActivityWidget userId={userId} />
         </div>
 
         <div className={styles.row}>

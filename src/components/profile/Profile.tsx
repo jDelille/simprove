@@ -3,14 +3,14 @@
 import React from "react";
 import styles from "./Profile.module.scss";
 import { AveragesGraphWidget, RecentActivityWidget } from "../widgets";
-import { useUser } from "@/hooks/useUser";
 import LifetimeStatsWidget from "../widgets/lifetime-stats-widget/LifetimeStatsWidget";
 import TopClubsWidget from "../widgets/top-clubs-widget/TopClubsWidget";
 
-type ProfileProps = {};
-const Profile: React.FC<ProfileProps> = () => {
-  const { user } = useUser();
+type ProfileProps = {
+  userId: string;
+};
 
+const Profile: React.FC<ProfileProps> = ({userId}) => {
   return (
     <div className={styles.profile}>
       <div className={styles.profileContent}>
@@ -20,13 +20,13 @@ const Profile: React.FC<ProfileProps> = () => {
               <LifetimeStatsWidget />
             </div>
             <div className={styles.row}>
-              <AveragesGraphWidget userId={user?.id || ""} />
+              <AveragesGraphWidget userId={userId} />
             </div>
             <div className={styles.row}></div>
           </div>
           <div className={styles.column}>
             <div className={styles.row}>
-              <RecentActivityWidget userId={user?.id || ""} />
+              <RecentActivityWidget userId={userId} />
             </div>
             <div className={styles.row}>
               <TopClubsWidget />
