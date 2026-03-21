@@ -5,18 +5,19 @@
 
 @mixin widgetHeader {
   padding-bottom: 0.75rem;
-  font-size: 13px;
-  color: var(--lightgray);
+  font-size: 14px;
+  color: var(--text);
   display: flex;
   flex-direction: column;
   gap: 10px;
+  font-weight: 500;
 }
 
 @mixin widget {
   flex: 1;
   border: 1px solid var(--border);
   height: fit-content;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 1rem;
   background-color: var(--bg);
   position: relative;

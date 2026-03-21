@@ -7,11 +7,11 @@ import {
   MissTendencyWidget,
   RecentActivityWidget,
   SmallStatWidget,
-  WeakestConsistencyWidget,
 } from "../widgets";
 import { calculateProfileStats } from "@/lib/profile-stats/ProfileStats";
 import { calculateTrend, formatTrend, groupByMonth } from "@/lib/stats/trends";
 import { getWeakestClubs } from "@/lib/stats/weakestClubs";
+import SwingMetricsWidget from "../widgets/swing-metrics-widget/SwingMetricsWidget";
 
 type DashboardProps = {
   sessions: any[];
@@ -114,7 +114,7 @@ const Dashboard = ({ sessions, userId }: DashboardProps) => {
         </div>
 
         <div className={styles.row}>
-          <WeakestConsistencyWidget shots={shots}/>
+          <SwingMetricsWidget />
           <MissTendencyWidget />
         </div>
       </div>

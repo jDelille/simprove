@@ -5,6 +5,9 @@
   max-height: 332px;
   .header {
     @include widgetHeader();
+    padding-bottom: 0.5rem;
+    color: var(--lightgray);
+    font-size: 12px;
   }
 
   .body {
@@ -30,6 +33,6 @@
     font-size: 12px;
     gap: 5px;
     color: var(--accent);
-    padding-top: 0.75rem;
+    padding-top: 0.5rem;
   }
 }
