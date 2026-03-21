@@ -15,7 +15,7 @@ html.light {
   --border: #ebeef4;
   --lightgray: #4a5565;
   --dividerColor: lightgray;
-  --accent: #2abb7f;
+  --accent: var(--chartBlue);
   --secondaryAccent: #4b3bff;
   --chartRowColor: #f5f7fa;
   --good: #e5f4ea;
@@ -33,6 +33,43 @@ html.light {
   --dangerBorder: #fecaca;
   --dangerText: #ef4444;
   --chartControlsBG: #ebeef5;
+  --lightPurple: #f4f2ff;
+  --purple: #7e3eed;
+  --purpleBorder: #ddd6fe;
+
+  // green
+  --green: #dcfce7;
+  --greenText: #16a34a;
+  --greenBorder: #bbf7d0;
+
+  // yellow 
+  --lightYellow: #fef9c3;
+  --yellowText: #ca8a04;
+  --yellowBorder: #fde68a;
+
+  // blue 
+  --lightBlue: #eff6ff;
+  --blueText: #2563eb;
+  --blueBorder: #bfdbfe;
+
+  // gray 
+  --gray: #f3f4f6;
+  --grayText: #9ca3af;
+  --grayBorder: #e5e7eb;
+  
+
+  // chart colors
+  --chartBlue: #378bde;
+  --chartBlueDark: #195fa6;
+  --chartBlueLight: #b5d5f5;
+
+  // swingMetricColors
+  --metricBadBG: #fef0f0;
+  --metricBadText: #e05252;
+  --metricOkayBG: #fef6ea;
+  --metricOkayText: #d4921b;
+  --metricGoodBG: #edfaf3;
+  --metricGoodText: #18a96b;
 }
 
 html.dark {
@@ -43,7 +80,7 @@ html.dark {
   --border: #1e2428;
   --lightgray: #8a9490;
   --dividerColor: #364153;
-  --accent: #2abb7f;
+  --accent: var(--chartBlue);
   --secondaryAccent: #9b94f1;
   --chartRowColor: #232a2f;
   --good: #194a4f;
@@ -57,10 +94,27 @@ html.dark {
   --popupBg: #0f1214;
   --yellow: #facd39;
   --activeCellBG: #194a4f;
-  --dangerBg: #2A1515;
-  --dangerBorder: #5C2323;
-  --dangerText: #F87171;
+  --dangerBg: #2a1515;
+  --dangerBorder: #5c2323;
+  --dangerText: #f87171;
   --chartControlsBG: #0f1214;
+
+  --lightPurple: #f4f2ff;
+  --purple: #7e3eed;
+  --purpleBorder: #ddd6fe;
+
+  // chart colors
+  --chartBlue: #378bde;
+  --chartBlueDark: #195fa6;
+  --chartBlueLight: #b5d5f5;
+
+  // swingMetric Colors
+  --metricBadBG: #2d1212;
+  --metricBadText: #f87171;
+  --metricOkayBG: #2d1f08;
+  --metricOkayText: #fbbf24;
+  --metricGoodBG: #0d2a1a;
+  --metricGoodText: #34d399;
 }
 
 body {

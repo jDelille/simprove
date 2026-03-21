@@ -114,8 +114,8 @@ const Dashboard = ({ sessions, userId }: DashboardProps) => {
         </div>
 
         <div className={styles.row}>
-          <SwingMetricsWidget />
-          <MissTendencyWidget />
+          <SwingMetricsWidget shots={shots} />
+          <MissTendencyWidget shots={shots}/>
         </div>
       </div>
 

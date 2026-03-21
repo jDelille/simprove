@@ -1,0 +1,43 @@
+.recommendedPlans {
+  width: 100%;
+  height: fit-content;
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: var(--lightPurple);
+  border: 1px solid var(--purpleBorder);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 50px;
+    .icon {
+      font-size: 18px;
+    }
+    .headerText {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--purple);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      span {
+        color: var(--lightgray);
+        font-size: 12px;
+        font-weight: 400;
+      }
+    }
+  }
+  
+  .plans {
+    margin: 1rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    position: relative;
+    height: 100%;
+    height: 250px;
+  }
+}

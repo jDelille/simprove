@@ -60,7 +60,7 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
     const seriesData = clubStatsArray.map((s) => ({
       name: s.club,
       y: s[selectedMetric] || 0,
-      color: "var(--chartGreen)",
+      color: "var(--chartBlue)",
     }));
 
     return {

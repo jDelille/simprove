@@ -30,7 +30,7 @@ const SmallStatWidget: React.FC<SmallStatWidgetProps> = (props) => {
         {props.trend === "none" && (
           <FaMinus className={styles.neutral} color={props.trendColor} />
         )}
-        <p style={{ color: props.trendColor }}>{percent} <span style={{color: "var(--lightgray)"}}>{changeText}</span></p>
+        <p style={{ color: props.trendColor }} className={styles.percent}>{percent} <span style={{color: "var(--lightgray)", fontWeight: 400}}>{changeText}</span></p>
       </div>
     </div>
   );

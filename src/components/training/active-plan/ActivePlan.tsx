@@ -7,9 +7,6 @@ type ActivePlanProps = {
 }
 
 const ActivePlan: React.FC<ActivePlanProps> = ({ lesson }) => {
-
-    console.log(lesson);
-
   return (
     <div className={styles.activePlan}>
       <div className={styles.badges}>
@@ -22,7 +19,7 @@ const ActivePlan: React.FC<ActivePlanProps> = ({ lesson }) => {
       </div>
 
       <div className={styles.duration}>
-        <p>Week</p>
+        <p>Week 2 of {lesson?.weeks}</p>
       </div>
     </div>
   )

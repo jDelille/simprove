@@ -41,7 +41,7 @@
 }
 
 .upload {
-  background-color: var(--yellow);
+  background-color: #f7d052;
   padding: 7px 12px;
   color: #000;
   font-size: 12px;
@@ -60,4 +60,17 @@
   background-color: transparent;
   color: #ef4444;
   border: 1.5px solid #fecaca;
+}
+
+.lessonCard {
+  background-color: transparent;
+  color: #16a34a;
+  border: 1px solid #16a34a;
+  font-size: 12.5px;
+  border-radius: 6px;
+
+  &:hover {
+    background-color:#16a34a;
+    color: var(--bg);
+  }
 }

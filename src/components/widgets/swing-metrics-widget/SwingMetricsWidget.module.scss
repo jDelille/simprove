@@ -28,6 +28,9 @@
         border: 1px solid var(--border);
         cursor: pointer;
       }
+      .selected {
+        color: var(--text);
+      }
     }
 
     .clubDetails {
@@ -42,36 +45,6 @@
 
           &:nth-last-child(1) {
             border-bottom: none;
-          }
-
-          &:nth-child(1) {
-            .value {
-              color: #e05252;
-              .valueLabel {
-                background: #fef0f0;
-                color: #e05252;
-              }
-            }
-          }
-
-          &:nth-child(2) {
-            .value {
-              color: #d4921b;
-              .valueLabel {
-                background: #fef6ea;
-                color: #d4921b;
-              }
-            }
-          }
-
-          &:nth-child(3) {
-            .value {
-              color: #18a96b;
-              .valueLabel {
-                background: #edfaf3;
-                color: #18a96b;
-              }
-            }
           }
 
           .metric {

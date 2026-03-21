@@ -6,19 +6,24 @@
 
   .header {
     @include widgetHeader();
+
+    span {
+      color: var(--lightgray);
+      font-size: 12px;
+    }
   }
 
   .clubs {
     display: flex;
-    flex-direction: row;
-    gap: 10px;
-    padding-bottom: 0.5rem;
+    align-items: center;
+    gap: 0.5rem;
     li {
-      width: fit-content;
       background-color: var(--bg3);
-      padding: 5px 10px;
-      border-radius: 22px;
+      padding: 4px 10px;
+      border-radius: 6px;
       font-size: 12px;
+      font-weight: 500;
+      color: var(--lightgray);
       border: 1px solid var(--border);
       cursor: pointer;
     }
@@ -28,12 +33,13 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 15px;
     .missLine {
       width: 100%;
-      height: 10px;
-      background-color: var(--border);
+      height: 7px;
+      background-color: var(--chartBlueLight);
       border-radius: 22px;
+      position: relative;
     }
     .labels {
       display: flex;
@@ -77,11 +83,19 @@
 
   .message {
     width: 100%;
-      background-color: var(--lightBg);
     border-radius: 6px;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 21px;
-    padding: 10px;
-    border: 1px solid var(--border);
+    position: relative;
+    padding-left: 10px;
+    &::before {
+      position: absolute;
+      content: "";
+      display: block;
+      width: 3px;
+      height: 100%;
+      background-color: var(--chartBlueLight);
+      left: 0;
+    }
   }
 }

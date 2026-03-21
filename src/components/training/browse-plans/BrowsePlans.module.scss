@@ -1,0 +1,19 @@
+.browsePlans {
+  width: 100%;
+  height: fit-content;
+  border-radius: 12px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+
+  .plans {
+    margin: 1rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(436.66px, 1fr));
+    gap: 1rem;
+    position: relative;
+    height: 100%;
+
+  }
+}
