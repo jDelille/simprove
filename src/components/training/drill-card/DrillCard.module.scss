@@ -1,0 +1,85 @@
+.drillCard {
+  width: 100%;
+  background-color: var(--chartRowColor);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  //   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--lightgray);
+
+  .drillInfo {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 1rem;
+
+    .weekNumber {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      margin-right: 1rem;
+      font-weight: 400;
+    }
+
+    .currentArrow {
+      font-size: 11px;
+      color: var(--greenText);
+      font-weight: 600;
+      margin-left: 0.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .points {
+      margin-left: auto;
+      color: var(--lightgray);
+      font-weight: 500;
+      font-size: 13px;
+    }
+  }
+
+  .drillDetails {
+    background-color: transparent;
+    border-top: 1px solid var(--greenBorder);
+    padding: 1rem;
+
+    .drillDescription {
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      .circle {
+        background-color: white;
+        border: 1px solid var(--border);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+      }
+
+      .points {
+        background-color: var(--lightYellow);
+        color: var(--yellowText);
+        border: 1px solid var(--yellowBorder);
+        margin-left: auto;
+        padding: 5px 10px;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+.current {
+  background-color: var(--green);
+  color: var(--greenText);
+  border: 1px solid var(--greenBorder);
+}

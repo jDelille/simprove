@@ -1,12 +1,28 @@
-import React from 'react'
-import styles from "./ActivePlan.module.scss"
-import { Lesson } from '@/types/lesson'
+"use client";
+
+import React, { useState } from "react";
+import styles from "./ActivePlan.module.scss";
+import { Lesson } from "@/types/lesson";
+import { useLessonDrills } from "@/hooks/useLessonDrills";
+import DrillCard from "../drill-card/DrillCard";
 
 type ActivePlanProps = {
-    lesson: Lesson
-}
+  lesson: Lesson;
+};
 
 const ActivePlan: React.FC<ActivePlanProps> = ({ lesson }) => {
+  const {
+    data: lessonDrills,
+    isLoading: drillsLoading,
+    error: drillsError,
+  } = useLessonDrills(lesson?.id);
+  console.log("drills:", lessonDrills);
+
+  if (drillsLoading)
+    return <div className={styles.activePlan}>Loading drills...</div>;
+  if (drillsError)
+    return <div className={styles.activePlan}>Failed to load drills</div>;
+
   return (
     <div className={styles.activePlan}>
       <div className={styles.badges}>
@@ -19,10 +35,16 @@ const ActivePlan: React.FC<ActivePlanProps> = ({ lesson }) => {
       </div>
 
       <div className={styles.duration}>
-        <p>Week 2 of {lesson?.weeks}</p>
+        <p>Week 1 of {lesson?.weeks}</p>
+      </div>
+
+      <div className={styles.drills}>
+        {lessonDrills?.map((drill) => (
+          <DrillCard key={drill.id} drill={drill} />
+        ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ActivePlan
+export default ActivePlan;

@@ -18,6 +18,8 @@ const Training = () => {
     return acc;
   }, []);
 
+  const activePlan = lessonPlans?.find((p) => p.status === "active") ?? null;
+
   return (
     <div className={styles.training}>
       <div className={styles.pageHeader}>
@@ -32,7 +34,11 @@ const Training = () => {
 
       <div className={styles.row}>
         <h2 className={styles.sectionName}>Your Active Plan</h2>
-        <ActivePlan lesson={lessonPlans?.[0]} />
+        {activePlan ? (
+          <ActivePlan lesson={activePlan} />
+        ) : (
+          <p>No active plan — pick one below to get started.</p>
+        )}
       </div>
       <div className={styles.row}>
         <h2 className={styles.sectionName}>Browse Plans</h2>
