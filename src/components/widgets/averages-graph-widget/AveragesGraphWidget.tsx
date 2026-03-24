@@ -6,6 +6,8 @@ import Highcharts from "highcharts";
 import styles from "./AveragesGraphWidget.module.scss";
 import { getClubAverages } from "@/lib/shots/averages";
 import { useSessions } from "@/hooks/useSessions";
+import Button from "@/components/button/Button";
+import { FaChartBar } from "react-icons/fa";
 
 type AveragesGraphWidgetProps = {
   userId: string;
@@ -18,6 +20,8 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
 }) => {
   const [selectedMetric, setSelectedMetric] = useState<MetricKey>("avgCarry");
   const { data: sessions = [], isLoading } = useSessions(userId);
+
+  const isEmpty = sessions.length === 0;
 
   const clubOrder = [
     "SW",
@@ -193,7 +197,18 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
           ))}
         </div>
       </div>
-      <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+      {!isEmpty ? (
+        <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+      ) : (
+        <div className={styles.emptyState}>
+          <div className={styles.emptyStateIcon}>
+            <FaChartBar size={40} color="var(--lightgray)"/>
+          </div>
+          <p>No shots tracked yet</p>
+          <p className={styles.msg}>Your {selectedMetric} by club will chart here once you upload a session with shot data.</p>
+          <Button children="Upload a session" variant="lessonCard"/>
+        </div>
+      )}
     </div>
   );
 };
