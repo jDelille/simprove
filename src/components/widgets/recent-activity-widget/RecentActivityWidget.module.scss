@@ -6,6 +6,25 @@
   .header {
     @include widgetHeader();
   }
+
+  .empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    p {
+      text-align: center;
+      color: var(--lightgray);
+      line-height: 21px;
+      font-size: 12px;
+    }
+    .icon {
+      p {
+        font-size: 22px;
+        filter: grayscale(20%) opacity(40%);
+      }
+    }
+  }
   ul {
     display: flex;
     flex-direction: column;
