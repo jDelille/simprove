@@ -43,7 +43,8 @@ const Dashboard = ({ sessions, userId }: DashboardProps) => {
   const sessionsLastMonth = groupedSessions[lastMonthKey]?.sessions.length || 0;
 
   const sessionsTrend = calculateTrend(sessionsThisMonth, sessionsLastMonth);
-  const {text: sessionsTrendText, color: sessionsTrendColor} = formatTrend(sessionsTrend);
+  const { text: sessionsTrendText, color: sessionsTrendColor } =
+    formatTrend(sessionsTrend);
 
   const shotsThisMonth = groupedShots[currentMonthKey]?.sessions.length || 0;
   const shotsLastMonth = groupedShots[lastMonthKey]?.sessions.length || 0;
@@ -64,7 +65,8 @@ const Dashboard = ({ sessions, userId }: DashboardProps) => {
   );
 
   const carryTrend = calculateTrend(longestThisMonth, longestLastMonth);
-  const { text: carryTrendText, color: carryTrendColor } = formatTrend(carryTrend);
+  const { text: carryTrendText, color: carryTrendColor } =
+    formatTrend(carryTrend);
 
   const weakestClubs = getWeakestClubs(shots);
 
@@ -80,6 +82,7 @@ const Dashboard = ({ sessions, userId }: DashboardProps) => {
             trend={shotsTrend.direction}
             trendText={shotsTrendText}
             trendColor={shotsTrendColor}
+            isEmpty={sessions.length === 0}
           />
 
           <SmallStatWidget
@@ -89,6 +92,7 @@ const Dashboard = ({ sessions, userId }: DashboardProps) => {
             trend={sessionsTrend.direction}
             trendText={sessionsTrendText}
             trendColor={sessionsTrendColor}
+            isEmpty={sessions.length === 0}
           />
 
           <SmallStatWidget
@@ -98,6 +102,7 @@ const Dashboard = ({ sessions, userId }: DashboardProps) => {
             trend={carryTrend.direction}
             trendText={carryTrendText}
             trendColor={carryTrendColor}
+            isEmpty={sessions.length === 0}
           />
 
           <SmallStatWidget
@@ -106,6 +111,7 @@ const Dashboard = ({ sessions, userId }: DashboardProps) => {
             metric=""
             trend={null}
             trendText={`${profileMetrics.mostUsedClubCount || 0} total shots`}
+            isEmpty={sessions.length === 0}
           />
         </div>
 
@@ -115,7 +121,7 @@ const Dashboard = ({ sessions, userId }: DashboardProps) => {
 
         <div className={styles.row}>
           <SwingMetricsWidget shots={shots} />
-          <MissTendencyWidget shots={shots}/>
+          <MissTendencyWidget shots={shots} />
         </div>
       </div>
 

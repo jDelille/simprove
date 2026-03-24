@@ -3,6 +3,7 @@
 .widget {
   @include widget();
   max-height: 332px;
+  min-height: 116px;
   .header {
     @include widgetHeader();
     padding-bottom: 0.5rem;
@@ -27,16 +28,22 @@
     }
   }
 
-  .change {
+  .change,
+  .empty {
     display: flex;
     align-items: center;
     font-size: 12px;
     gap: 5px;
     color: var(--accent);
     padding-top: 0.5rem;
-    
+
     .percent {
       font-weight: 500;
     }
+  }
+
+  .empty {
+    margin-top: 1rem;
+    color: var(--lightgray);
   }
 }
