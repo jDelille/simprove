@@ -53,8 +53,6 @@ const Session = () => {
     }));
   }, [filteredShots]);
 
-  console.log(tableData)
-
   return (
     <div className={styles.session}>
       <div className={styles.pageHeader}>

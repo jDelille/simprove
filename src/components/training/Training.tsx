@@ -9,8 +9,6 @@ import BrowsePlans from "./browse-plans/BrowsePlans";
 const Training = () => {
   const { data: lessonPlans } = useLessonPlans();
 
-  console.log("lessonPlans", lessonPlans);
-
   const recommendedPlans = lessonPlans?.reduce((acc: any[], plan) => {
     if (plan.is_ai_recommended) {
       acc.push(plan);

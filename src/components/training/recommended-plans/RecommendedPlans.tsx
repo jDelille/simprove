@@ -6,7 +6,6 @@ type RecommendedPlansProps = {
 };
 
 const RecommendedPlans: React.FC<RecommendedPlansProps> = ({ plans }) => {
-  console.log("Recommended plans", plans);
   return (
     <div className={styles.recommendedPlans}>
       <div className={styles.header}>

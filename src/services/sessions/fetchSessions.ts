@@ -10,8 +10,6 @@ export const fetchSessions = async (userId: string, supabaseClient: SupabaseClie
 
   if (error) throw new Error("Failed to fetch sessions");
 
-  console.log(sessionRows)
-
   const sessionsWithData = await Promise.all(
     sessionRows.map(async (row) => {
       if (!row.storage_path) return row;

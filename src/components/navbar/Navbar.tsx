@@ -57,8 +57,6 @@ const Navbar = () => {
   const hiddenPaths = ["/auth/login", "/auth/signup"];
   if (hiddenPaths.includes(pathname)) return null;
 
-  console.log(pathname);
-
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbarContent}>

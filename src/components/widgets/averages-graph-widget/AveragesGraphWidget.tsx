@@ -19,9 +19,6 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
   const [selectedMetric, setSelectedMetric] = useState<MetricKey>("avgCarry");
   const { data: sessions = [], isLoading } = useSessions(userId);
 
-  console.log(sessions)
-
-
   const clubOrder = [
     "SW",
     "PW",

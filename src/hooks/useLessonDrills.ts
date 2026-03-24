@@ -4,7 +4,6 @@ import { supabase } from "@/lib/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 
 export const useLessonDrills = (lessonId: string) => {
-    console.log(lessonId)
   return useQuery({
     queryKey: ["lessonDrills", lessonId],
 

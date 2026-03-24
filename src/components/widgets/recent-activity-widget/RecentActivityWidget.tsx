@@ -34,7 +34,7 @@ const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = (props) => {
               <div className={styles.activity} onClick={() => router.push(`/session/${activity.entity_id}`)}>
                 <div
                   className={styles.icon}
-                  style={{ backgroundColor: "#E5F4EA" }}
+                  style={{ backgroundColor: "var(--green)", border: "1px solid var(--greenBorder)" }}
                 >
                   <MdOutlineFileUpload color="#2aaa55" size={20} />
                 </div>

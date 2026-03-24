@@ -14,8 +14,6 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, averages, index }) =
 
   const router = useRouter();
 
-  console.log(averages);
-
   return (
     <div
       className={styles.sessionCard}

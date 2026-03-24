@@ -61,8 +61,6 @@ const Sessions = () => {
 
   const sessionArray = Object.values(groupedByMonth);
 
-  console.log(sessionArray);
-
   return (
     <div className={styles.sessions}>
       <div className={styles.pageHeader}>

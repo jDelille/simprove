@@ -3,10 +3,23 @@
 import React from "react";
 import styles from "./LessonPlanWidget.module.scss";
 import Link from "next/link";
+import { useActiveLessonPlan } from "@/hooks/useActiveLessonPlan";
+import { useLessonDrills } from "@/hooks/useLessonDrills";
 
 type LessonPlanWidgetProps = {};
 
 const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = () => {
+
+  const {data: activeLessonPlan, isLoading, error} = useActiveLessonPlan();
+
+  console.log(activeLessonPlan);
+
+   const {
+      data: lessonDrills,
+      isLoading: drillsLoading,
+      error: drillsError,
+    } = useLessonDrills(activeLessonPlan?.[0].id);
+
   return (
     <div className={styles.widget}>
         <div className={styles.header}>
@@ -23,23 +36,15 @@ const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = () => {
           <li>
             <div className={styles.lesson}>
               <div className={styles.title}>
-                <h3>Iron consistency</h3>
+                <h3>{activeLessonPlan?.[0].lesson_name}</h3>
               </div>
               <div className={styles.description}>
-                Practice hitting irons within a 10 yard range
+                {activeLessonPlan?.[0].lesson_description}
               </div>
               <div className={styles.drills}>
                 <div className={styles.drill}>
                   <div className={styles.circle}></div>
-                  <p>Hit 10 shots with a (weakest club)</p>
-                </div>
-                <div className={styles.drill}>
-                  <div className={styles.circle}></div>
-                  <p>Hit 15 shots with a (weakest club)</p>
-                </div>
-                <div className={styles.drill}>
-                  <div className={styles.circle}></div>
-                  <p>Hit 10 shots with a (weakest club)</p>
+                  <p>{lessonDrills?.[0].drill_description}</p>
                 </div>
               </div>
               <div className={styles.lessonInfo}>

@@ -16,7 +16,6 @@ const ActivePlan: React.FC<ActivePlanProps> = ({ lesson }) => {
     isLoading: drillsLoading,
     error: drillsError,
   } = useLessonDrills(lesson?.id);
-  console.log("drills:", lessonDrills);
 
   if (drillsLoading)
     return <div className={styles.activePlan}>Loading drills...</div>;
