@@ -16,6 +16,7 @@ import Button from "../button/Button";
 import { useState } from "react";
 import UserMenu from "../user-menu/UserMenu";
 import Avatar from "../avatar/Avatar";
+import { FaChevronDown } from "react-icons/fa6";
 
 type AuthAction = "login" | "signup" | "logout";
 
@@ -121,8 +122,16 @@ const Navbar = () => {
                 <div
                   className={styles.userAvatar}
                   onClick={() => setOpenMenu(!openMenu)}
+                  style={
+                    openMenu
+                      ? {
+                          outline: "1px solid var(--border)",
+                        }
+                      : undefined
+                  }
                 >
                   <Avatar src={profile?.avatar_path} />
+                  <FaChevronDown size={16} color="var(--lightgray)" />
                 </div>
 
                 {openMenu && (

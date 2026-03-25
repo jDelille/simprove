@@ -1,13 +1,15 @@
 .menu {
   background-color: var(--bg);
-  border: 1px solid var(--border);
+  outline: 1px solid var(--border);
   border-radius: 4px;
   position: absolute;
-  right: 0rem;
-  top: 55px;
+  right: 0px;
+  top: 61px;
   width: 170px;
   height: fit-content;
   z-index: 999;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
 
   ul {
     font-size: 14px;

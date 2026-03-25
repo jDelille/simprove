@@ -131,13 +131,14 @@ const Dashboard = ({ sessions, userId }: DashboardProps) => {
         <div className={styles.row}>
           <RecentActivityWidget userId={userId} />
         </div>
+                <div className={styles.row}>
+          <GettingStartedWidget />
+        </div>
 
         <div className={styles.row}>
           <LessonPlanWidget userId={userId} />
         </div>
-        <div className={styles.row}>
-          <GettingStartedWidget />
-        </div>
+
       </div>
     </div>
   );

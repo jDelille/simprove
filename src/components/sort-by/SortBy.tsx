@@ -7,6 +7,7 @@ type SortByProps = {
   setSortField?: (field: "date" | "shots") => void;
   sortOrder?: "asc" | "desc";
   setSortOrder?: (order: "asc" | "desc") => void;
+  isEmpty: boolean;
 };
 
 const SortBy: React.FC<SortByProps> = ({
@@ -15,6 +16,7 @@ const SortBy: React.FC<SortByProps> = ({
   setSortField,
   sortOrder,
   setSortOrder,
+  isEmpty
 }) => {
   const handleClick = (option: string) => {
     const field = option === "Date" ? "date" : option === "Shot count" ? "shots" : "date";
@@ -42,7 +44,8 @@ const SortBy: React.FC<SortByProps> = ({
               <li
                 key={index}
                 className={isActive ? styles.active : ""}
-                onClick={() => handleClick(option)}
+                onClick={isEmpty ? undefined : () => handleClick(option)}
+                style={isEmpty ? {cursor: "default", color: "var(--lightgray)"} : {cursor: "pointer"}}
               >
                 {option}{" "}
                 {isActive ? (

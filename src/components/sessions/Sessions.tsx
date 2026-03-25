@@ -9,6 +9,7 @@ import SessionCard from "../session-card/SessionCard";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { calculateAverages } from "@/lib/shots/averages";
+import Button from "../button/Button";
 
 type SessionGroup = {
   date: string;
@@ -23,6 +24,7 @@ const Sessions = () => {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [sortField, setSortField] = useState<"date" | "shots">("date");
   const router = useRouter();
+  const isEmpty = sessions.length === 0;
 
   const sortedSessions = [...sessions].sort((a, b) => {
     if (sortField === "date") {
@@ -66,9 +68,14 @@ const Sessions = () => {
       <div className={styles.pageHeader}>
         <div className={styles.title}>
           <h1>Sessions</h1>
-          <p>
-            {sessions.length || 0} Sessions - {totalNumberOfShots} shots tracked
-          </p>
+          {sessions.length > 0 ? (
+            <p>
+              {sessions.length || 0} Sessions - {totalNumberOfShots} shots
+              tracked
+            </p>
+          ) : (
+            <p>No sessions tracked yet</p>
+          )}
         </div>
       </div>
       <SortBy
@@ -77,28 +84,63 @@ const Sessions = () => {
         setSortField={setSortField}
         sortOrder={sortOrder}
         setSortOrder={setSortOrder}
+        isEmpty={isEmpty}
       />
 
       <div className={styles.sessionListContainer}>
         <ul className={styles.labels}>
-          <li>Name</li>
+          <li style={isEmpty ? { color: "var(--lightgray)" } : undefined}>
+            Name
+          </li>
 
-          <div className={styles.statGroupLabels}>
+          <div
+            className={styles.statGroupLabels}
+            style={isEmpty ? { color: "var(--lightgray)" } : undefined}
+          >
             <li>Shots</li>
             <li>Max Carry</li>
             <li>Peak Ball Speed</li>
           </div>
         </ul>
-        <ul className={styles.sessionList}>
-          {sortedSessions.map((session: any, index: number) => {
-            const averages = calculateAverages(session.shots || []);
-            return (
-              <li key={session.id}>
-                <SessionCard session={session} averages={averages} index={index} />
-              </li>
-            );
-          })}
-        </ul>
+        {isEmpty && (
+          <div className={styles.noSessions}>
+            <h2>No sessions yet</h2>
+            <p>
+              Upload a session file from your launch monitor to start tracking
+              shots, trends, and performance for your clubs.
+            </p>
+            <div className={styles.buttons}>
+              <Button children="Upload Session" variant="lessonCard" />
+              <Button children="See an example" variant="secondary" />
+            </div>
+            <div className={styles.tip}>
+              <p>
+                Tip:{" "}
+                <span>
+                  Sessions are imported as CSV exports from your launch monitor.
+                  Supported devices include Trackman, Foresight, Garmin
+                  Approach, and FlightScope.
+                </span>
+              </p>
+            </div>
+          </div>
+        )}
+        {!isEmpty && (
+          <ul className={styles.sessionList}>
+            {sortedSessions.map((session: any, index: number) => {
+              const averages = calculateAverages(session.shots || []);
+              return (
+                <li key={session.id}>
+                  <SessionCard
+                    session={session}
+                    averages={averages}
+                    index={index}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
     </div>
   );
