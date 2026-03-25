@@ -12,6 +12,7 @@ import { calculateProfileStats } from "@/lib/profile-stats/ProfileStats";
 import { calculateTrend, formatTrend, groupByMonth } from "@/lib/stats/trends";
 import { getWeakestClubs } from "@/lib/stats/weakestClubs";
 import SwingMetricsWidget from "../widgets/swing-metrics-widget/SwingMetricsWidget";
+import GettingStartedWidget from "../widgets/getting-started-widget/GettingStartedWidget";
 
 type DashboardProps = {
   sessions: any[];
@@ -132,7 +133,10 @@ const Dashboard = ({ sessions, userId }: DashboardProps) => {
         </div>
 
         <div className={styles.row}>
-          <LessonPlanWidget />
+          <LessonPlanWidget userId={userId} />
+        </div>
+        <div className={styles.row}>
+          <GettingStartedWidget />
         </div>
       </div>
     </div>

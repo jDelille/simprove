@@ -98,4 +98,15 @@
       left: 0;
     }
   }
+
+  .emptyMessage {
+    width: 100%;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 21px;
+    position: relative;
+    color: var(--lightgray);
+    padding-top: 0.75rem;
+    text-align: center;
+  }
 }

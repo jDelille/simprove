@@ -8,6 +8,9 @@ import { getClubAverages } from "@/lib/shots/averages";
 import { useSessions } from "@/hooks/useSessions";
 import Button from "@/components/button/Button";
 import { FaChartBar } from "react-icons/fa";
+import useModal from "@/hooks/useModal";
+import Modal from "@/components/modal/Modal";
+import UploadCsv from "@/components/upload-csv/UploadCsv";
 
 type AveragesGraphWidgetProps = {
   userId: string;
@@ -20,6 +23,7 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
 }) => {
   const [selectedMetric, setSelectedMetric] = useState<MetricKey>("avgCarry");
   const { data: sessions = [], isLoading } = useSessions(userId);
+  const { openModal, modals, closeModal } = useModal();
 
   const isEmpty = sessions.length === 0;
 
@@ -80,7 +84,7 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
         tickLength: 0,
         labels: {
           style: {
-            color: "var(--lightgray)", 
+            color: "var(--lightgray)",
             fontSize: "12px",
           },
         },
@@ -92,7 +96,7 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
         gridLineColor: "var(--border)",
         labels: {
           style: {
-            color: "var(--lightgray)", 
+            color: "var(--lightgray)",
             fontSize: "12px",
           },
         },
@@ -202,13 +206,29 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
       ) : (
         <div className={styles.emptyState}>
           <div className={styles.emptyStateIcon}>
-            <FaChartBar size={40} color="var(--lightgray)"/>
+            <FaChartBar size={40} color="var(--lightgray)" />
           </div>
           <p>No shots tracked yet</p>
-          <p className={styles.msg}>Your {selectedMetric} by club will chart here once you upload a session with shot data.</p>
-          <Button children="Upload a session" variant="lessonCard"/>
+          <p className={styles.msg}>
+            Your {selectedMetric} by club will chart here once you upload a
+            session with shot data.
+          </p>
+          <Button
+            children="Upload a session"
+            variant="lessonCard"
+            onClick={() => openModal("upload")}
+          />
         </div>
       )}
+
+      {/* Modals */}
+      <Modal
+        isOpen={modals["upload"] || false}
+        onClose={() => closeModal("upload")}
+        title="Upload Lauch Monitor Data"
+        body={<UploadCsv />}
+        description="Upload a CSV file file your launch monitor. (Trackman, FlightScope, Square Golf, etc.)"
+      />
     </div>
   );
 };

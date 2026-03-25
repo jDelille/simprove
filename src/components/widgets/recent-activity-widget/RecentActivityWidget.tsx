@@ -30,9 +30,9 @@ const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = (props) => {
 
       {isEmpty && !isLoading && (
         <div className={styles.empty}>
-          <div className={styles.icon}>
+          {/* <div className={styles.icon}>
             <p>⛳</p>
-          </div>
+          </div> */}
           <p>
             No activity yet
             <br />

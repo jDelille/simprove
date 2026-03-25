@@ -16,6 +16,8 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
 
   const clubs = ["DR", "W5", "I7", "PW", "SW"];
 
+  const isEmpty = shots.length === 0;
+
   const MAX_OFFLINE = 20;
   const clubShots = shots.filter((shot) => shot.club === selectedClub);
 
@@ -86,6 +88,7 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
             key={club}
             className={club === selectedClub ? styles.selected : ""}
             onClick={() => setSelectedClub(club)}
+            style={isEmpty ? {cursor: "default"} : undefined}
           >
             <p>{club}</p>
           </li>
@@ -102,14 +105,14 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
             <HiOutlineArrowNarrowRight />
           </p>
         </div>
-        <div className={styles.missLine}>
+        <div className={styles.missLine} style={isEmpty ? { background: "var(--lightgray)" } : undefined}>
           <div
             style={{
               position: "absolute",
               left: percent > 50 ? "50%" : `${percent}%`,
               width: `${Math.abs(percent - 50)}%`,
               height: "100%",
-              background: "#378bde",
+              background: isEmpty ? "var(--lightgray)" : "#378bde",
               borderRadius: 999,
             }}
           />
@@ -122,7 +125,7 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
               width: 14,
               height: 14,
               borderRadius: "50%",
-              background: "#195fa6",
+              background: isEmpty ? "var(--lightgray)" : "#195fa6",
               border: "2px solid var(--bg)",
             }}
           />
@@ -130,22 +133,26 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
       </div>
       <div className={styles.stats}>
         <div className={styles.stat}>
-          <h3>{avgOffline.toFixed(1)}</h3>
+          <h3 style={isEmpty ? { color: "var(--lightgray)" } : undefined}>
+            {isEmpty ? "—" : avgOffline.toFixed(1)}
+          </h3>
           <p>Offline (yds)</p>
         </div>
         <div className={styles.stat}>
-          <h3>{avgFace.toFixed(1)}°</h3>
+          <h3 style={isEmpty ? { color: "var(--lightgray)" } : undefined}>
+            {isEmpty ? "—" : `${avgFace.toFixed(1)}°`}
+          </h3>
           <p>Face to Target</p>
         </div>
         <div className={styles.stat}>
-          <h3>{swingPath.toFixed(1)}°</h3>
+          <h3 style={isEmpty ? { color: "var(--lightgray)" } : undefined}>
+            {isEmpty ? "—" : `${swingPath.toFixed(1)}°`}
+          </h3>
           <p>Swing Path</p>
         </div>
       </div>
-      <div className={styles.message}>
-        <p>
-          {getMissMessage(avgOffline, avgFace, swingPath)}
-        </p>
+      <div className={isEmpty ? styles.emptyMessage : styles.message}>
+        <p >{isEmpty ? "Your miss pattern analysis will appear here once you upload session data." : getMissMessage(avgOffline, avgFace, swingPath)}</p>
       </div>
     </div>
   );
