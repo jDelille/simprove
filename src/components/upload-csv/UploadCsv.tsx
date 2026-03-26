@@ -93,15 +93,6 @@ const UploadCsv = () => {
       if (!session?.id) {
         throw new Error("Session not created properly");
       }
-
-      await logActivity({
-        type: "SESSION_CREATED",
-        title: `Uploaded ${sessionName}`,
-        description: `${shots.length} shots`,
-        entityId: session?.id,
-        entityType: "session",
-        metadata: { sessionName },
-      });
     } catch (error) {
       console.error("Error uploading session:", error);
       throw error;
