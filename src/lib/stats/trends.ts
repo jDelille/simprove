@@ -43,8 +43,8 @@ export function groupByMonth<
       const dateStr =
         "sessionDate" in item
           ? item.sessionDate
-          : "session_date" in item
-            ? item.session_date
+          : "created_at" in item
+            ? item.created_at
             : undefined;
       if (!dateStr) return group;
 

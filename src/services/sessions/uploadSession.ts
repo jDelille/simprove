@@ -21,7 +21,7 @@ export async function uploadSession({
   userId,
   jsonString,
   sessionName,
-  sessionDate
+  sessionDate,
 }: UploadSessionProps): Promise<Session> {
   const filePath = `sessions/${userId}/${Date.now()}.json`;
 
@@ -85,6 +85,17 @@ export async function uploadSession({
       user_id: userId,
       badge_id: badge.id,
     });
+
+    const { error: stepError } = await supabase
+      .from("getting_started_completions")
+      .upsert(
+        { user_id: userId, step_id: 2 },
+        { onConflict: "user_id,step_id" },
+      );
+
+    if (stepError) {
+      console.error("Step completion error:", stepError);
+    }
 
     await logActivity({
       type: "BADGE_EARNED",

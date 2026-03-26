@@ -43,6 +43,9 @@ const Dashboard = ({ sessions, userId }: DashboardProps) => {
     groupedSessions[currentMonthKey]?.sessions.length || 0;
   const sessionsLastMonth = groupedSessions[lastMonthKey]?.sessions.length || 0;
 
+  console.log(currentMonthKey)
+  console.log(groupedSessions)
+
   const sessionsTrend = calculateTrend(sessionsThisMonth, sessionsLastMonth);
   const { text: sessionsTrendText, color: sessionsTrendColor } =
     formatTrend(sessionsTrend);

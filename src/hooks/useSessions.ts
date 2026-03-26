@@ -15,33 +15,40 @@ export const useSessions = (userId: string | null) => {
         .order("created_at", { ascending: false });
 
       if (tableError) {
-        console.error("Error fetching sessions:", tableError);
+        if (tableError.message?.includes("AbortError")) return [];
+
+        console.error(
+          "Error fetching sessions:",
+          tableError.message,
+          tableError.code,
+        );
         throw new Error("Failed to fetch sessions");
       }
 
       const sessionsWithData = await Promise.all(
         sessionRows.map(async (row) => {
-         if (!row.storage_path) return row;
+          if (!row.storage_path) return row;
 
-         const {data: fileData, error: storageError} = await supabase.storage
-           .from("sessions")
-           .download(row.storage_path);
+          const { data: fileData, error: storageError } = await supabase.storage
+            .from("sessions")
+            .download(row.storage_path);
 
-         if (storageError) {
-          return {...row, error: "Failed to fetch session data"};
-         }
+          if (storageError) {
+            return { ...row, error: "Failed to fetch session data" };
+          }
 
-         const text = await fileData.text();
-         const parsed = JSON.parse(text);
+          const text = await fileData.text();
+          const parsed = JSON.parse(text);
 
-         const shotsWithSessionId = (parsed.shots || []).map((shot: any) => ({
-           ...shot,
-           session_id: row.id,
-           sessionDate: row.created_at,
-         }));
-        
-         return { ...row, shots: shotsWithSessionId };
-      }));
+          const shotsWithSessionId = (parsed.shots || []).map((shot: any) => ({
+            ...shot,
+            session_id: row.id,
+            sessionDate: row.created_at,
+          }));
+
+          return { ...row, shots: shotsWithSessionId };
+        }),
+      );
 
       return sessionsWithData;
     },
@@ -49,5 +56,5 @@ export const useSessions = (userId: string | null) => {
     enabled: !!userId,
     staleTime: 1000 * 60 * 5, // 5 minutes
     gcTime: 1000 * 60 * 10, // 10 minutes
-  })
+  });
 };

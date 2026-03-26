@@ -25,7 +25,19 @@
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid var(--border);
-
+    background-color: var(--bg);
+    .bulkActions {
+      padding: 1rem;
+      font-size: 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--lightgray);
+      button {
+        font-size: 14px;
+      }
+    }
     .labels {
       height: 40px;
       padding: 0 1rem;
@@ -33,7 +45,16 @@
       align-items: center;
       font-size: 12px;
       border-bottom: 1px solid var(--border);
-
+      .checkBox {
+        border: 1px solid var(--border);
+        width: 16px;
+        height: 16px;
+        margin-right: 1rem;
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
       .statGroupLabels {
         margin-left: auto;
         display: flex;
@@ -95,5 +116,24 @@
         }
       }
     }
+  }
+}
+
+.popupBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  p {
+    text-align: center;
+    font-size: 14px;
+    color: var(--lightgray);
+  }
+
+  .buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
   }
 }

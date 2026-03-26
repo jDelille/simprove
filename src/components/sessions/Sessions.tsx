@@ -10,6 +10,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { calculateAverages } from "@/lib/shots/averages";
 import Button from "../button/Button";
+import { FaSquareMinus } from "react-icons/fa6";
+import { deleteSession } from "@/services/sessions/deleteSession";
+import usePopup from "@/hooks/usePopup";
+import Popup from "../popup/Popup";
+import { useQueryClient } from "@tanstack/react-query";
 
 type SessionGroup = {
   date: string;
@@ -23,7 +28,52 @@ const Sessions = () => {
   const { data: sessions = [], isLoading } = useSessions(profile?.id || "");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [sortField, setSortField] = useState<"date" | "shots">("date");
+  const [selectedSessions, setSelectedSessions] = useState<string[]>([]);
+  const { openPopup, popups, closePopup } = usePopup();
   const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const handleDeleteSession = () => {
+    openPopup("deleteSession");
+  };
+
+  console.log(selectedSessions);
+
+  const deletePopupBody = (
+    <div className={styles.popupBody}>
+      <p>Are you sure you want to delete the selected sessions?</p>
+
+      <div className={styles.buttons}>
+        <Button
+          children="Delete"
+          variant="danger"
+          onClick={async () => {
+            await Promise.all(
+              selectedSessions.map((id) =>
+                deleteSession({
+                  sessionId: id,
+                  storagePath: `session_${id}.csv`,
+                }),
+              ),
+            );
+
+            queryClient.setQueryData(["sessions", profile?.id], (prev: any[]) =>
+              prev.filter((s) => !selectedSessions.includes(s.id)),
+            );
+
+            closePopup("deleteSession");
+            setSelectedSessions([]);
+          }}
+        />
+        <Button
+          children="Cancel"
+          variant="primary"
+          onClick={() => closePopup("deleteSession")}
+        />
+      </div>
+    </div>
+  );
+
   const isEmpty = sessions.length === 0;
 
   const sortedSessions = [...sessions].sort((a, b) => {
@@ -88,7 +138,20 @@ const Sessions = () => {
       />
 
       <div className={styles.sessionListContainer}>
+        {selectedSessions.length > 0 && (
+          <div className={styles.bulkActions}>
+            <p>{selectedSessions.length} selected</p>
+            <Button
+              children="Delete"
+              variant="danger"
+              onClick={handleDeleteSession}
+            />
+          </div>
+        )}
         <ul className={styles.labels}>
+          <li className={styles.checkBox}>
+            {selectedSessions.length > 0 && <FaSquareMinus size={16} />}
+          </li>
           <li style={isEmpty ? { color: "var(--lightgray)" } : undefined}>
             Name
           </li>
@@ -135,6 +198,8 @@ const Sessions = () => {
                     session={session}
                     averages={averages}
                     index={index}
+                    setSelectedSessions={setSelectedSessions}
+                    selectedSessions={selectedSessions}
                   />
                 </li>
               );
@@ -142,6 +207,12 @@ const Sessions = () => {
           </ul>
         )}
       </div>
+
+      <Popup
+        isOpen={popups["deleteSession"] || false}
+        title="Delete Sessions"
+        body={deletePopupBody}
+      />
     </div>
   );
 };
