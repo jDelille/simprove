@@ -170,3 +170,28 @@ body {
   flex-direction: row !important;
   gap: 3px;
 }
+
+.react-calendar__month-view__weekdays {
+  color: var(--lightgray);
+  font-weight: 500 !important;
+}
+
+.react-calendar__month-view__days,
+.react-calendar__tile, 
+.react-calendar__month-view__days__day,
+.react-calendar__month-view__days__day--weekend {
+  color: var(--lightgray) !important;
+}
+
+
+.react-calendar__tile--now {
+  background: var(--lightYellow) !important;
+  color: var(--yelloText) !important;
+  border: 1px solid var(--yellowBorder) !important;
+  border-radius: 4px;
+}
+
+.react-calendar__tile {
+  margin-bottom: 2px !important;
+}
+

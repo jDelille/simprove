@@ -1,0 +1,60 @@
+@use "@/styles/mixins" as *;
+
+.sessionConsistencyWidget {
+  @include widget();
+
+  .header {
+    @include widgetHeader();
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    height: fit-content;
+    padding-bottom: 1rem;
+    .title {
+      display: flex;
+      flex-direction: column;
+
+      span {
+        color: var(--lightgray);
+        font-size: 12px;
+      }
+    }
+
+    .month {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 400;
+      font-size: 12px;
+
+      .icon {
+        border: 1px solid var(--border);
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+  .content {
+    .calendar {
+      all: unset;
+
+      border: none;
+      width: 100%;
+      font-family: inherit;
+      padding: 0;
+
+      .sessionDay {
+        background: var(--green) !important;
+        color: var(--greenText) !important;
+        border: 1px solid var(--greenBorder) !important;
+        border-radius: 4px;
+      }
+    }
+  }
+}

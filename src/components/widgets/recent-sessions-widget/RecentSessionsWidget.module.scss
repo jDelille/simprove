@@ -1,0 +1,13 @@
+@use "@/styles/mixins" as *;
+
+.recentSessionsWidget {
+  @include widget();
+  .header {
+    @include widgetHeader();
+  }
+
+  .content {
+    .sessionList {
+    }
+  }
+}

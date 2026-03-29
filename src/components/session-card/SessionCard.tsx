@@ -11,6 +11,7 @@ type SessionCardProps = {
   index: number;
   setSelectedSessions: React.Dispatch<React.SetStateAction<string[]>>;
   selectedSessions: string[];
+  isProfileView?: boolean;
 };
 
 const SessionCard: React.FC<SessionCardProps> = ({
@@ -19,6 +20,7 @@ const SessionCard: React.FC<SessionCardProps> = ({
   index,
   setSelectedSessions,
   selectedSessions,
+  isProfileView
 }) => {
   const date = moment(session.session_date).format("MMM D, YYYY");
   const [isChecked, setIsChecked] = useState(false);
@@ -40,12 +42,14 @@ const SessionCard: React.FC<SessionCardProps> = ({
       style={{ "--delay": `${index * 0.04}s` } as React.CSSProperties}
       onClick={() => router.push(`/session/${session.id}`)}
     >
-      <div
-        className={styles.checkBox}
-        onClick={(e) => handleCheckboxClick(e)}
-      >
-        {isChecked && <FaCheckSquare color="var(--accent)" size={16} />}
-      </div>
+      {!isProfileView && (
+        <div
+          className={styles.checkBox}
+          onClick={(e) => handleCheckboxClick(e)}
+        >
+          {isChecked && <FaCheckSquare color="var(--accent)" size={16} />}
+        </div>
+      )}
       <div className={styles.title}>
         <h3 className={styles.name}>{session.session_name}</h3>
         <div className={styles.info}>
