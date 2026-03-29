@@ -2,23 +2,33 @@
 
 .profile {
   position: absolute;
-  top: calc(286px + 2rem);
+  top: 280px;
   width: 100%;
-  @include contentWidth();
-  padding-right: 2rem;
-  .layout {
+  left: 0;
+
+  .content {
+    @include contentWidth();
+    margin: 0 auto;
+    padding: 2rem 2rem;
     display: flex;
-    width: 100%;
     gap: 1rem;
-    padding-right: 2rem;
     .column {
-      width: 75%;
-      height: 500px;
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      &:nth-of-type(2) {
+      width: 75%;
+      &:nth-child(2) {
         width: 25%;
+        border: 1px solid orange;
+      }
+      .row {
+        .recentSessions {
+          border-radius: 12px;
+          background-color: var(--bg);
+          width: 50%;
+          height: 300px;
+          padding: 1rem;
+        }
       }
     }
   }

@@ -58,6 +58,12 @@ const Navbar = () => {
   const hiddenPaths = ["/auth/login", "/auth/signup"];
   if (hiddenPaths.includes(pathname)) return null;
 
+  const initials = profile?.display_name
+    .split(/\s+/)
+    .map((word: string) => word.charAt(0))
+    .join("")
+    .toUpperCase();
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbarContent}>
@@ -130,7 +136,7 @@ const Navbar = () => {
                       : undefined
                   }
                 >
-                  <Avatar src={profile?.avatar_path} />
+                  <Avatar src={profile?.avatar_path} initials={initials} size="small"/>
                   <FaChevronDown size={16} color="var(--lightgray)" />
                 </div>
 

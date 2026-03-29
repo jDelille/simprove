@@ -9,9 +9,10 @@ const ProfilePage = async () => {
     data: { user },
   } = await supabase.auth.getUser();
 
+
   return (
     <div className="page">
-      <div className="page-content">
+      <div className="profile-page-content">
         <ProfileHeader userId={user?.id || ""} />
         <Profile userId={user?.id || ""} />
       </div>
