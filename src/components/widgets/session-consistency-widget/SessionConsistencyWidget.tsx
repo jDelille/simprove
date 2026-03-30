@@ -8,31 +8,50 @@ import {
   MdOutlineKeyboardArrowLeft,
 } from "react-icons/md";
 import { useState } from "react";
+import { useSessions } from "@/hooks/useSessions";
 
-const SessionConsistencyWidget = () => {
+type SessionConsistencyWidgetProps = {
+  userId: string;
+};
+
+const SessionConsistencyWidget: React.FC<SessionConsistencyWidgetProps> = ({
+  userId,
+}) => {
   const [month, setMonth] = useState(new Date(2026, 2)); // March 2026
+  const { data: sessions } = useSessions(userId);
 
-  const sessionDates = [
-    new Date(2026, 2, 3), // March 3, 2026
-    new Date(2026, 2, 8),
-    new Date(2026, 2, 15),
-  ];
+  const sessionDates = (sessions || []).map((s: any) => {
+    const d = new Date(s.created_at);
+    // store as "YYYY-MM-DD" string
+    return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+  });
 
-  const isSessionDate = (date: Date) => {
-    return sessionDates.some(
-      (sessionDate) =>
-        sessionDate.getFullYear() === date.getFullYear() &&
-        sessionDate.getMonth() === date.getMonth() &&
-        sessionDate.getDate() === date.getDate(),
+  const currentMonth = month.getMonth();
+  const currentYear = month.getFullYear();
+
+  const isSessionDate = (date: Date) =>
+    sessionDates.includes(
+      `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
     );
-  };
+
+  // Count how many sessions are in the current month
+  const sessionsThisMonth = (sessions || []).filter((s: any) => {
+    const d = new Date(s.created_at);
+    return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
+  }).length;
+
+  // Set the text
+  const sessionCountText =
+    sessionsThisMonth === 0
+      ? "No sessions this month"
+      : `${sessionsThisMonth} session${sessionsThisMonth > 1 ? "s" : ""} this month`;
 
   return (
     <div className={styles.sessionConsistencyWidget}>
       <div className={styles.header}>
         <div className={styles.title}>
-          <p>Session Consistency</p>
-          <span>No sessions this month</span>
+          <p>Session Uploads</p>
+          <span>{sessionCountText}</span>
         </div>
         <div className={styles.month}>
           <div

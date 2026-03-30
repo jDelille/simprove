@@ -10,7 +10,7 @@ const ContentTabs: React.FC<ContentTabsProps> = ({
   selectedTab,
   setSelectedTab,
 }) => {
-  const tabs = ["Overview", "Sessions", "Stats", "Badges"];
+  const tabs = ["Overview", "Stats", "My Bag", "Badges"];
 
   return (
     <div className={styles.contentTabs}>

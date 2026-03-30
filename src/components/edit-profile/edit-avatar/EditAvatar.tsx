@@ -45,10 +45,10 @@ const EditAvatar: React.FC<EditAvatarProps> = ({ avatar }) => {
 
       <div className={styles.content}>
         <div className={styles.avatarContainer}>
-          <Avatar src={preview || avatar} />
+          <Avatar src={preview || avatar} size="large" />
         </div>
 
-        <Button variant="primary" onClick={handleClickUpload}>
+        <Button variant="lessonCard" onClick={handleClickUpload}>
           Upload photo
         </Button>
 

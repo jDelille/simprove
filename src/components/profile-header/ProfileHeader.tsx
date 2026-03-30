@@ -14,14 +14,18 @@ import ContentTabs from "../content-tabs/ContentTabs";
 
 type ProfileHeaderProps = {
   userId: string;
+  selectedTab?: string;
+  setSelectedTab?: (tab: string) => void;
 };
 
-const ProfileHeader: React.FC<ProfileHeaderProps> = ({ userId }) => {
+const ProfileHeader: React.FC<ProfileHeaderProps> = ({
+  userId,
+  selectedTab,
+  setSelectedTab,
+}) => {
   const { id } = useParams();
   const { profile } = useUser();
   const router = useRouter();
-
-  const [selectedTab, setSelectedTab] = useState("Overview");
 
   const isUserProfile = id === userId;
 
@@ -37,11 +41,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ userId }) => {
     <div className={styles.profileHeader}>
       <div className={styles.headerContent}>
         <div className={styles.avatarContainer}>
-          <Avatar
-            src={profile?.avatar_path}
-            size="large"
-            initials={initials}
-          />
+          <Avatar src={profile?.avatar_path} size="large" initials={initials} />
           <div className={styles.editAvatarIcon}>
             <GoPencil size={12} />
           </div>
@@ -50,10 +50,12 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ userId }) => {
           <div className={styles.name}>
             <p>{profile?.display_name}</p>
             <p className={styles.handle}>@{profile?.username}</p>
-            </div>
+          </div>
           <p className={styles.bio}>{profile?.bio || "Add your bio here."}</p>
           <div className={styles.location}>
-            <p><FaLocationDot /> {profile?.location || "Add your location here."}</p>
+            <p>
+              <FaLocationDot /> {profile?.location || "Add your location here."}
+            </p>
             <p>-</p>
             <p>Since {moment(profile?.created_at).format("MMM YYYY")}</p>
           </div>
@@ -61,7 +63,11 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ userId }) => {
 
         <div className={styles.buttons}>
           <Button children="Share Profile" variant="secondary" />
-          <Button children="Edit Profile" variant="lessonCard"/>
+          <Button
+            children="Edit Profile"
+            variant="lessonCard"
+            onClick={() => router.push("/settings/edit-profile")}
+          />
         </div>
       </div>
       <ContentTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />

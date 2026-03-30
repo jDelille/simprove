@@ -64,6 +64,7 @@ const Navbar = () => {
     .join("")
     .toUpperCase();
 
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbarContent}>
@@ -120,7 +121,7 @@ const Navbar = () => {
               <>
                 <div className={styles.uploadBtnContainer}>
                   <Button
-                    variant="upload"
+                    variant="lessonCard"
                     children="Upload"
                     onClick={() => openModal("upload")}
                   />

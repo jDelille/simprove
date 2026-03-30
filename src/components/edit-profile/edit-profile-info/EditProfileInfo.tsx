@@ -119,7 +119,7 @@ const EditProfileInfo: React.FC<EditProfileInfoProps> = ({ profile }) => {
         </div>
 
         <div className={styles.row}>
-          <Button variant="primary" onClick={handleSave}>
+          <Button variant="lessonCard" onClick={handleSave}>
             Save changes
           </Button>
         </div>

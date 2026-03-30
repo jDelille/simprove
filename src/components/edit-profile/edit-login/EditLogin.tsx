@@ -28,7 +28,7 @@ const EditLogin: React.FC<EditLoginProps> = ({ profile }) => {
           <Button variant="secondary" children="Change password" />
         </div>
         <div className={styles.row}>
-            <Button variant="primary" children="Save changes" />
+            <Button variant="lessonCard" children="Save changes" />
         </div>
       </div>
     </div>

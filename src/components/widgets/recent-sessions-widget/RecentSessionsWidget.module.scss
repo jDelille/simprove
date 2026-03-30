@@ -8,6 +8,69 @@
 
   .content {
     .sessionList {
+      display: flex;
+      flex-direction: column;
+
+      .session {
+        border-top: 1px solid var(--border);
+        padding: 10px 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+        .icon {
+          width: 37px;
+          height: 37px;
+          background-color: var(--green);
+          border: 1px solid var(--greenBorder);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 6px;
+        }
+        .top {
+          display: flex;
+          margin-left: 1rem;
+          width: calc(100% - 60px);
+          flex-direction: column;
+          gap: 4px;
+          .name {
+            font-weight: 500;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            span {
+              font-size: 12px;
+              color: var(--lightgray);
+            }
+          }
+        }
+
+        .bottom {
+          margin-left: calc(39px + 1rem);
+        }
+
+        .sessionInfo {
+          font-size: 11px;
+          color: var(--lightgray);
+          display: flex;
+          align-items: center;
+          gap: 3px;
+        }
+        .averages {
+          font-size: 12px;
+          padding-top: 5px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          p {
+            color: var(--lightgray);
+            strong {
+              color: var(--text);
+            }
+          }
+        }
+      }
     }
   }
 }

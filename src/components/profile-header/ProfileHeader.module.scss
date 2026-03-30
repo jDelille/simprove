@@ -21,6 +21,8 @@
       width: 70px;
       height: 70px;
       position: relative;
+      outline: 4px solid var(--border);
+      border-radius: 50%;
       .editAvatarIcon {
         width: 24px;
         height: 24px;
@@ -32,7 +34,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 1px solid var(--border);
+        border: 2px solid var(--border);
       }
     }
 
@@ -78,7 +80,7 @@
         font-weight: 400;
         font-size: 12px;
         margin-bottom: 10px;
-        width: 60%;
+        width: 100%;
         line-height: 21px;
       }
 

@@ -13,7 +13,6 @@ const ProfilePage = async () => {
   return (
     <div className="page">
       <div className="profile-page-content">
-        <ProfileHeader userId={user?.id || ""} />
         <Profile userId={user?.id || ""} />
       </div>
     </div>

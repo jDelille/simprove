@@ -1,0 +1,15 @@
+@use "@/styles/mixins" as *;
+
+.achievementsWidget {
+  @include widget();
+
+  .header {
+    @include widgetHeader();
+    gap: 3px;
+
+    span {
+      color: var(--lightgray);
+      font-size: 12px;
+    }
+  }
+}

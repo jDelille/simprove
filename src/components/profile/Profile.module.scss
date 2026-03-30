@@ -1,15 +1,10 @@
 @use "../../styles/mixins" as *;
 
 .profile {
-  position: absolute;
-  top: 280px;
-  width: 100%;
-  left: 0;
-
   .content {
     @include contentWidth();
     margin: 0 auto;
-    padding: 2rem 2rem;
+    padding: 2rem 0rem;
     display: flex;
     gap: 1rem;
     .column {
@@ -27,6 +22,49 @@
           width: 50%;
           height: 300px;
           padding: 1rem;
+        }
+        .rank {
+          @include widget();
+
+          .labels {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .label {
+              display: flex;
+              flex-direction: column;
+              gap: 3px;
+              p {
+                font-weight: 500;
+                font-size: 13px;
+              }
+              span {
+                font-size: 10px;
+                color: var(--lightgray);
+                text-align: right;
+              }
+            }
+          }
+          .progress {
+            margin-top: 1rem;
+            width: 100%;
+            height: 7px;
+            background-color: var(--messageBg);
+            border-radius: 12px;
+            overflow: hidden;
+            .fill {
+              background-color: var(--chartBlueLight);
+              width: 25%;
+              height: 100%;
+              border-radius: 12px;
+            }
+          }
+
+          .points {
+            font-size: 10px;
+            margin-top: 1rem;
+            color: var(--lightgray);
+          }
         }
       }
     }
