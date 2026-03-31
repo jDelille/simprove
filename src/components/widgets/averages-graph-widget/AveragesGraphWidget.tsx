@@ -45,10 +45,10 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
 
   // Define labels + units
   const controls: { key: MetricKey; label: string; unit?: string }[] = [
-    { key: "avgCarry", label: "Avg Carry", unit: "yds" },
-    { key: "avgSpeed", label: "Avg Ball Speed", unit: "mph" },
-    { key: "avgOffline", label: "Avg Offline", unit: "yds" },
-    { key: "avgSpin", label: "Avg Back Spin", unit: "rpm" },
+    { key: "avgCarry", label: "Carry", unit: "yds" },
+    { key: "avgSpeed", label: "Ball Speed", unit: "mph" },
+    { key: "avgOffline", label: "Offline", unit: "yds" },
+    { key: "avgSpin", label: "Back Spin", unit: "rpm" },
     { key: "count", label: "Total Shots" },
   ];
 
@@ -148,7 +148,7 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
       },
       plotOptions: {
         column: {
-          borderRadius: { where: "all", radius: 6 },
+          borderRadius: { where: "all", radius: 12 },
           borderWidth: 0,
           animation: { duration: 800, easing: "easeOutBounce" },
         },

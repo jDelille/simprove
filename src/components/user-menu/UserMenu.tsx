@@ -14,8 +14,8 @@ const UserMenu: React.FC<UserMenuProps> = ({ onLogout, setOpenMenu }) => {
   const router = useRouter();
   const {user, profile} = useUser();
 
-  const handleProfileClick = () => {
-    router.push(`/profile/${profile?.id}`);
+  const handleLinkClick = (href: string) => {
+    router.push(href);
     setOpenMenu(false);
   }
 
@@ -26,8 +26,12 @@ const UserMenu: React.FC<UserMenuProps> = ({ onLogout, setOpenMenu }) => {
           <p>{profile?.display_name}</p>
           <p className={styles.handle}>@{profile?.username}</p>
         </li>
-        <li onClick={handleProfileClick}>Profile</li>
-        <li>Settings</li>
+        <li onClick={() => handleLinkClick('/dashboard')}>Dashboard</li>
+        <li onClick={() => handleLinkClick('/sessions')}>Sessions</li>
+        <li onClick={() => handleLinkClick('/training')}>Training</li>
+        <li onClick={() => handleLinkClick(`/profile/${profile?.id}`)}>Profile</li>
+        <li onClick={() => handleLinkClick('/settings/edit-profile')}>Settings</li>
+        <li onClick={() => handleLinkClick('/about')}>About</li>
         <li onClick={onLogout}>Logout</li>
       </ul>
     </div>

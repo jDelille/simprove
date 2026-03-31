@@ -1,8 +1,12 @@
 @use "@/styles/mixins" as *;
+@use "@/styles/breakpoints" as bp;
 
 .widget {
   @include widget();
   max-height: 307px;
+  @include bp.mobile {
+    max-height: none;
+  }
 
   .header {
     @include widgetHeader();
@@ -48,6 +52,8 @@
           }
 
           .metric {
+            width: 100%;
+            position: relative;
             p {
               font-size: 13px;
               font-weight: 500;
@@ -55,6 +61,7 @@
             span {
               font-size: 11px;
               color: var(--lightgray);
+              max-width: 60%;
             }
           }
 

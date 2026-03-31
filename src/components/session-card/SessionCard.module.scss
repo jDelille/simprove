@@ -1,3 +1,5 @@
+@use "@/styles/breakpoints" as bp;
+
 @keyframes in {
   from {
     opacity: 0;
@@ -61,6 +63,9 @@
         width: 100px;
         font-size: 12px;
         font-weight: 500;
+        @include bp.mobile {
+          width: 80px;
+        }
         span {
           font-weight: 400;
           color: var(--lightgray);

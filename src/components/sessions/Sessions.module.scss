@@ -1,3 +1,5 @@
+@use "@/styles/breakpoints" as bp;
+
 .sessions {
   display: flex;
   flex-direction: column;
@@ -63,6 +65,9 @@
           width: 100px;
           font-size: 12px;
           font-weight: 400;
+          @include bp.mobile {
+            width: 80px;
+          }
         }
       }
     }

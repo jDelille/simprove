@@ -98,7 +98,7 @@ const Navbar = () => {
               color="var(--lightgray)"
             />
 
-            <FaRegBell color="var(--lightgray)" />
+            {/* <FaRegBell color="var(--lightgray)" /> */}
 
             {!loading && !user && (
               <>

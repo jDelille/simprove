@@ -131,7 +131,7 @@ const SwingMetricsWidget: React.FC<SwingMetricsWidgetProps> = ({ shots }) => {
             <li>
               <div className={styles.metric}>
                 <p style={isEmpty ? {color: "var(--lightgray)"} : undefined}>Face Angle</p>
-                <span>5.6° open to path — the gap that curves the ball</span>
+                <span>The gap that curves the ball</span>
               </div>
               {!isEmpty && (
                 <div className={styles.value}>

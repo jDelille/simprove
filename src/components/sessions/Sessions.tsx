@@ -162,7 +162,7 @@ const Sessions = () => {
           >
             <li>Shots</li>
             <li>Max Carry</li>
-            <li>Peak Ball Speed</li>
+            <li>Peak Speed</li>
           </div>
         </ul>
         {isEmpty && (

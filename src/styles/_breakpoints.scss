@@ -1,0 +1,72 @@
+// Mobile
+$breakpoint-mobile: 850px;
+@mixin mobile {
+  @media (max-width: #{$breakpoint-mobile}) {
+    @content;
+  }
+}
+ 
+// Tablet
+$breakpoint-tablet: 968px;
+@mixin tablet {
+  @media (max-width: #{$breakpoint-tablet}) {
+    @content;
+  }
+}
+ 
+// Small laptop
+$breakpoint-small-laptop: 1309px;
+@mixin smallLaptop {
+  @media (max-width: #{$breakpoint-small-laptop}) {
+    @content;
+  }
+}
+ 
+// Laptop
+$breakpoint-laptop: 1370px;
+@mixin laptop {
+  @media (max-width: #{$breakpoint-laptop}) {
+    @content;
+  }
+}
+ 
+// Medium laptop
+$breakpoint-medium-laptop: 1649px;
+@mixin mediumLaptop {
+  @media (max-width: #{$breakpoint-medium-laptop}) {
+    @content;
+  }
+}
+ 
+// Custom breakpoints
+$breakpoint1: 1770px;
+$breakpoint2: 1700px;
+$breakpoint3: 1570px;
+$breakpoint4: 1524px;
+$breakpoint5: 1454px;
+ 
+@mixin breakpoint1 {
+  @media (max-width: #{$breakpoint1}) {
+    @content;
+  }
+}
+@mixin breakpoint2 {
+  @media (max-width: #{$breakpoint2}) {
+    @content;
+  }
+}
+@mixin breakpoint3 {
+  @media (max-width: #{$breakpoint3}) {
+    @content;
+  }
+}
+@mixin breakpoint4 {
+  @media (max-width: #{$breakpoint4}) {
+    @content;
+  }
+}
+@mixin breakpoint5 {
+  @media (max-width: #{$breakpoint5}) {
+    @content;
+  }
+}
