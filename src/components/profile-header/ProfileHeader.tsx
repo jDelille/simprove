@@ -41,7 +41,13 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
     <div className={styles.profileHeader}>
       <div className={styles.headerContent}>
         <div className={styles.avatarContainer}>
-          <Avatar src={profile?.avatar_path} size="large" initials={initials} />
+          {profile && (
+            <Avatar
+              src={profile?.avatar_path}
+              size="large"
+              initials={initials}
+            />
+          )}
           <div className={styles.editAvatarIcon}>
             <GoPencil size={12} />
           </div>

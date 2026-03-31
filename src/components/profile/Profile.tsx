@@ -10,9 +10,10 @@ import MyBag from "../my-bag/MyBag";
 
 type ProfileProps = {
   userId: string;
+  myClubs?: any[];
 };
 
-const Profile: React.FC<ProfileProps> = ({ userId }) => {
+const Profile: React.FC<ProfileProps> = ({ userId, myClubs }) => {
   const [selectedTab, setSelectedTab] = useState("Overview");
 
   const overViewContent = (
@@ -55,7 +56,7 @@ const Profile: React.FC<ProfileProps> = ({ userId }) => {
 
   const myBagContent = (
     <div className={styles.content}>
-      <MyBag userId={userId} />
+      <MyBag userId={userId} myClubs={myClubs} />
     </div>
   );
 

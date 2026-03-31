@@ -1,21 +1,106 @@
 .myBag {
-    background-color: var(--bg);
-    width: 100%;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    .header {
-        border-bottom: 1px solid var(--border);
-        padding: 1rem;
+  background-color: var(--bg);
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    p {
+      font-size: 16px;
+      font-weight: 500;
+    }
+    span {
+      font-size: 12px;
+      color: var(--lightgray);
+    }
+  }
+
+  ul {
+    li {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      gap: 1rem;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border);
+      font-weight: 500;
+      cursor: pointer;
+      span {
+        font-size: 12px;
+        color: var(--lightgray);
+      }
+      .icon {
+        width: 30px;
+        height: 30px;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 500;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        p {
-            font-size: 16px;
-            font-weight: 500;
-        }
-        span {
-            font-size: 12px;
-            color: var(--lightgray);
-        }
+        justify-content: center;
+        background-color: var(--green);
+        border: 1px solid var(--greenBorder);
+        color: var(--greenText);
+      }
+      .noClub {
+        background-color: var(--gray);
+        color: var(--grayText);
+        border: 1px solid var(--grayBorder);
+      }
+      .shotNumbers {
+        margin-left: auto;
+        background-color: var(--green);
+        border: 1px solid var(--greenBorder);
+        color: var(--greenText);
+        padding: 3px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        width: 81.27px;
+      }
+      .addClub {
+        margin-left: auto;
+        background-color: var(--gray);
+        border: 1px solid var(--grayBorder);
+        color: var(--grayText);
+        padding: 3px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        width: 81.27px;
+      }
     }
+  }
+
+  .editBagPopup {
+    .inputGroup {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 1rem;
+      label {
+        font-size: 12px;
+        font-weight: 500;
+      }
+      input {
+        height: 40px;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+      }
+    }
+    .buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+  }
 }

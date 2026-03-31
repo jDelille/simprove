@@ -64,7 +64,6 @@ const Navbar = () => {
     .join("")
     .toUpperCase();
 
-
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbarContent}>
@@ -137,7 +136,13 @@ const Navbar = () => {
                       : undefined
                   }
                 >
-                  <Avatar src={profile?.avatar_path} initials={initials} size="small"/>
+                  {profile && (
+                    <Avatar
+                      src={profile?.avatar_path}
+                      initials={initials}
+                      size="small"
+                    />
+                  )}
                   <FaChevronDown size={16} color="var(--lightgray)" />
                 </div>
 
