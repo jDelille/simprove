@@ -52,7 +52,7 @@ const Navbar = () => {
     { href: "/training", label: "Training", key: 3 },
     // { href: "/community", label: "Community", key: 4 },
     // { href: "/challenges", label: "Challenges", key: 5 },
-    { href: "/about", label: "About", key: 6 },
+    // { href: "/about", label: "About", key: 6 },
   ];
 
   const hiddenPaths = ["/auth/login", "/auth/signup"];

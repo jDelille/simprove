@@ -72,7 +72,7 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
       chart: {
         type: "column",
         backgroundColor: "transparent",
-        height: 350,
+        height: 300,
         animation: false,
       },
       title: { text: "" },

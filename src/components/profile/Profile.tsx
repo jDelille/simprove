@@ -7,6 +7,7 @@ import AchievementsWidgets from "../widgets/achievements-widget/AchievementsWidg
 import styles from "./Profile.module.scss";
 import ProfileHeader from "../profile-header/ProfileHeader";
 import MyBag from "../my-bag/MyBag";
+import RankWidget from "../widgets/rank-widget/RankWidget";
 
 type ProfileProps = {
   userId: string;
@@ -22,34 +23,19 @@ const Profile: React.FC<ProfileProps> = ({ userId, myClubs }) => {
         <div className={styles.row}>
           <AchievementsWidgets userId={userId} />
         </div>
+         <div className={styles.row}>
+          <SessionConsistencyWidget userId={userId} />
+          
+        </div>
         <div className={styles.row}>
           <RecentSessionsWidget userId={userId} />
         </div>
       </div>
       <div className={styles.column}>
         <div className={styles.row}>
-          <div className={styles.rank}>
-            <div className={styles.labels}>
-              <div className={styles.label}>
-                <p>Bogey I</p>
-                <span>Current rank</span>
-              </div>
-              <div className={styles.label}>
-                <p>Bogey II</p>
-                <span>Next rank</span>
-              </div>
-            </div>
-            <div className={styles.progress}>
-              <div className={styles.fill}></div>
-            </div>
-            <div className={styles.points}>
-              <p>250 / 1000 pts to next rank</p>
-            </div>
-          </div>
+          <RankWidget />
         </div>
-        <div className={styles.row}>
-          <SessionConsistencyWidget userId={userId} />
-        </div>
+       
       </div>
     </div>
   );

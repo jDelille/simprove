@@ -13,18 +13,15 @@ import ClubBreakdownWidget, {
 import { useMemo, useState } from "react";
 import { getClubAverages } from "@/lib/shots/averages";
 import FaceAngleWidget from "../widgets/face-angle-widget/FaceAngleWidget";
+import { calculateSessionStats } from "@/lib/session-stats/sessionStats";
 
 const Session = () => {
   const router = useRouter();
   const params = useParams();
-  const [selectedClub, setSelectedClub] = useState<string>("ALL");
-
   const sessionId = params.id as string;
 
+  const [selectedClub, setSelectedClub] = useState<string>("ALL");
   const { data: session, isLoading, error } = useSession(sessionId);
-
-  const sessionDate = moment(session?.created_at).format("MMMM D, YYYY");
-  
 
   const filteredShots = useMemo(() => {
     if (!session?.shots) return [];
@@ -34,6 +31,7 @@ const Session = () => {
       : session.shots.filter((s: any) => s.club === selectedClub);
   }, [session?.shots, selectedClub]);
 
+  const sessionDate = moment(session?.created_at).format("MMMM D, YYYY");
   const clubAverages = getClubAverages(filteredShots);
 
   const tableData: ShotRow[] = useMemo(() => {
@@ -53,6 +51,18 @@ const Session = () => {
     }));
   }, [filteredShots]);
 
+  const sessionMetrics = calculateSessionStats({
+    userId: session?.user_id,
+    shots: filteredShots,
+    sessionLength: session?.shots.length || 0,
+  });
+
+  console.log(sessionMetrics);
+
+  if(isLoading) {
+    return;
+  }
+
   return (
     <div className={styles.session}>
       <div className={styles.pageHeader}>
@@ -71,32 +81,32 @@ const Session = () => {
 
       <div className={styles.body}>
         <div className={styles.column}>
-          <div className={styles.row}>
+          <div className={styles.row + " " + styles.statsRow}>
             <SmallStatWidget
-              title="Best Carry"
-              value={100}
-              metric="yds"
+              title="Total Shots Tracked"
+              value={sessionMetrics.count?.toFixed(0) || 0}
+              metric="shots"
               trend="increase"
               trendText="Personal Best"
             />
             <SmallStatWidget
               title="Best Carry"
-              value={100}
+              value={sessionMetrics.longestCarry?.toFixed(1) || 0}
               metric="yds"
               trend="increase"
               trendText="Personal Best"
             />
             <SmallStatWidget
-              title="Best Carry"
-              value={100}
+              title="Avg Offline"
+              value={sessionMetrics.avgOffline?.toFixed(1) || 0}
               metric="yds"
               trend="increase"
               trendText="Personal Best"
             />
             <SmallStatWidget
-              title="Best Carry"
-              value={100}
-              metric="yds"
+              title="Peak Ball Speed"
+              value={sessionMetrics.avgSpeed?.toFixed(1) || 0}
+              metric="mph"
               trend="increase"
               trendText="Personal Best"
             />
@@ -105,7 +115,7 @@ const Session = () => {
             <ClubBreakdownWidget data={tableData} />
           </div>
           <div className={styles.row}>
-            <MissTendencyWidget />
+            <MissTendencyWidget shots={filteredShots} />
             <FaceAngleWidget clubAverages={clubAverages} />
           </div>
           <div className={styles.row}>{/* Session analysis */}</div>

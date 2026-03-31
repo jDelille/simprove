@@ -18,16 +18,24 @@
     &:nth-of-type(2) {
       width: 25%;
       @include bp.mobile {
-      width: 100%;
-    }
+        width: 100%;
+      }
     }
 
     .row {
       display: flex;
       gap: 1rem;
       @include bp.mobile {
-      flex-direction: column;
+        flex-direction: column;
+      }
     }
+
+    .statsRow {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      @include bp.mobile {
+        grid-template-columns: 1fr 1fr;
+      }
     }
   }
 }

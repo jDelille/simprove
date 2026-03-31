@@ -1,6 +1,5 @@
 "use client";
 
-import Calendar from "react-calendar";
 import styles from "./SessionConsistencyWidget.module.scss";
 import "react-calendar/dist/Calendar.css";
 import {
@@ -74,13 +73,7 @@ const SessionConsistencyWidget: React.FC<SessionConsistencyWidgetProps> = ({
         </div>
       </div>
       <div className={styles.content}>
-        <Calendar
-          className={styles.calendar}
-          showNavigation={false}
-          tileClassName={({ date, view }) =>
-            view === "month" && isSessionDate(date) ? styles.sessionDay : null
-          }
-        />
+
       </div>
     </div>
   );

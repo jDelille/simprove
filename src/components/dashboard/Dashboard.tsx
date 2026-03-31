@@ -78,7 +78,7 @@ const Dashboard = ({ sessions, userId }: DashboardProps) => {
     <div className={styles.dashboard}>
       {/* left side */}
       <div className={styles.column}>
-        <div className={styles.row}>
+        <div className={styles.row + " " + styles.statsRow}>
           <SmallStatWidget
             title="Total Shots Tracked"
             value={profileMetrics.count}
