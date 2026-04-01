@@ -57,7 +57,7 @@ const Session = () => {
     sessionLength: session?.shots.length || 0,
   });
 
-  console.log(sessionMetrics);
+  // console.log(sessionMetrics);
 
   if(isLoading) {
     return;

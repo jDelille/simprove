@@ -8,6 +8,7 @@ import styles from "./Profile.module.scss";
 import ProfileHeader from "../profile-header/ProfileHeader";
 import MyBag from "../my-bag/MyBag";
 import RankWidget from "../widgets/rank-widget/RankWidget";
+import CalendarWidget from "../widgets/calendar-widget/CalendarWidget";
 
 type ProfileProps = {
   userId: string;
@@ -24,8 +25,7 @@ const Profile: React.FC<ProfileProps> = ({ userId, myClubs }) => {
           <AchievementsWidgets userId={userId} />
         </div>
          <div className={styles.row}>
-          <SessionConsistencyWidget userId={userId} />
-          
+          <CalendarWidget />
         </div>
         <div className={styles.row}>
           <RecentSessionsWidget userId={userId} />

@@ -17,11 +17,11 @@
   background-color: var(--bg);
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--border);
+  border-top: 1px solid var(--border);
   cursor: pointer;
   animation: in 0.3s ease both;
   animation-delay: var(--delay);
-  
+
   &:hover {
     background-color: var(--chartRowColor);
   }

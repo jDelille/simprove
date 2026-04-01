@@ -1,5 +1,7 @@
 import Dashboard from "@/components/dashboard/Dashboard";
 import { createSupabaseServer } from "@/lib/supabase/server";
+import { fetchGettingStartedCompletions } from "@/services/getting-started-completions/fetchGettingStartedCompletions";
+import { fetchProfileInfo } from "@/services/profile-info/fetchProfileInfo";
 import { fetchSessions } from "@/services/sessions/fetchSessions";
 
 const DashboardPage = async () => {
@@ -9,12 +11,52 @@ const DashboardPage = async () => {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const sessions = user?.id ? await fetchSessions(user.id, supabase) : [];
+  if (!user) {
+    return null;
+  }
+
+  const [sessions, gettingStartedCompletions, profileInfo] = user?.id
+    ? await Promise.all([
+        fetchSessions(user.id, supabase),
+        fetchGettingStartedCompletions(user.id, supabase),
+        fetchProfileInfo(supabase),
+      ])
+    : [[], [], null];
+
+  console.log("Profile Info:", profileInfo);
+
+  // check if user has completed profile setup
+  const userProfile = profileInfo?.profile;
+  const hasCompletedProfile =
+    userProfile?.display_name &&
+    userProfile?.avatar_path &&
+    userProfile?.location &&
+    userProfile?.username &&
+    userProfile?.launch_monitor &&
+    userProfile?.bio
+
+  if (hasCompletedProfile) {
+    // check if completion with step_id 1 exists, if not, create it
+    const hasCompletedStep1 = gettingStartedCompletions.some(
+      (comp) => comp.step_id === 1
+    );
+
+    if (!hasCompletedStep1) {
+      await supabase.from("getting_started_completions").insert({
+        user_id: user.id,
+        step_id: 1,
+      });
+    }
+  }
 
   return (
     <div className="page">
       <div className="page-content">
-        <Dashboard sessions={sessions} userId={user?.id || ""} />
+        <Dashboard
+          sessions={sessions}
+          userId={user?.id || ""}
+          gettingStartedCompletions={gettingStartedCompletions}
+        />
       </div>
     </div>
   );

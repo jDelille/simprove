@@ -19,7 +19,7 @@ const RecentSessionsWidget: React.FC<RecentSessionsWidgetProps> = ({
 
   const { data: sessions } = useSessions(userId);
 
-  console.log(sessions);
+  // console.log(sessions);
 
   return (
     <div className={styles.recentSessionsWidget}>

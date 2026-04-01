@@ -1,62 +1,79 @@
 @use "@/styles/mixins" as *;
 
 .widget {
-    @include widget();
+  @include widget();
 
-    .header {
-        @include widgetHeader();
+  .header {
+    @include widgetHeader();
+  }
+
+  .progressBar {
+    width: 100%;
+    height: 6px;
+    background-color: var(--green);
+    border-radius: 22px;
+    position: relative;
+
+    .fill {
+      background-color: var(--greenText);
+      height: 100%;
+      border-radius: 22px;
     }
+  }
 
-    .progressBar {
-        width: 100%;
-        height: 6px;
-        background-color: var(--messageBg);
-        border-radius: 22px;
-        position: relative;
+  ul {
+    padding-top: 1rem;
+    li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      font-size: 12px;
 
-        .fill {
-            background-color: var(--accent);
-            height: 100%;
-            border-radius: 22px;
+      .number,
+      .completed {
+        border: 1px solid var(--grayBorder);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+        border-radius: 50%;
+        min-width: 20px;
+        height: 20px;
+        margin-bottom: auto;
+        font-size: 10px;
+      }
+
+      .completed {
+        background-color: var(--green);
+        color: var(--greenText);
+        border: 1px solid var(--greenBorder);
+      }
+
+      .text,
+      .completedText {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        p {
+          font-size: 13px;
+          color: var(--text);
         }
-    }
 
-    ul {
-        padding-top: 1rem;
-        li {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 0;
-            font-size: 12px;
-            
-            .number {
-                border: 1px solid var(--grayBorder);
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                font-weight: 500;
-                border-radius: 50%;
-                min-width: 20px;
-                height: 20px;
-                margin-bottom: auto;
-                font-size: 10px;
-            }
-
-            .text {
-                display: flex;
-                flex-direction: column;
-                gap: 4px;
-                p {
-                    font-size: 13px;
-                    color: var(--text);
-                }
-                span {
-                    font-size: 11px;
-                    color: var(--lightgray);
-                }
-            }
+        span {
+          font-size: 11px;
+          color: var(--lightgray);
         }
+      }
+      .completedText {
+        p {
+            color: var(--greenText);
+        }
+        span {
+            color: var(--greenText);
+        }
+      }
     }
+  }
 }

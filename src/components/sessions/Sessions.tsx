@@ -1,6 +1,5 @@
 "use client";
 
-import { useSessions } from "@/hooks/useSessions";
 import SortBy from "../sort-by/SortBy";
 import styles from "./Sessions.module.scss";
 import { useUser } from "@/hooks/useUser";
@@ -23,9 +22,12 @@ type SessionGroup = {
 
 type GroupedSessions = Record<string, SessionGroup>;
 
-const Sessions = () => {
+type SessionsProps = {
+  sessions: any[];
+}
+
+const Sessions: React.FC<SessionsProps> = ({ sessions }) => {
   const { user, profile } = useUser();
-  const { data: sessions = [], isLoading } = useSessions(profile?.id || "");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [sortField, setSortField] = useState<"date" | "shots">("date");
   const [selectedSessions, setSelectedSessions] = useState<string[]>([]);
@@ -36,8 +38,6 @@ const Sessions = () => {
   const handleDeleteSession = () => {
     openPopup("deleteSession");
   };
-
-  console.log(selectedSessions);
 
   const deletePopupBody = (
     <div className={styles.popupBody}>

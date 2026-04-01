@@ -17,9 +17,10 @@ import GettingStartedWidget from "../widgets/getting-started-widget/GettingStart
 type DashboardProps = {
   sessions: any[];
   userId: string;
+  gettingStartedCompletions?: any[]; 
 };
 
-const Dashboard = ({ sessions, userId }: DashboardProps) => {
+const Dashboard = ({ sessions, userId, gettingStartedCompletions }: DashboardProps) => {
   const shots = sessions.flatMap((session) => session.shots);
 
   const profileMetrics = calculateProfileStats({
@@ -43,8 +44,8 @@ const Dashboard = ({ sessions, userId }: DashboardProps) => {
     groupedSessions[currentMonthKey]?.sessions.length || 0;
   const sessionsLastMonth = groupedSessions[lastMonthKey]?.sessions.length || 0;
 
-  console.log(currentMonthKey)
-  console.log(groupedSessions)
+  // console.log(currentMonthKey)
+  // console.log(groupedSessions)
 
   const sessionsTrend = calculateTrend(sessionsThisMonth, sessionsLastMonth);
   const { text: sessionsTrendText, color: sessionsTrendColor } =
@@ -135,7 +136,7 @@ const Dashboard = ({ sessions, userId }: DashboardProps) => {
           <RecentActivityWidget userId={userId} />
         </div>
                 <div className={styles.row}>
-          <GettingStartedWidget />
+          <GettingStartedWidget completions={gettingStartedCompletions} />
         </div>
 
         <div className={styles.row}>

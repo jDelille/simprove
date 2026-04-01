@@ -9,8 +9,6 @@ type AvatarProps = {
 };
 
 const Avatar: React.FC<AvatarProps> = ({src, size = "small", initials}) => {
-
-  console.log(src)
   return (
     <div className={styles.avatar + " " + styles[size]} >
       {src && <img src={src} alt="avatar" /> }
