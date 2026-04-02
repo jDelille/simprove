@@ -18,9 +18,10 @@ type DashboardProps = {
   sessions: any[];
   userId: string;
   gettingStartedCompletions?: any[]; 
+  activeLesson?: any;
 };
 
-const Dashboard = ({ sessions, userId, gettingStartedCompletions }: DashboardProps) => {
+const Dashboard = ({ sessions, userId, gettingStartedCompletions, activeLesson }: DashboardProps) => {
   const shots = sessions.flatMap((session) => session.shots);
 
   const profileMetrics = calculateProfileStats({
@@ -140,7 +141,7 @@ const Dashboard = ({ sessions, userId, gettingStartedCompletions }: DashboardPro
         </div>
 
         <div className={styles.row}>
-          <LessonPlanWidget userId={userId} />
+          <LessonPlanWidget userId={userId} activeLesson={activeLesson} />
         </div>
 
       </div>

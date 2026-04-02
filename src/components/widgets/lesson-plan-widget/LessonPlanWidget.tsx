@@ -3,24 +3,30 @@
 import React from "react";
 import styles from "./LessonPlanWidget.module.scss";
 import Link from "next/link";
-import { useLessonDrills } from "@/hooks/useLessonDrills";
-import { useActivePlan } from "@/hooks/useActivePlan";
 import Button from "@/components/button/Button";
 import { useRouter } from "next/navigation";
 
 type LessonPlanWidgetProps = {
   userId: string;
+  activeLesson?: any;
 };
 
-const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({ userId }) => {
-  const { data: activeLesson } = useActivePlan(userId);
+const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({
+  userId,
+  activeLesson,
+}) => {
   const router = useRouter();
 
-  const {
-    data: lessonDrills,
-    isLoading: drillsLoading,
-    error: drillsError,
-  } = useLessonDrills(activeLesson?.[0].id);
+  console.log(activeLesson);
+
+  const lessonDetails = activeLesson?.lessonDetails;
+  const lessonDrills = activeLesson?.drills;
+
+  // const {
+  //   data: lessonDrills,
+  //   isLoading: drillsLoading,
+  //   error: drillsError,
+  // } = useLessonDrills(activeLesson?.[0].id);
 
   const isEmpty = !activeLesson || activeLesson.length === 0;
 
@@ -43,16 +49,18 @@ const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({ userId }) => {
             <li>
               <div className={styles.lesson}>
                 <div className={styles.title}>
-                  <h3>{activeLesson?.[0].lesson_name}</h3>
+                  <h3>{lessonDetails?.lesson_name}</h3>
                 </div>
                 <div className={styles.description}>
-                  {activeLesson?.[0].lesson_description}
+                  {lessonDetails?.lesson_description}
                 </div>
                 <div className={styles.drills}>
-                  <div className={styles.drill}>
-                    <div className={styles.circle}></div>
-                    <p>{lessonDrills?.[0].drill_description}</p>
-                  </div>
+                  {lessonDrills?.map((drill: any) => (
+                    <div className={styles.drill} key={drill.id}>
+                      <div className={styles.circle}></div>
+                      <p>{drill.drill_description}</p>
+                    </div>
+                  ))}
                 </div>
                 <div className={styles.lessonInfo}>
                   <div className={styles.link}>
@@ -68,7 +76,11 @@ const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({ userId }) => {
         <div className={styles.emptyMessage}>
           <p>Let's start training</p>
           <span>Choose one of our lesson plans to get started</span>
-          <Button variant="lessonCard" children="Find a lesson" onClick={() => router.push("/training")}/>
+          <Button
+            variant="lessonCard"
+            children="Find a lesson"
+            onClick={() => router.push("/training")}
+          />
         </div>
       )}
     </div>

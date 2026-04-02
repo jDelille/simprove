@@ -1,0 +1,112 @@
+@use '@/styles/mixins' as *;
+
+.planBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+
+  .tags {
+    @include tags();
+    margin-bottom: 0;
+    padding-bottom: 5px;
+  }
+
+  .actions {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    align-items: center;
+    .points {
+      color: var(--metricOkayText);
+      border: 1px solid var(--metricOkayBorder);
+      border-radius: 22px;
+      font-size: 12px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .close {
+      display: flex;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      justify-content: center;
+
+      .iconBg {
+        border-radius: 50%;
+        width: 34px;
+        height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.02s ease;
+      }
+
+      &:hover {
+        .iconBg {
+          background-color: var(--border);
+          transition: all 0.02s ease;
+          opacity: 1;
+        }
+      }
+    }
+  }
+  .title {
+    h3 {
+      font-weight: 600;
+    }
+  }
+  .description {
+    font-size: 14px;
+    color: var(--lightgray);
+    line-height: 21px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .focus,
+  .overview,
+  .drills {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-bottom: 10px;
+    h3 {
+      font-weight: 500;
+      color: var(--lightgray);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+    p {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 21px;
+    }
+
+
+  }
+  .drills {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+  }
+
+  .footer {
+    font-size: 12px;
+    color: var(--lightgray);
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    justify-content: space-between;
+    margin-top: auto;
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
+  }
+}

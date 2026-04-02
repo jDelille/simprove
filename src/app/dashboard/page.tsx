@@ -1,6 +1,7 @@
 import Dashboard from "@/components/dashboard/Dashboard";
 import { createSupabaseServer } from "@/lib/supabase/server";
 import { fetchGettingStartedCompletions } from "@/services/getting-started-completions/fetchGettingStartedCompletions";
+import { fetchActiveLesson } from "@/services/lessons/fetchActiveLesson";
 import { fetchProfileInfo } from "@/services/profile-info/fetchProfileInfo";
 import { fetchSessions } from "@/services/sessions/fetchSessions";
 
@@ -15,11 +16,12 @@ const DashboardPage = async () => {
     return null;
   }
 
-  const [sessions, gettingStartedCompletions, profileInfo] = user?.id
+  const [sessions, gettingStartedCompletions, profileInfo, activeLesson] = user?.id
     ? await Promise.all([
         fetchSessions(user.id, supabase),
         fetchGettingStartedCompletions(user.id, supabase),
         fetchProfileInfo(supabase),
+        fetchActiveLesson(user.id, supabase),
       ])
     : [[], [], null];
 
@@ -56,6 +58,7 @@ const DashboardPage = async () => {
           sessions={sessions}
           userId={user?.id || ""}
           gettingStartedCompletions={gettingStartedCompletions}
+          activeLesson={activeLesson}
         />
       </div>
     </div>

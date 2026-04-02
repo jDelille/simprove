@@ -7,38 +7,32 @@ import { useLessonDrills } from "@/hooks/useLessonDrills";
 import DrillCard from "../drill-card/DrillCard";
 
 type ActivePlanProps = {
-  lesson: Lesson;
+  lesson: any;
 };
 
 const ActivePlan: React.FC<ActivePlanProps> = ({ lesson }) => {
-  const {
-    data: lessonDrills,
-    isLoading: drillsLoading,
-    error: drillsError,
-  } = useLessonDrills(lesson?.id);
+  const lessonDetails = lesson?.lessonDetails;
+  const lessonDrills = lesson?.drills;
 
-  if (drillsLoading)
-    return <div className={styles.activePlan}>Loading drills...</div>;
-  if (drillsError)
-    return <div className={styles.activePlan}>Failed to load drills</div>;
+  console.log(lesson, "active plan");
 
   return (
     <div className={styles.activePlan}>
       <div className={styles.badges}>
         <div className={styles.badge}>Active Plan</div>
-        <div className={styles.badge}>{lesson?.type}</div>
+        <div className={styles.badge}>{lessonDetails?.type}</div>
       </div>
       <div className={styles.header}>
-        <p className={styles.name}>{lesson?.lesson_name}</p>
-        <p className={styles.description}>{lesson?.lesson_description}</p>
+        <p className={styles.name}>{lessonDetails.lesson_name}</p>
+        <p className={styles.description}>{lessonDetails?.lesson_description}</p>
       </div>
 
       <div className={styles.duration}>
-        <p>Week 1 of {lesson?.weeks}</p>
+        <p>Drill 1 of {lessonDrills?.length}</p>
       </div>
 
       <div className={styles.drills}>
-        {lessonDrills?.map((drill) => (
+        {lessonDrills?.map((drill: any) => (
           <DrillCard key={drill.id} drill={drill} />
         ))}
       </div>
