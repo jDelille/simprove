@@ -97,6 +97,6 @@ export const formatTrend = (trend: {
       };
     case "none":
     default:
-      return { text: "No change from last month", color: "var(--lightgray)" };
+      return { text: "No changes", color: "var(--lightgray)" };
   }
 };

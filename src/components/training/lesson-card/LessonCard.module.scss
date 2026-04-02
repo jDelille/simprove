@@ -1,3 +1,6 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/breakpoints" as bp;
+
 .lessonCard {
   border-radius: 16px;
   background-color: var(--bg);
@@ -6,51 +9,18 @@
   height: 100%;
   position: relative;
   min-height: 250px;
+  @include bp.mobile {
+    width: 100%;
+    min-height: fit-content;
+    height: fit-content;
+  }
   cursor: pointer;
   &:hover {
     border-color: var(--greenBorder);
   }
   .tags {
-    display: flex;
-    gap: 10px;
+    @include tags();
     margin-bottom: 1rem;
-    .tag,
-    .beginnerTag,
-    .intermediateTag,
-    .advancedTag,
-    .singleTag,
-    .multiTag {
-      font-size: 10px;
-      background-color: var(--lightPurple);
-      border: 1px solid var(--purpleBorder);
-      color: var(--purple);
-      border-radius: 22px;
-      padding: 3px 8px;
-      font-weight: 500;
-    }
-    .beginnerTag {
-      background-color: var(--green);
-      border: 1px solid var(--greenBorder);
-      color: var(--greenText);
-    }
-
-    .intermediateTag {
-      background-color: var(--lightYellow);
-      border: 1px solid var(--yellowBorder);
-      color: var(--yellowText);
-    }
-
-    .multiTag {
-      background-color: var(--lightBlue);
-      border: 1px solid var(--blueBorder);
-      color: var(--blueText);
-    }
-
-    .singleTag {
-      background-color: var(--gray);
-      border: 1px solid var(--grayBorder);
-      color: var(--grayText);
-    }
   }
 
   .points {
@@ -67,6 +37,14 @@
     display: flex;
     align-items: center;
     gap: 4px;
+
+    @include bp.mobile {
+      top: 1rem;
+      right: 0.5rem;
+      font-size: 12px;
+      padding: 4px 10px;
+    }
+    
   }
 
   .lessonName {
@@ -99,10 +77,8 @@
     color: var(--lightgray);
     border-top: 1px solid var(--border);
     margin-top: 1rem;
-    position: absolute;
-    bottom: 1rem;
     width: 100%;
-    right: 0;
+    margin-left: calc(-50% + 50%);
     padding: 0 1rem;
   }
 }

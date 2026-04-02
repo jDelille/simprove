@@ -28,3 +28,46 @@
   position: relative;
   font-size: 14px;
 }
+
+@mixin tags() {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem;
+    .tag,
+    .beginnerTag,
+    .intermediateTag,
+    .advancedTag,
+    .singleTag,
+    .multiTag {
+      font-size: 10px;
+      background-color: var(--lightPurple);
+      border: 1px solid var(--purpleBorder);
+      color: var(--purple);
+      border-radius: 22px;
+      padding: 3px 8px;
+      font-weight: 500;
+    }
+    .beginnerTag {
+      background-color: var(--green);
+      border: 1px solid var(--greenBorder);
+      color: var(--greenText);
+    }
+
+    .intermediateTag {
+      background-color: var(--lightYellow);
+      border: 1px solid var(--yellowBorder);
+      color: var(--yellowText);
+    }
+
+    .multiTag {
+      background-color: var(--lightBlue);
+      border: 1px solid var(--blueBorder);
+      color: var(--blueText);
+    }
+
+    .singleTag {
+      background-color: var(--gray);
+      border: 1px solid var(--grayBorder);
+      color: var(--grayText);
+    }
+}

@@ -1,4 +1,4 @@
-@use './breakpoints' as bp;
+@use "./breakpoints" as bp;
 
 * {
   margin: 0;
@@ -23,7 +23,7 @@ html.light {
   --good: #e5f4ea;
   --bad: #ffeceb;
   --neutral: #ebeef4;
-  --bg3: #f5f7fa;
+  --bg3: #f7f9fa;
   --selectedBg: #e9f1fc;
   --selectedBorder: #0769de;
   --lightBg: #edf1f556;
@@ -100,9 +100,9 @@ html.dark {
   --dangerText: #f87171;
   --chartControlsBG: #0f1214;
 
-  --lightPurple: #1e1030;
-  --purple: #a78bfa;
-  --purpleBorder: #4c1d95;
+  --lightPurple: #302d47c7;
+  --purple: #b794f4;
+  --purpleBorder: #4a4370;
 
   // green
   --green: #052e16;
@@ -185,13 +185,12 @@ body {
 }
 
 .react-calendar__month-view__days,
-.react-calendar__tile, 
+.react-calendar__tile,
 .react-calendar__month-view__days__day,
 .react-calendar__month-view__days__day--weekend {
   color: var(--lightgray) !important;
   font-size: 12px;
 }
-
 
 .react-calendar__tile--now {
   background: var(--lightYellow) !important;
@@ -203,4 +202,3 @@ body {
 .react-calendar__tile {
   margin-bottom: 2px !important;
 }
-

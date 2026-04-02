@@ -148,7 +148,7 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
       },
       plotOptions: {
         column: {
-          borderRadius: { where: "all", radius: 12 },
+          borderRadius: { radius: 2},
           borderWidth: 0,
           animation: { duration: 800, easing: "easeOutBounce" },
         },

@@ -1,3 +1,5 @@
+@use '@/styles/breakpoints' as bp;
+
 .browsePlans {
   width: 100%;
   height: fit-content;
@@ -14,6 +16,10 @@
     gap: 1rem;
     position: relative;
     height: 100%;
+
+    @include bp.mobile {
+      grid-template-columns: 1fr;
+    }
 
   }
 }

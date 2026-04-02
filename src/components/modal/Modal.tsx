@@ -9,6 +9,7 @@ type ModalProps = {
   onClose: () => void;
   title: string;
   description?: string;
+  isLessonPlan?: boolean;
 };
 
 const Modal: React.FC<ModalProps> = ({
@@ -17,6 +18,7 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
   title,
   description,
+  isLessonPlan,
 }) => {
   if (!isOpen) return null;
 
@@ -24,21 +26,31 @@ const Modal: React.FC<ModalProps> = ({
 
   const isDarkMode = theme === "dark";
 
+  const lessonPlanModalBody = (
+    <div className={styles.lessonPlanBody}>{body}</div>
+  );
+
+  const modalBody = (
+    <>
+      <div className={styles.modalHeader}>
+        <div className={styles.title}>
+          <h2>{title}</h2>
+          {description && <p className={styles.description}>{description}</p>}
+        </div>
+        <div className={styles.close}>
+          <div className={styles.iconBg} onClick={onClose}>
+            <IoCloseOutline size={18} />
+          </div>
+        </div>
+      </div>
+      <div className={styles.body}>{body}</div>
+    </>
+  );
+
   return (
     <div className={isDarkMode ? styles.overlayDark : styles.overlay}>
       <div className={styles.modal}>
-        <div className={styles.modalHeader}>
-          <div className={styles.title}>
-            <h2>{title}</h2>
-            {description && <p className={styles.description}>{description}</p>}
-          </div>
-          <div className={styles.close}>
-            <div className={styles.iconBg} onClick={onClose}>
-              <IoCloseOutline size={18} />
-            </div>
-          </div>
-        </div>
-        <div className={styles.body}>{body}</div>
+        {isLessonPlan ? lessonPlanModalBody : modalBody}
       </div>
     </div>
   );

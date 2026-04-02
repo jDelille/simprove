@@ -3,9 +3,13 @@ import styles from "./RecommendedPlans.module.scss";
 
 type RecommendedPlansProps = {
   plans: any[];
+  onPlanClick: (plan: any) => void;
 };
 
-const RecommendedPlans: React.FC<RecommendedPlansProps> = ({ plans }) => {
+const RecommendedPlans: React.FC<RecommendedPlansProps> = ({
+  plans,
+  onPlanClick
+}) => {
   return (
     <div className={styles.recommendedPlans}>
       <div className={styles.header}>
@@ -22,7 +26,7 @@ const RecommendedPlans: React.FC<RecommendedPlansProps> = ({ plans }) => {
       </div>
       <div className={styles.plans}>
         {plans?.map((plan) => (
-          <LessonCard key={plan.id} plan={plan} />
+          <LessonCard key={plan.id} plan={plan} onPlanClick={onPlanClick} />
         ))}
       </div>
     </div>
