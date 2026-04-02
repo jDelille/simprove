@@ -24,9 +24,9 @@ const Profile: React.FC<ProfileProps> = ({ userId, myClubs }) => {
         <div className={styles.row}>
           <AchievementsWidgets userId={userId} />
         </div>
-         <div className={styles.row}>
+         {/* <div className={styles.row}>
           <CalendarWidget />
-        </div>
+        </div> */}
         <div className={styles.row}>
           <RecentSessionsWidget userId={userId} />
         </div>

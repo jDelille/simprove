@@ -5,9 +5,7 @@ import { useUser } from "@/hooks/useUser";
 import styles from "./UploadCsv.module.scss";
 import { MdOutlineFileUpload } from "react-icons/md";
 import Button from "../button/Button";
-import { supabase } from "@/lib/supabase/client";
 import { uploadSession } from "@/services/sessions/uploadSession";
-import { logActivity } from "@/services/activity/logActivity";
 
 const UploadCsv = () => {
   const { user } = useUser();
@@ -15,32 +13,32 @@ const UploadCsv = () => {
   const [sessionDate, setSessionDate] = useState(new Date().toISOString());
   const [shots, setShots] = useState<any[]>([]);
 
+  const extractDateFromFilename = (filename: string): string => {
+    const regex = /(\d{2})-(\d{2})-(\d{2})-(\d{2})-(\d{2})-(\d{2})/;
+    const match = filename.match(regex);
+
+    if (match) {
+      const [, month, day, year, hour, minute, second] = match;
+
+      const fullYear = `20${year}`;
+
+      const isoDate = new Date(
+        `${fullYear}-${month}-${day}T${hour}:${minute}:${second}`,
+      ).toISOString();
+
+      return isoDate;
+    }
+
+    console.warn("No date found in filename. Using current date.");
+    return new Date().toISOString();
+  };
+
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
       if (!user) return console.error("User not logged in");
 
       for (const file of acceptedFiles) {
         const text = await file.text();
-
-        const extractDateFromFilename = (filename: string): string => {
-          const regex = /(\d{2})-(\d{2})-(\d{2})-(\d{2})-(\d{2})-(\d{2})/;
-          const match = filename.match(regex);
-
-          if (match) {
-            const [, month, day, year, hour, minute, second] = match;
-
-            const fullYear = `20${year}`;
-
-            const isoDate = new Date(
-              `${fullYear}-${month}-${day}T${hour}:${minute}:${second}`,
-            ).toISOString();
-
-            return isoDate;
-          }
-
-          console.warn("No date found in filename. Using current date.");
-          return new Date().toISOString();
-        };
 
         const newDate = extractDateFromFilename(file.name);
 

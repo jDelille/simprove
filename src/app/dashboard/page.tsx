@@ -25,8 +25,6 @@ const DashboardPage = async () => {
       ])
     : [[], [], null];
 
-  console.log("Profile Info:", profileInfo);
-
   // check if user has completed profile setup
   const userProfile = profileInfo?.profile;
   const hasCompletedProfile =

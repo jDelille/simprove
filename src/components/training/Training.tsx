@@ -18,7 +18,11 @@ type TrainingProps = {
   activeLesson?: any;
 };
 
-const Training: React.FC<TrainingProps> = ({ lessonPlans, userId, activeLesson }) => {
+const Training: React.FC<TrainingProps> = ({
+  lessonPlans,
+  userId,
+  activeLesson,
+}) => {
   const { modals, openModal, closeModal } = useModal();
   const [selectedPlan, setSelectedPlan] = useState<any>(null);
   const [drills, setDrills] = useState<any[]>([]);
@@ -32,6 +36,7 @@ const Training: React.FC<TrainingProps> = ({ lessonPlans, userId, activeLesson }
   }, []);
 
   const activePlan = activeLesson ? activeLesson : null;
+  const isEmpty = !activeLesson || activeLesson.activeLesson === null;
 
   async function handlePlanClick(plan: any) {
     setSelectedPlan(plan);
@@ -47,7 +52,6 @@ const Training: React.FC<TrainingProps> = ({ lessonPlans, userId, activeLesson }
         lessonId: selectedPlan.id,
       });
       closeModal("lessonPlanDetails");
-      console.log('hey')
     }
   };
 
@@ -64,8 +68,6 @@ const Training: React.FC<TrainingProps> = ({ lessonPlans, userId, activeLesson }
     <p>Loading...</p>
   );
 
-
-
   return (
     <div className={styles.training}>
       <div className={styles.pageHeader}>
@@ -80,8 +82,8 @@ const Training: React.FC<TrainingProps> = ({ lessonPlans, userId, activeLesson }
 
       <div className={styles.row}>
         <h2 className={styles.sectionName}>Your Active Plan</h2>
-        {activePlan ? (
-          <ActivePlan lesson={activePlan}  />
+        {!isEmpty ? (
+          <ActivePlan lesson={activePlan} />
         ) : (
           <p>No active plan — pick one below to get started.</p>
         )}

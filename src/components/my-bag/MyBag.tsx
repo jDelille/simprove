@@ -64,8 +64,6 @@ const MyBag: React.FC<MyBagProps> = ({ userId, myClubs }) => {
         club_model: clubModel,
       });
 
-      console.log("Added club:", newClub);
-
       closePopup("editBag");
     } catch (error) {
       console.error("Error adding club:", error);

@@ -29,8 +29,6 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
 
   const isUserProfile = id === userId;
 
-  console.log(profile);
-
   const initials = profile?.display_name
     .split(/\s+/)
     .map((word: string) => word.charAt(0))

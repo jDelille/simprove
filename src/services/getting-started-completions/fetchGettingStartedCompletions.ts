@@ -5,7 +5,6 @@ export const fetchGettingStartedCompletions = async (
   userId: string,
   supabaseClient: SupabaseClient = browserClient
 ) => {
-  console.log("fetchGettingStartedCompletions called");
   const { data: completions, error } = await supabaseClient
     .from("getting_started_completions")
     .select("*")

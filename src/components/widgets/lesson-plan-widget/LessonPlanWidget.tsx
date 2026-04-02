@@ -17,18 +17,27 @@ const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({
 }) => {
   const router = useRouter();
 
-  console.log(activeLesson);
-
   const lessonDetails = activeLesson?.lessonDetails;
   const lessonDrills = activeLesson?.drills;
+  const isEmpty = !activeLesson || activeLesson.activeLesson === null;
 
-  // const {
-  //   data: lessonDrills,
-  //   isLoading: drillsLoading,
-  //   error: drillsError,
-  // } = useLessonDrills(activeLesson?.[0].id);
+  console.log(activeLesson);
 
-  const isEmpty = !activeLesson || activeLesson.length === 0;
+  const lessonProgress =
+    activeLesson?.summary.total > 0
+      ? (activeLesson.summary.completed / activeLesson.summary.total) * 100
+      : 0;
+  
+  const drillClass = (drillStatus: string) => {
+    switch (drillStatus) {
+      case "active":
+        return styles.active;
+      case "completed":
+        return styles.completed;
+      default:
+        return styles.inactive;
+    }
+  };
 
   return (
     <div className={styles.widget}>
@@ -38,9 +47,9 @@ const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({
       {!isEmpty && (
         <div className={styles.progressContainer}>
           <div className={styles.progressBar}>
-            <div className={styles.progress}></div>
+            <div className={styles.progress} style={{ width: `${lessonProgress}%` }}></div>
           </div>
-          <div className={styles.value}>0% complete</div>
+          <div className={styles.value}>{lessonProgress.toFixed(0)}% complete</div>
         </div>
       )}
       {!isEmpty && (
@@ -57,7 +66,7 @@ const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({
                 <div className={styles.drills}>
                   {lessonDrills?.map((drill: any) => (
                     <div className={styles.drill} key={drill.id}>
-                      <div className={styles.circle}></div>
+                      <div className={drillClass(drill.status)}></div>
                       <p>{drill.drill_description}</p>
                     </div>
                   ))}

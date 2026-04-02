@@ -15,8 +15,6 @@ const GettingStartedWidget: React.FC<GettingStartedWidgetProps> = ({
     ? completions.map((comp) => comp.step_id)
     : [];
 
-  console.log(completedSteps);
-
   const isCompleted = (stepId: number) => {
     return completedSteps.includes(stepId);
   };

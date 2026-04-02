@@ -75,13 +75,21 @@
             align-items: center;
             gap: 10px;
 
-            .circle {
+            .active,
+            .inactive,
+            .completed {
               width: 12px;
               min-width: 12px;
               height: 12px;
               min-height: 12px;
               border-radius: 50%;
               border: 1px solid var(--accent);
+            }
+            .inactive {
+              border: 1px solid var(--lightgray);
+            }
+            .completed {
+              background-color: var(--accent);
             }
           }
         }

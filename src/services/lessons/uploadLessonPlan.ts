@@ -7,17 +7,10 @@ export async function uploadLessonPlan({
   userId: string;
   lessonId: string;
 }) {
-  // 1️⃣ Create a user_lesson instance
   const { data: userLessonData, error: userLessonError } = await supabase
     .from("user_lessons")
-    .insert([
-      {
-        user_id: userId,
-        lesson_id: lessonId,
-        status: "active", // can be 'active' instead of 'in-progress' if you prefer
-      },
-    ])
-    .select("id") // get the ID back
+    .insert([{ user_id: userId, lesson_id: lessonId, status: "active" }])
+    .select("id")
     .single();
 
   if (userLessonError || !userLessonData) {
@@ -27,42 +20,30 @@ export async function uploadLessonPlan({
 
   const userLessonId = userLessonData.id;
 
-  // 2️⃣ Copy the lesson drills into user_lesson_drills
-  const { error: drillsError } = await supabase
-    .from("user_lesson_drills")
-    .insert(
-      // fetch drills for this lesson
-      (await supabase
-        .from("lesson_drills")
-        .select("id")
-        .eq("lesson_id", lessonId)
-        .order("drill_order", { ascending: true })
-      ).data?.map((drill) => ({
-        user_lesson_id: userLessonId,
-        lesson_drill_id: drill.id,
-        status: "locked", // default
-      })) || []
-    );
+  const { data: lessonDrills, error: lessonDrillsError } = await supabase
+    .from("lesson_drills")
+    .select("id")
+    .eq("lesson_id", lessonId)
+    .order("drill_order", { ascending: true });
 
-  if (drillsError) {
-    console.error("Error copying drills:", drillsError);
-    throw new Error("Failed to initialize drills");
+  if (lessonDrillsError || !lessonDrills || lessonDrills.length === 0) {
+    console.error("Error fetching lesson drills:", lessonDrillsError);
+    throw new Error("Failed to fetch lesson drills");
   }
 
-  // 3️⃣ Activate the first drill
-  const firstDrill = await supabase
-    .from("user_lesson_drills")
-    .select("id")
-    .eq("user_lesson_id", userLessonId)
-    .order("lesson_drill_id", { ascending: true })
-    .limit(1)
-    .single();
+  const userDrillsInsert = lessonDrills.map((drill, index) => ({
+    user_lesson_id: userLessonId,
+    lesson_drill_id: drill.id,
+    status: index === 0 ? "active" : "locked",
+  }));
 
-  if (firstDrill.data) {
-    await supabase
-      .from("user_lesson_drills")
-      .update({ status: "active" })
-      .eq("id", firstDrill.data.id);
+  const { error: drillsInsertError } = await supabase
+    .from("user_lesson_drills")
+    .insert(userDrillsInsert);
+
+  if (drillsInsertError) {
+    console.error("Error inserting user drills:", drillsInsertError);
+    throw new Error("Failed to initialize drills");
   }
 
   return userLessonId;

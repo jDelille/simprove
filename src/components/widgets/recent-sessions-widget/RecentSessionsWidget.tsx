@@ -46,7 +46,7 @@ const RecentSessionsWidget: React.FC<RecentSessionsWidgetProps> = ({
                       </p>
                       <div className={styles.sessionInfo}>
                         <p>{moment(session.created_at).format("MMM DD")} -</p>
-                        <p>{session.shots.length} shots -</p>
+                        <p>{session.shots?.length} shots -</p>
                         <p>8 clubs</p>
                       </div>
                     </div>
