@@ -2,6 +2,7 @@ import { supabase } from "@/lib/supabase/client";
 import { logActivity } from "../activity/logActivity";
 import { evaluate } from "@/lib/evalulateSession";
 import { drillProgress } from "@/lib/drillProgress";
+import { awardBadge } from "../badges/awardBadge";
 
 type UploadSessionProps = {
   userId: string;
@@ -45,70 +46,41 @@ export async function uploadSession({
   const filePath = `sessions/${userId}/${Date.now()}.json`;
 
   // ─── 1. Upload session JSON to storage ────────────────────────────────────
-  // const { error: uploadError } = await supabase.storage
-  //   .from("sessions")
-  //   .upload(filePath, new Blob([jsonString], { type: "application/json" }), {
-  //     cacheControl: "no-cache",
-  //     upsert: true,
-  //   });
+  const { error: uploadError } = await supabase.storage
+    .from("sessions")
+    .upload(filePath, new Blob([jsonString], { type: "application/json" }), {
+      cacheControl: "no-cache",
+      upsert: true,
+    });
 
-  // if (uploadError) {
-  //   console.error("[uploadSession] Storage upload error:", uploadError);
-  //   throw uploadError;
-  // }
+  if (uploadError) {
+    console.error("[uploadSession] Storage upload error:", uploadError);
+    throw uploadError;
+  }
 
   // ─── 2. Insert session into DB ─────────────────────────────────────────────
-  // const { data: dbSession, error: dbError } = await supabase
-  //   .from("sessions")
-  //   .insert({
-  //     user_id: userId,
-  //     session_name: sessionName,
-  //     session_date: sessionDate,
-  //     storage_path: filePath,
-  //     categories: ["all"],
-  //   })
-  //   .select()
-  //   .single();
-
-  // if (dbError || !dbSession) {
-  //   console.error("[uploadSession] DB insert error:", dbError);
-  //   throw new Error("Session not created properly");
-  // }
-
-  // ─── 3. Award "first swing" badge if not already earned ───────────────────
-  const { data: badge } = await supabase
-    .from("badges")
-    .select("id")
-    .eq("key", "first_swing")
+  const { data: dbSession, error: dbError } = await supabase
+    .from("sessions")
+    .insert({
+      user_id: userId,
+      session_name: sessionName,
+      session_date: sessionDate,
+      storage_path: filePath,
+      categories: ["all"],
+    })
+    .select()
     .single();
 
-  if (badge) {
-    const { data: existingBadge } = await supabase
-      .from("user_badges")
-      .select("id")
-      .eq("user_id", userId)
-      .eq("badge_id", badge.id)
-      .single();
-
-    if (!existingBadge) {
-      const { error: badgeError } = await supabase
-        .from("user_badges")
-        .insert({ user_id: userId, badge_id: badge.id });
-
-      if (badgeError) {
-        console.error("[uploadSession] Badge award error:", badgeError);
-      } else {
-        await logActivity({
-          type: "BADGE_EARNED",
-          title: `Awarded badge: First Swing`,
-          description: `Uploaded your first session`,
-          entityId: badge.id,
-          entityType: "badge",
-          metadata: { badgeName: "First Swing" },
-        });
-      }
-    }
+  if (dbError || !dbSession) {
+    console.error("[uploadSession] DB insert error:", dbError);
+    throw new Error("Session not created properly");
   }
+
+  // ─── 3. Award "first swing" badge if not already earned ───────────────────
+  await awardBadge(userId, "first_swing", {
+    title: "First Swing Logged",
+    description: "Congratulations on logging your first swing session!",
+  });
 
   // ─── 4. Check for an active lesson ────────────────────────────────────────
   const { data: activeLesson, error: lessonError } = await supabase
@@ -322,14 +294,5 @@ export async function uploadSession({
     }
   }
 
-  return {
-    id: "mock-session-id",
-    user_id: userId,
-    session_name: sessionName,
-    session_date: sessionDate,
-    storage_path: filePath,
-    categories: ["all"],
-  };
-
-  // return dbSession;
+  return dbSession;
 }

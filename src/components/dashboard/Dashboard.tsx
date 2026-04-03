@@ -17,11 +17,16 @@ import GettingStartedWidget from "../widgets/getting-started-widget/GettingStart
 type DashboardProps = {
   sessions: any[];
   userId: string;
-  gettingStartedCompletions?: any[]; 
+  gettingStartedCompletions?: any[];
   activeLesson?: any;
 };
 
-const Dashboard = ({ sessions, userId, gettingStartedCompletions, activeLesson }: DashboardProps) => {
+const Dashboard = ({
+  sessions,
+  userId,
+  gettingStartedCompletions,
+  activeLesson,
+}: DashboardProps) => {
   const shots = sessions.flatMap((session) => session.shots);
 
   const profileMetrics = calculateProfileStats({
@@ -75,6 +80,10 @@ const Dashboard = ({ sessions, userId, gettingStartedCompletions, activeLesson }
     formatTrend(carryTrend);
 
   const weakestClubs = getWeakestClubs(shots);
+
+  const hasCompletedGettingStarted = gettingStartedCompletions
+    ? gettingStartedCompletions.length === 4
+    : false;
 
   return (
     <div className={styles.dashboard}>
@@ -136,14 +145,15 @@ const Dashboard = ({ sessions, userId, gettingStartedCompletions, activeLesson }
         <div className={styles.row}>
           <RecentActivityWidget userId={userId} />
         </div>
-                <div className={styles.row}>
-          <GettingStartedWidget completions={gettingStartedCompletions} />
-        </div>
+        {!hasCompletedGettingStarted && (
+          <div className={styles.row}>
+            <GettingStartedWidget completions={gettingStartedCompletions} />
+          </div>
+        )}
 
         <div className={styles.row}>
           <LessonPlanWidget userId={userId} activeLesson={activeLesson} />
         </div>
-
       </div>
     </div>
   );

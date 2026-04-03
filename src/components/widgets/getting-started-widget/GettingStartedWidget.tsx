@@ -7,7 +7,7 @@ type GettingStartedWidgetProps = {
 const GettingStartedWidget: React.FC<GettingStartedWidgetProps> = ({
   completions,
 }) => {
-  // console.log(completions);
+  console.log(completions);
 
   const completionCount = completions ? completions.length : 0;
 

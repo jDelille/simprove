@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase/client";
+import { awardBadge } from "../badges/awardBadge";
 
 export async function uploadLessonPlan({
   userId,
@@ -36,6 +37,34 @@ export async function uploadLessonPlan({
     lesson_drill_id: drill.id,
     status: index === 0 ? "active" : "locked",
   }));
+
+  const { data: hasStartedLesson } = await supabase
+    .from("getting_started_completions")
+    .select("*")
+    .eq("user_id", userId)
+    .eq("step_id", 4)
+    .single();
+
+  if (!hasStartedLesson) {
+    const { error: completionError } = await supabase
+      .from("getting_started_completions")
+      .insert({
+        user_id: userId,
+        step_id: 4,
+      });
+
+    if (completionError) {
+      console.error(
+        "Error inserting getting started completion:",
+        completionError,
+      );
+    }
+  }
+
+  await awardBadge(userId, "first_lesson", {
+    title: "First Lesson Started",
+    description: "Started your first lesson",
+  });
 
   const { error: drillsInsertError } = await supabase
     .from("user_lesson_drills")

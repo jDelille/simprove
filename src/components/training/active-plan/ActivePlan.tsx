@@ -1,9 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import styles from "./ActivePlan.module.scss";
-import { Lesson } from "@/types/lesson";
-import { useLessonDrills } from "@/hooks/useLessonDrills";
 import DrillCard from "../drill-card/DrillCard";
 
 type ActivePlanProps = {
@@ -13,6 +11,8 @@ type ActivePlanProps = {
 const ActivePlan: React.FC<ActivePlanProps> = ({ lesson }) => {
   const lessonDetails = lesson?.lessonDetails;
   const lessonDrills = lesson?.drills;
+
+  console.log("ActivePlan lessonDetails:", lessonDrills);
 
   return (
     <div className={styles.activePlan}>

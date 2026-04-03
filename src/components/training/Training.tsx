@@ -55,6 +55,8 @@ const Training: React.FC<TrainingProps> = ({
     }
   };
 
+  console.log("training drills:", drills);
+
   const planBody = selectedPlan ? (
     <LessonModalBody
       closeModal={closeModal}

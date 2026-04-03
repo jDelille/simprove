@@ -24,7 +24,7 @@ type GroupedSessions = Record<string, SessionGroup>;
 
 type SessionsProps = {
   sessions: any[];
-}
+};
 
 const Sessions: React.FC<SessionsProps> = ({ sessions }) => {
   const { user, profile } = useUser();
@@ -58,7 +58,7 @@ const Sessions: React.FC<SessionsProps> = ({ sessions }) => {
             );
 
             queryClient.setQueryData(["sessions", profile?.id], (prev: any[]) =>
-              prev.filter((s) => !selectedSessions.includes(s.id)),
+              (prev ?? []).filter((s) => !selectedSessions.includes(s.id)),
             );
 
             closePopup("deleteSession");
