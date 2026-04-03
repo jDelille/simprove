@@ -14,15 +14,16 @@ import UploadCsv from "@/components/upload-csv/UploadCsv";
 
 type AveragesGraphWidgetProps = {
   userId: string;
+  sessions: any[];
 };
 
 type MetricKey = "avgCarry" | "avgSpeed" | "avgOffline" | "avgSpin" | "count";
 
 const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
   userId,
+  sessions
 }) => {
   const [selectedMetric, setSelectedMetric] = useState<MetricKey>("avgCarry");
-  const { data: sessions = [], isLoading } = useSessions(userId);
   const { openModal, modals, closeModal } = useModal();
 
   const isEmpty = sessions.length === 0;

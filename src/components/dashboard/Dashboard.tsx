@@ -50,9 +50,6 @@ const Dashboard = ({
     groupedSessions[currentMonthKey]?.sessions.length || 0;
   const sessionsLastMonth = groupedSessions[lastMonthKey]?.sessions.length || 0;
 
-  // console.log(currentMonthKey)
-  // console.log(groupedSessions)
-
   const sessionsTrend = calculateTrend(sessionsThisMonth, sessionsLastMonth);
   const { text: sessionsTrendText, color: sessionsTrendColor } =
     formatTrend(sessionsTrend);
@@ -131,7 +128,7 @@ const Dashboard = ({
         </div>
 
         <div className={styles.row}>
-          <AveragesGraphWidget userId={userId} />
+          <AveragesGraphWidget userId={userId} sessions={sessions} />
         </div>
 
         <div className={styles.row}>
