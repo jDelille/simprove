@@ -5,13 +5,12 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "./Navbar.module.scss";
-import { useUser } from "@/hooks/useUser";
 import { LuSun } from "react-icons/lu";
 import useModal from "@/hooks/useModal";
 import Modal from "../modal/Modal";
 import UploadCsv from "../upload-csv/UploadCsv";
 import Button from "../button/Button";
-import { useState } from "react";
+import React, { useState } from "react";
 import UserMenu from "../user-menu/UserMenu";
 import Avatar from "../avatar/Avatar";
 import { FaChevronDown } from "react-icons/fa6";
@@ -19,12 +18,19 @@ import { createClient } from "@/lib/supabase/client";
 
 type AuthAction = "login" | "signup" | "logout";
 
-const Navbar = () => {
+type NavbarProps = {
+  user: any;
+  profile: any;
+ 
+};
+
+const Navbar: React.FC<NavbarProps> = ({ user, profile }) => {
   const pathname = usePathname();
   const router = useRouter();
   const { openModal, modals, closeModal } = useModal();
   const { theme, toggleTheme } = useTheme();
-  const { user, loading, profile } = useUser();
+
+  console.log(user, profile)
 
   const supabase = createClient();
 
@@ -101,7 +107,7 @@ const Navbar = () => {
 
             {/* <FaRegBell color="var(--lightgray)" /> */}
 
-            {!loading && !user && (
+            {!user && (
               <>
                 <button
                   className={styles.authButton}
@@ -117,7 +123,7 @@ const Navbar = () => {
                 </button>
               </>
             )}
-            {!loading && user && (
+            {user && (
               <>
                 <div className={styles.uploadBtnContainer}>
                   <Button
