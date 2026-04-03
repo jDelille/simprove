@@ -8,9 +8,9 @@ import useModal from "@/hooks/useModal";
 import Modal from "../modal/Modal";
 import { useState } from "react";
 import { fetchLessonDrills } from "@/services/lessons/fetchLessonDrills";
-import { supabase } from "@/lib/supabase/client";
 import LessonModalBody from "./lesson-modal-body/LessonModalBody";
 import { uploadLessonPlan } from "@/services/lessons/uploadLessonPlan";
+import { createClient } from "@/lib/supabase/client";
 
 type TrainingProps = {
   lessonPlans: any[];
@@ -27,6 +27,8 @@ const Training: React.FC<TrainingProps> = ({
   const [selectedPlan, setSelectedPlan] = useState<any>(null);
   const [drills, setDrills] = useState<any[]>([]);
   const [openDrills, setOpenDrills] = useState<boolean>(false);
+
+  const supabase = createClient();
 
   const recommendedPlans = lessonPlans?.reduce((acc: any[], plan) => {
     if (plan.is_ai_recommended) {

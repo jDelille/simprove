@@ -3,7 +3,7 @@ import styles from "./EditAvatar.module.scss";
 import Button from "@/components/button/Button";
 import { useRef, useState } from "react";
 import { uploadProfilePicture } from "@/services/profile-picture/uploadProfilePicture";
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 
 type EditAvatarProps = {
   avatar?: string | null;
@@ -12,6 +12,8 @@ type EditAvatarProps = {
 const EditAvatar: React.FC<EditAvatarProps> = ({ avatar }) => {
   const [preview, setPreview] = useState<string>();
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const supabase = createClient();
 
   const handleClickUpload = () => {
     fileInputRef.current?.click();

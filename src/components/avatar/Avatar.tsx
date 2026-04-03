@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from "./Avatar.module.scss";
-import { FaChevronDown } from "react-icons/fa6";
 
 type AvatarProps = {
   src?: string | null;

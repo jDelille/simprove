@@ -1,12 +1,13 @@
 "use client";
+
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
 import { useState } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
-import { supabase } from "@/lib/supabase/client";
 import styles from "./Form.module.scss";
 import { text } from "@/lib/text";
+import { createClient } from "@/lib/supabase/client";
 
 const SignupForm = () => {
   const [step, setStep] = useState(1);
@@ -21,6 +22,8 @@ const SignupForm = () => {
     location: "",
   });
 
+  const supabase = createClient();
+
   const handleSignup = async () => {
     const { email, password, username, dob, lm, handicap, location } = formData;
 
@@ -28,7 +31,7 @@ const SignupForm = () => {
       email,
       password,
       options: {
-        emailRedirectTo: undefined, // disables confirmation redirect --> add in future
+        emailRedirectTo: undefined,
       },
     });
 

@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 import { awardBadge } from "../badges/awardBadge";
 
 export async function uploadLessonPlan({
@@ -8,6 +8,9 @@ export async function uploadLessonPlan({
   userId: string;
   lessonId: string;
 }) {
+
+  const supabase = createClient();
+
   const { data: userLessonData, error: userLessonError } = await supabase
     .from("user_lessons")
     .insert([{ user_id: userId, lesson_id: lessonId, status: "active" }])

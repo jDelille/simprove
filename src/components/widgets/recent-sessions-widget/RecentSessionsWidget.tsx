@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import styles from "./RecentSessionsWidget.module.scss";
 import { useSessions } from "@/hooks/useSessions";
-import SessionCard from "@/components/session-card/SessionCard";
 import { calculateAverages } from "@/lib/shots/averages";
 import moment from "moment";
 import { MdGolfCourse } from "react-icons/md";

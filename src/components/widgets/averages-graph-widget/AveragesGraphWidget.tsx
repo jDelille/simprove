@@ -54,7 +54,7 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
 
   const metric = controls.find((c) => c.key === selectedMetric);
 
-  const clubStats = getClubAverages(sessions.flatMap((s) => s.shots));
+  const clubStats = getClubAverages(sessions.flatMap((s: any) => s.shots));
 
   const clubStatsArray = Object.entries(clubStats)
     .map(([club, stats]) => ({ club, ...stats }))

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import { IoMdInformationCircleOutline } from "react-icons/io";
 import {
   ColumnDef,
   flexRender,
