@@ -1,11 +1,9 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/client";
+import { supabase } from "@/lib/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 
 export const useSessions = (userId: string | null) => {
-  const supabase = createClient();
-
   return useQuery({
     queryKey: ["sessions", userId],
 

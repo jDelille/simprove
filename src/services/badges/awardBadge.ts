@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/client";
+import { supabase } from "@/lib/supabase/client"
 import { logActivity } from "../activity/logActivity";
 
 export async function awardBadge(
@@ -9,8 +9,6 @@ export async function awardBadge(
         description: string
     }
 ) {
-      const supabase = createClient();
-    
     const {data: badge} = await supabase
         .from("badges")
         .select("id")

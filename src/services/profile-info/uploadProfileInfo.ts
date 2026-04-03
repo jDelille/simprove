@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/client";
+import { supabase } from "@/lib/supabase/client";
 
 type UploadProfileInfoParams = {
   userId: string;
@@ -18,9 +18,6 @@ export async function uploadProfileInfo({
   location,
 }: UploadProfileInfoParams) {
   const updates: any = {};
-
-      const supabase = createClient();
-  
 
   if (displayName !== undefined) updates.display_name = displayName;
   if (username !== undefined) updates.username = username;
