@@ -1,3 +1,5 @@
+@use "@/styles/breakpoints" as bp;
+
 .editProfile {
   height: 100%;
   min-height: 100vh;
@@ -24,14 +26,23 @@
     display: flex;
     gap: 1rem;
     padding-top: 2rem;
+    @include bp.mobile {
+      flex-direction: column;
+    }
     .column {
       height: 100%;
       width: 15%;
       gap: 1rem;
       display: flex;
       flex-direction: column;
+      @include bp.mobile {
+        width: 100%;
+      }
       &:nth-child(2) {
         width: 85%;
+         @include bp.mobile {
+        width: 100%;
+      }
       }
     }
   }

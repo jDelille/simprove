@@ -13,16 +13,17 @@ import CalendarWidget from "../widgets/calendar-widget/CalendarWidget";
 type ProfileProps = {
   userId: string;
   myClubs?: any[];
+  badges: any;
 };
 
-const Profile: React.FC<ProfileProps> = ({ userId, myClubs }) => {
+const Profile: React.FC<ProfileProps> = ({ userId, myClubs, badges }) => {
   const [selectedTab, setSelectedTab] = useState("Overview");
 
   const overViewContent = (
     <div className={styles.content}>
       <div className={styles.column}>
         <div className={styles.row}>
-          <AchievementsWidgets userId={userId} />
+          <AchievementsWidgets userId={userId} badges={badges} />
         </div>
          {/* <div className={styles.row}>
           <CalendarWidget />

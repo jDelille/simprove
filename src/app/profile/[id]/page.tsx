@@ -1,6 +1,6 @@
-import ProfileHeader from "@/components/profile-header/ProfileHeader";
 import Profile from "@/components/profile/Profile";
 import { createSupabaseServer } from "@/lib/supabase/server";
+import { fetchBadges } from "@/services/badges/fetchBadges";
 import { fetchGolfBag } from "@/services/golf-bag/fetchGolfBag";
 
 const ProfilePage = async () => {
@@ -12,10 +12,14 @@ const ProfilePage = async () => {
 
   const myClubs = user?.id ? await fetchGolfBag(user.id, supabase) : [];
 
+  const [badges] = user?.id
+    ? await Promise.all([fetchBadges(supabase)])
+    : [[]];
+
   return (
     <div className="page">
       <div className="profile-page-content">
-        <Profile userId={user?.id || ""} myClubs={myClubs} />
+        <Profile userId={user?.id || ""} myClubs={myClubs} badges={badges} />
       </div>
     </div>
   );

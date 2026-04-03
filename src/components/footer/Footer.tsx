@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
-        <p>&copy; 2023 simprove. All rights reserved.</p>
+        <p>&copy; 2026 simprove. All rights reserved.</p>
         <div className={styles.links}>
             {/* <ul>
                 {links.map((link) => (

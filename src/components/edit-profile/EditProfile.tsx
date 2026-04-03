@@ -8,6 +8,7 @@ import EditProfileInfo from "./edit-profile-info/EditProfileInfo";
 import EditLogin from "./edit-login/EditLogin";
 import DangerZone from "./danger-zone/DangerZone";
 import { useUser } from "@/hooks/useUser";
+import Privacy from "./privacy/Privacy";
 
 const EditProfile = () => {
   const [selectedSection, setSelectedSection] = useState("Account");
@@ -27,7 +28,7 @@ const EditProfile = () => {
       case "Preferences":
         return <div>Preferences content goes here</div>;
       case "Privacy":
-        return <div>Privacy content goes here</div>;
+        return <Privacy />;
       default:
         return null;
     }

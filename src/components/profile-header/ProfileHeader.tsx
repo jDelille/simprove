@@ -38,30 +38,33 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   return (
     <div className={styles.profileHeader}>
       <div className={styles.headerContent}>
-        <div className={styles.avatarContainer}>
-          {profile && (
-            <Avatar
-              src={profile?.avatar_path}
-              size="large"
-              initials={initials}
-            />
-          )}
-          <div className={styles.editAvatarIcon}>
-            <GoPencil size={12} />
-          </div>
-        </div>
         <div className={styles.userInfo}>
-          <div className={styles.name}>
-            <p>{profile?.display_name}</p>
-            <p className={styles.handle}>@{profile?.username}</p>
+          <div className={styles.avatarContainer}>
+            {profile && (
+              <Avatar
+                src={profile?.avatar_path}
+                size="large"
+                initials={initials}
+              />
+            )}
+            <div className={styles.editAvatarIcon}>
+              <GoPencil size={12} />
+            </div>
           </div>
-          <p className={styles.bio}>{profile?.bio || "Add your bio here."}</p>
-          <div className={styles.location}>
-            <p>
-              <FaLocationDot /> {profile?.location || "Add your location here."}
-            </p>
-            <p>-</p>
-            <p>Since {moment(profile?.created_at).format("MMM YYYY")}</p>
+          <div className={styles.text}>
+            <div className={styles.name}>
+              <p>{profile?.display_name}</p>
+              <p className={styles.handle}>@{profile?.username}</p>
+            </div>
+            <p className={styles.bio}>{profile?.bio || "Add your bio here."}</p>
+            <div className={styles.location}>
+              <p>
+                <FaLocationDot />{" "}
+                {profile?.location || "Add your location here."}
+              </p>
+              <p>-</p>
+              <p>Since {moment(profile?.created_at).format("MMM YYYY")}</p>
+            </div>
           </div>
         </div>
 

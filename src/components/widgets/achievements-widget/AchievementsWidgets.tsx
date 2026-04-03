@@ -3,17 +3,22 @@ import styles from "./AchievementsWidget.module.scss";
 
 type AchievementsWidgetsProps = {
   userId: string;
+  badges: any;
 };
 
-const AchievementsWidgets: React.FC<AchievementsWidgetsProps> = ({ userId }) => {
+const AchievementsWidgets: React.FC<AchievementsWidgetsProps> = ({ userId, badges }) => {
   return (
     <div className={styles.achievementsWidget}>
         <div className={styles.header}>
             <p>Achievements</p>
-            <span>4 of 12 earned</span>
+            <span>0 of {badges.length} earned</span>
         </div>
         <div className={styles.content}>
-            <p>No achievements to display.</p>
+            {badges.map((badge: any) => (
+                <div key={badge.id} className={styles.badge}>
+                    <p>{badge.name}</p>
+                </div>
+            ))}
         </div>
     </div>
   )

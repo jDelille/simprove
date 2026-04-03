@@ -1,0 +1,43 @@
+@use "@/styles/mixins" as *;
+
+.privacy {
+  @include widget();
+
+  .header {
+    p {
+      font-size: 16px;
+      font-weight: 500;
+    }
+    span {
+      font-size: 12px;
+      color: var(--lightgray);
+    }
+  }
+
+  .content {
+    ul {
+      display: flex;
+      flex-direction: column;
+      margin-top: 1rem;
+      li {
+        display: flex;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--border);
+
+        &:nth-last-child(1) {
+          border-bottom: none;
+        }
+
+        p {
+          font-weight: 400;
+          font-size: 14px;
+        }
+        span {
+          font-size: 12px;
+          color: var(--lightgray);
+        }
+      }
+    }
+  }
+}
