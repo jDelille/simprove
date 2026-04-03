@@ -1,22 +1,27 @@
 "use client";
 
 import React, { useState } from "react";
-import SessionConsistencyWidget from "../widgets/session-consistency-widget/SessionConsistencyWidget";
 import RecentSessionsWidget from "../widgets/recent-sessions-widget/RecentSessionsWidget";
 import AchievementsWidgets from "../widgets/achievements-widget/AchievementsWidgets";
 import styles from "./Profile.module.scss";
 import ProfileHeader from "../profile-header/ProfileHeader";
 import MyBag from "../my-bag/MyBag";
 import RankWidget from "../widgets/rank-widget/RankWidget";
-import CalendarWidget from "../widgets/calendar-widget/CalendarWidget";
+import LifetimeAveragesWidget from "../widgets/lifetime-averages-widget/LifetimeAveragesWidget";
 
 type ProfileProps = {
   userId: string;
   myClubs?: any[];
   badges: any;
+  sessions: any[];
 };
 
-const Profile: React.FC<ProfileProps> = ({ userId, myClubs, badges }) => {
+const Profile: React.FC<ProfileProps> = ({
+  userId,
+  myClubs,
+  badges,
+  sessions,
+}) => {
   const [selectedTab, setSelectedTab] = useState("Overview");
 
   const overViewContent = (
@@ -25,7 +30,7 @@ const Profile: React.FC<ProfileProps> = ({ userId, myClubs, badges }) => {
         <div className={styles.row}>
           <AchievementsWidgets userId={userId} badges={badges} />
         </div>
-         {/* <div className={styles.row}>
+        {/* <div className={styles.row}>
           <CalendarWidget />
         </div> */}
         <div className={styles.row}>
@@ -36,7 +41,9 @@ const Profile: React.FC<ProfileProps> = ({ userId, myClubs, badges }) => {
         <div className={styles.row}>
           <RankWidget />
         </div>
-       
+        <div className={styles.row}>
+          <LifetimeAveragesWidget sessions={sessions} userId={userId} />
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,33 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/breakpoints" as bp;
+
+.lifetimeAveragesWidget {
+  @include widget();
+
+  .header {
+    @include widgetHeader();
+  }
+
+  .content {
+    ul {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        li {
+            flex: .5;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 10px;
+            background-color: var(--bg3);
+            p {
+                font-size: 20px;
+                font-weight: 500;
+            }
+            span {
+                color: var(--lightgray);
+                font-size: 12px;
+            }
+        }
+    }
+  }
+}
