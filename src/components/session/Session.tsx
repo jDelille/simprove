@@ -1,9 +1,8 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import {useRouter } from "next/navigation";
 import styles from "./Session.module.scss";
 import { FaAngleLeft } from "react-icons/fa";
-import { useSession } from "@/hooks/useSession";
 import moment from "moment";
 import { MissTendencyWidget, SmallStatWidget } from "../widgets";
 import VsLastSessionWidget from "../widgets/vs-last-session-widget/VsLastSessionWidget";
@@ -15,13 +14,16 @@ import { getClubAverages } from "@/lib/shots/averages";
 import FaceAngleWidget from "../widgets/face-angle-widget/FaceAngleWidget";
 import { calculateSessionStats } from "@/lib/session-stats/sessionStats";
 
-const Session = () => {
+type SessionProps = {
+  session: any;
+}
+
+const Session: React.FC<SessionProps> = ({ session }) => {
   const router = useRouter();
-  const params = useParams();
-  const sessionId = params.id as string;
 
   const [selectedClub, setSelectedClub] = useState<string>("ALL");
-  const { data: session, isLoading, error } = useSession(sessionId);
+
+  console.log(session)
 
   const filteredShots = useMemo(() => {
     if (!session?.shots) return [];
@@ -58,10 +60,6 @@ const Session = () => {
   });
 
   // console.log(sessionMetrics);
-
-  if(isLoading) {
-    return;
-  }
 
   return (
     <div className={styles.session}>

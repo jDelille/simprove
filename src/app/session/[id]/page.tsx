@@ -1,8 +1,10 @@
 import Session from "@/components/session/Session";
 import { createSupabaseServer } from "@/lib/supabase/server";
 import { fetchGettingStartedCompletions } from "@/services/getting-started-completions/fetchGettingStartedCompletions";
+import { fetchSession } from "@/services/sessions/fetchSession";
 
-const SessionPage = async () => {
+const SessionPage = async ({ params }: { params: { id: string } }) => {
+  const { id } = await params;
   const supabase = await createSupabaseServer();
 
   const {
@@ -13,8 +15,11 @@ const SessionPage = async () => {
     return null;
   }
 
-  const [gettingStartedCompletions] = user?.id
-    ? await Promise.all([fetchGettingStartedCompletions(user.id, supabase)])
+  const [gettingStartedCompletions, session] = user?.id
+    ? await Promise.all([
+        fetchGettingStartedCompletions(user.id, supabase),
+        fetchSession(id, supabase),
+      ])
     : [[], []];
 
   const hasVititedSession = gettingStartedCompletions.some(
@@ -31,7 +36,7 @@ const SessionPage = async () => {
   return (
     <div className="page">
       <div className="page-content">
-        <Session />
+        <Session session={session} />
       </div>
     </div>
   );
