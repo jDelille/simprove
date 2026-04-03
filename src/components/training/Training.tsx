@@ -99,7 +99,7 @@ const Training: React.FC<TrainingProps> = ({
           onPlanClick={handlePlanClick}
         />
         {/* browse plans */}
-        <BrowsePlans plans={lessonPlans as any[]} />
+        <BrowsePlans plans={lessonPlans as any[]} onPlanClick={handlePlanClick}/>
       </div>
 
       <Modal
