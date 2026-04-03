@@ -1,8 +1,10 @@
+import { createClient } from "@/lib/supabase/client";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { supabase as browserClient } from "@/lib/supabase/client";
 
-export const fetchSessions = async (userId: string, supabaseClient: SupabaseClient = browserClient) => {
-  const { data: sessionRows, error } = await supabaseClient
+export const fetchSessions = async (userId: string) => {
+        const supabase = createClient();
+  
+  const { data: sessionRows, error } = await supabase
     .from("sessions")
     .select("*")
     .eq("user_id", userId)
@@ -14,7 +16,7 @@ export const fetchSessions = async (userId: string, supabaseClient: SupabaseClie
     sessionRows.map(async (row) => {
       if (!row.storage_path) return row;
 
-      const { data: fileData, error: storageError } = await supabaseClient.storage
+      const { data: fileData, error: storageError } = await supabase.storage
         .from("sessions")
         .download(row.storage_path);
 

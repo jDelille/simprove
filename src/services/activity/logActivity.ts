@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase/client'
+import { createClient } from '@/lib/supabase/client';
 import { ActivityType } from '@/types/activity';
 
 type LogActivityParams = {
@@ -18,6 +18,8 @@ export async function logActivity({
   entityType,
   metadata = {}
 }: LogActivityParams) {
+
+  const supabase = createClient();
 
   const { data: userData } = await supabase.auth.getUser()
 

@@ -18,8 +18,8 @@ const DashboardPage = async () => {
 
   const [sessions, gettingStartedCompletions, profileInfo, activeLesson] = user?.id
     ? await Promise.all([
-        fetchSessions(user.id, supabase),
-        fetchGettingStartedCompletions(user.id, supabase),
+        fetchSessions(user.id),
+        fetchGettingStartedCompletions(user.id),
         fetchProfileInfo(supabase),
         fetchActiveLesson(user.id, supabase),
       ])

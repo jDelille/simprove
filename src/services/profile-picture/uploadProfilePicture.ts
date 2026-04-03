@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 import imageCompression from "browser-image-compression";
 
 export async function uploadProfilePicture({
@@ -8,6 +8,8 @@ export async function uploadProfilePicture({
   userId: string;
   file: File;
 }) {
+  const supabase = createClient();
+
   const compressedFile = await imageCompression(file, {
     maxSizeMB: 0.5, // target size (500kb)
     maxWidthOrHeight: 512,
