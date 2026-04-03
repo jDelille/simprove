@@ -16,12 +16,14 @@ type TrainingProps = {
   lessonPlans: any[];
   userId: string;
   activeLesson?: any;
+  recommendedLessons?: any[];
 };
 
 const Training: React.FC<TrainingProps> = ({
   lessonPlans,
   userId,
   activeLesson,
+  recommendedLessons,
 }) => {
   const { modals, openModal, closeModal } = useModal();
   const [selectedPlan, setSelectedPlan] = useState<any>(null);
@@ -97,12 +99,17 @@ const Training: React.FC<TrainingProps> = ({
         <h2 className={styles.sectionName}>Browse Plans</h2>
 
         {/* recommended plans */}
-        <RecommendedPlans
-          plans={recommendedPlans as any[]}
+        {recommendedLessons && (
+          <RecommendedPlans
+            onPlanClick={handlePlanClick}
+            recommendedLessons={recommendedLessons}
+          />
+        )}
+        {/* browse plans */}
+        <BrowsePlans
+          plans={lessonPlans as any[]}
           onPlanClick={handlePlanClick}
         />
-        {/* browse plans */}
-        <BrowsePlans plans={lessonPlans as any[]} onPlanClick={handlePlanClick}/>
       </div>
 
       <Modal

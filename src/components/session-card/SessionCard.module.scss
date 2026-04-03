@@ -23,7 +23,7 @@
   animation-delay: var(--delay);
 
   &:hover {
-    background-color: var(--chartRowColor);
+    background-color: var(--primaryHover);
   }
   .checkBox {
     border: 1px solid var(--border);

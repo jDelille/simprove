@@ -23,11 +23,11 @@ const UserMenu: React.FC<UserMenuProps> = ({ onLogout, setOpenMenu }) => {
   const router = useRouter();
   const { user, profile } = useUser();
 
-  const {theme, toggleTheme} = useTheme();
-  
+  const { theme, toggleTheme } = useTheme();
+
   const handleThemeToggle = () => {
     toggleTheme();
-  }
+  };
 
   const handleLinkClick = (href: string) => {
     router.push(href);
@@ -71,18 +71,13 @@ const UserMenu: React.FC<UserMenuProps> = ({ onLogout, setOpenMenu }) => {
             Settings
             <IoSettingsOutline size={18} color="var(--lightgray)" />
           </li>
-          <li>
-            Theme <div className={styles.toggle}>
-              <div className={styles.option} onClick={() => handleThemeToggle()}>
-                <RiComputerLine size={14} color="var(--lightgray)" />
-              </div>
-              <div className={styles.option} onClick={() => handleThemeToggle()}>
-                <IoSunnyOutline size={14} color="var(--lightgray)" />
-              </div>
-              <div className={styles.option} onClick={() => handleThemeToggle()}>
-                <LuMoonStar size={14} color="var(--lightgray)" />
-              </div>
-            </div>
+          <li onClick={() => handleThemeToggle()}>
+            Theme
+            {theme === "dark" ? (
+              <IoSunnyOutline size={18} color="var(--lightgray)" />
+            ) : (
+              <LuMoonStar size={18} color="var(--lightgray)" />
+            )}
           </li>
           <li onClick={() => handleLinkClick("/about")}>
             About <MdOutlineHelpOutline size={18} color="var(--lightgray)" />

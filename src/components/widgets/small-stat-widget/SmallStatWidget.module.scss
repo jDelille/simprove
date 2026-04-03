@@ -46,4 +46,22 @@
     margin-top: 1rem;
     color: var(--lightgray);
   }
+  
+  .changeIcon {
+    background-color: var(--messageBg);
+    border: 1px solid var(--border);
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .down {
+      transform: rotate(180deg);
+    }
+  }
 }

@@ -27,13 +27,14 @@ type SessionsProps = {
 };
 
 const Sessions: React.FC<SessionsProps> = ({ sessions }) => {
-  const { user, profile } = useUser();
+  const { profile } = useUser();
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [sortField, setSortField] = useState<"date" | "shots">("date");
   const [selectedSessions, setSelectedSessions] = useState<string[]>([]);
   const { openPopup, popups, closePopup } = usePopup();
-  const router = useRouter();
   const queryClient = useQueryClient();
+
+  console.log("Sessions component sessions:", sessions);
 
   const handleDeleteSession = () => {
     openPopup("deleteSession");

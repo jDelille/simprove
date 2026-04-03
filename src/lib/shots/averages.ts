@@ -66,10 +66,10 @@ export function calculateAverages(shots: Shot[]): Averages {
       acc.avgSpeed += shot.ballSpeed ?? 0;
       acc.avgOffline += shot?.offline ?? 0;
       acc.avgSpin += shot?.backSpin ?? 0;
-      acc.avgfaceToTarget = shot.faceToTarget ?? 0;
-      acc.avgLaunchAngle = shot?.vla ?? 0;
-      acc.avgPeakHeight = shot.peakHeight ?? 0;
-      acc.avgDecent = shot.decent ?? 0;
+      acc.avgfaceToTarget += shot.faceToTarget ?? 0;
+      acc.avgLaunchAngle += shot?.vla ?? 0;
+      acc.avgPeakHeight += shot.peakHeight ?? 0;
+      acc.avgDecent += shot.decent ?? 0;
       acc.count++;
       acc.mostUsedClub = mostUsedClubName;
       acc.mostUsedClubCount = mostUsedClubCount;

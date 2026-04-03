@@ -1,15 +1,20 @@
+import { r } from "highcharts";
 import LessonCard from "../lesson-card/LessonCard";
 import styles from "./RecommendedPlans.module.scss";
 
 type RecommendedPlansProps = {
-  plans: any[];
   onPlanClick: (plan: any) => void;
+  recommendedLessons?: any[];
 };
 
 const RecommendedPlans: React.FC<RecommendedPlansProps> = ({
-  plans,
-  onPlanClick
+  onPlanClick,
+  recommendedLessons
 }) => {
+
+  console.log(recommendedLessons, "recommendedLessons in RecommendedPlans");
+  const plans = recommendedLessons?.map((rec) => rec.lessons);
+
   return (
     <div className={styles.recommendedPlans}>
       <div className={styles.header}>
@@ -19,8 +24,7 @@ const RecommendedPlans: React.FC<RecommendedPlansProps> = ({
         <div className={styles.headerText}>
           <p>Recommended for you</p>
           <span>
-            Based on you recent sessions — your offline dispersion and face
-            angle could use work
+            Based on you recent sessions — these plans are hand-picked to help you improve the most.
           </span>
         </div>
       </div>

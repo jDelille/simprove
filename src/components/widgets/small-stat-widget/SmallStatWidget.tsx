@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./SmallStatWidget.module.scss";
 import { FaArrowUp, FaArrowDown, FaMinus } from "react-icons/fa6";
+import { MdArrowOutward } from "react-icons/md";
 
 type SmallStatWidgetProps = {
   title: string;
@@ -35,21 +36,37 @@ const SmallStatWidget: React.FC<SmallStatWidgetProps> = (props) => {
             <span>{props.metric}</span>
           </div>
           <div className={styles.change}>
-            {props.trend === "increase" && (
-              <FaArrowUp color={props.trendColor} />
-            )}
-            {props.trend === "decrease" && (
-              <FaArrowDown className={styles.down} color={props.trendColor} />
-            )}
-            {props.trend === "none" && (
-              <FaMinus className={styles.neutral} color={props.trendColor} />
-            )}
             <p style={{ color: props.trendColor }} className={styles.percent}>
-              {percent}{' '}
+              {percent}{" "}
               <span style={{ color: "var(--lightgray)", fontWeight: 400 }}>
                 {changeText}
               </span>
             </p>
+
+            {props.trend !== null && (
+              <div className={styles.changeIcon}>
+                {props.trend === "increase" && (
+                  <MdArrowOutward
+                    className={styles.up}
+                    color={props.trendColor}
+                    size={20}
+                  />
+                )}
+                {props.trend === "decrease" && (
+                  <MdArrowOutward
+                    className={styles.down}
+                    color={props.trendColor}
+                    size={20}
+                  />
+                )}
+                {props.trend === "none" && (
+                  <FaMinus
+                    className={styles.neutral}
+                    color={props.trendColor}
+                  />
+                )}
+              </div>
+            )}
           </div>
         </>
       )}

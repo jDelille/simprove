@@ -11,7 +11,7 @@
 // Colors
 html.light {
   --bg: #fff;
-  --secondaryBg: #f5f7fa;
+  --secondaryBg: #fafafa;
   --messageBg: #f3f5f9;
   --text: #030712;
   --border: #ebeef4;
@@ -71,6 +71,9 @@ html.light {
   --metricOkayText: #d4921b;
   --metricGoodBG: #edfaf3;
   --metricGoodText: #18a96b;
+
+  // hover colors
+  --primaryHover: #f2f2f2;
 
   // button colors
   --primaryBtn: #171717;
@@ -141,6 +144,9 @@ html.dark {
   --metricOkayText: #fbbf24;
   --metricGoodBG: #0d2a1a;
   --metricGoodText: #34d399;
+
+  // hover colors
+  --primaryHover: #1a1a1a;
 
   // button colors
   --primaryBtn: #ededed;

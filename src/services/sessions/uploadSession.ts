@@ -3,6 +3,9 @@ import { logActivity } from "../activity/logActivity";
 import { evaluate } from "@/lib/evalulateSession";
 import { drillProgress } from "@/lib/drillProgress";
 import { awardBadge } from "../badges/awardBadge";
+import { calculateAverages } from "@/lib/shots/averages";
+import { fetchAIRecommendedLessons } from "@/claude-ai/fetchAIRecommendedLessons";
+import { Shot } from "@/types/shot";
 
 type UploadSessionProps = {
   userId: string;
@@ -292,6 +295,59 @@ export async function uploadSession({
         }
       }
     }
+  }
+
+  // ─── AI Lesson Recommendations ────────────────────────────────────────────
+  try {
+    const { data: allLessons, error: lessonsError } = await supabase
+      .from("lessons")
+      .select("id, lesson_name, lesson_description, lesson_difficulty");
+
+    if (allLessons && allLessons.length > 0) {
+      const sessionData = JSON.parse(jsonString);
+      const shots = sessionData.shots ?? [];
+      const validShots = shots.filter(
+        (shot: Shot) =>
+          shot.vla > 0 &&
+          shot.carry > 0 &&
+          shot.ballSpeed > 0 &&
+          shot.peakHeight > 0,
+      );
+
+      const hasClubData = validShots.some(
+        (s: Shot) => s.vla && s.vla !== -0.01 && s.vla > 0,
+      );
+
+      const averages = calculateAverages(validShots);
+
+      console.log(
+        "[uploadSession] validShots count:",
+        validShots.length,
+        "of",
+        shots.length,
+      );
+
+
+      const recs = await fetchAIRecommendedLessons(
+        userId,
+        {
+          avgCarry: averages.avgCarry,
+          avgSpeed: averages.avgSpeed,
+          avgOffline: averages.avgOffline,
+          avgVLA: averages.avgLaunchAngle,
+          avgFaceToTarget: averages.avgfaceToTarget,
+          avgBackSpin: averages.avgSpin,
+          avgPeakHeight: averages.avgPeakHeight,
+          totalShots: averages.count,
+          hasClubData,
+        },
+        allLessons,
+      );
+
+
+    }
+  } catch (e) {
+    console.error("[uploadSession] AI recommendation error:", e);
   }
 
   return dbSession;
