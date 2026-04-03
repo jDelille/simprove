@@ -7,7 +7,7 @@
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
-  background-color: var(--bg);
+  background-color: var(--secondaryBg);
   color: var(--text);
   .navbarContent {
     @include contentWidth;
@@ -50,7 +50,6 @@
 
           .activeNavLink {
             color: var(--text);
-            // font-weight: 600;
           }
         }
       }

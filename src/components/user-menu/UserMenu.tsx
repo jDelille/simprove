@@ -3,6 +3,16 @@
 import { useRouter } from "next/navigation";
 import styles from "./UserMenu.module.scss";
 import { useUser } from "@/hooks/useUser";
+import { MdOutlineSpaceDashboard, MdOutlineLogout } from "react-icons/md";
+import { IoSettingsOutline } from "react-icons/io5";
+import { MdOutlineSchool } from "react-icons/md";
+import { FaRegUserCircle } from "react-icons/fa";
+import { BsFileBarGraph } from "react-icons/bs";
+import { MdOutlineHelpOutline } from "react-icons/md";
+import { RiComputerLine } from "react-icons/ri";
+import { IoSunnyOutline } from "react-icons/io5";
+import { LuMoonStar } from "react-icons/lu";
+import { useTheme } from "@/context/ThemeContext";
 
 type UserMenuProps = {
   onLogout: () => void;
@@ -13,6 +23,12 @@ const UserMenu: React.FC<UserMenuProps> = ({ onLogout, setOpenMenu }) => {
   const router = useRouter();
   const { user, profile } = useUser();
 
+  const {theme, toggleTheme} = useTheme();
+  
+  const handleThemeToggle = () => {
+    toggleTheme();
+  }
+
   const handleLinkClick = (href: string) => {
     router.push(href);
     setOpenMenu(false);
@@ -21,36 +37,60 @@ const UserMenu: React.FC<UserMenuProps> = ({ onLogout, setOpenMenu }) => {
   return (
     <div className={styles.menu}>
       <ul>
-        <li className={styles.name}>
+        <div className={styles.name}>
           <p>{profile?.display_name}</p>
           <p className={styles.handle}>@{profile?.username}</p>
-        </li>
-        <li
-          onClick={() => handleLinkClick("/dashboard")}
-          className={styles.mobile}
-        >
-          Dashboard
-        </li>
-        <li
-          onClick={() => handleLinkClick("/sessions")}
-          className={styles.mobile}
-        >
-          Sessions
-        </li>
-        <li
-          onClick={() => handleLinkClick("/training")}
-          className={styles.mobile}
-        >
-          Training
-        </li>
-        <li onClick={() => handleLinkClick(`/profile/${profile?.id}`)}>
-          Profile
-        </li>
-        <li onClick={() => handleLinkClick("/settings/edit-profile")}>
-          Settings
-        </li>
-        <li onClick={() => handleLinkClick("/about")}>About</li>
-        <li onClick={onLogout}>Logout</li>
+        </div>
+        <div className={styles.links}>
+          <li
+            onClick={() => handleLinkClick("/dashboard")}
+            className={styles.mobile}
+          >
+            Dashboard
+            <MdOutlineSpaceDashboard size={18} color="var(--lightgray)" />
+          </li>
+          <li
+            onClick={() => handleLinkClick("/sessions")}
+            className={styles.mobile}
+          >
+            Sessions
+            <BsFileBarGraph size={18} color="var(--lightgray)" />
+          </li>
+          <li
+            onClick={() => handleLinkClick("/training")}
+            className={styles.mobile}
+          >
+            Training
+            <MdOutlineSchool size={18} color="var(--lightgray)" />
+          </li>
+          <li onClick={() => handleLinkClick(`/profile/${profile?.id}`)}>
+            Profile
+            <FaRegUserCircle size={17} color="var(--lightgray)" />
+          </li>
+          <li onClick={() => handleLinkClick("/settings/edit-profile")}>
+            Settings
+            <IoSettingsOutline size={18} color="var(--lightgray)" />
+          </li>
+          <li>
+            Theme <div className={styles.toggle}>
+              <div className={styles.option} onClick={() => handleThemeToggle()}>
+                <RiComputerLine size={14} color="var(--lightgray)" />
+              </div>
+              <div className={styles.option} onClick={() => handleThemeToggle()}>
+                <IoSunnyOutline size={14} color="var(--lightgray)" />
+              </div>
+              <div className={styles.option} onClick={() => handleThemeToggle()}>
+                <LuMoonStar size={14} color="var(--lightgray)" />
+              </div>
+            </div>
+          </li>
+          <li onClick={() => handleLinkClick("/about")}>
+            About <MdOutlineHelpOutline size={18} color="var(--lightgray)" />
+          </li>
+          <li onClick={onLogout}>
+            Logout <MdOutlineLogout size={18} color="var(--lightgray)" />
+          </li>
+        </div>
       </ul>
     </div>
   );

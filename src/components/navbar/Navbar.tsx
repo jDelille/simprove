@@ -10,7 +10,6 @@ import { LuSun } from "react-icons/lu";
 import useModal from "@/hooks/useModal";
 import Modal from "../modal/Modal";
 import UploadCsv from "../upload-csv/UploadCsv";
-import { FaRegBell } from "react-icons/fa";
 import Button from "../button/Button";
 import { useState } from "react";
 import UserMenu from "../user-menu/UserMenu";
@@ -130,13 +129,6 @@ const Navbar = () => {
                 <div
                   className={styles.userAvatar}
                   onClick={() => setOpenMenu(!openMenu)}
-                  style={
-                    openMenu
-                      ? {
-                          outline: "1px solid var(--border)",
-                        }
-                      : undefined
-                  }
                 >
                   {profile && (
                     <Avatar

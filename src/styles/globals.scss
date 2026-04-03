@@ -60,7 +60,7 @@ html.light {
   --grayBorder: #e5e7eb;
 
   // chart colors
-  --chartBlue: #378bde;
+  --chartBlue: #0062d1;
   --chartBlueDark: #195fa6;
   --chartBlueLight: #b5d5f5;
 
@@ -71,14 +71,19 @@ html.light {
   --metricOkayText: #d4921b;
   --metricGoodBG: #edfaf3;
   --metricGoodText: #18a96b;
+
+  // button colors
+  --primaryBtn: #171717;
+  --primaryBtnHover: #383838;
 }
 
 html.dark {
-  --bg: #161b1f;
-  --secondaryBg: #0f1214;
-  --messageBg: #232a2f;
+  --bg: #0a0a0a;
+  --secondaryBg: #000000;
+  --widgetBG: #0a0a0a;
+  --messageBg: #111114;
   --text: #fff;
-  --border: #1e2428;
+  --border: #1a1a1a;
   --lightgray: #8a9490;
   --dividerColor: #364153;
   --accent: var(--chartBlue);
@@ -100,7 +105,7 @@ html.dark {
   --dangerText: #f87171;
   --chartControlsBG: #0f1214;
 
-  --lightPurple: #302d47c7;
+  --lightPurple: #2e1938;
   --purple: #b794f4;
   --purpleBorder: #4a4370;
 
@@ -125,7 +130,7 @@ html.dark {
   --grayBorder: #374151;
 
   // chart colors
-  --chartBlue: #378bde;
+  --chartBlue: #0072f5;
   --chartBlueDark: #195fa6;
   --chartBlueLight: #b5d5f5;
 
@@ -136,6 +141,10 @@ html.dark {
   --metricOkayText: #fbbf24;
   --metricGoodBG: #0d2a1a;
   --metricGoodText: #34d399;
+
+  // button colors
+  --primaryBtn: #ededed;
+  --primaryBtnHover: #cccccc;
 }
 
 body {

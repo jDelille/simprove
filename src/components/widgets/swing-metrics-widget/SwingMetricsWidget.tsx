@@ -109,64 +109,58 @@ const SwingMetricsWidget: React.FC<SwingMetricsWidgetProps> = ({ shots }) => {
           <ul>
             <li>
               <div className={styles.metric}>
-                <p style={isEmpty ? {color: "var(--lightgray)"} : undefined}>Club Path</p>
-                <span>Within range, but your open face is amplifying it</span>
+                <p style={isEmpty ? { color: "var(--lightgray)" } : undefined}>
+                  Club Path
+                </p>
+                <div className={styles.valueLabel}>
+                  <p style={{ color: pathLabel(avgPath).color }}>
+                    {pathLabel(avgPath).text}
+                  </p>
+                </div>
               </div>
               {!isEmpty && (
                 <div className={styles.value}>
                   <p style={{ color: pathLabel(avgPath).color }}>
                     {avgPath.toFixed(1)}°
                   </p>
-                  <div
-                    className={styles.valueLabel}
-                    style={{ background: pathLabel(avgPath).background }}
-                  >
-                    <p style={{ color: pathLabel(avgPath).color }}>
-                      {pathLabel(avgPath).text}
-                    </p>
-                  </div>
                 </div>
               )}
             </li>
             <li>
               <div className={styles.metric}>
-                <p style={isEmpty ? {color: "var(--lightgray)"} : undefined}>Face Angle</p>
-                <span>The gap that curves the ball</span>
+                <p style={isEmpty ? { color: "var(--lightgray)" } : undefined}>
+                  Face Angle
+                </p>
+                <div className={styles.valueLabel}>
+                  <p style={{ color: faceLabel(avgFace).color }}>
+                    {faceLabel(avgFace).text}
+                  </p>
+                </div>
               </div>
               {!isEmpty && (
                 <div className={styles.value}>
                   <p style={{ color: faceLabel(avgFace).color }}>
                     {avgFace.toFixed(1)}°
                   </p>
-                  <div
-                    className={styles.valueLabel}
-                    style={{ background: faceLabel(avgFace).background }}
-                  >
-                    <p style={{ color: faceLabel(avgFace).color }}>
-                      {faceLabel(avgFace).text}
-                    </p>
-                  </div>
                 </div>
               )}
             </li>
             <li>
               <div className={styles.metric}>
-                <p style={isEmpty ? {color: "var(--lightgray)"} : undefined}>Attack Angle</p>
-                <span>Hitting up slightly would boost distance</span>
+                <p style={isEmpty ? { color: "var(--lightgray)" } : undefined}>
+                  Attack Angle
+                </p>
+                <div className={styles.valueLabel}>
+                  <p style={{ color: aoaLabel(avgAttack).color }}>
+                    {aoaLabel(avgAttack).text}
+                  </p>
+                </div>
               </div>
               {!isEmpty && (
                 <div className={styles.value}>
                   <p style={{ color: aoaLabel(avgAttack).color }}>
                     {avgAttack.toFixed(1)}°
                   </p>
-                  <div
-                    className={styles.valueLabel}
-                    style={{ background: aoaLabel(avgAttack).background }}
-                  >
-                    <p style={{ color: aoaLabel(avgAttack).color }}>
-                      {aoaLabel(avgAttack).text}
-                    </p>
-                  </div>
                 </div>
               )}
             </li>

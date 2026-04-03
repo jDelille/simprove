@@ -3,37 +3,65 @@
 .menu {
   background-color: var(--bg);
   outline: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 8px;
   position: absolute;
   right: 0px;
-  top: 62.5px;
-  width: 170px;
+  top: 75px;
+  width: 220px;
   height: fit-content;
   z-index: 999;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
+  border-radius: 8px;
 
   ul {
     font-size: 14px;
     li {
       display: flex;
-      font-size: 12px;
-      padding: 10px 1rem;
+      font-size: 13px;
+      padding: 10px;
       cursor: pointer;
-      color: var(--lightgray);
+      color: var(--text);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       &:hover {
         color: var(--text);
+        background-color: #1a1a1a;
       }
+
+      .toggle {
+        display: flex;
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        padding: 3px 4px;
+        .option {
+          width: 20px;
+          height: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          &:hover {
+            svg {
+              stroke: var(--text);
+            }
+          }
+        }
+      }
+    }
+
+    .links {
+      padding: 10px;
     }
 
     .name {
       display: flex;
       flex-direction: column;
       border-bottom: 1px solid var(--border);
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
       gap: 5px;
-      padding: 1rem;
+      padding: 15px 20px;
       cursor: default;
       color: var(--text);
 

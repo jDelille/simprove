@@ -4,7 +4,7 @@
   height: 65px;
   border-top: 1px solid var(--border);
   margin-top: 2rem;
-  background-color: var(--bg);
+  background-color: var(--secondaryBg);
   .footerContent {
     @include contentWidth();
     height: 100%;
@@ -17,15 +17,15 @@
     justify-content: space-between;
 
     .links {
-        ul {
-            display: flex;
-            gap: 1rem;
-            li {
-                a {
-                    color: var(--lightgray);
-                }
-            }
+      ul {
+        display: flex;
+        gap: 1rem;
+        li {
+          a {
+            color: var(--lightgray);
+          }
         }
+      }
     }
   }
 }
