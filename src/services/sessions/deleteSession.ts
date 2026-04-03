@@ -1,4 +1,5 @@
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
+
  
 type DeleteSessionProps = {
   sessionId: string;
@@ -6,6 +7,9 @@ type DeleteSessionProps = {
 };
  
 export async function deleteSession({ sessionId, storagePath }: DeleteSessionProps): Promise<void> {
+        const supabase = createClient();
+  
+  
   // Delete from storage first
   const { error: storageError } = await supabase.storage
     .from("sessions")

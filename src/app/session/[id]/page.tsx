@@ -14,7 +14,7 @@ const SessionPage = async () => {
   }
 
   const [gettingStartedCompletions] = user?.id
-    ? await Promise.all([fetchGettingStartedCompletions(user.id, supabase)])
+    ? await Promise.all([fetchGettingStartedCompletions(user.id)])
     : [[], []];
 
   const hasVititedSession = gettingStartedCompletions.some(
