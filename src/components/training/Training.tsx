@@ -51,6 +51,7 @@ const Training: React.FC<TrainingProps> = ({
         userId: userId,
         lessonId: selectedPlan.id,
       });
+      console.log("clicked", userId, selectedPlan.id);
       closeModal("lessonPlanDetails");
     }
   };
