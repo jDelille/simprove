@@ -13,12 +13,12 @@ const ProfilePage = async () => {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const myClubs = user?.id ? await fetchGolfBag(user.id) : [];
+  const myClubs = user?.id ? await fetchGolfBag(user.id, supabase) : [];
 
   const [badges, sessions, lessons, profileInfo] = user?.id
     ? await Promise.all([
         fetchBadges(supabase),
-        fetchSessions(user.id),
+        fetchSessions(user.id, supabase),
         fetchUserLessons(user.id, supabase),
         fetchProfileInfo(supabase),
       ])

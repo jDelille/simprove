@@ -1,7 +1,7 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/client";
 import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase/client";
 
 export const useUser = () => {
   const [user, setUser] = useState<any>(null);
@@ -11,8 +11,6 @@ export const useUser = () => {
     return cached ? JSON.parse(cached) : null;
   });
   const [loading, setLoading] = useState(true);
-
-  const supabase = createClient();
 
   const fetchProfile = async (userId: string) => {
     const { data, error } = await supabase
@@ -56,7 +54,7 @@ export const useUser = () => {
         }
 
         setLoading(false);
-      },
+      }
     );
 
     return () => {

@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/client";
+import { supabase } from "@/lib/supabase/client";
 
 type UploadGolfBagProps = {
   userId: string;
@@ -25,8 +25,6 @@ export async function uploadGolfBag({
   club_model,
   average_yards,
 }: UploadGolfBagProps): Promise<GolfBag> {
-  const supabase = createClient();
-
   const { data, error } = await supabase
     .from("club_bag")
     .insert([

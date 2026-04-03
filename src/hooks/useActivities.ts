@@ -1,6 +1,6 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/client";
+import { supabase } from "@/lib/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 
 export type Activity = {
@@ -20,11 +20,10 @@ export type ActivitiesData = {
 };
 
 export const useActivities = (userId?: string) => {
-  const supabase = createClient();
-
   return useQuery<ActivitiesData>({
     queryKey: ["activity", userId],
     queryFn: async () => {
+
       const { data: activityRows, error: tableError } = await supabase
         .from("activity")
         .select("*")
@@ -41,14 +40,13 @@ export const useActivities = (userId?: string) => {
             .from("activity")
             .download(row.storage_path);
 
-          if (storageError)
-            return { ...row, error: "Failed to fetch activity data" };
+          if (storageError) return { ...row, error: "Failed to fetch activity data" };
 
           const text = await fileData.text();
           const parsed = JSON.parse(text);
 
           return { ...row, data: parsed };
-        }),
+        })
       );
 
       // console.log("Fetched activities with data:", activitiesWithData);

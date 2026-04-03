@@ -1,8 +1,8 @@
+import { supabase } from "@/lib/supabase/client";
 import { logActivity } from "../activity/logActivity";
 import { evaluate } from "@/lib/evalulateSession";
 import { drillProgress } from "@/lib/drillProgress";
 import { awardBadge } from "../badges/awardBadge";
-import { createClient } from "@/lib/supabase/client";
 
 type UploadSessionProps = {
   userId: string;
@@ -43,8 +43,6 @@ export async function uploadSession({
   sessionName,
   sessionDate,
 }: UploadSessionProps): Promise<Session> {
-  const supabase = createClient();
-
   const filePath = `sessions/${userId}/${Date.now()}.json`;
 
   // ─── 1. Upload session JSON to storage ────────────────────────────────────

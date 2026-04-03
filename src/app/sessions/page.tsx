@@ -15,7 +15,7 @@ const SessionsPage = async () => {
 
   const [sessions] = user?.id
     ? await Promise.all([
-        fetchSessions(user.id),
+        fetchSessions(user.id, supabase),
       ])
     : [[], []];
 

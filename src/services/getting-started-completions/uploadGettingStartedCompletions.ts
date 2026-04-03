@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/client";
+import { supabase } from "@/lib/supabase/client";
 
 type UploadGettingStartedCompletionsParams = {
   userId: string;
@@ -9,8 +9,6 @@ export async function uploadGettingStartedCompletions({
   userId,
   step,
 }: UploadGettingStartedCompletionsParams) {
-  const supabase = createClient();
-
   const { error } = await supabase.from("getting_started_completions").insert({
     user_id: userId,
     step: step,
