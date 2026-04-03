@@ -8,12 +8,15 @@ import ProfileHeader from "../profile-header/ProfileHeader";
 import MyBag from "../my-bag/MyBag";
 import RankWidget from "../widgets/rank-widget/RankWidget";
 import LifetimeAveragesWidget from "../widgets/lifetime-averages-widget/LifetimeAveragesWidget";
+import UserLessonsWidget from "../widgets/user-lessons-widget/UserLessonsWidget";
 
 type ProfileProps = {
   userId: string;
   myClubs?: any[];
   badges: any;
   sessions: any[];
+  lessons: any[];
+  user: any;
 };
 
 const Profile: React.FC<ProfileProps> = ({
@@ -21,6 +24,8 @@ const Profile: React.FC<ProfileProps> = ({
   myClubs,
   badges,
   sessions,
+  lessons,
+  user
 }) => {
   const [selectedTab, setSelectedTab] = useState("Overview");
 
@@ -30,11 +35,11 @@ const Profile: React.FC<ProfileProps> = ({
         <div className={styles.row}>
           <AchievementsWidgets userId={userId} badges={badges} />
         </div>
-        {/* <div className={styles.row}>
-          <CalendarWidget />
-        </div> */}
         <div className={styles.row}>
           <RecentSessionsWidget userId={userId} />
+        </div>
+        <div className={styles.row}>
+          <UserLessonsWidget lessons={lessons as any} />
         </div>
       </div>
       <div className={styles.column}>
@@ -60,6 +65,7 @@ const Profile: React.FC<ProfileProps> = ({
         userId={userId}
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
+        user={user}
       />
 
       {selectedTab === "Overview" && overViewContent}

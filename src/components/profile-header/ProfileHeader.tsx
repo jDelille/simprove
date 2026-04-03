@@ -16,12 +16,14 @@ type ProfileHeaderProps = {
   userId: string;
   selectedTab?: string;
   setSelectedTab?: (tab: string) => void;
+  user: any;
 };
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   userId,
   selectedTab,
   setSelectedTab,
+  user
 }) => {
   const { id } = useParams();
   const { profile } = useUser();
@@ -40,9 +42,9 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
       <div className={styles.headerContent}>
         <div className={styles.userInfo}>
           <div className={styles.avatarContainer}>
-            {profile && (
+            {user && (
               <Avatar
-                src={profile?.avatar_path}
+                src={user.avatar_path}
                 size="large"
                 initials={initials}
               />
