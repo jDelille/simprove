@@ -1,21 +1,24 @@
-import { createClient } from "@/lib/supabase/client";
+import {  supabase } from "@/lib/supabase/client";
 import { awardBadge } from "../badges/awardBadge";
+import { SupabaseClient } from "@supabase/supabase-js";
 
 export async function uploadLessonPlan({
   userId,
   lessonId,
+  supabaseClient
 }: {
   userId: string;
   lessonId: string;
+  supabaseClient: SupabaseClient;
 }) {
 
-  const supabase = createClient();
 
-  const { data: userLessonData, error: userLessonError } = await supabase
+  const { data: userLessonData, error: userLessonError } = await supabaseClient
     .from("user_lessons")
     .insert([{ user_id: userId, lesson_id: lessonId, status: "active" }])
     .select("id")
-    .single();
+    .maybeSingle();
+
 
   if (userLessonError || !userLessonData) {
     console.error("Error creating user lesson:", userLessonError);
@@ -24,7 +27,7 @@ export async function uploadLessonPlan({
 
   const userLessonId = userLessonData.id;
 
-  const { data: lessonDrills, error: lessonDrillsError } = await supabase
+  const { data: lessonDrills, error: lessonDrillsError } = await supabaseClient
     .from("lesson_drills")
     .select("id")
     .eq("lesson_id", lessonId)
@@ -35,13 +38,13 @@ export async function uploadLessonPlan({
     throw new Error("Failed to fetch lesson drills");
   }
 
-  const userDrillsInsert = lessonDrills.map((drill, index) => ({
+  const userDrillsInsert = lessonDrills.map((drill: any, index: number) => ({
     user_lesson_id: userLessonId,
     lesson_drill_id: drill.id,
     status: index === 0 ? "active" : "locked",
   }));
 
-  const { data: hasStartedLesson } = await supabase
+  const { data: hasStartedLesson } = await supabaseClient
     .from("getting_started_completions")
     .select("*")
     .eq("user_id", userId)
@@ -49,7 +52,7 @@ export async function uploadLessonPlan({
     .single();
 
   if (!hasStartedLesson) {
-    const { error: completionError } = await supabase
+    const { error: completionError } = await supabaseClient
       .from("getting_started_completions")
       .insert({
         user_id: userId,
@@ -69,7 +72,7 @@ export async function uploadLessonPlan({
     description: "Started your first lesson",
   });
 
-  const { error: drillsInsertError } = await supabase
+  const { error: drillsInsertError } = await supabaseClient
     .from("user_lesson_drills")
     .insert(userDrillsInsert);
 

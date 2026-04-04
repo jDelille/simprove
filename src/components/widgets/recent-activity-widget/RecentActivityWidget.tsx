@@ -10,15 +10,14 @@ import { useRouter } from "next/navigation";
 
 type RecentActivityWidgetProps = {
   userId: string;
+  recentActivity?: any[];
 };
 
 const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = (props) => {
-  const { data, isLoading } = useActivities(props.userId);
   const router = useRouter();
+  const data = props.recentActivity
 
-  const { latestThreeActivities = [] } = data || {};
-
-  const isEmpty = !latestThreeActivities.length && !isLoading;
+  const isEmpty = !data || data.length === 0;
 
   return (
     <div className={styles.widget}>
@@ -26,9 +25,9 @@ const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = (props) => {
         <p>Recent Activity</p>
       </div>
 
-      {isLoading && <p>Loading...</p>}
+      {/* {isLoading && <p>Loading...</p>} */}
 
-      {isEmpty && !isLoading && (
+      {isEmpty && (
         <div className={styles.empty}>
           {/* <div className={styles.icon}>
             <p>⛳</p>
@@ -41,9 +40,9 @@ const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = (props) => {
         </div>
       )}
 
-      {!isEmpty && !isLoading && (
+      {!isEmpty &&  (
         <ul>
-          {latestThreeActivities.map((activity: any) => (
+          {data.map((activity: any) => (
             <li key={activity.id}>
               {activity.type === "SESSION_CREATED" && (
                 <div
@@ -75,9 +74,9 @@ const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = (props) => {
                 <div className={styles.activity}>
                   <div
                     className={styles.icon}
-                    style={{ backgroundColor: "#FFF8E1" }}
+                    style={{ backgroundColor: "var(--lightYellow)", border: "1px solid var(--yellowBorder)" }}
                   >
-                    <FaTrophy color="#f7c04a" size={20} />
+                    <FaTrophy color="var(--yellowText)" size={16} />
                   </div>
                   <div className={styles.body}>
                     <div className={styles.title}>

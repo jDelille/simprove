@@ -32,13 +32,6 @@ const Training: React.FC<TrainingProps> = ({
 
   const supabase = createClient();
 
-  const recommendedPlans = lessonPlans?.reduce((acc: any[], plan) => {
-    if (plan.is_ai_recommended) {
-      acc.push(plan);
-    }
-    return acc;
-  }, []);
-
   const activePlan = activeLesson ? activeLesson : null;
   const isEmpty = !activeLesson || activeLesson.activeLesson === null;
 
@@ -54,6 +47,7 @@ const Training: React.FC<TrainingProps> = ({
       await uploadLessonPlan({
         userId: userId,
         lessonId: selectedPlan.id,
+        supabaseClient: supabase
       });
       console.log("clicked", userId, selectedPlan.id);
       closeModal("lessonPlanDetails");

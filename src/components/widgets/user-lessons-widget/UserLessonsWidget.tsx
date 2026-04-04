@@ -36,8 +36,8 @@ const UserLessonsWidget: React.FC<UserLessonsWidgetProps> = ({ lessons }) => {
         <p>Lessons</p>
       </div>
       <div className={styles.content}>
-        {lessonDetails.map((lesson) => (
-          <div key={lesson.lesson_id} className={styles.lessonItem}>
+        {lessonDetails.map((lesson, index) => (
+          <div key={index} className={styles.lessonItem}>
             <div className={styles.top}>
               <p>{lesson.lesson_name}</p>
               <p className={styles.status}>{lesson.status}</p>

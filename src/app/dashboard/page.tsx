@@ -1,5 +1,6 @@
 import Dashboard from "@/components/dashboard/Dashboard";
 import { createSupabaseServer } from "@/lib/supabase/server";
+import { fetchRecentActivity } from "@/services/activity/fetchRecentActivity";
 import { fetchGettingStartedCompletions } from "@/services/getting-started-completions/fetchGettingStartedCompletions";
 import { fetchActiveLesson } from "@/services/lessons/fetchActiveLesson";
 import { fetchProfileInfo } from "@/services/profile-info/fetchProfileInfo";
@@ -16,12 +17,19 @@ const DashboardPage = async () => {
     return null;
   }
 
-  const [sessions, gettingStartedCompletions, profileInfo, activeLesson] = user?.id
+  const [
+    sessions,
+    gettingStartedCompletions,
+    profileInfo,
+    activeLesson,
+    recentActivity,
+  ] = user?.id
     ? await Promise.all([
         fetchSessions(user.id, supabase),
         fetchGettingStartedCompletions(user.id, supabase),
         fetchProfileInfo(supabase),
         fetchActiveLesson(user.id, supabase),
+        fetchRecentActivity(user.id, supabase),
       ])
     : [[], [], null];
 
@@ -33,12 +41,12 @@ const DashboardPage = async () => {
     userProfile?.location &&
     userProfile?.username &&
     userProfile?.launch_monitor &&
-    userProfile?.bio
+    userProfile?.bio;
 
   if (hasCompletedProfile) {
     // check if completion with step_id 1 exists, if not, create it
     const hasCompletedStep1 = gettingStartedCompletions.some(
-      (comp) => comp.step_id === 1
+      (comp) => comp.step_id === 1,
     );
 
     if (!hasCompletedStep1) {
@@ -57,6 +65,7 @@ const DashboardPage = async () => {
           userId={user?.id || ""}
           gettingStartedCompletions={gettingStartedCompletions}
           activeLesson={activeLesson}
+          recentActivity={recentActivity || []}
         />
       </div>
     </div>

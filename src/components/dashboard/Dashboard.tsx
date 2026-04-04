@@ -19,6 +19,7 @@ type DashboardProps = {
   userId: string;
   gettingStartedCompletions?: any[];
   activeLesson?: any;
+  recentActivity?: any[];
 };
 
 const Dashboard = ({
@@ -26,6 +27,7 @@ const Dashboard = ({
   userId,
   gettingStartedCompletions,
   activeLesson,
+  recentActivity,
 }: DashboardProps) => {
   const shots = sessions.flatMap((session) => session.shots);
 
@@ -140,7 +142,7 @@ const Dashboard = ({
       {/* right side */}
       <div className={styles.column}>
         <div className={styles.row}>
-          <RecentActivityWidget userId={userId} />
+          <RecentActivityWidget userId={userId} recentActivity={recentActivity} />
         </div>
         {!hasCompletedGettingStarted && (
           <div className={styles.row}>

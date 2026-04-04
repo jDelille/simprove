@@ -23,7 +23,7 @@ $breakpoint-small-laptop: 1309px;
 }
  
 // Laptop
-$breakpoint-laptop: 1370px;
+$breakpoint-laptop: 1456px;
 @mixin laptop {
   @media (max-width: #{$breakpoint-laptop}) {
     @content;
