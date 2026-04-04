@@ -90,7 +90,7 @@ const Dashboard = ({
       <div className={styles.column}>
         <div className={styles.row + " " + styles.statsRow}>
           <SmallStatWidget
-            title="Total Shots Tracked"
+            title="Total Shots"
             value={profileMetrics.count}
             metric="shots"
             trend={shotsTrend.direction}
@@ -100,9 +100,9 @@ const Dashboard = ({
           />
 
           <SmallStatWidget
-            title="Sessions This Month"
+            title="Sessions"
             value={sessionsThisMonth}
-            metric="sessions"
+            metric={" "} // sessions.length > 1 ? "sessions" : "session"
             trend={sessionsTrend.direction}
             trendText={sessionsTrendText}
             trendColor={sessionsTrendColor}
@@ -112,7 +112,7 @@ const Dashboard = ({
           <SmallStatWidget
             title="Longest Carry"
             value={Number(profileMetrics.longestCarry?.toFixed(1)) || 0}
-            metric="yards"
+            metric="yds"
             trend={carryTrend.direction}
             trendText={carryTrendText}
             trendColor={carryTrendColor}

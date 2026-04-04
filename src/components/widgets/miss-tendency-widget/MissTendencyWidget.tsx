@@ -14,7 +14,7 @@ type MissTendencyWidgetProps = {
 const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
   const [selectedClub, setSelectedClub] = useState("DR");
 
-  const clubs = ["DR", "W5", "I7", "PW", "SW"];
+  const clubs = ["DR", "W5", "I4", "I6", "I7", "I8", "I9", "PW", "SW"];
 
   const isEmpty = shots.length === 0;
 
@@ -112,7 +112,7 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
               left: percent > 50 ? "50%" : `${percent}%`,
               width: `${Math.abs(percent - 50)}%`,
               height: "100%",
-              background: isEmpty ? "var(--lightgray)" : "#378bde",
+              background: isEmpty ? "var(--lightgray)" : "var(--accent)",
               borderRadius: 999,
             }}
           />
@@ -125,6 +125,7 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
               width: 14,
               height: 14,
               borderRadius: "50%",
+              outline: "2px solid var(--accent)",
               background: isEmpty ? "var(--lightgray)" : "#195fa6",
               border: "2px solid var(--bg)",
             }}

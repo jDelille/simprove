@@ -23,7 +23,7 @@
       align-items: center;
       gap: 0.5rem;
       li {
-        background-color: var(--bg3);
+        background-color: var(--messageBg);
         padding: 4px 10px;
         border-radius: 6px;
         font-size: 12px;
@@ -31,6 +31,9 @@
         color: var(--lightgray);
         border: 1px solid var(--border);
         cursor: pointer;
+        &:hover {
+        background: var(--primaryHover);
+      }
       }
       .selected {
         color: var(--text);

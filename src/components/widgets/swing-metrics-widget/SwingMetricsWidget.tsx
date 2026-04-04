@@ -9,7 +9,7 @@ type SwingMetricsWidgetProps = {
 
 const SwingMetricsWidget: React.FC<SwingMetricsWidgetProps> = ({ shots }) => {
   const [selectedClub, setSelectedClub] = useState("DR");
-  const clubs = ["DR", "W5", "I7", "PW", "SW"];
+  const clubs = ["DR", "W5", "I4", "I6", "I7", "I8", "I9", "PW", "SW"];
 
   const isEmpty = shots.length === 0;
 

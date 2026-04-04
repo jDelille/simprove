@@ -1,4 +1,5 @@
 @use "@/styles/mixins" as *;
+@use "@/styles/breakpoints" as bp;
 
 .widget {
   @include widget();

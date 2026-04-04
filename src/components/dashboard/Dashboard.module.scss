@@ -37,7 +37,9 @@
     .statsRow {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
+      
       @include bp.mobile {
+        position: relative;
         grid-template-columns: 1fr 1fr;
       }
     }

@@ -81,7 +81,7 @@ const Session: React.FC<SessionProps> = ({ session }) => {
         <div className={styles.column}>
           <div className={styles.row + " " + styles.statsRow}>
             <SmallStatWidget
-              title="Total Shots Tracked"
+              title="Total Shots"
               value={sessionMetrics.count?.toFixed(0) || 0}
               metric="shots"
               trend="increase"
