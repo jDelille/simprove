@@ -185,6 +185,10 @@ body {
   }
 }
 
+.auth-page {
+  min-height: calc(100vh - 65px);
+}
+
 .ClubBreakdownWidget-module-scss-module__0GQQFW__shotTableContainer
   .ClubBreakdownWidget-module-scss-module__0GQQFW__value {
   all: unset;

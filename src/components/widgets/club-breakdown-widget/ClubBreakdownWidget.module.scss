@@ -79,7 +79,7 @@
     tbody {
       tr {
         &:nth-of-type(even) {
-          background-color: var(--chartRowColor);
+          background-color: var(--messageBg);
           border-bottom: 1px solid var(--border);
           border-top: 1px solid var(--border);
         }

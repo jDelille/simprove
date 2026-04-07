@@ -3,7 +3,7 @@
 
 .widget {
   @include widget();
-  max-height: 307px;
+  max-height: 291px;
   @include bp.mobile {
     max-height: none;
   }
@@ -41,13 +41,13 @@
     }
 
     .clubDetails {
-      margin-top: 1rem;
+      padding-top: 5px;
       ul {
         li {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 15px 0;
+          padding: 10px 0;
           border-bottom: 1px solid var(--border);
           &:nth-last-child(1) {
             border-bottom: none;

@@ -3,7 +3,7 @@
 .footer {
   height: 65px;
   border-top: 1px solid var(--border);
-  margin-top: 2rem;
+  // margin-top: 2rem;
   background-color: var(--secondaryBg);
   .footerContent {
     @include contentWidth();

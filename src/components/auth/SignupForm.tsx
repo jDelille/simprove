@@ -77,7 +77,7 @@ const SignupForm = () => {
         <button onClick={() => setStep(2)} className={styles.nextBtn}>
           Next
         </button>
-        <p>or</p>
+        {/* <p>or</p>
         <button className={styles.secondaryBtn}>
           <FcGoogle size={24} />
           <span> Sign up with Google</span>
@@ -85,7 +85,7 @@ const SignupForm = () => {
         <button className={styles.secondaryBtn}>
           <FaApple size={24} />
           <span> Sign up with Apple</span>
-        </button>
+        </button> */}
 
         <div className={styles.redirect}>
           <p>Already have an account?</p>

@@ -2,7 +2,7 @@
 
 .widget {
   @include widget();
-  height: 307px;
+  max-height: 291px;
   padding: 0;
 
   .header {

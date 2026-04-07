@@ -1,0 +1,20 @@
+.clubSelect {
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+
+  li {
+    background-color: var(--messageBg);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 22px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .selected{
+    background-color: var(--green);
+    color: var(--greenText);
+    border: 1px solid var(--greenBorder);
+  }
+}

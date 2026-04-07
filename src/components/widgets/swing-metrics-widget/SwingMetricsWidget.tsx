@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import styles from "./SwingMetricsWidget.module.scss";
+import ClubSelect from "@/components/club-select/ClubSelect";
 
 type SwingMetricsWidgetProps = {
   shots: any[];
@@ -9,7 +10,10 @@ type SwingMetricsWidgetProps = {
 
 const SwingMetricsWidget: React.FC<SwingMetricsWidgetProps> = ({ shots }) => {
   const [selectedClub, setSelectedClub] = useState("DR");
-  const clubs = ["DR", "W5", "I4", "I6", "I7", "I8", "I9", "PW", "SW"];
+
+  const clubs = [...new Set(shots.map((shot) => shot.club))];
+
+  console.log(clubs);
 
   const isEmpty = shots.length === 0;
 
@@ -89,22 +93,12 @@ const SwingMetricsWidget: React.FC<SwingMetricsWidgetProps> = ({ shots }) => {
         <span>Path · Face · Attack Angle</span>
       </div>
       <div className={styles.content}>
-        <ul className={styles.clubs}>
-          {clubs.map((club) => (
-            <li
-              key={club}
-              className={club === selectedClub ? styles.selected : ""}
-              onClick={() => setSelectedClub(club)}
-              style={
-                isEmpty
-                  ? { cursor: "default", color: "var(--lightgray)" }
-                  : undefined
-              }
-            >
-              <p>{club}</p>
-            </li>
-          ))}
-        </ul>
+        <ClubSelect
+          clubs={clubs}
+          setSelectedClub={setSelectedClub}
+          selectedClub={selectedClub}
+        />
+
         <div className={styles.clubDetails}>
           <ul>
             <li>

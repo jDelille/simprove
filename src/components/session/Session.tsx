@@ -119,9 +119,9 @@ const Session: React.FC<SessionProps> = ({ session }) => {
           <div className={styles.row}>{/* Session analysis */}</div>
         </div>
         <div className={styles.column}>
-          <div className={styles.row}>
+          {/* <div className={styles.row}>
             <VsLastSessionWidget />
-          </div>
+          </div> */}
           <div className={styles.row}>{/* Shot distribution */}</div>
           <div className={styles.row}>{/* Vs lifetime average */}</div>
         </div>

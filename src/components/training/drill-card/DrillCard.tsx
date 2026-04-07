@@ -18,9 +18,9 @@ const DrillCard: React.FC<DrillCardProps> = ({ drill }) => {
       onClick={() => setIsOpen(!isOpen)}
     >
       <div className={styles.drillInfo}>
-        <div className={isCompleted ? styles.completed : styles.inactive}></div>
-        <p className={styles.week}>Week {drill.week_number}</p>
-        <p>—</p>
+        <div className={isCompleted ? styles.completed : styles.inactive}>
+          {drill.drill_order}
+        </div>
         <p className={styles.drillName}>{drill.drill_name}</p>
         {isCurrent && <p className={styles.currentArrow}>← Current</p>}
         <p className={styles.points}>{drill.points} pts</p>

@@ -6,6 +6,7 @@ import {
   HiOutlineArrowNarrowLeft,
   HiOutlineArrowNarrowRight,
 } from "react-icons/hi";
+import ClubSelect from "@/components/club-select/ClubSelect";
 
 type MissTendencyWidgetProps = {
   shots: any[];
@@ -82,18 +83,7 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
         <p>Miss Tendency</p>
         <span>Offline · Face to target · Swing path</span>
       </div>
-      <ul className={styles.clubs}>
-        {clubs.map((club) => (
-          <li
-            key={club}
-            className={club === selectedClub ? styles.selected : ""}
-            onClick={() => setSelectedClub(club)}
-            style={isEmpty ? {cursor: "default"} : undefined}
-          >
-            <p>{club}</p>
-          </li>
-        ))}
-      </ul>
+      <ClubSelect clubs={clubs} setSelectedClub={setSelectedClub} selectedClub={selectedClub} />
       <div className={styles.missLineContainer}>
         <div className={styles.labels}>
           <p>
@@ -105,7 +95,10 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
             <HiOutlineArrowNarrowRight />
           </p>
         </div>
-        <div className={styles.missLine} style={isEmpty ? { background: "var(--lightgray)" } : undefined}>
+        <div
+          className={styles.missLine}
+          style={isEmpty ? { background: "var(--lightgray)" } : undefined}
+        >
           <div
             style={{
               position: "absolute",
@@ -153,7 +146,11 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
         </div>
       </div>
       <div className={isEmpty ? styles.emptyMessage : styles.message}>
-        <p >{isEmpty ? "Your miss pattern analysis will appear here once you upload session data." : getMissMessage(avgOffline, avgFace, swingPath)}</p>
+        <p>
+          {isEmpty
+            ? "Your miss pattern analysis will appear here once you upload session data."
+            : getMissMessage(avgOffline, avgFace, swingPath)}
+        </p>
       </div>
     </div>
   );

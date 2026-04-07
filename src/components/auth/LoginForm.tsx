@@ -61,6 +61,8 @@ const LoginForm = () => {
           Log in
         </button>
         <p>or</p>
+        <button>Login with Demo Account</button>
+        {/* <p>or</p>
         <button className={styles.googleBtn}>
           <div className={styles.icon}>
             <FcGoogle size={20} />
@@ -72,7 +74,7 @@ const LoginForm = () => {
             <FaApple size={20} />
           </div>
           <span>Continue with Apple</span>
-        </button>
+        </button> */}
         <div className={styles.redirect}>
           <p>Don't have an account?</p>
           <Link href="/auth/signup">Sign up</Link>
