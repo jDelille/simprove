@@ -30,6 +30,16 @@ const LoginForm = () => {
     }
   };
 
+const handleGoogleSignup = async () => {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: `${window.location.origin}/auth/callback`,
+    },
+  });
+  if (error) alert(error.message);
+};
+
   return (
     <div className={styles.authForm}>
       <h1>Welcome back</h1>
@@ -62,6 +72,12 @@ const LoginForm = () => {
         </button>
         <p>or</p>
         <button>Login with Demo Account</button>
+        <button className={styles.googleBtn} onClick={handleGoogleSignup}>
+          <div className={styles.icon}>
+            <FcGoogle size={20} />
+          </div>
+          <span>Continue with Google</span>
+        </button>
         {/* <p>or</p>
         <button className={styles.googleBtn}>
           <div className={styles.icon}>

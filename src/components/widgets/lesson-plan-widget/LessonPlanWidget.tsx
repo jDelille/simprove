@@ -21,8 +21,6 @@ const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({
   const lessonDrills = activeLesson?.drills;
   const isEmpty = !activeLesson || activeLesson.activeLesson === null;
 
-  console.log(activeLesson);
-
   const lessonProgress =
     activeLesson?.summary.total > 0
       ? (activeLesson.summary.completed / activeLesson.summary.total) * 100

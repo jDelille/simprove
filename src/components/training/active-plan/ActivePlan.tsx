@@ -12,8 +12,6 @@ const ActivePlan: React.FC<ActivePlanProps> = ({ lesson }) => {
   const lessonDetails = lesson?.lessonDetails;
   const lessonDrills = lesson?.drills;
 
-  console.log("ActivePlan lessonDetails:", lessonDrills);
-
   return (
     <div className={styles.activePlan}>
       <div className={styles.badges}>

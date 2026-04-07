@@ -108,9 +108,6 @@ export async function uploadSession({
     }
 
     const shots = sessionData.shots ?? [];
-    console.log(
-      `[uploadSession] Processing ${shots.length} shots for lesson ${activeLesson.id}`,
-    );
 
     // ─── 5. Fetch active/locked drills ────────────────────────────────────
     const { data: rawDrills, error: drillFetchError } = await supabase
@@ -137,11 +134,6 @@ export async function uploadSession({
     if (drillFetchError) {
       console.error("[uploadSession] Error fetching drills:", drillFetchError);
     }
-
-    console.log(
-      "[uploadSession] rawDrills:",
-      JSON.stringify(rawDrills, null, 2),
-    );
 
     const userDrills = rawDrills as UserDrill[] | null;
 
@@ -180,10 +172,6 @@ export async function uploadSession({
           ((drill.progress_value || 0) / 100) * required_successful_shots,
         );
         const newTotal = existingCount + successfulShots;
-
-        console.log(
-          `[uploadSession] Drill ${drill.id} | metric: ${metric} | successful this session: ${successfulShots} | existing count: ${existingCount} | new total: ${newTotal}/${required_successful_shots}`,
-        );
 
         if (newTotal >= required_successful_shots) {
           const { error: completeError } = await supabase
@@ -319,14 +307,6 @@ export async function uploadSession({
       );
 
       const averages = calculateAverages(validShots);
-
-      console.log(
-        "[uploadSession] validShots count:",
-        validShots.length,
-        "of",
-        shots.length,
-      );
-
 
       const recs = await fetchAIRecommendedLessons(
         userId,

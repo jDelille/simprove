@@ -23,7 +23,6 @@ const Session: React.FC<SessionProps> = ({ session }) => {
 
   const [selectedClub, setSelectedClub] = useState<string>("ALL");
 
-  console.log(session)
 
   const filteredShots = useMemo(() => {
     if (!session?.shots) return [];
@@ -58,8 +57,6 @@ const Session: React.FC<SessionProps> = ({ session }) => {
     shots: filteredShots,
     sessionLength: session?.shots.length || 0,
   });
-
-  // console.log(sessionMetrics);
 
   return (
     <div className={styles.session}>

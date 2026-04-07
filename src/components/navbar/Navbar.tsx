@@ -30,8 +30,6 @@ const Navbar: React.FC<NavbarProps> = ({ user, profile }) => {
   const { openModal, modals, closeModal } = useModal();
   const { theme, toggleTheme } = useTheme();
 
-  console.log(user, profile)
-
   const supabase = createClient();
 
   const [openMenu, setOpenMenu] = useState(false);

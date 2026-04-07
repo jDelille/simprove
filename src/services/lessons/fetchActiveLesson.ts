@@ -28,8 +28,6 @@ export const fetchActiveLesson = async (
 
   const lessonId = activeLesson?.lesson_id;
 
-  console.log(activeLesson);
-
   // Fetch lesson details
   const { data: lessonDetails, error: lessonError } = await supabaseClient
     .from("lessons")

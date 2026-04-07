@@ -34,8 +34,6 @@ const Sessions: React.FC<SessionsProps> = ({ sessions }) => {
   const { openPopup, popups, closePopup } = usePopup();
   const queryClient = useQueryClient();
 
-  console.log("Sessions component sessions:", sessions);
-
   const handleDeleteSession = () => {
     openPopup("deleteSession");
   };

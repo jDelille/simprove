@@ -12,7 +12,6 @@ const RecommendedPlans: React.FC<RecommendedPlansProps> = ({
   recommendedLessons
 }) => {
 
-  console.log(recommendedLessons, "recommendedLessons in RecommendedPlans");
   const plans = recommendedLessons?.map((rec) => rec.lessons);
 
   return (

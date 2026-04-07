@@ -80,8 +80,6 @@ Respond ONLY with a JSON array of exactly 3 objects, no extra text, no markdown:
   const text =
     message.content[0].type === "text" ? message.content[0].text : "";
 
-  console.log("[fetchAIRecommendedLessons] raw AI response:", text);
-
   let recommendations: Recommendation[] = [];
 
   try {
@@ -90,11 +88,6 @@ Respond ONLY with a JSON array of exactly 3 objects, no extra text, no markdown:
     console.error("Failed to parse AI response:", error, text);
     return [];
   }
-
-  console.log(
-    "[fetchAIRecommendedLessons] parsed recommendations:",
-    recommendations,
-  );
 
   const supabase = await createSupabaseServer();
 
@@ -122,8 +115,6 @@ Respond ONLY with a JSON array of exactly 3 objects, no extra text, no markdown:
     console.error("Failed to insert new recommendations:", insertError);
     return [];
   }
-
-  console.log("[fetchAIRecommendedLessons] recommendations saved to DB ✅");
 
   return recommendations;
 }

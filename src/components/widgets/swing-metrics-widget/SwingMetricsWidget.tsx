@@ -13,8 +13,6 @@ const SwingMetricsWidget: React.FC<SwingMetricsWidgetProps> = ({ shots }) => {
 
   const clubs = [...new Set(shots.map((shot) => shot.club))];
 
-  console.log(clubs);
-
   const isEmpty = shots.length === 0;
 
   const clubShots = shots.filter((shot) => shot.club === selectedClub);

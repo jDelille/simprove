@@ -49,12 +49,9 @@ const Training: React.FC<TrainingProps> = ({
         lessonId: selectedPlan.id,
         supabaseClient: supabase
       });
-      console.log("clicked", userId, selectedPlan.id);
       closeModal("lessonPlanDetails");
     }
   };
-
-  console.log("training drills:", drills);
 
   const planBody = selectedPlan ? (
     <LessonModalBody

@@ -3,18 +3,18 @@
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
 import styles from "./Form.module.scss";
 import { text } from "@/lib/text";
 import { createClient } from "@/lib/supabase/client";
+import { useSearchParams } from "next/navigation";
 
 const SignupForm = () => {
-  const [step, setStep] = useState(1);
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    displayName: "",
     username: "",
     dob: "",
     lm: "",
@@ -22,40 +22,84 @@ const SignupForm = () => {
     location: "",
   });
 
+  const [isGoogleUser, setIsGoogleUser] = useState(false);
+
+  const searchParams = useSearchParams();
+
+  const [step, setStep] = useState(() => {
+    const urlStep = searchParams.get("step");
+    return urlStep ? parseInt(urlStep) : 1;
+  });
+
   const supabase = createClient();
 
-  const handleSignup = async () => {
-    const { email, password, username, dob, lm, handicap, location } = formData;
+  useEffect(() => {
+    const prefillEmail = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user?.email) {
+        const isGoogle = user.app_metadata?.provider === "google";
+        setFormData((prev) => ({ ...prev, email: user.email! }));
+        setIsGoogleUser(isGoogle);
+        if (isGoogle) {
+          setStep(3);
+        }
+      }
+    };
+    prefillEmail();
+  }, []);
 
+  const handleSignup = async () => {
+    if (isGoogleUser) {
+      // already has auth account, just update the profile
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) return alert("No user found");
+
+      const { error: dbError } = await supabase
+        .from("users")
+        .update({
+          username: formData.username,
+          launch_monitor: formData.lm,
+          display_name: formData.displayName,
+
+          location: formData.location,
+          rank: "Bogey III",
+        })
+        .eq("id", user.id);
+
+      if (dbError) return alert("Error saving user data: " + dbError.message);
+      // redirect to dashboard
+      window.location.href = "/dashboard";
+      return;
+    }
+
+    // regular email/password signup
     const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: undefined,
-      },
+      email: formData.email,
+      password: formData.password,
+      options: { emailRedirectTo: undefined },
     });
 
-    if (error) {
-      alert(text.auth.registerError + error.message);
-    }
+    if (error) return alert(text.auth.registerError + error.message);
 
     if (data.user) {
       const { error: dbError } = await supabase
         .from("users")
         .update({
-          id: data.user.id,
-          email: formData.email,
           username: formData.username,
+          display_name: formData.displayName,
           launch_monitor: formData.lm,
-          handicap: formData.handicap,
           location: formData.location,
           rank: "Bogey III",
         })
         .eq("id", data.user.id);
 
       if (dbError) return alert("Error saving user data: " + dbError.message);
+      alert("Signup successful!");
     }
-    alert("Signup successful!");
   };
 
   const passwordValid = {
@@ -197,6 +241,18 @@ const SignupForm = () => {
           <h3>Tell us about yourself</h3>
         </div>
         <div className={styles.inputGroup}>
+          <label htmlFor="displayName">Display Name</label>
+          <span>This will appear on your profile</span>
+          <input
+            type="text"
+            id="displayName"
+            onChange={(e) =>
+              setFormData({ ...formData, displayName: e.target.value })
+            }
+            value={formData.displayName}
+          />
+        </div>
+        <div className={styles.inputGroup}>
           <label htmlFor="username">Username</label>
           <span>This username will appear on your profile</span>
           <input
@@ -234,7 +290,7 @@ const SignupForm = () => {
             value={formData.lm}
           />
         </div>
-{/* 
+        {/* 
         <div className={styles.inputGroup}>
           <label htmlFor="handicap">Handicap</label>
           <input
@@ -289,11 +345,13 @@ const SignupForm = () => {
       </div>
       <div className={styles.form}>
         <div className={styles.stepHeader}>
-          <FaChevronLeft
-            size={20}
-            className={styles.arrow}
-            onClick={() => setStep(step - 1)}
-          />
+          {!isGoogleUser && (
+            <FaChevronLeft
+              size={20}
+              className={styles.arrow}
+              onClick={() => setStep(step - 1)}
+            />
+          )}
 
           <p>Step 3 of 3</p>
           <h3>Review your information</h3>

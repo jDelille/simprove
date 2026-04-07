@@ -18,8 +18,6 @@ const LifetimeAveragesWidget: React.FC<LifetimeAveragesWidgetProps> = ({
     sessionLength: sessions.length,
   });
 
-  console.log("Profile Metrics:", profileMetrics);
-
   const averages = [
     {
       id: 1,
