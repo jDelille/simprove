@@ -58,6 +58,14 @@ const SignupForm = () => {
     alert("Signup successful!");
   };
 
+  const passwordValid = {
+    hasLetter: /[a-zA-Z]/.test(formData.password),
+    hasNumberOrSpecial: /[0-9#?!&]/.test(formData.password),
+    hasLength: formData.password.length >= 10,
+  };
+
+  const isPasswordValid = Object.values(passwordValid).every(Boolean);
+
   const introStep = (
     <div className={styles.authForm}>
       <h1>Sign up to elevate your game</h1>
@@ -74,7 +82,11 @@ const SignupForm = () => {
             value={formData.email}
           />
         </div>
-        <button onClick={() => setStep(2)} className={styles.nextBtn}>
+        <button
+          onClick={() => setStep(2)}
+          className={styles.nextBtn}
+          disabled={!formData.email}
+        >
           Next
         </button>
         {/* <p>or</p>
@@ -132,20 +144,31 @@ const SignupForm = () => {
           <h3>Your password must contain at least</h3>
           <ul>
             <li>
-              {" "}
-              <div className={styles.circle}></div>1 letter
+              <div
+                className={`${styles.circle} ${passwordValid.hasLetter ? styles.valid : ""}`}
+              ></div>
+              1 letter
             </li>
             <li>
-              <div className={styles.circle}></div>1 number or special character
-              (example: # ? ! &)
+              <div
+                className={`${styles.circle} ${passwordValid.hasNumberOrSpecial ? styles.valid : ""}`}
+              ></div>
+              1 number or special character (example: # ? ! &)
             </li>
             <li>
-              <div className={styles.circle}></div>10 characters
+              <div
+                className={`${styles.circle} ${passwordValid.hasLength ? styles.valid : ""}`}
+              ></div>
+              10 characters
             </li>
           </ul>
         </div>
 
-        <button onClick={() => setStep(3)} className={styles.nextBtn}>
+        <button
+          onClick={() => setStep(3)}
+          className={styles.nextBtn}
+          disabled={!isPasswordValid}
+        >
           Next
         </button>
       </div>
@@ -174,7 +197,7 @@ const SignupForm = () => {
           <h3>Tell us about yourself</h3>
         </div>
         <div className={styles.inputGroup}>
-          <label htmlFor="username">username</label>
+          <label htmlFor="username">Username</label>
           <span>This username will appear on your profile</span>
           <input
             type="text"
@@ -211,7 +234,7 @@ const SignupForm = () => {
             value={formData.lm}
           />
         </div>
-
+{/* 
         <div className={styles.inputGroup}>
           <label htmlFor="handicap">Handicap</label>
           <input
@@ -223,7 +246,7 @@ const SignupForm = () => {
             }
             value={formData.handicap}
           />
-        </div>
+        </div> */}
 
         <div className={styles.inputGroup}>
           <label htmlFor="location">Location</label>
@@ -238,7 +261,16 @@ const SignupForm = () => {
           />
         </div>
 
-        <button onClick={() => setStep(4)} className={styles.nextBtn}>
+        <button
+          onClick={() => setStep(4)}
+          className={styles.nextBtn}
+          disabled={
+            !formData.username ||
+            !formData.dob ||
+            !formData.lm ||
+            !formData.location
+          }
+        >
           Next
         </button>
       </div>
@@ -268,7 +300,7 @@ const SignupForm = () => {
         </div>
 
         <p>Email: {formData.email}</p>
-        <p>username: {formData.username}</p>
+        <p>Username: {formData.username}</p>
         <p>Date of Birth: {formData.dob}</p>
         <p>Launch Monitor: {formData.lm}</p>
         <p>Handicap: {formData.handicap}</p>
