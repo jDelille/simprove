@@ -4,6 +4,8 @@
 .widget {
   @include widget();
   max-height: 291px;
+  
+  position: relative;
   @include bp.mobile {
     max-height: none;
   }
@@ -82,6 +84,20 @@
             }
           }
         }
+      }
+    }
+    
+    .emptyState {
+      height: 100%;
+      height: 173px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      p {
+        width: 75%;
+        text-align: center;
+        line-height: 22px;
+        color: var(--lightgray);
       }
     }
   }

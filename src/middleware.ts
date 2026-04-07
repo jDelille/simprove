@@ -3,6 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
+  const pathname = request.nextUrl.pathname;
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -25,7 +26,31 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const protectedRoutes = [
+    "/dashboard",
+    "/settings",
+    "/sessions",
+    "/training",
+    "/profile",
+  ];
+
+  const isProtectedRoute = protectedRoutes.some((route) =>
+    pathname.startsWith(route)
+  );
+
+  // Block unauthenticated users
+  if (isProtectedRoute && !user) {
+    return NextResponse.redirect(new URL("/auth/login", request.url));
+  }
+
+  // Redirect logged-in users away from auth pages
+  if (pathname.startsWith("/auth") && user) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
 
   return supabaseResponse;
 }

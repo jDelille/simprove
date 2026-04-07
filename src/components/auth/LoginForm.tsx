@@ -14,6 +14,8 @@ const LoginForm = () => {
     password: "",
   });
 
+  const [authError, setAuthError] = useState<string | null>(null);
+
   const supabase = createClient();
 
   const handleLogin = async () => {
@@ -24,31 +26,35 @@ const LoginForm = () => {
     });
 
     if (error) {
-      alert("Error logging in: " + error.message);
+      setAuthError(error.message);
     } else {
       redirect("/dashboard");
     }
   };
 
-const handleGoogleSignup = async () => {
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: "google",
-    options: {
-      redirectTo: `${window.location.origin}/auth/callback`,
-    },
-  });
-  if (error) alert(error.message);
-};
+  const handleGoogleSignup = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
+    if (error) {
+      setAuthError(error.message);
+    }
+  };
 
   return (
     <div className={styles.authForm}>
-      <h1>Welcome back</h1>
       <div className={styles.form}>
+        <h1>Sign in</h1>
         <div className={styles.inputGroup}>
-          <label htmlFor="email">Email or username</label>
+          <label htmlFor="email">Email address</label>
           <input
             type="email"
             id="email"
+            placeholder="you@example.com"
+            required
             onChange={(e) =>
               setFormData({ ...formData, email: e.target.value })
             }
@@ -60,6 +66,8 @@ const handleGoogleSignup = async () => {
           <input
             type="password"
             id="password"
+            placeholder="Enter your password"
+            required
             onChange={(e) =>
               setFormData({ ...formData, password: e.target.value })
             }
@@ -67,17 +75,37 @@ const handleGoogleSignup = async () => {
           />
         </div>
 
-        <button onClick={handleLogin} className={styles.nextBtn}>
-          Log in
+        {authError && (
+          <div className={styles.error}>
+            <p>{authError}</p>
+          </div>
+        )}
+
+        <button
+          onClick={handleLogin}
+          className={styles.nextBtn}
+          disabled={!formData.email || !formData.password}
+        >
+          Continue
         </button>
-        <p>or</p>
-        <button>Login with Demo Account</button>
+        <div className={styles.redirect}>
+          <p>Don't have an account?</p>
+          <Link href="/auth/signup">Sign up</Link>
+        </div>
+        <p className={styles.divider}>
+          <span>or</span>
+        </p>
+        <button className={styles.demoBtn}>Login with Demo Account</button>
+
         <button className={styles.googleBtn} onClick={handleGoogleSignup}>
           <div className={styles.icon}>
             <FcGoogle size={20} />
           </div>
           <span>Continue with Google</span>
         </button>
+        {/* 
+        
+         */}
         {/* <p>or</p>
         <button className={styles.googleBtn}>
           <div className={styles.icon}>
@@ -91,10 +119,6 @@ const handleGoogleSignup = async () => {
           </div>
           <span>Continue with Apple</span>
         </button> */}
-        <div className={styles.redirect}>
-          <p>Don't have an account?</p>
-          <Link href="/auth/signup">Sign up</Link>
-        </div>
       </div>
     </div>
   );

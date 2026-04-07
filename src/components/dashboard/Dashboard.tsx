@@ -120,7 +120,7 @@ const Dashboard = ({
           />
 
           <SmallStatWidget
-            title="Most Practiced Club"
+            title="Most Used Club"
             value={profileMetrics.mostUsedClub || "N/A"}
             metric=""
             trend={null}

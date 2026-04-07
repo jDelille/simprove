@@ -20,7 +20,7 @@ const RankWidget: React.FC<RankWidgetProps> = () => {
         <div className={styles.fill}></div>
       </div>
       <div className={styles.points}>
-        <p>250 / 1000 pts to next rank</p>
+        <p>0 / 1000 pts to next rank</p>
       </div>
     </div>
   );

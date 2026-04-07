@@ -4,10 +4,10 @@
 .widget {
   @include widget();
   max-height: 291px;
-  
-    @include bp.mobile {
-      max-height: none;
-    }
+
+  @include bp.mobile {
+    max-height: none;
+  }
 
   .header {
     @include widgetHeader();
@@ -37,8 +37,8 @@
       }
     }
     .selected {
-        color: var(--text);
-      }
+      color: var(--text);
+    }
   }
 
   .missLineContainer {
@@ -122,5 +122,19 @@
     color: var(--lightgray);
     padding-top: 0.75rem;
     text-align: center;
+  }
+
+  .emptyState {
+    height: 100%;
+    height: 173px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p {
+      width: 75%;
+      text-align: center;
+      line-height: 22px;
+      color: var(--lightgray);
+    }
   }
 }

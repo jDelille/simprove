@@ -63,7 +63,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ onLogout, setOpenMenu }) => {
             Training
             <MdOutlineSchool size={18} color="var(--lightgray)" />
           </li>
-          <li onClick={() => handleLinkClick(`/profile/${profile?.id}`)}>
+          <li onClick={() => handleLinkClick(`/profile/${profile?.username}`)}>
             Profile
             <FaRegUserCircle size={17} color="var(--lightgray)" />
           </li>

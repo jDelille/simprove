@@ -187,6 +187,9 @@ body {
 
 .auth-page {
   min-height: calc(100vh - 65px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ClubBreakdownWidget-module-scss-module__0GQQFW__shotTableContainer

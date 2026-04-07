@@ -35,6 +35,8 @@ const Training: React.FC<TrainingProps> = ({
   const activePlan = activeLesson ? activeLesson : null;
   const isEmpty = !activeLesson || activeLesson.activeLesson === null;
 
+  const noRecommended = !recommendedLessons || recommendedLessons.length === 0;
+
   async function handlePlanClick(plan: any) {
     setSelectedPlan(plan);
     openModal("lessonPlanDetails");
@@ -83,14 +85,14 @@ const Training: React.FC<TrainingProps> = ({
         {!isEmpty ? (
           <ActivePlan lesson={activePlan} />
         ) : (
-          <p>No active plan — pick one below to get started.</p>
+          <p className={styles.emptyMessage}>No active plan — pick one below to get started.</p>
         )}
       </div>
       <div className={styles.row}>
         <h2 className={styles.sectionName}>Browse Plans</h2>
 
         {/* recommended plans */}
-        {recommendedLessons && (
+        {recommendedLessons && !noRecommended && (
           <RecommendedPlans
             onPlanClick={handlePlanClick}
             recommendedLessons={recommendedLessons}

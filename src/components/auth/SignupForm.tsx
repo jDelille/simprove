@@ -52,7 +52,6 @@ const SignupForm = () => {
 
   const handleSignup = async () => {
     if (isGoogleUser) {
-      // already has auth account, just update the profile
       const {
         data: { user },
       } = await supabase.auth.getUser();
@@ -71,12 +70,10 @@ const SignupForm = () => {
         .eq("id", user.id);
 
       if (dbError) return alert("Error saving user data: " + dbError.message);
-      // redirect to dashboard
       window.location.href = "/dashboard";
       return;
     }
 
-    // regular email/password signup
     const { data, error } = await supabase.auth.signUp({
       email: formData.email,
       password: formData.password,
@@ -98,7 +95,14 @@ const SignupForm = () => {
         .eq("id", data.user.id);
 
       if (dbError) return alert("Error saving user data: " + dbError.message);
-      alert("Signup successful!");
+
+      const { data: loginData, error: loginError } =
+        await supabase.auth.signInWithPassword({
+          email: formData.email,
+          password: formData.password,
+        });
+      if (loginError) return alert("Error signing in: " + loginError.message);
+      window.location.href = "/dashboard";
     }
   };
 
@@ -110,16 +114,33 @@ const SignupForm = () => {
 
   const isPasswordValid = Object.values(passwordValid).every(Boolean);
 
+  const handleGoogleSignup = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
+    if (error) alert(error.message);
+  };
+
   const introStep = (
     <div className={styles.authForm}>
-      <h1>Sign up to elevate your game</h1>
-      <div className={styles.form}>
+      <form
+        className={styles.form}
+        onSubmit={(e) => {
+          e.preventDefault();
+          setStep(2);
+        }}
+      >
+        <h1>Sign up</h1>
         <div className={styles.inputGroup}>
           <label htmlFor="email">Email address</label>
           <input
             type="email"
             id="email"
             placeholder="username@domain.com"
+            required
             onChange={(e) =>
               setFormData({ ...formData, email: e.target.value })
             }
@@ -127,27 +148,29 @@ const SignupForm = () => {
           />
         </div>
         <button
-          onClick={() => setStep(2)}
+          type="submit"
           className={styles.nextBtn}
           disabled={!formData.email}
         >
           Next
         </button>
-        {/* <p>or</p>
-        <button className={styles.secondaryBtn}>
-          <FcGoogle size={24} />
-          <span> Sign up with Google</span>
-        </button>
-        <button className={styles.secondaryBtn}>
-          <FaApple size={24} />
-          <span> Sign up with Apple</span>
-        </button> */}
 
         <div className={styles.redirect}>
           <p>Already have an account?</p>
           <Link href="/auth/login">Log in</Link>
         </div>
-      </div>
+
+        <p className={styles.divider}>
+          <span>or</span>
+        </p>
+
+        <button className={styles.googleBtn} onClick={handleGoogleSignup}>
+          <div className={styles.icon}>
+            <FcGoogle size={20} />
+          </div>
+          <span>Continue with Google</span>
+        </button>
+      </form>
     </div>
   );
 
@@ -157,25 +180,35 @@ const SignupForm = () => {
       <div className={styles.progressBar}>
         <div
           className={styles.progressFill}
-          style={{ width: `${(step - 1) * 33.33}%` }}
+          style={{ width: `${(step - 1) * 50}%` }}
         ></div>
       </div>
-      <div className={styles.form}>
+      <form
+        className={styles.form}
+        onSubmit={(e) => {
+          e.preventDefault();
+          setStep(3);
+        }}
+      >
         <div className={styles.stepHeader}>
           <FaChevronLeft
             size={20}
             className={styles.arrow}
             onClick={() => setStep(step - 1)}
+            color="var(--lightgray)"
           />
 
-          <p>Step 1 of 3</p>
-          <h3>Create a password</h3>
+          <div className={styles.text}>
+            <p>Step 1 of 2</p>
+            <h3>Create a password</h3>
+          </div>
         </div>
         <div className={styles.inputGroup}>
           <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
+            required
             placeholder="Enter your password"
             onChange={(e) =>
               setFormData({ ...formData, password: e.target.value })
@@ -209,13 +242,13 @@ const SignupForm = () => {
         </div>
 
         <button
-          onClick={() => setStep(3)}
+          type="submit"
           className={styles.nextBtn}
           disabled={!isPasswordValid}
         >
           Next
         </button>
-      </div>
+      </form>
     </div>
   );
 
@@ -229,7 +262,13 @@ const SignupForm = () => {
           style={{ width: `${(step - 1) * 33.33}%` }}
         ></div>
       </div>
-      <div className={styles.form}>
+      <form
+        className={styles.form}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSignup();
+        }}
+      >
         <div className={styles.stepHeader}>
           <FaChevronLeft
             size={20}
@@ -237,8 +276,10 @@ const SignupForm = () => {
             onClick={() => setStep(step - 1)}
           />
 
-          <p>Step 2 of 3</p>
-          <h3>Tell us about yourself</h3>
+          <div className={styles.text}>
+            <p>Step 2 of 2</p>
+            <h3>Tell us about yourself</h3>
+          </div>
         </div>
         <div className={styles.inputGroup}>
           <label htmlFor="displayName">Display Name</label>
@@ -246,6 +287,7 @@ const SignupForm = () => {
           <input
             type="text"
             id="displayName"
+            required
             onChange={(e) =>
               setFormData({ ...formData, displayName: e.target.value })
             }
@@ -254,10 +296,11 @@ const SignupForm = () => {
         </div>
         <div className={styles.inputGroup}>
           <label htmlFor="username">Username</label>
-          <span>This username will appear on your profile</span>
+          <span>This will appear on the leaderboard</span>
           <input
             type="text"
             id="username"
+            required
             onChange={(e) =>
               setFormData({ ...formData, username: e.target.value })
             }
@@ -273,6 +316,7 @@ const SignupForm = () => {
           </span>
           <input
             type="date"
+            required
             id="dob"
             placeholder="MM/DD/YYYY"
             onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
@@ -284,31 +328,20 @@ const SignupForm = () => {
           <label htmlFor="lm">Launch Monitor</label>
           <input
             type="text"
+            required
             id="lm"
             placeholder="Square Golf"
             onChange={(e) => setFormData({ ...formData, lm: e.target.value })}
             value={formData.lm}
           />
         </div>
-        {/* 
-        <div className={styles.inputGroup}>
-          <label htmlFor="handicap">Handicap</label>
-          <input
-            type="text"
-            id="handicap"
-            placeholder="+8"
-            onChange={(e) =>
-              setFormData({ ...formData, handicap: e.target.value })
-            }
-            value={formData.handicap}
-          />
-        </div> */}
 
         <div className={styles.inputGroup}>
           <label htmlFor="location">Location</label>
           <input
             type="text"
             id="location"
+            required
             placeholder="Scottsdale, AZ"
             onChange={(e) =>
               setFormData({ ...formData, location: e.target.value })
@@ -318,7 +351,7 @@ const SignupForm = () => {
         </div>
 
         <button
-          onClick={() => setStep(4)}
+          type="submit"
           className={styles.nextBtn}
           disabled={
             !formData.username ||
@@ -327,9 +360,9 @@ const SignupForm = () => {
             !formData.location
           }
         >
-          Next
+          Continue
         </button>
-      </div>
+      </form>
     </div>
   );
 

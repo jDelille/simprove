@@ -91,73 +91,95 @@ const SwingMetricsWidget: React.FC<SwingMetricsWidgetProps> = ({ shots }) => {
         <span>Path · Face · Attack Angle</span>
       </div>
       <div className={styles.content}>
-        <ClubSelect
-          clubs={clubs}
-          setSelectedClub={setSelectedClub}
-          selectedClub={selectedClub}
-        />
+        {!isEmpty && (
+          <>
+            <ClubSelect
+              clubs={clubs}
+              setSelectedClub={setSelectedClub}
+              selectedClub={selectedClub}
+            />
 
-        <div className={styles.clubDetails}>
-          <ul>
-            <li>
-              <div className={styles.metric}>
-                <p style={isEmpty ? { color: "var(--lightgray)" } : undefined}>
-                  Club Path
-                </p>
-                <div className={styles.valueLabel}>
-                  <p style={{ color: pathLabel(avgPath).color }}>
-                    {pathLabel(avgPath).text}
-                  </p>
-                </div>
-              </div>
-              {!isEmpty && (
-                <div className={styles.value}>
-                  <p style={{ color: pathLabel(avgPath).color }}>
-                    {avgPath.toFixed(1)}°
-                  </p>
-                </div>
-              )}
-            </li>
-            <li>
-              <div className={styles.metric}>
-                <p style={isEmpty ? { color: "var(--lightgray)" } : undefined}>
-                  Face Angle
-                </p>
-                <div className={styles.valueLabel}>
-                  <p style={{ color: faceLabel(avgFace).color }}>
-                    {faceLabel(avgFace).text}
-                  </p>
-                </div>
-              </div>
-              {!isEmpty && (
-                <div className={styles.value}>
-                  <p style={{ color: faceLabel(avgFace).color }}>
-                    {avgFace.toFixed(1)}°
-                  </p>
-                </div>
-              )}
-            </li>
-            <li>
-              <div className={styles.metric}>
-                <p style={isEmpty ? { color: "var(--lightgray)" } : undefined}>
-                  Attack Angle
-                </p>
-                <div className={styles.valueLabel}>
-                  <p style={{ color: aoaLabel(avgAttack).color }}>
-                    {aoaLabel(avgAttack).text}
-                  </p>
-                </div>
-              </div>
-              {!isEmpty && (
-                <div className={styles.value}>
-                  <p style={{ color: aoaLabel(avgAttack).color }}>
-                    {avgAttack.toFixed(1)}°
-                  </p>
-                </div>
-              )}
-            </li>
-          </ul>
-        </div>
+            <div className={styles.clubDetails}>
+              <ul>
+                <li>
+                  <div className={styles.metric}>
+                    <p
+                      style={
+                        isEmpty ? { color: "var(--lightgray)" } : undefined
+                      }
+                    >
+                      Club Path
+                    </p>
+                    <div className={styles.valueLabel}>
+                      <p style={{ color: pathLabel(avgPath).color }}>
+                        {pathLabel(avgPath).text}
+                      </p>
+                    </div>
+                  </div>
+                  {!isEmpty && (
+                    <div className={styles.value}>
+                      <p style={{ color: pathLabel(avgPath).color }}>
+                        {avgPath.toFixed(1)}°
+                      </p>
+                    </div>
+                  )}
+                </li>
+                <li>
+                  <div className={styles.metric}>
+                    <p
+                      style={
+                        isEmpty ? { color: "var(--lightgray)" } : undefined
+                      }
+                    >
+                      Face Angle
+                    </p>
+                    <div className={styles.valueLabel}>
+                      <p style={{ color: faceLabel(avgFace).color }}>
+                        {faceLabel(avgFace).text}
+                      </p>
+                    </div>
+                  </div>
+                  {!isEmpty && (
+                    <div className={styles.value}>
+                      <p style={{ color: faceLabel(avgFace).color }}>
+                        {avgFace.toFixed(1)}°
+                      </p>
+                    </div>
+                  )}
+                </li>
+                <li>
+                  <div className={styles.metric}>
+                    <p
+                      style={
+                        isEmpty ? { color: "var(--lightgray)" } : undefined
+                      }
+                    >
+                      Attack Angle
+                    </p>
+                    <div className={styles.valueLabel}>
+                      <p style={{ color: aoaLabel(avgAttack).color }}>
+                        {aoaLabel(avgAttack).text}
+                      </p>
+                    </div>
+                  </div>
+                  {!isEmpty && (
+                    <div className={styles.value}>
+                      <p style={{ color: aoaLabel(avgAttack).color }}>
+                        {avgAttack.toFixed(1)}°
+                      </p>
+                    </div>
+                  )}
+                </li>
+              </ul>
+            </div>
+          </>
+        )}
+
+        {isEmpty && (
+          <div className={styles.emptyState}>
+            <p>Your swing metrics will appear here once you upload session data.</p>
+          </div>
+        )}
       </div>
     </div>
   );

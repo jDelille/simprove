@@ -25,7 +25,13 @@
     .sectionName {
       font-size: 14px;
       font-weight: 600;
-      margin: 1rem 0;
+      
     }
+
+    .emptyMessage {
+      margin-top: 1rem;
+      font-style: italic;
+      font-size: 14px;
   }
+}
 }

@@ -24,6 +24,8 @@
       padding: 10px;
       border-radius: 6px;
       max-width: 70px;
+      max-width: 70px;
+      width: 70px;
       height: 70px;
       display: flex;
       align-items: center;
@@ -32,6 +34,10 @@
       padding: 10px;
       border: 1px solid var(--border);
       font-size: 10px;
+
+      .icon {
+        font-size: 30px;
+      }
     }
   }
 }

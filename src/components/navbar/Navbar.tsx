@@ -55,6 +55,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, profile }) => {
     { href: "/dashboard", label: "Dashboard", key: 1 },
     { href: "/sessions", label: "Sessions", key: 2 },
     { href: "/training", label: "Training", key: 3 },
+    { href: `/profile/${profile?.username}`, label: "Profile", key: 4 },
     // { href: "/community", label: "Community", key: 4 },
     // { href: "/challenges", label: "Challenges", key: 5 },
     // { href: "/about", label: "About", key: 6 },
@@ -96,12 +97,12 @@ const Navbar: React.FC<NavbarProps> = ({ user, profile }) => {
         </div>
         <div className={styles.navbarAuth}>
           <div className={styles.navbarAuth}>
-            <LuSun
+            {/* <LuSun
               size={18}
               className={styles.themeIcon}
               onClick={toggleTheme}
               color="var(--lightgray)"
-            />
+            /> */}
 
             {/* <FaRegBell color="var(--lightgray)" /> */}
 
