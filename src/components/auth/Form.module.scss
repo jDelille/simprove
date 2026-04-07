@@ -195,7 +195,7 @@
 
       span {
         position: relative;
-        background: white; // or var(--bg)
+        background: var(--bg);
         padding: 0 8px;
         z-index: 1;
       }

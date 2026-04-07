@@ -270,11 +270,13 @@ const SignupForm = () => {
         }}
       >
         <div className={styles.stepHeader}>
-          <FaChevronLeft
-            size={20}
-            className={styles.arrow}
-            onClick={() => setStep(step - 1)}
-          />
+          {!isGoogleUser && (
+            <FaChevronLeft
+              size={20}
+              className={styles.arrow}
+              onClick={() => setStep(step - 1)}
+            />
+          )}
 
           <div className={styles.text}>
             <p>Step 2 of 2</p>
