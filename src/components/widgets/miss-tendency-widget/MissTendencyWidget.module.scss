@@ -1,8 +1,13 @@
 @use "@/styles/mixins.scss" as *;
+@use "@/styles/breakpoints.scss" as bp;
 
 .widget {
   @include widget();
   max-height: 291px;
+  
+    @include bp.mobile {
+      max-height: none;
+    }
 
   .header {
     @include widgetHeader();
