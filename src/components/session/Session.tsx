@@ -22,10 +22,7 @@ type SessionProps = {
 const Session: React.FC<SessionProps> = ({ session }) => {
   const router = useRouter();
 
-  console.log(session)
-
   const [selectedClub, setSelectedClub] = useState<string>("ALL");
-
 
   const filteredShots = useMemo(() => {
     if (!session?.shots) return [];

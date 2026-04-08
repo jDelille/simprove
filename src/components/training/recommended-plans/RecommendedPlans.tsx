@@ -21,8 +21,6 @@ const RecommendedPlans: React.FC<RecommendedPlansProps> = ({
   duration: rec.lessons.weeks ? `${rec.lessons.weeks} sessions` : rec.lessons.duration || '',
 }));
 
-  console.log(plans)
-
   return (
     <div className={styles.recommendedPlans}>
       <div className={styles.header}>

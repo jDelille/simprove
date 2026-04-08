@@ -32,8 +32,6 @@ const Training: React.FC<TrainingProps> = ({
   const [drills, setDrills] = useState<any[]>([]);
   const [openDrills, setOpenDrills] = useState<boolean>(false);
 
-  console.log("recommendedLessons:", recommendedLessons);
-
   const supabase = createClient();
 
   const activePlan = activeLesson ? activeLesson : null;

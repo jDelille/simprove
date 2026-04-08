@@ -23,7 +23,7 @@ type DashboardProps = {
   sessions: Session[];
   userId: string;
   gettingStartedCompletions?: GettingStartedCompletions[];
-  activeLesson?: ActiveLesson;
+  activeLesson?: any;
   recentActivity?: RecentActivity[];
 };
 
@@ -36,15 +36,11 @@ const Dashboard = ({
 }: DashboardProps) => {
   const shots = sessions.flatMap((session) => session.shots);
 
-  console.log("recentActivity:", recentActivity);
-
   const profileMetrics = calculateProfileStats({
     userId: userId,
     shots,
     sessionLength: sessions.length,
   });
-
-  console.log(gettingStartedCompletions)
 
   const groupedSessions = groupByMonth(sessions);
   const groupedShots = groupByMonth(shots);

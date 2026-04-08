@@ -11,8 +11,6 @@ const GettingStartedWidget: React.FC<GettingStartedWidgetProps> = ({
 
   const completionCount = completions ? completions.length : 0;
 
-  console.log("completions:", completions);
-
   const completedSteps = completions
     ? completions.map((comp) => comp.step_id)
     : [];

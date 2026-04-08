@@ -14,8 +14,6 @@ const EditProfile = () => {
   const [selectedSection, setSelectedSection] = useState("Account");
   const { user, profile } = useUser();
 
-  console.log(profile)
-
   const renderSection = () => {
     switch (selectedSection) {
       case "Account":

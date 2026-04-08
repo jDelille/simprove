@@ -49,13 +49,9 @@ export async function GET(request: Request) {
     profile = newProfile;
   }
 
-  console.log("User profile:", profile);
-
   const needsOnboarding =
     !profile?.launch_monitor || !profile?.location || !profile?.display_name;
 
-
-  console.log("Needs onboarding?", needsOnboarding);
 
   // Redirect to onboarding if needed
   if (needsOnboarding) {

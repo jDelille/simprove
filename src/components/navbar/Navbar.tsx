@@ -25,8 +25,6 @@ type NavbarProps = {
 
 const Navbar: React.FC<NavbarProps> = ({ user, profile }) => {
 
-  console.log(user, profile)
-
   const pathname = usePathname();
   const router = useRouter();
   const { openModal, modals, closeModal } = useModal();
