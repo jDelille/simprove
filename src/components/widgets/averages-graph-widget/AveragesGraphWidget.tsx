@@ -227,7 +227,7 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
         isOpen={modals["upload"] || false}
         onClose={() => closeModal("upload")}
         title="Upload Lauch Monitor Data"
-        body={<UploadCsv />}
+        body={<UploadCsv userId={userId} />}
         description="Upload a CSV file file your launch monitor. (Trackman, FlightScope, Square Golf, etc.)"
       />
     </div>
