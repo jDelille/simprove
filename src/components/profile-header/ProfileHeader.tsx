@@ -11,6 +11,7 @@ import { GoPencil } from "react-icons/go";
 import styles from "./ProfileHeader.module.scss";
 import Button from "../button/Button";
 import ContentTabs from "../content-tabs/ContentTabs";
+import { BsThreeDots } from "react-icons/bs";
 
 type ProfileHeaderProps = {
   userId: string;
@@ -23,7 +24,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   userId,
   selectedTab,
   setSelectedTab,
-  user
+  user,
 }) => {
   const { id } = useParams();
   const { profile } = useUser();
@@ -43,11 +44,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
         <div className={styles.userInfo}>
           <div className={styles.avatarContainer}>
             {user && (
-              <Avatar
-                src={user.avatar_path}
-                size="large"
-                initials={initials}
-              />
+              <Avatar src={user.avatar_path} size="large" initials={initials} />
             )}
             <div className={styles.editAvatarIcon}>
               <GoPencil size={12} />
@@ -71,12 +68,10 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
         </div>
 
         <div className={styles.buttons}>
-          <Button children="Share Profile" variant="secondary" />
-          <Button
-            children="Edit Profile"
-            variant="lessonCard"
-            onClick={() => router.push("/settings/edit-profile")}
-          />
+          {/* <Button children="Share Profile" variant="secondary" /> */}
+          <button onClick={() => router.push("/settings/edit-profile")}>
+            Edit
+          </button>
         </div>
       </div>
       <ContentTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />

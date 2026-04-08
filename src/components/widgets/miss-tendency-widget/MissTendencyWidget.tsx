@@ -13,9 +13,8 @@ type MissTendencyWidgetProps = {
 };
 
 const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
-  const [selectedClub, setSelectedClub] = useState("DR");
-
   const clubs = [...new Set(shots.map((shot) => shot.club))];
+  const [selectedClub, setSelectedClub] = useState(clubs[0] || "");
 
   const isEmpty = shots.length === 0;
 

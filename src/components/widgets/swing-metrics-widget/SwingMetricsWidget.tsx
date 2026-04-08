@@ -9,10 +9,9 @@ type SwingMetricsWidgetProps = {
 };
 
 const SwingMetricsWidget: React.FC<SwingMetricsWidgetProps> = ({ shots }) => {
-  const [selectedClub, setSelectedClub] = useState("DR");
-
   const clubs = [...new Set(shots.map((shot) => shot.club))];
-
+  const [selectedClub, setSelectedClub] = useState(clubs[0] || "");
+  
   const isEmpty = shots.length === 0;
 
   const clubShots = shots.filter((shot) => shot.club === selectedClub);
@@ -177,7 +176,9 @@ const SwingMetricsWidget: React.FC<SwingMetricsWidgetProps> = ({ shots }) => {
 
         {isEmpty && (
           <div className={styles.emptyState}>
-            <p>Your swing metrics will appear here once you upload session data.</p>
+            <p>
+              Your swing metrics will appear here once you upload session data.
+            </p>
           </div>
         )}
       </div>

@@ -179,9 +179,8 @@ const Sessions: React.FC<SessionsProps> = ({ sessions }) => {
               <p>
                 Tip:{" "}
                 <span>
-                  Sessions are imported as CSV exports from your launch monitor.
-                  Supported devices include Trackman, Foresight, Garmin
-                  Approach, and FlightScope.
+                  Sessions are imported as CSV exports from your launch monitor software.
+                  Supported devices and software include Square Golf, Foresight, GsPro, and FlightScope.
                 </span>
               </p>
             </div>

@@ -32,9 +32,9 @@ const Profile: React.FC<ProfileProps> = ({
   const overViewContent = (
     <div className={styles.content}>
       <div className={styles.column}>
-        <div className={styles.row}>
+        {/* <div className={styles.row}>
           <AchievementsWidgets userId={userId} badges={badges} />
-        </div>
+        </div> */}
         <div className={styles.row}>
           <RecentSessionsWidget userId={userId} />
         </div>

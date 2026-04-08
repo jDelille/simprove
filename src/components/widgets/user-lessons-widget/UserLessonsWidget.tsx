@@ -46,7 +46,7 @@ const UserLessonsWidget: React.FC<UserLessonsWidgetProps> = ({ lessons }) => {
               <div className={styles.text}>
                 <p>{lesson.lesson_difficulty}</p>
                 <p>·</p>
-                <p>{lesson.total_points} pts earned</p>
+                <p>{lesson.total_points} pts</p>
               </div>
             </div>
           </div>

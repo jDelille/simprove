@@ -13,7 +13,7 @@
   .drillInfo {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 1rem;
     padding: 1rem;
 
     .weekNumber {
@@ -72,7 +72,7 @@
 
 .completed,
 .inactive {
-  background-color: white;
+  background-color: var(--messageBg);
   border: 1px solid var(--border);
   width: 25px;
   height: 25px;

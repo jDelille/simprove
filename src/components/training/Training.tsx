@@ -49,7 +49,7 @@ const Training: React.FC<TrainingProps> = ({
       await uploadLessonPlan({
         userId: userId,
         lessonId: selectedPlan.id,
-        supabaseClient: supabase
+        supabaseClient: supabase,
       });
       closeModal("lessonPlanDetails");
     }
@@ -85,12 +85,12 @@ const Training: React.FC<TrainingProps> = ({
         {!isEmpty ? (
           <ActivePlan lesson={activePlan} />
         ) : (
-          <p className={styles.emptyMessage}>No active plan — pick one below to get started.</p>
+          <p className={styles.emptyMessage}>
+            No active plan — pick one below to get started.
+          </p>
         )}
       </div>
       <div className={styles.row}>
-        <h2 className={styles.sectionName}>Browse Plans</h2>
-
         {/* recommended plans */}
         {recommendedLessons && !noRecommended && (
           <RecommendedPlans
@@ -98,6 +98,8 @@ const Training: React.FC<TrainingProps> = ({
             recommendedLessons={recommendedLessons}
           />
         )}
+        <h2 className={styles.sectionName}>Browse Plans</h2>
+
         {/* browse plans */}
         <BrowsePlans
           plans={lessonPlans as any[]}

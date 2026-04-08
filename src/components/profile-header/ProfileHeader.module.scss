@@ -109,6 +109,19 @@
       @include bp.mobile {
         margin-left: 0;
       }
+      button {
+        all: unset;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--messageBg);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        width: 60px;
+        height: 40px;
+        cursor: pointer;
+        font-size: 14px;
+      }
     }
   }
 }

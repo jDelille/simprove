@@ -12,8 +12,7 @@
   max-height: 237px;
   @include bp.mobile {
     width: 100%;
-    min-height: 237px;
-    height: 237px;
+    height: fit-content;
   }
   cursor: pointer;
   &:hover {
