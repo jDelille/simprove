@@ -56,11 +56,11 @@ const LessonModalBody: React.FC<LessonModalBodyProps> = ({
         <h3>Focus</h3>
         <p>{selectedPlan.notes}</p>
       </div>
-      <div className={styles.overview}>
+      {/* <div className={styles.overview}>
         <h3>What you'll work on </h3>
-        <p>{selectedPlan.lesson_description}</p>
-      </div>
-      <div className={styles.drills}>
+        <p>{selectedPlan.notes}</p>
+      </div> */}
+      {/* <div className={styles.drills}>
         <h3>Drills</h3>
         {drills.map((drill: any) => (
           <div
@@ -94,7 +94,7 @@ const LessonModalBody: React.FC<LessonModalBodyProps> = ({
             )}
           </div>
         ))}
-      </div>
+      </div> */}
 
       <div className={styles.footer}>
         <p>{selectedPlan?.duration}</p>

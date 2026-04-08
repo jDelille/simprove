@@ -9,10 +9,19 @@ type RecommendedPlansProps = {
 
 const RecommendedPlans: React.FC<RecommendedPlansProps> = ({
   onPlanClick,
-  recommendedLessons
+  recommendedLessons,
 }) => {
 
-  const plans = recommendedLessons?.map((rec) => rec.lessons);
+ const plans = recommendedLessons?.map((rec) => ({
+  ...rec.lessons,          
+  lesson_id: rec.lesson_id, 
+  reason: rec.reason,       
+  is_ai_recommended: rec.is_ai_recommended || false,
+  total_points: rec.total_points || rec.lessons.total_points || 0,
+  duration: rec.lessons.weeks ? `${rec.lessons.weeks} sessions` : rec.lessons.duration || '',
+}));
+
+  console.log(plans)
 
   return (
     <div className={styles.recommendedPlans}>
@@ -23,13 +32,14 @@ const RecommendedPlans: React.FC<RecommendedPlansProps> = ({
         <div className={styles.headerText}>
           <p>Recommended for you</p>
           <span>
-            Based on you recent sessions — these plans are hand-picked to help you improve the most.
+            Based on you recent sessions — these plans are hand-picked to help
+            you improve the most.
           </span>
         </div>
       </div>
       <div className={styles.plans}>
-        {plans?.map((plan) => (
-          <LessonCard key={plan.id} plan={plan} onPlanClick={onPlanClick} />
+        {plans?.map((plan, index) => (
+          <LessonCard key={index} plan={plan} onPlanClick={onPlanClick} />
         ))}
       </div>
     </div>

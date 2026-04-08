@@ -9,6 +9,10 @@ type LessonCardProps = {
 };
 
 const LessonCard: React.FC<LessonCardProps> = ({ plan, onPlanClick }) => {
+
+  console.log("Lesson Card Plan:", plan);
+
+  
   return (
     <div className={styles.lessonCard} onClick={() => onPlanClick(plan)}>
       <div className={styles.content}>
@@ -27,7 +31,7 @@ const LessonCard: React.FC<LessonCardProps> = ({ plan, onPlanClick }) => {
         <h3 className={styles.lessonName}>{plan.lesson_name}</h3>
         <p className={styles.lessonDescription}>{plan.lesson_description}</p>
         <div className={styles.notes}>
-          <p>{plan.notes}</p>
+          <p>{plan.reason}</p>
         </div>
       </div>
 
