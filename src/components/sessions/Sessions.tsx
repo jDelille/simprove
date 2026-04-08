@@ -2,7 +2,6 @@
 
 import SortBy from "../sort-by/SortBy";
 import styles from "./Sessions.module.scss";
-import { useUser } from "@/hooks/useUser";
 import moment from "moment";
 import SessionCard from "../session-card/SessionCard";
 import { useState } from "react";
@@ -25,11 +24,10 @@ type GroupedSessions = Record<string, SessionGroup>;
 
 type SessionsProps = {
   sessions: Session[];
-  profileInfo: Profile;
+  profile: Profile;
 };
 
-const Sessions: React.FC<SessionsProps> = ({ sessions, profileInfo }) => {
-  const { profile } = useUser();
+const Sessions: React.FC<SessionsProps> = ({ sessions, profile }) => {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [sortField, setSortField] = useState<"date" | "shots">("date");
   const [selectedSessions, setSelectedSessions] = useState<string[]>([]);

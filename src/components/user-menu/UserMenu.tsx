@@ -1,27 +1,26 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import styles from "./UserMenu.module.scss";
-import { useUser } from "@/hooks/useUser";
 import { MdOutlineSpaceDashboard, MdOutlineLogout } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineSchool } from "react-icons/md";
 import { FaRegUserCircle } from "react-icons/fa";
 import { BsFileBarGraph } from "react-icons/bs";
 import { MdOutlineHelpOutline } from "react-icons/md";
-import { RiComputerLine } from "react-icons/ri";
 import { IoSunnyOutline } from "react-icons/io5";
 import { LuMoonStar } from "react-icons/lu";
 import { useTheme } from "@/context/ThemeContext";
+import { Profile } from "@/types/profile";
+import styles from "./UserMenu.module.scss";
 
 type UserMenuProps = {
   onLogout: () => void;
   setOpenMenu: (open: boolean) => void;
+  profile: Profile
 };
 
-const UserMenu: React.FC<UserMenuProps> = ({ onLogout, setOpenMenu }) => {
+const UserMenu: React.FC<UserMenuProps> = ({ onLogout, setOpenMenu, profile }) => {
   const router = useRouter();
-  const { user, profile } = useUser();
 
   const { theme, toggleTheme } = useTheme();
 

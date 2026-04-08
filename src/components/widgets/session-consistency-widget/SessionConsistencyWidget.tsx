@@ -6,18 +6,18 @@ import {
   MdOutlineKeyboardArrowLeft,
 } from "react-icons/md";
 import { useState } from "react";
-import { useSessions } from "@/hooks/useSessions";
 import { Session } from "@/types/session";
 
 type SessionConsistencyWidgetProps = {
   userId: string;
+  sessions: Session[];
 };
 
 const SessionConsistencyWidget: React.FC<SessionConsistencyWidgetProps> = ({
   userId,
+  sessions
 }) => {
   const [month, setMonth] = useState(new Date(2026, 2)); // March 2026
-  const { data: sessions } = useSessions(userId);
 
   const sessionDates = (sessions || []).map((s: Session) => {
     const d = new Date(s.created_at);

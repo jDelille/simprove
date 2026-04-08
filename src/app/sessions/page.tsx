@@ -11,22 +11,26 @@ const SessionsPage = async () => {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return null; 
+    return null;
   }
 
-  const sessions = await fetchSessions(user.id, supabase);
-  const profileData = await fetchProfileInfo(supabase);
+  const [sessions, profileInfo] = user?.id
+    ? await Promise.all([
+        fetchSessions(user.id, supabase),
+        fetchProfileInfo(supabase),
+      ])
+    : [[], null];
 
-  const profileInfo = profileData?.profile;
+  const profile = profileInfo?.profile;
 
-  if (!profileInfo) {
+  if (!profile) {
     return null;
   }
 
   return (
     <div className="page">
       <div className="page-content">
-        <Sessions sessions={sessions} profileInfo={profileInfo} />
+        <Sessions sessions={sessions} profile={profile} />
       </div>
     </div>
   );

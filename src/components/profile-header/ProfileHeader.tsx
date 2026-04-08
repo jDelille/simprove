@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "next/navigation";
-import { useUser } from "@/hooks/useUser";
 import { useRouter } from "next/navigation";
 import Avatar from "../avatar/Avatar";
 import { FaLocationDot } from "react-icons/fa6";
@@ -26,10 +25,9 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   user,
 }) => {
   const { id } = useParams();
-  const { profile } = useUser();
   const router = useRouter();
 
-  const initials = profile?.display_name
+  const initials = user?.display_name
     .split(/\s+/)
     .map((word: string) => word.charAt(0))
     .join("")
@@ -51,17 +49,17 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
           </div>
           <div className={styles.text}>
             <div className={styles.name}>
-              <p>{profile?.display_name}</p>
-              <p className={styles.handle}>@{profile?.username}</p>
+              <p>{user?.display_name}</p>
+              <p className={styles.handle}>@{user?.username}</p>
             </div>
-            <p className={styles.bio}>{profile?.bio || "Add your bio here."}</p>
+            <p className={styles.bio}>{user?.bio || "Add your bio here."}</p>
             <div className={styles.location}>
               <p>
                 <FaLocationDot />
-                {profile?.location || "Add your location here."}
+                {user?.location || "Add your location here."}
               </p>
               <p>-</p>
-              <p>Since {moment(profile?.created_at).format("MMM YYYY")}</p>
+              <p>Since {moment(user?.created_at).format("MMM YYYY")}</p>
             </div>
           </div>
         </div>

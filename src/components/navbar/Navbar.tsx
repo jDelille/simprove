@@ -13,7 +13,6 @@ import UserMenu from "../user-menu/UserMenu";
 import Avatar from "../avatar/Avatar";
 import { FaChevronDown } from "react-icons/fa6";
 import { createClient } from "@/lib/supabase/client";
-import { User } from "@/types/user";
 import { Profile } from "@/types/profile";
 
 type AuthAction = "login" | "signup" | "logout";
@@ -136,6 +135,7 @@ const Navbar: React.FC<NavbarProps> = ({ profile }) => {
                   <UserMenu
                     onLogout={() => handleAuthClick("logout")}
                     setOpenMenu={setOpenMenu}
+                    profile={profile}
                   />
                 )}
               </>
@@ -149,7 +149,7 @@ const Navbar: React.FC<NavbarProps> = ({ profile }) => {
         isOpen={modals["upload"] || false}
         onClose={() => closeModal("upload")}
         title="Upload Lauch Monitor Data"
-        body={<UploadCsv />}
+        body={<UploadCsv userId={profile?.id as string} />}
         description="Upload a CSV file file your launch monitor. (Trackman, FlightScope, Square Golf, etc.)"
       />
     </nav>

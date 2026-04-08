@@ -7,12 +7,15 @@ import EditAvatar from "./edit-avatar/EditAvatar";
 import EditProfileInfo from "./edit-profile-info/EditProfileInfo";
 import EditLogin from "./edit-login/EditLogin";
 import DangerZone from "./danger-zone/DangerZone";
-import { useUser } from "@/hooks/useUser";
 import Privacy from "./privacy/Privacy";
+import { Profile } from "@/types/profile";
 
-const EditProfile = () => {
+type EditProfileProps = {
+  profile: Profile;
+};
+
+const EditProfile = ({ profile }: EditProfileProps) => {
   const [selectedSection, setSelectedSection] = useState("Account");
-  const { user, profile } = useUser();
 
   const renderSection = () => {
     switch (selectedSection) {

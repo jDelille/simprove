@@ -37,7 +37,7 @@ const Profile: React.FC<ProfileProps> = ({
           <AchievementsWidgets userId={userId} badges={badges} />
         </div> */}
         <div className={styles.row}>
-          <RecentSessionsWidget userId={userId} />
+          <RecentSessionsWidget sessions={sessions}/>
         </div>
         <div className={styles.row}>
           <UserLessonsWidget lessons={lessons as any} />

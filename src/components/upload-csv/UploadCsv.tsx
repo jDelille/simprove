@@ -1,14 +1,15 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import Papa from "papaparse";
-import { useUser } from "@/hooks/useUser";
-import styles from "./UploadCsv.module.scss";
 import { MdOutlineFileUpload } from "react-icons/md";
-import Button from "../button/Button";
 import { uploadSession } from "@/services/sessions/uploadSession";
+import Button from "../button/Button";import Papa from "papaparse";
+import styles from "./UploadCsv.module.scss";
 
-const UploadCsv = () => {
-  const { user } = useUser();
+type UploadCsvProps = {
+  userId: string;
+};
+
+const UploadCsv = ({ userId }: UploadCsvProps) => {
   const [sessionName, setSessionName] = useState("");
   const [sessionDate, setSessionDate] = useState(new Date().toISOString());
   const [shots, setShots] = useState<any[]>([]);
@@ -35,7 +36,7 @@ const UploadCsv = () => {
 
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
-      if (!user) return console.error("User not logged in");
+      if (!userId) return console.error("User not logged in");
 
       for (const file of acceptedFiles) {
         const text = await file.text();
@@ -71,18 +72,18 @@ const UploadCsv = () => {
         setSessionDate(newDate);
       }
     },
-    [user],
+    [userId],
   );
 
   const handleUpload = async () => {
-    if (!user) return;
+    if (!userId) return;
     if (!sessionName) return console.error("Session name is required");
     if (!shots.length) return console.error("No shots to upload");
 
     try {
       const jsonString = JSON.stringify({ sessionName, shots });
       const session = await uploadSession({
-        userId: user.id,
+        userId,
         jsonString,
         sessionName,
         sessionDate,

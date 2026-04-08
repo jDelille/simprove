@@ -2,22 +2,21 @@
 
 import React, { useState } from "react";
 import styles from "./RecentSessionsWidget.module.scss";
-import { useSessions } from "@/hooks/useSessions";
 import { calculateAverages } from "@/lib/shots/averages";
 import moment from "moment";
 import { MdGolfCourse } from "react-icons/md";
 import { Session } from "@/types/session";
 
 type RecentSessionsWidgetProps = {
-  userId: string;
+  sessions: Session[];
 };
 
 const RecentSessionsWidget: React.FC<RecentSessionsWidgetProps> = ({
-  userId,
+  sessions
 }) => {
   const [selectedSessions, setSelectedSessions] = useState<string[]>([]);
 
-  const { data: sessions } = useSessions(userId);
+  console.log(sessions)
 
   return (
     <div className={styles.recentSessionsWidget}>
