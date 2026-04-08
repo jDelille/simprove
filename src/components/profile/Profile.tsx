@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import RecentSessionsWidget from "../widgets/recent-sessions-widget/RecentSessionsWidget";
-import AchievementsWidgets from "../widgets/achievements-widget/AchievementsWidgets";
 import styles from "./Profile.module.scss";
 import ProfileHeader from "../profile-header/ProfileHeader";
 import MyBag from "../my-bag/MyBag";
@@ -13,7 +12,6 @@ import UserLessonsWidget from "../widgets/user-lessons-widget/UserLessonsWidget"
 type ProfileProps = {
   userId: string;
   myClubs?: any[];
-  badges: any;
   sessions: any[];
   lessons: any[];
   user: any;
@@ -22,7 +20,6 @@ type ProfileProps = {
 const Profile: React.FC<ProfileProps> = ({
   userId,
   myClubs,
-  badges,
   sessions,
   lessons,
   user

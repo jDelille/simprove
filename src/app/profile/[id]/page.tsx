@@ -32,10 +32,11 @@ const ProfilePage = async () => {
         <Profile
           userId={user?.id || ""}
           myClubs={myClubs}
-          badges={badges}
           sessions={sessions}
           lessons={lessons as any}
           user={userProfile}
+
+          // badges={badges}
         />
       </div>
     </div>

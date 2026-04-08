@@ -14,6 +14,8 @@ const EditProfile = () => {
   const [selectedSection, setSelectedSection] = useState("Account");
   const { user, profile } = useUser();
 
+  console.log(profile)
+
   const renderSection = () => {
     switch (selectedSection) {
       case "Account":
@@ -22,7 +24,7 @@ const EditProfile = () => {
             <EditAvatar avatar={profile?.avatar_path} />
             <EditProfileInfo profile={profile} />
             <EditLogin profile={profile} />
-            <DangerZone />
+            <DangerZone profile={profile} />
           </>
         );
       case "Preferences":

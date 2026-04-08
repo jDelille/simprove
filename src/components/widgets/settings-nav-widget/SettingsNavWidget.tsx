@@ -12,7 +12,7 @@ const SettingsNavWidget: React.FC<SettingsNavWidgetProps> = ({
   selectedSection,
   setSelectedSection,
 }) => {
-  const sections = ["Account", "Preferences", "Privacy", "Notifications"];
+  const sections = ["Account", "Privacy"]; // "Notifications", "Preferences",
 
   return (
     <div className={styles.widget}>

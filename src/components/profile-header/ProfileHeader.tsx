@@ -9,9 +9,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import moment from "moment";
 import { GoPencil } from "react-icons/go";
 import styles from "./ProfileHeader.module.scss";
-import Button from "../button/Button";
 import ContentTabs from "../content-tabs/ContentTabs";
-import { BsThreeDots } from "react-icons/bs";
 
 type ProfileHeaderProps = {
   userId: string;
@@ -30,8 +28,6 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   const { profile } = useUser();
   const router = useRouter();
 
-  const isUserProfile = id === userId;
-
   const initials = profile?.display_name
     .split(/\s+/)
     .map((word: string) => word.charAt(0))
@@ -46,9 +42,11 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
             {user && (
               <Avatar src={user.avatar_path} size="large" initials={initials} />
             )}
-            <div className={styles.editAvatarIcon}>
-              <GoPencil size={12} />
-            </div>
+            {!user.is_demo_account && (
+              <div className={styles.editAvatarIcon}>
+                <GoPencil size={12} />
+              </div>
+            )}
           </div>
           <div className={styles.text}>
             <div className={styles.name}>
@@ -69,9 +67,11 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
 
         <div className={styles.buttons}>
           {/* <Button children="Share Profile" variant="secondary" /> */}
-          <button onClick={() => router.push("/settings/edit-profile")}>
-            Edit
-          </button>
+          {!user.is_demo_account && (
+            <button onClick={() => router.push("/settings/edit-profile")}>
+              Edit
+            </button>
+          )}
         </div>
       </div>
       <ContentTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />

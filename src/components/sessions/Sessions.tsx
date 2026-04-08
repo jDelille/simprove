@@ -6,7 +6,6 @@ import { useUser } from "@/hooks/useUser";
 import moment from "moment";
 import SessionCard from "../session-card/SessionCard";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { calculateAverages } from "@/lib/shots/averages";
 import Button from "../button/Button";
 import { FaSquareMinus } from "react-icons/fa6";
@@ -24,9 +23,10 @@ type GroupedSessions = Record<string, SessionGroup>;
 
 type SessionsProps = {
   sessions: any[];
+  profileInfo: any;
 };
 
-const Sessions: React.FC<SessionsProps> = ({ sessions }) => {
+const Sessions: React.FC<SessionsProps> = ({ sessions, profileInfo }) => {
   const { profile } = useUser();
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [sortField, setSortField] = useState<"date" | "shots">("date");
@@ -40,36 +40,55 @@ const Sessions: React.FC<SessionsProps> = ({ sessions }) => {
 
   const deletePopupBody = (
     <div className={styles.popupBody}>
-      <p>Are you sure you want to delete the selected sessions?</p>
+      {!profile?.is_demo_account ? (
+        <>
+          <p>Are you sure you want to delete the selected sessions?</p>
 
-      <div className={styles.buttons}>
-        <Button
-          children="Delete"
-          variant="danger"
-          onClick={async () => {
-            await Promise.all(
-              selectedSessions.map((id) =>
-                deleteSession({
-                  sessionId: id,
-                  storagePath: `session_${id}.csv`,
-                }),
-              ),
-            );
+          <div className={styles.buttons}>
+            <Button
+              children="Delete"
+              variant="danger"
+              onClick={async () => {
+                await Promise.all(
+                  selectedSessions.map((id) =>
+                    deleteSession({
+                      sessionId: id,
+                      storagePath: `session_${id}.csv`,
+                    }),
+                  ),
+                );
 
-            queryClient.setQueryData(["sessions", profile?.id], (prev: any[]) =>
-              (prev ?? []).filter((s) => !selectedSessions.includes(s.id)),
-            );
+                queryClient.setQueryData(
+                  ["sessions", profile?.id],
+                  (prev: any[]) =>
+                    (prev ?? []).filter(
+                      (s) => !selectedSessions.includes(s.id),
+                    ),
+                );
 
-            closePopup("deleteSession");
-            setSelectedSessions([]);
-          }}
-        />
-        <Button
-          children="Cancel"
-          variant="primary"
-          onClick={() => closePopup("deleteSession")}
-        />
-      </div>
+                closePopup("deleteSession");
+                setSelectedSessions([]);
+              }}
+            />
+            <Button
+              children="Cancel"
+              variant="lessonCard"
+              onClick={() => closePopup("deleteSession")}
+            />
+          </div>
+        </>
+      ) : (
+        <>
+          <p>You cannot delete demo sessions.</p>
+          <div className={styles.buttons}>
+            <Button
+              children="Cancel"
+              variant="lessonCard"
+              onClick={() => closePopup("deleteSession")}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 
@@ -179,8 +198,9 @@ const Sessions: React.FC<SessionsProps> = ({ sessions }) => {
               <p>
                 Tip:{" "}
                 <span>
-                  Sessions are imported as CSV exports from your launch monitor software.
-                  Supported devices and software include Square Golf, Foresight, GsPro, and FlightScope.
+                  Sessions are imported as CSV exports from your launch monitor
+                  software. Supported devices and software include Square Golf,
+                  Foresight, GsPro, and FlightScope.
                 </span>
               </p>
             </div>

@@ -1,5 +1,6 @@
 import Sessions from "@/components/sessions/Sessions";
 import { createSupabaseServer } from "@/lib/supabase/server";
+import { fetchProfileInfo } from "@/services/profile-info/fetchProfileInfo";
 import { fetchSessions } from "@/services/sessions/fetchSessions";
 
 const SessionsPage = async () => {
@@ -13,9 +14,10 @@ const SessionsPage = async () => {
     return null;
   }
 
-  const [sessions] = user?.id
+  const [sessions, profileInfo] = user?.id
     ? await Promise.all([
         fetchSessions(user.id, supabase),
+        fetchProfileInfo(supabase),
       ])
     : [[], []];
 
@@ -25,7 +27,7 @@ const SessionsPage = async () => {
   return (
     <div className="page">
       <div className="page-content">
-        <Sessions sessions={sessions} />
+        <Sessions sessions={sessions} profileInfo={profileInfo} />
       </div>
     </div>
   );

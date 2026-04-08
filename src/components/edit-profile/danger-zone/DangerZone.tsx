@@ -2,7 +2,16 @@ import React from "react";
 import styles from "./DangerZone.module.scss";
 import Button from "@/components/button/Button";
 
-const DangerZone = () => {
+type DangerZoneProps = {
+  profile: any;
+};
+
+const DangerZone = ({ profile }: DangerZoneProps) => {
+
+  if (profile.is_demo_account) {
+    return null;
+  }
+
   return (
     <div className={styles.dangerZone}>
       <div className={styles.header}>
