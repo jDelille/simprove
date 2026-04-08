@@ -44,6 +44,21 @@ const LoginForm = () => {
     }
   };
 
+  const handleDemoLogin = async () => {
+    const demoEmail = "demo@gmail.com";
+    const demoPassword = "password12!";
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: demoEmail,
+      password: demoPassword,
+    });
+
+    if (error) {
+      setAuthError(error.message);
+    } else {
+      redirect("/dashboard");
+    }
+  };
+
   return (
     <div className={styles.authForm}>
       <div className={styles.form}>
@@ -95,7 +110,7 @@ const LoginForm = () => {
         <p className={styles.divider}>
           <span>or</span>
         </p>
-        <button className={styles.demoBtn}>Login with Demo Account</button>
+        <button className={styles.demoBtn} onClick={handleDemoLogin}>Login with Demo Account</button>
 
         <button className={styles.googleBtn} onClick={handleGoogleSignup}>
           <div className={styles.icon}>

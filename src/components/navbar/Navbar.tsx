@@ -21,14 +21,12 @@ type AuthAction = "login" | "signup" | "logout";
 type NavbarProps = {
   user: any;
   profile: any;
- 
 };
 
 const Navbar: React.FC<NavbarProps> = ({ user, profile }) => {
   const pathname = usePathname();
   const router = useRouter();
   const { openModal, modals, closeModal } = useModal();
-  const { theme, toggleTheme } = useTheme();
 
   const supabase = createClient();
 
@@ -97,15 +95,6 @@ const Navbar: React.FC<NavbarProps> = ({ user, profile }) => {
         </div>
         <div className={styles.navbarAuth}>
           <div className={styles.navbarAuth}>
-            {/* <LuSun
-              size={18}
-              className={styles.themeIcon}
-              onClick={toggleTheme}
-              color="var(--lightgray)"
-            /> */}
-
-            {/* <FaRegBell color="var(--lightgray)" /> */}
-
             {!user && (
               <>
                 <button
@@ -122,7 +111,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, profile }) => {
                 </button>
               </>
             )}
-            {user && (
+            {profile && (
               <>
                 <div className={styles.uploadBtnContainer}>
                   <Button
