@@ -37,7 +37,7 @@ type UserDrill = {
   id: string;
   status: string;
   progress_value: number;
-  lesson_drills: LessonDrill; // ← single object, not array
+  lesson_drills: LessonDrill;
 };
 
 export async function uploadSession({
@@ -48,7 +48,7 @@ export async function uploadSession({
 }: UploadSessionProps): Promise<Session> {
   const filePath = `sessions/${userId}/${Date.now()}.json`;
 
-  // ─── 1. Upload session JSON to storage ────────────────────────────────────
+  // Upload session JSON to storage
   const { error: uploadError } = await supabase.storage
     .from("sessions")
     .upload(filePath, new Blob([jsonString], { type: "application/json" }), {
@@ -61,7 +61,7 @@ export async function uploadSession({
     throw uploadError;
   }
 
-  // ─── 2. Insert session into DB ─────────────────────────────────────────────
+  //  Insert session into DB
   const { data: dbSession, error: dbError } = await supabase
     .from("sessions")
     .insert({
@@ -79,13 +79,47 @@ export async function uploadSession({
     throw new Error("Session not created properly");
   }
 
-  // ─── 3. Award "first swing" badge if not already earned ───────────────────
+  // Award "first swing" badge if not already earned
   await awardBadge(userId, "first_swing", {
-    title: "First Swing Logged",
-    description: "Congratulations on logging your first swing session!",
+    title: "First Session Logged",
+    description: "Imported your first session",
   });
 
-  // ─── 4. Check for an active lesson ────────────────────────────────────────
+  // Check for first session
+  const { data: existingSessions } = await supabase
+    .from("sessions")
+    .select("id")
+    .eq("user_id", userId)
+    .limit(1);
+
+  const isFirstSession = !existingSessions || existingSessions.length === 0;
+
+  if (isFirstSession) {
+    const { data: completion } = await supabase
+      .from("getting_started_completions")
+      .select("*")
+      .eq("user_id", userId)
+      .eq("step_id", 2)
+      .maybeSingle();
+
+    if (!completion) {
+      const { error: completionError } = await supabase
+        .from("getting_started_completions")
+        .insert({
+          user_id: userId,
+          step_id: 2,
+        });
+
+      if (completionError) {
+        console.error(
+          "[uploadSession] Failed to mark onboarding step 1:",
+          completionError,
+        );
+      }
+    }
+  }
+
+  // Check for an active lesson
   const { data: activeLesson, error: lessonError } = await supabase
     .from("user_lessons")
     .select("id, lesson_id")
@@ -109,7 +143,7 @@ export async function uploadSession({
 
     const shots = sessionData.shots ?? [];
 
-    // ─── 5. Fetch active/locked drills ────────────────────────────────────
+    // Fetch active/locked drills
     const { data: rawDrills, error: drillFetchError } = await supabase
       .from("user_lesson_drills")
       .select(
@@ -145,7 +179,7 @@ export async function uploadSession({
           (b.lesson_drills?.drill_order ?? 0),
       );
 
-      // ─── 6. Update each drill based on session shots ───────────────────
+      // Update each drill based on session shots
       for (const drill of sorted) {
         const drillData = drill.lesson_drills;
 
@@ -285,7 +319,7 @@ export async function uploadSession({
     }
   }
 
-  // ─── AI Lesson Recommendations ────────────────────────────────────────────
+  //  AI Lesson Recommendations
   try {
     const { data: allLessons, error: lessonsError } = await supabase
       .from("lessons")
@@ -323,8 +357,6 @@ export async function uploadSession({
         },
         allLessons,
       );
-
-
     }
   } catch (e) {
     console.error("[uploadSession] AI recommendation error:", e);
