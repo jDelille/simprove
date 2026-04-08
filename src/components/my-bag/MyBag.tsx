@@ -4,10 +4,11 @@ import Button from "../button/Button";
 import usePopup from "@/hooks/usePopup";
 import Popup from "../popup/Popup";
 import { uploadGolfBag } from "@/services/golf-bag/uploadGolfBag";
+import { MyClubs } from "@/types/myClubs";
 
 type MyBagProps = {
   userId: string;
-  myClubs?: any[];
+  myClubs?: MyClubs[];
 };
 
 const MyBag: React.FC<MyBagProps> = ({ userId, myClubs }) => {
@@ -36,7 +37,9 @@ const MyBag: React.FC<MyBagProps> = ({ userId, myClubs }) => {
   ];
 
   const clubs = clubSlots.map((slot) => {
-    const existingClub = myClubs?.find((c) => c.club_type === slot.abbr);
+    const existingClub = myClubs?.find(
+      (c: MyClubs) => c.club_type === slot.abbr,
+    );
 
     return {
       ...slot,
@@ -47,7 +50,7 @@ const MyBag: React.FC<MyBagProps> = ({ userId, myClubs }) => {
 
   const { popups, openPopup, closePopup } = usePopup();
 
-  const handleClubClick = (club: any) => {
+  const handleClubClick = (club: { type: string; abbr: string }) => {
     setSelectedClub(club);
     openPopup("editBag");
   };
@@ -106,7 +109,9 @@ const MyBag: React.FC<MyBagProps> = ({ userId, myClubs }) => {
       <div className={styles.header}>
         <div className={styles.title}>
           <p>My Bag</p>
-          <span>14 slots - {clubs.filter((c) => c.clubData).length} clubs set up</span>
+          <span>
+            14 slots - {clubs.filter((c) => c.clubData).length} clubs set up
+          </span>
         </div>
         <div className={styles.edit}>
           <Button variant="lessonCard" children="Edit Bag" />
@@ -132,7 +137,8 @@ const MyBag: React.FC<MyBagProps> = ({ userId, myClubs }) => {
               <p>{club.type}</p>
               {club.hasClub && (
                 <span>
-                  {club.clubData.club_name} · {club.clubData.club_model} 
+                  {club.clubData?.club_name ?? "Unnamed Club"} ·{" "}
+                  {club.clubData?.club_model ?? "Unknown Model"}
                 </span>
               )}
             </div>

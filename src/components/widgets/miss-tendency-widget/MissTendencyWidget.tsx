@@ -7,9 +7,10 @@ import {
   HiOutlineArrowNarrowRight,
 } from "react-icons/hi";
 import ClubSelect from "@/components/club-select/ClubSelect";
+import { Shot } from "@/types/shot";
 
 type MissTendencyWidgetProps = {
-  shots: any[];
+  shots: Shot[];
 };
 
 const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {

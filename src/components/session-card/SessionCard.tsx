@@ -4,9 +4,10 @@ import moment from "moment";
 import { useRouter } from "next/navigation";
 import { FaCheckSquare } from "react-icons/fa";
 import { useState } from "react";
+import { Session } from "@/types/session";
 
 type SessionCardProps = {
-  session: any; // Replace 'any' with the actual type
+  session: Session;
   averages: any; // Replace 'any' with the actual type for averages
   index: number;
   setSelectedSessions: React.Dispatch<React.SetStateAction<string[]>>;

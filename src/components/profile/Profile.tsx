@@ -8,13 +8,17 @@ import MyBag from "../my-bag/MyBag";
 import RankWidget from "../widgets/rank-widget/RankWidget";
 import LifetimeAveragesWidget from "../widgets/lifetime-averages-widget/LifetimeAveragesWidget";
 import UserLessonsWidget from "../widgets/user-lessons-widget/UserLessonsWidget";
+import { Session } from "@/types/session";
+import { Profile as ProfileTypes } from "@/types/profile";
+import { MyClubs } from "@/types/myClubs";
+import { Lesson } from "@/types/lesson";
 
 type ProfileProps = {
   userId: string;
-  myClubs?: any[];
-  sessions: any[];
-  lessons: any[];
-  user: any;
+  myClubs?: MyClubs[];
+  sessions: Session[];
+  lessons: Lesson[];
+  user: ProfileTypes;
 };
 
 const Profile: React.FC<ProfileProps> = ({

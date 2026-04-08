@@ -5,10 +5,11 @@ import styles from "./LessonPlanWidget.module.scss";
 import Link from "next/link";
 import Button from "@/components/button/Button";
 import { useRouter } from "next/navigation";
+import { ActiveLesson } from "@/types/activeLesson";
 
 type LessonPlanWidgetProps = {
   userId: string;
-  activeLesson?: any;
+  activeLesson?: ActiveLesson;
 };
 
 const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({
@@ -21,11 +22,12 @@ const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({
   const lessonDrills = activeLesson?.drills;
   const isEmpty = !activeLesson || activeLesson.activeLesson === null;
 
-  const lessonProgress =
-    activeLesson?.summary.total > 0
+  const lessonProgress = activeLesson?.summary
+    ? activeLesson.summary.total > 0
       ? (activeLesson.summary.completed / activeLesson.summary.total) * 100
-      : 0;
-  
+      : 0
+    : 0;
+
   const drillClass = (drillStatus: string) => {
     switch (drillStatus) {
       case "active":
@@ -45,9 +47,14 @@ const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({
       {!isEmpty && (
         <div className={styles.progressContainer}>
           <div className={styles.progressBar}>
-            <div className={styles.progress} style={{ width: `${lessonProgress}%` }}></div>
+            <div
+              className={styles.progress}
+              style={{ width: `${lessonProgress}%` }}
+            ></div>
           </div>
-          <div className={styles.value}>{lessonProgress.toFixed(0)}% complete</div>
+          <div className={styles.value}>
+            {lessonProgress.toFixed(0)}% complete
+          </div>
         </div>
       )}
       {!isEmpty && (

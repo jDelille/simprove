@@ -5,16 +5,16 @@ import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 import styles from "./AveragesGraphWidget.module.scss";
 import { getClubAverages } from "@/lib/shots/averages";
-import { useSessions } from "@/hooks/useSessions";
 import Button from "@/components/button/Button";
 import { FaChartBar } from "react-icons/fa";
 import useModal from "@/hooks/useModal";
 import Modal from "@/components/modal/Modal";
 import UploadCsv from "@/components/upload-csv/UploadCsv";
+import { Session } from "@/types/session";
 
 type AveragesGraphWidgetProps = {
   userId: string;
-  sessions: any[];
+  sessions: Session[];
 };
 
 type MetricKey = "avgCarry" | "avgSpeed" | "avgOffline" | "avgSpin" | "count";

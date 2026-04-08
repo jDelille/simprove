@@ -1,5 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { supabase as browserClient } from "@/lib/supabase/client";
+import { Shot } from "@/types/shot";
 
 export const fetchSessions = async (userId: string, supabaseClient: SupabaseClient = browserClient) => {
   const { data: sessionRows, error } = await supabaseClient
@@ -25,7 +26,7 @@ export const fetchSessions = async (userId: string, supabaseClient: SupabaseClie
 
       return {
         ...row,
-        shots: (parsed.shots || []).map((shot: any) => ({
+        shots: (parsed.shots || []).map((shot: Shot) => ({
           ...shot,
           session_id: row.id,
           sessionDate: row.created_at,

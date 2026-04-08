@@ -13,17 +13,19 @@ import { deleteSession } from "@/services/sessions/deleteSession";
 import usePopup from "@/hooks/usePopup";
 import Popup from "../popup/Popup";
 import { useQueryClient } from "@tanstack/react-query";
+import { Session } from "@/types/session";
+import { Profile } from "@/types/profile";
 
 type SessionGroup = {
   date: string;
-  sessions: any[];
+  sessions: Session[];
 };
 
 type GroupedSessions = Record<string, SessionGroup>;
 
 type SessionsProps = {
-  sessions: any[];
-  profileInfo: any;
+  sessions: Session[];
+  profileInfo: Profile;
 };
 
 const Sessions: React.FC<SessionsProps> = ({ sessions, profileInfo }) => {
@@ -60,7 +62,7 @@ const Sessions: React.FC<SessionsProps> = ({ sessions, profileInfo }) => {
 
                 queryClient.setQueryData(
                   ["sessions", profile?.id],
-                  (prev: any[]) =>
+                  (prev: Session[]) =>
                     (prev ?? []).filter(
                       (s) => !selectedSessions.includes(s.id),
                     ),
@@ -208,7 +210,7 @@ const Sessions: React.FC<SessionsProps> = ({ sessions, profileInfo }) => {
         )}
         {!isEmpty && (
           <ul className={styles.sessionList}>
-            {sortedSessions.map((session: any, index: number) => {
+            {sortedSessions.map((session: Session, index: number) => {
               const averages = calculateAverages(session.shots || []);
               return (
                 <li key={session.id}>

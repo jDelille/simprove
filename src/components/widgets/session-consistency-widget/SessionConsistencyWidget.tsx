@@ -1,13 +1,13 @@
 "use client";
 
 import styles from "./SessionConsistencyWidget.module.scss";
-import "react-calendar/dist/Calendar.css";
 import {
   MdOutlineKeyboardArrowRight,
   MdOutlineKeyboardArrowLeft,
 } from "react-icons/md";
 import { useState } from "react";
 import { useSessions } from "@/hooks/useSessions";
+import { Session } from "@/types/session";
 
 type SessionConsistencyWidgetProps = {
   userId: string;
@@ -19,7 +19,7 @@ const SessionConsistencyWidget: React.FC<SessionConsistencyWidgetProps> = ({
   const [month, setMonth] = useState(new Date(2026, 2)); // March 2026
   const { data: sessions } = useSessions(userId);
 
-  const sessionDates = (sessions || []).map((s: any) => {
+  const sessionDates = (sessions || []).map((s: Session) => {
     const d = new Date(s.created_at);
     // store as "YYYY-MM-DD" string
     return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
@@ -34,7 +34,7 @@ const SessionConsistencyWidget: React.FC<SessionConsistencyWidgetProps> = ({
     );
 
   // Count how many sessions are in the current month
-  const sessionsThisMonth = (sessions || []).filter((s: any) => {
+  const sessionsThisMonth = (sessions || []).filter((s: Session) => {
     const d = new Date(s.created_at);
     return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
   }).length;

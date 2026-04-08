@@ -5,7 +5,6 @@ import styles from "./Session.module.scss";
 import { FaAngleLeft } from "react-icons/fa";
 import moment from "moment";
 import { MissTendencyWidget, SmallStatWidget } from "../widgets";
-import VsLastSessionWidget from "../widgets/vs-last-session-widget/VsLastSessionWidget";
 import ClubBreakdownWidget, {
   ShotRow,
 } from "../widgets/club-breakdown-widget/ClubBreakdownWidget";
@@ -13,13 +12,17 @@ import { useMemo, useState } from "react";
 import { getClubAverages } from "@/lib/shots/averages";
 import FaceAngleWidget from "../widgets/face-angle-widget/FaceAngleWidget";
 import { calculateSessionStats } from "@/lib/session-stats/sessionStats";
+import { Session as SessionTypes } from "@/types/session";
+import { Shot } from "@/types/shot";
 
 type SessionProps = {
-  session: any;
+  session: SessionTypes;
 }
 
 const Session: React.FC<SessionProps> = ({ session }) => {
   const router = useRouter();
+
+  console.log(session)
 
   const [selectedClub, setSelectedClub] = useState<string>("ALL");
 
@@ -29,7 +32,7 @@ const Session: React.FC<SessionProps> = ({ session }) => {
 
     return selectedClub === "ALL"
       ? session.shots
-      : session.shots.filter((s: any) => s.club === selectedClub);
+      : session.shots.filter((s: Shot) => s.club === selectedClub);
   }, [session?.shots, selectedClub]);
 
   const sessionDate = moment(session?.created_at).format("MMMM D, YYYY");

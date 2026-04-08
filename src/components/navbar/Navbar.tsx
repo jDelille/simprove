@@ -1,11 +1,9 @@
 "use client";
 
-import { useTheme } from "@/context/ThemeContext";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "./Navbar.module.scss";
-import { LuSun } from "react-icons/lu";
 import useModal from "@/hooks/useModal";
 import Modal from "../modal/Modal";
 import UploadCsv from "../upload-csv/UploadCsv";
@@ -15,15 +13,20 @@ import UserMenu from "../user-menu/UserMenu";
 import Avatar from "../avatar/Avatar";
 import { FaChevronDown } from "react-icons/fa6";
 import { createClient } from "@/lib/supabase/client";
+import { User } from "@/types/user";
+import { Profile } from "@/types/profile";
 
 type AuthAction = "login" | "signup" | "logout";
 
 type NavbarProps = {
-  user: any;
-  profile: any;
+  user: User;
+  profile: Profile;
 };
 
 const Navbar: React.FC<NavbarProps> = ({ user, profile }) => {
+
+  console.log(user, profile)
+
   const pathname = usePathname();
   const router = useRouter();
   const { openModal, modals, closeModal } = useModal();

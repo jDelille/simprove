@@ -1,6 +1,7 @@
 "use client";
 
 import { supabase } from "@/lib/supabase/client";
+import { Shot } from "@/types/shot";
 import { useQuery } from "@tanstack/react-query";
 
 export const useSessions = (userId: string | null) => {
@@ -40,7 +41,7 @@ export const useSessions = (userId: string | null) => {
           const text = await fileData.text();
           const parsed = JSON.parse(text);
 
-          const shotsWithSessionId = (parsed.shots || []).map((shot: any) => ({
+          const shotsWithSessionId = (parsed.shots || []).map((shot: Shot) => ({
             ...shot,
             session_id: row.id,
             sessionDate: row.created_at,

@@ -10,4 +10,5 @@ export type Profile = {
     rank: string;
     username: string;
     display_name: string;
+    is_demo_account: boolean;
 }

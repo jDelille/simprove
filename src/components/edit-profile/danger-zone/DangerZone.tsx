@@ -1,9 +1,10 @@
 import React from "react";
 import styles from "./DangerZone.module.scss";
 import Button from "@/components/button/Button";
+import { Profile } from "@/types/profile";
 
 type DangerZoneProps = {
-  profile: any;
+  profile: Profile;
 };
 
 const DangerZone = ({ profile }: DangerZoneProps) => {

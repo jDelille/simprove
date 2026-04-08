@@ -13,13 +13,18 @@ import { calculateTrend, formatTrend, groupByMonth } from "@/lib/stats/trends";
 import { getWeakestClubs } from "@/lib/stats/weakestClubs";
 import SwingMetricsWidget from "../widgets/swing-metrics-widget/SwingMetricsWidget";
 import GettingStartedWidget from "../widgets/getting-started-widget/GettingStartedWidget";
+import { Session } from "@/types/session";
+import { GettingStartedCompletions } from "@/types/gettingStartedCompletions";
+import { ActiveLesson } from "@/types/activeLesson";
+import { RecentActivity } from "@/types/recentActivity";
+import { Shot } from "@/types/shot";
 
 type DashboardProps = {
-  sessions: any[];
+  sessions: Session[];
   userId: string;
-  gettingStartedCompletions?: any[];
-  activeLesson?: any;
-  recentActivity?: any[];
+  gettingStartedCompletions?: GettingStartedCompletions[];
+  activeLesson?: ActiveLesson;
+  recentActivity?: RecentActivity[];
 };
 
 const Dashboard = ({
@@ -31,11 +36,15 @@ const Dashboard = ({
 }: DashboardProps) => {
   const shots = sessions.flatMap((session) => session.shots);
 
+  console.log("recentActivity:", recentActivity);
+
   const profileMetrics = calculateProfileStats({
     userId: userId,
     shots,
     sessionLength: sessions.length,
   });
+
+  console.log(gettingStartedCompletions)
 
   const groupedSessions = groupByMonth(sessions);
   const groupedShots = groupByMonth(shots);
@@ -65,11 +74,11 @@ const Dashboard = ({
 
   const longestThisMonth = Math.max(
     ...(groupedShots[currentMonthKey]?.sessions.map(
-      (s: any) => s.carry ?? 0,
+      (s: Shot) => s.carry ?? 0,
     ) || [0]),
   );
   const longestLastMonth = Math.max(
-    ...(groupedShots[lastMonthKey]?.sessions.map((s: any) => s.carry ?? 0) || [
+    ...(groupedShots[lastMonthKey]?.sessions.map((s: Shot) => s.carry ?? 0) || [
       0,
     ]),
   );

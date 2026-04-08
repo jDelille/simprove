@@ -11,12 +11,14 @@ import { fetchLessonDrills } from "@/services/lessons/fetchLessonDrills";
 import LessonModalBody from "./lesson-modal-body/LessonModalBody";
 import { uploadLessonPlan } from "@/services/lessons/uploadLessonPlan";
 import { createClient } from "@/lib/supabase/client";
+import { ActiveLesson } from "@/types/activeLesson";
+import { RecommendedLessons } from "@/types/recommendedLessons";
 
 type TrainingProps = {
   lessonPlans: any[];
   userId: string;
-  activeLesson?: any;
-  recommendedLessons?: any[];
+  activeLesson?: ActiveLesson;
+  recommendedLessons?: RecommendedLessons[];
 };
 
 const Training: React.FC<TrainingProps> = ({
@@ -29,6 +31,8 @@ const Training: React.FC<TrainingProps> = ({
   const [selectedPlan, setSelectedPlan] = useState<any>(null);
   const [drills, setDrills] = useState<any[]>([]);
   const [openDrills, setOpenDrills] = useState<boolean>(false);
+
+  console.log("recommendedLessons:", recommendedLessons);
 
   const supabase = createClient();
 

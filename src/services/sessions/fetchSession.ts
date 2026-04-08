@@ -1,4 +1,5 @@
 import { supabase as browserClient } from "@/lib/supabase/client";
+import { Shot } from "@/types/shot";
 import { SupabaseClient } from "@supabase/supabase-js";
 
 export const fetchSession = async (
@@ -30,7 +31,7 @@ export const fetchSession = async (
   const text = await fileData.text();
   const parsed = JSON.parse(text);
 
-  const shotsWithSessionId = (parsed.shots || []).map((shot: any) => ({
+  const shotsWithSessionId = (parsed.shots || []).map((shot: Shot) => ({
     ...shot,
     session_id: session.id,
     sessionDate: session.created_at,

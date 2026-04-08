@@ -6,6 +6,7 @@ import { useSessions } from "@/hooks/useSessions";
 import { calculateAverages } from "@/lib/shots/averages";
 import moment from "moment";
 import { MdGolfCourse } from "react-icons/md";
+import { Session } from "@/types/session";
 
 type RecentSessionsWidgetProps = {
   userId: string;
@@ -26,7 +27,7 @@ const RecentSessionsWidget: React.FC<RecentSessionsWidgetProps> = ({
       <div className={styles.content}>
         {sessions && sessions.length > 0 ? (
           <ul className={styles.sessionList}>
-            {sessions.map((session: any, index: number) => {
+            {sessions.map((session: Session, index: number) => {
               const averages = calculateAverages(session.shots || []);
               return (
                 <li key={session.id}>

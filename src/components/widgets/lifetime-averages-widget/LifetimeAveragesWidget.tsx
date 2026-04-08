@@ -1,8 +1,9 @@
 import { calculateProfileStats } from "@/lib/profile-stats/ProfileStats";
 import styles from "./LifetimeAveragesWidget.module.scss";
+import { Session } from "@/types/session";
 
 type LifetimeAveragesWidgetProps = {
-  sessions: any[];
+  sessions: Session[];
   userId: string;
 };
 

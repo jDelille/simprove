@@ -7,10 +7,11 @@ import { activityDateFormat } from "@/lib/format-date/ActivityDateFormat";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { FaTrophy } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { RecentActivity } from "@/types/recentActivity";
 
 type RecentActivityWidgetProps = {
   userId: string;
-  recentActivity?: any[];
+  recentActivity?: RecentActivity[];
 };
 
 const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = (props) => {

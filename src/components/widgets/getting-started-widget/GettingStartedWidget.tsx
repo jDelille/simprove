@@ -1,7 +1,8 @@
+import { GettingStartedCompletions } from "@/types/gettingStartedCompletions";
 import styles from "./GettingStartedWidget.module.scss";
 
 type GettingStartedWidgetProps = {
-  completions?: any[];
+  completions?: GettingStartedCompletions[];
 };
 
 const GettingStartedWidget: React.FC<GettingStartedWidgetProps> = ({
@@ -9,6 +10,8 @@ const GettingStartedWidget: React.FC<GettingStartedWidgetProps> = ({
 }) => {
 
   const completionCount = completions ? completions.length : 0;
+
+  console.log("completions:", completions);
 
   const completedSteps = completions
     ? completions.map((comp) => comp.step_id)

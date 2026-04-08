@@ -3,9 +3,10 @@
 import { useState } from "react";
 import styles from "./SwingMetricsWidget.module.scss";
 import ClubSelect from "@/components/club-select/ClubSelect";
+import { Shot } from "@/types/shot";
 
 type SwingMetricsWidgetProps = {
-  shots: any[];
+  shots: Shot[];
 };
 
 const SwingMetricsWidget: React.FC<SwingMetricsWidgetProps> = ({ shots }) => {

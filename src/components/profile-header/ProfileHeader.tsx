@@ -10,12 +10,13 @@ import moment from "moment";
 import { GoPencil } from "react-icons/go";
 import styles from "./ProfileHeader.module.scss";
 import ContentTabs from "../content-tabs/ContentTabs";
+import { Profile } from "@/types/profile";
 
 type ProfileHeaderProps = {
   userId: string;
   selectedTab?: string;
   setSelectedTab?: (tab: string) => void;
-  user: any;
+  user: Profile;
 };
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = ({

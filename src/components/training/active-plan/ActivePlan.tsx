@@ -3,9 +3,10 @@
 import React from "react";
 import styles from "./ActivePlan.module.scss";
 import DrillCard from "../drill-card/DrillCard";
+import { ActiveLesson } from "@/types/activeLesson";
 
 type ActivePlanProps = {
-  lesson: any;
+  lesson: ActiveLesson | null;
 };
 
 const ActivePlan: React.FC<ActivePlanProps> = ({ lesson }) => {
