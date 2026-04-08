@@ -22,6 +22,9 @@ const ActivePlan: React.FC<ActivePlanProps> = ({ lesson }) => {
         <div className={styles.badge}>Active Plan</div>
         <div className={styles.badge}>{lessonDetails?.type}</div>
       </div>
+      <div className={styles.settings}>
+        <button>edit</button>
+      </div>
       <div className={styles.header}>
         <p className={styles.name}>{lessonDetails.lesson_name}</p>
         <p className={styles.description}>{lessonDetails?.lesson_description}</p>

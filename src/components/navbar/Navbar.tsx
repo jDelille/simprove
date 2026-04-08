@@ -19,19 +19,16 @@ import { Profile } from "@/types/profile";
 type AuthAction = "login" | "signup" | "logout";
 
 type NavbarProps = {
-  user: User | null;
   profile: Profile | null;
 };
 
-const Navbar: React.FC<NavbarProps> = ({ user, profile }) => {
+const Navbar: React.FC<NavbarProps> = ({ profile }) => {
+  const { openModal, modals, closeModal } = useModal();
+  const [openMenu, setOpenMenu] = useState(false);
 
   const pathname = usePathname();
   const router = useRouter();
-  const { openModal, modals, closeModal } = useModal();
-
   const supabase = createClient();
-
-  const [openMenu, setOpenMenu] = useState(false);
 
   const handleAuthClick = async (type: AuthAction) => {
     if (type === "login") {
@@ -96,7 +93,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, profile }) => {
         </div>
         <div className={styles.navbarAuth}>
           <div className={styles.navbarAuth}>
-            {!user && (
+            {!profile && (
               <>
                 <button
                   className={styles.authButton}

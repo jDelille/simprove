@@ -57,7 +57,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
             <p className={styles.bio}>{profile?.bio || "Add your bio here."}</p>
             <div className={styles.location}>
               <p>
-                <FaLocationDot />{" "}
+                <FaLocationDot />
                 {profile?.location || "Add your location here."}
               </p>
               <p>-</p>

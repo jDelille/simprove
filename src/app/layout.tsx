@@ -25,13 +25,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const supabase = await createSupabaseServer();
-  const { user, profile } = await fetchProfileInfo(supabase);
+  const { profile } = await fetchProfileInfo(supabase);
 
   return (
     <html lang="en">
       <body className={`${inter.variable}`}>
         <ThemeProvider>
-          <Navbar user={user} profile={profile} />
+          <Navbar profile={profile} />
           <Providers>{children}</Providers>
           <Footer />
         </ThemeProvider>
