@@ -6,13 +6,14 @@ import RecommendedPlans from "./recommended-plans/RecommendedPlans";
 import BrowsePlans from "./browse-plans/BrowsePlans";
 import useModal from "@/hooks/useModal";
 import Modal from "../modal/Modal";
-import { useState } from "react";
+import { act, useState } from "react";
 import { fetchLessonDrills } from "@/services/lessons/fetchLessonDrills";
 import LessonModalBody from "./lesson-modal-body/LessonModalBody";
 import { uploadLessonPlan } from "@/services/lessons/uploadLessonPlan";
 import { createClient } from "@/lib/supabase/client";
 import { ActiveLesson } from "@/types/activeLesson";
 import { RecommendedLessons } from "@/types/recommendedLessons";
+import { fetchActiveLessonClient } from "@/lib/activeLesson";
 
 type TrainingProps = {
   lessonPlans: any[];
@@ -31,11 +32,14 @@ const Training: React.FC<TrainingProps> = ({
   const [selectedPlan, setSelectedPlan] = useState<any>(null);
   const [drills, setDrills] = useState<any[]>([]);
   const [openDrills, setOpenDrills] = useState<boolean>(false);
+  const [activePlanState, setActivePlanState] = useState<any>(
+    activeLesson ?? null,
+  );
 
   const supabase = createClient();
 
-  const activePlan = activeLesson ? activeLesson : null;
-  const isEmpty = !activeLesson || activeLesson.activeLesson === null;
+  const activePlan = activePlanState;
+  const isEmpty = !activePlanState || activePlanState.activeLesson === null;
 
   const noRecommended = !recommendedLessons || recommendedLessons.length === 0;
 
@@ -47,14 +51,20 @@ const Training: React.FC<TrainingProps> = ({
   }
 
   const handleStartPlan = async () => {
-    if (selectedPlan) {
-      await uploadLessonPlan({
-        userId: userId,
-        lessonId: selectedPlan.id,
-        supabaseClient: supabase,
-      });
-      closeModal("lessonPlanDetails");
-    }
+    if (!selectedPlan) return;
+
+    await uploadLessonPlan({
+      userId: userId,
+      lessonId: selectedPlan.id,
+      supabaseClient: supabase,
+    });
+
+    const updatedActiveLesson = await fetchActiveLessonClient(userId);
+    setActivePlanState(updatedActiveLesson);
+
+    console.log("Updated active lesson after starting plan:", updatedActiveLesson);
+
+    closeModal("lessonPlanDetails");
   };
 
   const planBody = selectedPlan ? (

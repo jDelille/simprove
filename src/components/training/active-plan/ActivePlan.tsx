@@ -10,6 +10,9 @@ type ActivePlanProps = {
 };
 
 const ActivePlan: React.FC<ActivePlanProps> = ({ lesson }) => {
+
+  console.log("ActivePlan lesson prop:", lesson);
+
   const lessonDetails = lesson?.lessonDetails;
   const lessonDrills = lesson?.drills;
 
