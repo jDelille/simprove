@@ -19,8 +19,8 @@ import { Profile } from "@/types/profile";
 type AuthAction = "login" | "signup" | "logout";
 
 type NavbarProps = {
-  user: User;
-  profile: Profile;
+  user: User | null;
+  profile: Profile | null;
 };
 
 const Navbar: React.FC<NavbarProps> = ({ user, profile }) => {
