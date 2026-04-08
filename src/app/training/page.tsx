@@ -12,16 +12,16 @@ const TrainingPage = async () => {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return null;
+    return null; 
   }
 
-  const [lessonPlans, activeLesson, recommendedLessons] = user?.id
-    ? await Promise.all([
-        fetchLessonPlans(user.id, supabase),
-        fetchActiveLesson(user.id, supabase),
-        fetchRecommndedLessons(user.id, supabase),
-      ])
-    : [[], []];
+  const [lessonPlans, activeLessonData, recommendedLessons] = await Promise.all([
+    fetchLessonPlans(user.id, supabase),
+    fetchActiveLesson(user.id, supabase),
+    fetchRecommndedLessons(user.id, supabase),
+  ]);
+
+  const activeLesson = activeLessonData ?? undefined;
 
   return (
     <div className="page">
