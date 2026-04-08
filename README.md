@@ -1,5 +1,4 @@
-Yeah the README is just the default Next.js boilerplate right now — replace it with something real. Here's a template to work from:
-markdown# Simprove
+# Simprove
 
 Your digital golf coach. Track, analyze, and improve your swing using simulator data.
 
