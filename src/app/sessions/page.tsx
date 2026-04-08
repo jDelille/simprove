@@ -11,18 +11,17 @@ const SessionsPage = async () => {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return null;
+    return null; 
   }
 
-  const [sessions, profileInfo] = user?.id
-    ? await Promise.all([
-        fetchSessions(user.id, supabase),
-        fetchProfileInfo(supabase),
-      ])
-    : [[], []];
+  const sessions = await fetchSessions(user.id, supabase);
+  const profileData = await fetchProfileInfo(supabase);
 
-  // check if user has ever visted the sessions page before, if not, edit getting started completion
+  const profileInfo = profileData?.profile;
 
+  if (!profileInfo) {
+    return null;
+  }
 
   return (
     <div className="page">
