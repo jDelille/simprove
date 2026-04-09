@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { redirect } from "next/navigation";
+import { use, useState } from "react";
+import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
@@ -15,7 +15,7 @@ const LoginForm = () => {
   });
 
   const [authError, setAuthError] = useState<string | null>(null);
-
+  const router = useRouter();
   const supabase = createClient();
 
   const handleLogin = async () => {
@@ -28,7 +28,8 @@ const LoginForm = () => {
     if (error) {
       setAuthError(error.message);
     } else {
-      redirect("/dashboard");
+      router.push("/dashboard");
+      router.refresh();
     }
   };
 
@@ -55,7 +56,8 @@ const LoginForm = () => {
     if (error) {
       setAuthError(error.message);
     } else {
-      redirect("/dashboard");
+      router.push("/dashboard");
+      router.refresh();
     }
   };
 
@@ -110,7 +112,9 @@ const LoginForm = () => {
         <p className={styles.divider}>
           <span>or</span>
         </p>
-        <button className={styles.demoBtn} onClick={handleDemoLogin}>Login with Demo Account</button>
+        <button className={styles.demoBtn} onClick={handleDemoLogin}>
+          Login with Demo Account
+        </button>
 
         <button className={styles.googleBtn} onClick={handleGoogleSignup}>
           <div className={styles.icon}>
