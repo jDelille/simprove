@@ -7,16 +7,18 @@ type LessonCardProps = {
   plan: any;
   onPlanClick: (plan: any) => void;
   completedLessonIds?: string[];
+  hasActivePlan?: boolean;
 };
 
 const LessonCard: React.FC<LessonCardProps> = ({
   plan,
   onPlanClick,
   completedLessonIds,
+  hasActivePlan = false,
 }) => {
 
   return (
-    <div className={styles.lessonCard} onClick={() => onPlanClick(plan)}>
+    <div className={styles.lessonCard}>
       <div className={styles.content}>
         <div className={styles.tags}>
           {plan.is_ai_recommended && (
@@ -43,6 +45,8 @@ const LessonCard: React.FC<LessonCardProps> = ({
           <Button
             variant="lessonCard"
             children={"Start Plan"}
+            onClick={() => onPlanClick(plan)}
+            disabled={hasActivePlan}
           />
         ): (
           <p>Completed</p>

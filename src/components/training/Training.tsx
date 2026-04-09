@@ -69,6 +69,8 @@ const Training: React.FC<TrainingProps> = ({
     closeModal("lessonPlanDetails");
   };
 
+  console.log(activePlan)
+
   const planBody = selectedPlan ? (
     <LessonModalBody
       closeModal={closeModal}
@@ -112,6 +114,7 @@ const Training: React.FC<TrainingProps> = ({
             onPlanClick={handlePlanClick}
             recommendedLessons={recommendedLessons}
             completedLessons={completedLessons}
+            hasActivePlan={activePlan.activePlan !== null}
           />
         )}
         <h2 className={styles.sectionName}>Browse Plans</h2>
@@ -121,6 +124,7 @@ const Training: React.FC<TrainingProps> = ({
           plans={lessonPlans as any[]}
           onPlanClick={handlePlanClick}
           completedLessons={completedLessons}
+          hasActivePlan={activePlan.activePlan !== null}
         />
       </div>
 

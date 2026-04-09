@@ -6,12 +6,14 @@ type RecommendedPlansProps = {
   onPlanClick: (plan: any) => void;
   recommendedLessons?: any[];
   completedLessons?: any[];
+  hasActivePlan?: boolean;
 };
 
 const RecommendedPlans: React.FC<RecommendedPlansProps> = ({
   onPlanClick,
   recommendedLessons,
   completedLessons,
+  hasActivePlan = false,
 }) => {
   const plans = recommendedLessons?.map((rec) => ({
     ...rec.lessons,
@@ -48,6 +50,7 @@ const RecommendedPlans: React.FC<RecommendedPlansProps> = ({
             plan={plan}
             onPlanClick={onPlanClick}
             completedLessonIds={completedLessonIds}
+            hasActivePlan={hasActivePlan}
           />
         ))}
       </div>

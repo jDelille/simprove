@@ -6,9 +6,10 @@ type BrowsePlansProps = {
   plans: any[];
   onPlanClick: (plan: any) => void;
   completedLessons?: any[];
+  hasActivePlan?: boolean;
 };
 
-const BrowsePlans: React.FC<BrowsePlansProps> = ({ plans, onPlanClick, completedLessons }) => {
+const BrowsePlans: React.FC<BrowsePlansProps> = ({ plans, onPlanClick, completedLessons, hasActivePlan }) => {
   const nonRecommendedPlans = plans?.filter((plan) => !plan.is_ai_recommended);
   const completedLessonIds =
     completedLessons?.map((lesson) => lesson.lesson_id) || [];
@@ -17,7 +18,7 @@ const BrowsePlans: React.FC<BrowsePlansProps> = ({ plans, onPlanClick, completed
     <div className={styles.browsePlans}>
       <div className={styles.plans}>
         {nonRecommendedPlans?.map((plan) => (
-          <LessonCard key={plan.id} plan={plan} onPlanClick={onPlanClick} completedLessonIds={completedLessonIds} />
+          <LessonCard key={plan.id} plan={plan} onPlanClick={onPlanClick} completedLessonIds={completedLessonIds} hasActivePlan={hasActivePlan} />
         ))}
       </div>
     </div>
