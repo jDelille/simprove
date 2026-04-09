@@ -101,6 +101,16 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
             fontSize: "12px",
           },
         },
+        plotLines: [
+          selectedMetric === "avgOffline"
+            && {
+                value: 0,
+                color: "transparent", // maybe add color line here to show center line for offline
+                width: 1,
+                zIndex: 3,
+              }
+           
+        ]
       },
       tooltip: {
         useHTML: true,

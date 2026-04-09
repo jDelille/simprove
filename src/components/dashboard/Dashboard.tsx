@@ -90,7 +90,7 @@ const Dashboard = ({
     : false;
 
   return (
-    <div className={styles.dashboard} >
+    <div className={styles.dashboard}>
       {/* left side */}
       <div className={styles.column}>
         <div className={styles.row + " " + styles.statsRow} id="stats-row">
@@ -147,7 +147,10 @@ const Dashboard = ({
       {/* right side */}
       <div className={styles.column}>
         <div className={styles.row}>
-          <RecentActivityWidget userId={userId} recentActivity={recentActivity} />
+          <RecentActivityWidget
+            userId={userId}
+            recentActivity={recentActivity}
+          />
         </div>
         {!hasCompletedGettingStarted && (
           <div className={styles.row}>

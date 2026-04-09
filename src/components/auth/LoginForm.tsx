@@ -17,6 +17,7 @@ const LoginForm = () => {
   const [authError, setAuthError] = useState<string | null>(null);
   const router = useRouter();
   const supabase = createClient();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
     const { email, password } = formData;
@@ -46,6 +47,7 @@ const LoginForm = () => {
   };
 
   const handleDemoLogin = async () => {
+    setIsLoading(true);
     const demoEmail = "demo@gmail.com";
     const demoPassword = "password12!";
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -55,6 +57,7 @@ const LoginForm = () => {
 
     if (error) {
       setAuthError(error.message);
+      setIsLoading(false);
     } else {
       router.push("/dashboard");
       router.refresh();
@@ -113,6 +116,7 @@ const LoginForm = () => {
           <span>or</span>
         </p>
         <button className={styles.demoBtn} onClick={handleDemoLogin}>
+          {isLoading && <span className={styles.loader}></span>}
           Login with Demo Account
         </button>
 

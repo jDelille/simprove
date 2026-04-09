@@ -12,11 +12,15 @@ export default function ClientTourWrapper({
   profile,
 }: {
   children: React.ReactNode;
-  profile: Profile;
+  profile: Profile | null;
 }) {
 
+  if (!profile) {
+    return <h1>{children}</h1>;
+  }
+
   const TourCard = (props: CardComponentProps) => (
-    <CustomCard {...props} userId={profile.id} isDemoAccount={profile.is_demo_account} />
+    <CustomCard {...props} userId={profile?.id} isDemoAccount={profile.is_demo_account} />
   );
 
   const { theme } = useTheme();
