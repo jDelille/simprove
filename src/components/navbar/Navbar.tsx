@@ -149,9 +149,9 @@ const Navbar: React.FC<NavbarProps> = ({ profile }) => {
       <Modal
         isOpen={modals["upload"] || false}
         onClose={() => closeModal("upload")}
-        title="Upload Lauch Monitor Data"
+        title="Upload your session data"
         body={<UploadCsv userId={profile?.id as string} />}
-        description="Upload a CSV file file your launch monitor. (Trackman, FlightScope, Square Golf, etc.)"
+        description="Upload a CSV file from your launch monitor software."
       />
     </nav>
   );

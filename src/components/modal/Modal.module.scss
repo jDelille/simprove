@@ -2,102 +2,92 @@
 
 .overlay,
 .overlayDark {
-    background-color: rgba(138, 137, 137, 0.342);
-    backdrop-filter: blur(8px);
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    left: 0;
-    z-index: 99999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 0;
+  background-color: rgba(138, 137, 137, 0.342);
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  left: 0;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
 
-    .modal {
+  .modal {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    position: fixed;
+    z-index: 9999;
+    height: fit-content;
+    width: 456px;
+    overflow-y: auto;
+    border-radius: 12px;
+    background-color: var(--bg);
+    padding: 1rem;
+
+    @include bp.mobile {
+      width: 95%;
+    }
+
+    .modalHeader {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      padding-bottom: 0;
+      .title {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
-        margin-bottom: 10px;
-        position: fixed;
-        z-index: 9999;
-        // min-height: 630px;
-        height: fit-content;
-        width: 556px;
-        overflow-y: auto;
-        border-radius: 24px;
-        background-color: var(--bg);
-        padding: 1rem;
+        gap: 8px;
 
-        @include bp.mobile {
-            width:  95%;
-            
+        h2 {
+          font-size: 18px;
+          font-weight: 600;
         }
 
-        .modalHeader {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
+        .description {
+          font-size: 13px;
+          color: var(--lightgray);
+        }
+      }
 
-            .title {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
+      .close {
+        display: flex;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        justify-content: center;
+        position: absolute;
+        right: 16px;
+        top: 16px;
 
-                h2 {
-                    font-size: 20px;
-                    font-weight: 600;
-
-                }
-
-                .description {
-                    font-size: 14px;
-                    color: var(--lightgray);
-                    text-align: center;
-                }
-            }
-
-            .close {
-                display: flex;
-                align-items: center;
-                width: 40px;
-                height: 40px;
-                justify-content: center;
-                position: absolute;
-                right: 16px;
-                top: 16px;
-
-                .iconBg {
-                    border-radius: 50%;
-                    width: 34px;
-                    height: 34px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    cursor: pointer;
-                    transition: all 0.02s ease;
-                    
-                }
-
-                &:hover {
-                    .iconBg {
-                        background-color: var(--border);
-                        transition: all 0.02s ease;
-                        opacity: 1;
-
-                    }
-                }
-            }
+        .iconBg {
+          border-radius: 50%;
+          width: 34px;
+          height: 34px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.02s ease;
         }
 
-        .body {
-            padding: 8px 32px;
-
+        &:hover {
+          .iconBg {
+            background-color: var(--primaryHover);
+            transition: all 0.02s ease;
+            opacity: 1;
+          }
         }
+      }
     }
+
+    .body {
+      padding: 1rem;
+    }
+  }
 }
 
 .overlayDark {
-    background-color: rgba(20, 20, 20, 0.5);
+  background-color: rgba(20, 20, 20, 0.5);
 }
