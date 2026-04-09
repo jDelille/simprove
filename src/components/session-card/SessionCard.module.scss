@@ -24,6 +24,10 @@
 
   &:hover {
     background-color: var(--primaryHover);
+
+    .checkBox {
+      background-color: var(--bg);
+    }
   }
   .checkBox {
     border: 1px solid var(--border);

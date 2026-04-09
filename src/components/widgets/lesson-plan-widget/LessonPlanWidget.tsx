@@ -40,7 +40,7 @@ const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({
   };
 
   return (
-    <div className={styles.widget}>
+    <div className={styles.widget} id="lesson-plan">
       <div className={styles.header}>
         <p>Lesson Plan</p>
       </div>

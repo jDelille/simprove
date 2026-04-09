@@ -20,7 +20,7 @@ const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = (props) => {
   const isEmpty = !data || data.length === 0;
 
   return (
-    <div className={styles.widget}>
+    <div className={styles.widget} id="recent-activity">
       <div className={styles.header}>
         <p>Recent Activity</p>
       </div>

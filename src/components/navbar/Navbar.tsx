@@ -66,7 +66,7 @@ const Navbar: React.FC<NavbarProps> = ({ profile }) => {
     .toUpperCase();
 
   return (
-    <nav className={styles.navbar}>
+    <nav className={styles.navbar} id="navbar">
       <div className={styles.navbarContent}>
         <Link href={"/dashboard"} className={styles.logo}>
           simprove

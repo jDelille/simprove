@@ -90,10 +90,10 @@ const Dashboard = ({
     : false;
 
   return (
-    <div className={styles.dashboard}>
+    <div className={styles.dashboard} >
       {/* left side */}
       <div className={styles.column}>
-        <div className={styles.row + " " + styles.statsRow}>
+        <div className={styles.row + " " + styles.statsRow} id="stats-row">
           <SmallStatWidget
             title="Total Shots"
             value={profileMetrics.count}
