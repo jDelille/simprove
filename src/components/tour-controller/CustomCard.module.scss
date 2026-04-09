@@ -1,67 +1,113 @@
 .card {
-  background-color: var(--bg);
+  background: var(--bg);
+  border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 1.5rem;
-  height: fit-content;
+  padding: 1.25rem;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   color: var(--text);
-  min-width: 300px;
+}
 
-  .cardHeader {
-    display: flex;
-    align-items: center;
-    // justify-content: center;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-    .cardIcon {
-      font-size: 2rem;
-    }
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-    .cardTitle {
-      font-size: 1.25rem;
-      font-weight: bold;
-    }
+.cardHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cardIcon {
+  font-size: 16px;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.stepCount {
+  font-size: 12px;
+  color: var(--lightgray);
+}
+
+.cardContent {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+  gap: 10px;
+}
+
+.dots {
+  display: flex;
+  gap: 4px;
+}
+
+.dot {
+  height: 3px;
+  width: 18px;
+  border-radius: 99px;
+  background: var(--lightgray);
+  opacity: 0.3;
+}
+
+.dotActive {
+  background: var(--accent);
+  opacity: 1;
+}
+
+.cardButtons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btnNext {
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: none;
+  background: var(--text);
+  color: var(--bg);
+  cursor: pointer;
+}
+
+.btnPrev {
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  margin-right: 5px;
+  margin-left: auto;
+
+  &:hover {
+    background-color: var(--primaryHover);
   }
-  .cardContent {
-    margin-bottom: 1.5rem;
-    font-size: 14px;
-  }
+}
 
-  .cardFooter {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    .cardButtons {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      gap: 0.5rem;
-      height: 35px;
-
-      .stepCount {
-        color: var(--lightgray);
-        font-size: 12px;
-        flex: 1;
-        flex-wrap: nowrap;
-        text-align: center;
-      }
-
-      button {
-        flex: 1;
-        height: 100%;
-      }
-    }
-
-    .skip {
-      width: 100%;
-      display: flex;
-      height: 35px;
-       button {
-        flex: 1;
-        height: 100%;
-      }
-    }
-
-  }
+.btnSkip {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 4px;
 }

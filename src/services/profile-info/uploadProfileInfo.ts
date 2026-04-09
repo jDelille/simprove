@@ -7,6 +7,7 @@ type UploadProfileInfoParams = {
   bio?: string;
   launchMonitor?: string;
   location?: string;
+  is_new_account?: boolean;
 };
 
 export async function uploadProfileInfo({
@@ -16,6 +17,7 @@ export async function uploadProfileInfo({
   bio,
   launchMonitor,
   location,
+  is_new_account
 }: UploadProfileInfoParams) {
   const updates: any = {};
 
@@ -24,6 +26,7 @@ export async function uploadProfileInfo({
   if (bio !== undefined) updates.bio = bio;
   if (launchMonitor !== undefined) updates.launch_monitor = launchMonitor;
   if (location !== undefined) updates.location = location;
+  if (is_new_account !== undefined) updates.is_new_account = is_new_account;
 
   const { error } = await supabase
     .from("users")

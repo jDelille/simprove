@@ -3,7 +3,7 @@
 import React from "react";
 import { Step } from "nextstepjs";
 import styles from "./CustomCard.module.scss";
-import Button from "../button/Button";
+import { uploadProfileInfo } from "@/services/profile-info/uploadProfileInfo";
 
 interface CustomCardProps {
   step: Step;
@@ -13,6 +13,8 @@ interface CustomCardProps {
   prevStep: () => void;
   skipTour?: () => void;
   arrow: React.ReactNode;
+  userId: string;
+  isDemoAccount?: boolean;
 }
 
 const CustomCard = ({
@@ -23,44 +25,71 @@ const CustomCard = ({
   prevStep,
   skipTour,
   arrow,
+  userId,
+  isDemoAccount
 }: CustomCardProps) => {
+  const isFirst = currentStep === 0;
+  const isLast = currentStep === totalSteps - 1;
+
+  const handleFinish = async () => {
+    if (!isDemoAccount) {
+      await uploadProfileInfo({ userId: userId, is_new_account: false });
+    }
+    nextStep();
+  };
+
+  const handleSkip = async () => {
+    if (!isDemoAccount) {
+      await uploadProfileInfo({ userId: userId, is_new_account: false });
+    }
+    skipTour?.();
+  };
+
   return (
     <div className={styles.card}>
-      <div className={styles.cardHeader}>
-        {step.icon && <div className={styles.cardIcon}>{step.icon}</div>}
-        <h3 className={styles.cardTitle}>{step.title}</h3>
-      </div>
-
-      <div className={styles.cardContent}>{step.content}</div>
-
       {arrow}
 
-      <div className={styles.cardFooter}>
-        <div className={styles.cardButtons}>
-          <Button
-              onClick={prevStep}
-              children="Previous"
-              variant="secondary"
-              disabled={currentStep === 0}
-            />
-
-          <div className={styles.stepCount}>
-            {currentStep + 1} of {totalSteps}
-          </div>
-
-          <Button
-            onClick={nextStep}
-            children={currentStep === totalSteps - 1 ? "Finish" : "Next"}
-            variant="lessonCard"
-          />
+      <div className={styles.cardHeader}>
+        <div className={styles.cardHeaderLeft}>
+          {step.icon && <span className={styles.cardIcon}>{step.icon}</span>}
+          <h3 className={styles.cardTitle}>{step.title}</h3>
         </div>
-        {currentStep !== totalSteps - 1 && (
-          <div className={styles.skip}>
-          {step.showSkip && skipTour && (
-            <Button children="Skip" onClick={skipTour} variant="secondary" />
-          )}
-        </div>
+        <span className={styles.stepCount}>
+          {currentStep + 1} of {totalSteps}
+        </span>
+      </div>
+
+      <p className={styles.cardContent}>{step.content}</p>
+
+      <div className={styles.cardButtons}>
+        {step.showSkip && skipTour && !isLast && (
+          <button onClick={handleSkip} className={styles.btnSkip}>
+            Skip
+          </button>
         )}
+        {!isFirst && (
+          <button onClick={prevStep} className={styles.btnPrev}>
+            Back
+          </button>
+        )}
+        <button
+          onClick={isLast ? handleFinish : nextStep}
+          className={styles.btnNext}
+          style={isFirst ? { marginLeft: "auto" } : undefined}
+        >
+          {isLast ? "Finish" : "Next"}
+        </button>
+      </div>
+
+      <div className={styles.cardFooter}>
+        <div className={styles.dots}>
+          {Array.from({ length: totalSteps }).map((_, i) => (
+            <div
+              key={i}
+              className={`${styles.dot} ${i === currentStep ? styles.dotActive : ""}`}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

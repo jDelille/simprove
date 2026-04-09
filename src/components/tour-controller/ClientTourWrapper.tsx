@@ -1,6 +1,6 @@
 "use client";
 
-import { NextStepProvider, NextStep } from "nextstepjs";
+import { NextStepProvider, NextStep, CardComponentProps } from "nextstepjs";
 import TourController from "./TourController";
 import CustomCard from "./CustomCard";
 import { steps } from "@/lib/steps";
@@ -15,16 +15,19 @@ export default function ClientTourWrapper({
   profile: Profile;
 }) {
 
-  const {theme} = useTheme();
+  const TourCard = (props: CardComponentProps) => (
+    <CustomCard {...props} userId={profile.id} isDemoAccount={profile.is_demo_account} />
+  );
+
+  const { theme } = useTheme();
 
   const isDarkMode = theme === "dark";
-  
 
   return (
     <NextStepProvider>
       <NextStep
         steps={steps}
-        cardComponent={CustomCard}
+        cardComponent={TourCard}
         shadowRgb={isDarkMode ? "255, 255, 255" : "0, 0, 0"}
         shadowOpacity={isDarkMode ? "0.15" : "0.2"}
         cardTransition={{
