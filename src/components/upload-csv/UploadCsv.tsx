@@ -120,7 +120,7 @@ const UploadCsv = ({ userId }: UploadCsvProps) => {
           </p>
         )}
       </div>
-      <Button children="Upload" onClick={handleUpload} variant="primary" />
+      <Button children="Upload" onClick={handleUpload} variant="lessonCard" />
     </div>
   );
 };

@@ -20,6 +20,7 @@ type TrainingProps = {
   userId: string;
   activeLesson?: ActiveLesson;
   recommendedLessons?: RecommendedLessons[];
+  completedLessons?: any[];
 };
 
 const Training: React.FC<TrainingProps> = ({
@@ -27,6 +28,7 @@ const Training: React.FC<TrainingProps> = ({
   userId,
   activeLesson,
   recommendedLessons,
+  completedLessons,
 }) => {
   const { modals, openModal, closeModal } = useModal();
   const [selectedPlan, setSelectedPlan] = useState<any>(null);
@@ -75,6 +77,7 @@ const Training: React.FC<TrainingProps> = ({
       setOpenDrills={setOpenDrills}
       openDrills={openDrills}
       onClickStart={handleStartPlan}
+      completedLessonIds={completedLessons?.map((lesson) => lesson.lesson_id) || []}
     />
   ) : (
     <p>Loading...</p>
@@ -108,6 +111,7 @@ const Training: React.FC<TrainingProps> = ({
           <RecommendedPlans
             onPlanClick={handlePlanClick}
             recommendedLessons={recommendedLessons}
+            completedLessons={completedLessons}
           />
         )}
         <h2 className={styles.sectionName}>Browse Plans</h2>
@@ -116,6 +120,7 @@ const Training: React.FC<TrainingProps> = ({
         <BrowsePlans
           plans={lessonPlans as any[]}
           onPlanClick={handlePlanClick}
+          completedLessons={completedLessons}
         />
       </div>
 

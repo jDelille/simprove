@@ -5,21 +5,27 @@ import styles from "./RecommendedPlans.module.scss";
 type RecommendedPlansProps = {
   onPlanClick: (plan: any) => void;
   recommendedLessons?: any[];
+  completedLessons?: any[];
 };
 
 const RecommendedPlans: React.FC<RecommendedPlansProps> = ({
   onPlanClick,
   recommendedLessons,
+  completedLessons,
 }) => {
+  const plans = recommendedLessons?.map((rec) => ({
+    ...rec.lessons,
+    lesson_id: rec.lesson_id,
+    reason: rec.reason,
+    is_ai_recommended: rec.is_ai_recommended || false,
+    total_points: rec.total_points || rec.lessons.total_points || 0,
+    duration: rec.lessons.weeks
+      ? `${rec.lessons.weeks} sessions`
+      : rec.lessons.duration || "",
+  }));
 
- const plans = recommendedLessons?.map((rec) => ({
-  ...rec.lessons,          
-  lesson_id: rec.lesson_id, 
-  reason: rec.reason,       
-  is_ai_recommended: rec.is_ai_recommended || false,
-  total_points: rec.total_points || rec.lessons.total_points || 0,
-  duration: rec.lessons.weeks ? `${rec.lessons.weeks} sessions` : rec.lessons.duration || '',
-}));
+  const completedLessonIds =
+    completedLessons?.map((lesson) => lesson.lesson_id) || [];
 
   return (
     <div className={styles.recommendedPlans}>
@@ -37,7 +43,12 @@ const RecommendedPlans: React.FC<RecommendedPlansProps> = ({
       </div>
       <div className={styles.plans}>
         {plans?.map((plan, index) => (
-          <LessonCard key={index} plan={plan} onPlanClick={onPlanClick} />
+          <LessonCard
+            key={index}
+            plan={plan}
+            onPlanClick={onPlanClick}
+            completedLessonIds={completedLessonIds}
+          />
         ))}
       </div>
     </div>

@@ -5,9 +5,9 @@ export const steps: Tour[] = [
     tour: "welcomeTour",
     steps: [
       {
-        icon: "",
+        icon: "👋",
         title: "Welcome to Simprove!",
-        content: "Want a quick tour to see what's available?",
+        content: "This site is still in early development. Many features are coming soon, but here's a quick tour of the dashboard.",
         // selector: "#dashboard",
         side: "bottom",
         showControls: true,
@@ -16,7 +16,7 @@ export const steps: Tour[] = [
         pointerRadius: 10,
       },
       {
-        icon: "",
+        icon: "📈",
         title: "Lifetime Stats",
         content:
           "Your lifetime stats at a glance. Total shots hit, sessions logged, longest carry recorded, and your most reached-for club.",
@@ -28,7 +28,7 @@ export const steps: Tour[] = [
         pointerRadius: 10,
       },
       {
-        icon: "",
+        icon: "📊",
         title: "Performance by Club",
         content:
           "Visualize your performance by club. Switch between Carry, Ball Speed, Offline, and Back Spin to see how each club stacks up.",
@@ -40,7 +40,7 @@ export const steps: Tour[] = [
         pointerRadius: 10,
       },
       {
-        icon: "",
+        icon: "🏌️",
         title: "Swing Metrics",
         content:
           "Your key swing data broken down by club. Club path, face angle, and attack angle pulled directly from your launch monitor.",
@@ -52,7 +52,7 @@ export const steps: Tour[] = [
         pointerRadius: 10,
       },
       {
-        icon: "",
+        icon: "🎯",
         title: "Miss Tendency",
         content:
           "See where your shots are landing left or right of target. The slider shows your average miss pattern so you know where to focus.",
@@ -64,7 +64,7 @@ export const steps: Tour[] = [
         pointerRadius: 10,
       },
       {
-        icon: "",
+        icon: "📚",
         title: "Your Lesson Plan",
         content:
           "Your AI-generated training plan based on your swing data. Complete lessons to improve the areas that matter most to your game.",
@@ -76,7 +76,7 @@ export const steps: Tour[] = [
         pointerRadius: 10,
       },
       {
-        icon: "",
+        icon: "📥",
         title: "Import a Session",
         content:
           "Click here to import your launch monitor data and start tracking your performance.",

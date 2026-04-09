@@ -6,9 +6,15 @@ import { tagStyles } from "@/lib/tagStyles";
 type LessonCardProps = {
   plan: any;
   onPlanClick: (plan: any) => void;
+  completedLessonIds?: string[];
 };
 
-const LessonCard: React.FC<LessonCardProps> = ({ plan, onPlanClick }) => {
+const LessonCard: React.FC<LessonCardProps> = ({
+  plan,
+  onPlanClick,
+  completedLessonIds,
+}) => {
+
   return (
     <div className={styles.lessonCard} onClick={() => onPlanClick(plan)}>
       <div className={styles.content}>
@@ -33,7 +39,14 @@ const LessonCard: React.FC<LessonCardProps> = ({ plan, onPlanClick }) => {
 
       <div className={styles.footer}>
         <p>{plan.duration}</p>
-        <Button variant="lessonCard" children="Start plan" />
+        {!completedLessonIds?.includes(plan.lesson_id) ? (
+          <Button
+            variant="lessonCard"
+            children={"Start Plan"}
+          />
+        ): (
+          <p>Completed</p>
+        )}
       </div>
     </div>
   );

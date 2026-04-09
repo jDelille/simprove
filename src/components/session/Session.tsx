@@ -100,7 +100,7 @@ const Session: React.FC<SessionProps> = ({ session }) => {
             />
             <SmallStatWidget
               title="Peak Ball Speed"
-              value={sessionMetrics.avgSpeed?.toFixed(1) || 0}
+              value={sessionMetrics.peakBallSpeed?.toFixed(1) || 0}
               metric="mph"
               trend="increase"
               trendText="Personal Best"

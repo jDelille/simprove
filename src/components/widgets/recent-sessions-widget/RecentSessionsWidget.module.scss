@@ -12,11 +12,16 @@
       flex-direction: column;
 
       .session {
-        // border-bottom: 1px solid var(--border);
-        padding: 10px 0;
+        padding: 10px;
         display: flex;
         flex-wrap: wrap;
         gap: 3px;
+        cursor: pointer;
+        border-radius: 6px;
+
+        &:hover {
+          background-color: var(--primaryHover);
+        }
         .icon {
           width: 37px;
           height: 37px;
@@ -29,8 +34,7 @@
         }
         .top {
           display: flex;
-          margin-left: 1rem;
-          width: calc(100% - 60px);
+          width: 100%;
           flex-direction: column;
           gap: 4px;
           .name {
@@ -47,7 +51,6 @@
         }
 
         .bottom {
-          margin-left: calc(39px + 1rem);
         }
 
         .sessionInfo {

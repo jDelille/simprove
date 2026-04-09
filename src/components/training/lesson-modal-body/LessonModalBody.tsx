@@ -12,6 +12,7 @@ type LessonModalBodyProps = {
   setOpenDrills: (open: boolean) => void;
   openDrills: boolean;
   onClickStart: () => void;
+  completedLessonIds?: string[];
 };
 
 const LessonModalBody: React.FC<LessonModalBodyProps> = ({
@@ -20,7 +21,8 @@ const LessonModalBody: React.FC<LessonModalBodyProps> = ({
   closeModal,
   setOpenDrills,
   openDrills,
-  onClickStart
+  onClickStart,
+  completedLessonIds,
 }) => {
   return (
     <div className={styles.planBody}>
@@ -104,11 +106,15 @@ const LessonModalBody: React.FC<LessonModalBodyProps> = ({
             onClick={() => closeModal("lessonPlanDetails")}
             variant="secondary"
           />
-          <Button
-            children="Start Plan"
-            onClick={onClickStart}
-            variant="lessonCard"
-          />
+          {!completedLessonIds?.includes(selectedPlan.lesson_id) ? (
+            <Button
+              children="Start Plan"
+              onClick={onClickStart}
+              variant="lessonCard"
+            />
+          ) : (
+            <p>Completed</p>
+          )}
         </div>
       </div>
     </div>

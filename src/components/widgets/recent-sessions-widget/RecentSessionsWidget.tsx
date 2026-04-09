@@ -16,8 +16,6 @@ const RecentSessionsWidget: React.FC<RecentSessionsWidgetProps> = ({
 }) => {
   const [selectedSessions, setSelectedSessions] = useState<string[]>([]);
 
-  console.log(sessions)
-
   return (
     <div className={styles.recentSessionsWidget}>
       <div className={styles.header}>
@@ -31,10 +29,9 @@ const RecentSessionsWidget: React.FC<RecentSessionsWidgetProps> = ({
               return (
                 <li key={session.id}>
                   <div className={styles.session}>
-                    <div className={styles.icon}>
+                    {/* <div className={styles.icon}>
                       <MdGolfCourse color="var(--greenText)" size={20} />
-
-                    </div>
+                    </div> */}
 
                     <div className={styles.top}>
                       <p className={styles.name}>

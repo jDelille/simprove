@@ -1,6 +1,7 @@
 import Training from "@/components/training/Training";
 import { createSupabaseServer } from "@/lib/supabase/server";
 import { fetchActiveLesson } from "@/services/lessons/fetchActiveLesson";
+import { fetchCompletedLessons } from "@/services/lessons/fetchCompletedLessons";
 import { fetchLessonPlans } from "@/services/lessons/fetchLessonPlans";
 import { fetchRecommndedLessons } from "@/services/lessons/fetchRecommendedLessons";
 
@@ -15,10 +16,11 @@ const TrainingPage = async () => {
     return null; 
   }
 
-  const [lessonPlans, activeLessonData, recommendedLessons] = await Promise.all([
+  const [lessonPlans, activeLessonData, recommendedLessons, completedLessons] = await Promise.all([
     fetchLessonPlans(user.id, supabase),
     fetchActiveLesson(user.id, supabase),
     fetchRecommndedLessons(user.id, supabase),
+    fetchCompletedLessons(user.id, supabase),
   ]);
 
   const activeLesson = activeLessonData ?? undefined;
@@ -31,6 +33,7 @@ const TrainingPage = async () => {
           userId={user.id}
           activeLesson={activeLesson}
           recommendedLessons={recommendedLessons}
+          completedLessons={completedLessons}
         />
       </div>
     </div>
