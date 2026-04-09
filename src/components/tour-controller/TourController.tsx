@@ -11,13 +11,7 @@ type TourControllerProps = {
 export default function TourController({ profile }: TourControllerProps) {
   const { startNextStep } = useNextStep();
 
-  console.log(profile)
-
-  if (!profile.is_new_account) {
-    return;
-  }
-
-    useEffect(() => {
+  useEffect(() => {
     if (profile?.is_new_account) {
       startNextStep("welcomeTour");
     }
