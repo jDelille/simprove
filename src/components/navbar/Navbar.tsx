@@ -14,6 +14,7 @@ import Avatar from "../avatar/Avatar";
 import { FaChevronDown } from "react-icons/fa6";
 import { createClient } from "@/lib/supabase/client";
 import { Profile } from "@/types/profile";
+import RestartTourButton from "../tour-controller/RestartTourButton";
 
 type AuthAction = "login" | "signup" | "logout";
 
@@ -110,7 +111,7 @@ const Navbar: React.FC<NavbarProps> = ({ profile }) => {
             )}
             {profile && (
               <>
-                <div className={styles.uploadBtnContainer}>
+                <div className={styles.uploadBtnContainer} id="upload-btn">
                   <Button
                     variant="lessonCard"
                     children="Upload"

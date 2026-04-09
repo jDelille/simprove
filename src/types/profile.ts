@@ -11,4 +11,5 @@ export type Profile = {
     username: string;
     display_name: string;
     is_demo_account: boolean;
+    is_new_account: boolean;
 }

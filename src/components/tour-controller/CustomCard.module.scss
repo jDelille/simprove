@@ -1,68 +1,67 @@
 .card {
-  background-color: #fff;
-  border-radius: 0.5rem; // rounded-lg
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // shadow-lg
-  padding: 1.5rem; // p-6
-  max-width: 400px; // max-w-md
-}
+  background-color: var(--bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  height: fit-content;
+  color: var(--text);
+  min-width: 300px;
 
-.cardHeader {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem; // gap-3
-  margin-bottom: 1rem; // mb-4
-}
+  .cardHeader {
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    .cardIcon {
+      font-size: 2rem;
+    }
 
-.cardIcon {
-  font-size: 2rem; // text-2xl
-}
+    .cardTitle {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+  }
+  .cardContent {
+    margin-bottom: 1.5rem;
+    font-size: 14px;
+  }
 
-.cardTitle {
-  font-size: 1.25rem; // text-xl
-  font-weight: bold;
-}
+  .cardFooter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    .cardButtons {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 0.5rem;
+      height: 35px;
 
-.cardContent {
-  margin-bottom: 1.5rem; // mb-6
-}
+      .stepCount {
+        color: var(--lightgray);
+        font-size: 12px;
+        flex: 1;
+        flex-wrap: nowrap;
+        text-align: center;
+      }
 
-.cardFooter {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+      button {
+        flex: 1;
+        height: 100%;
+      }
+    }
 
-.stepCount {
-  font-size: 0.875rem; // text-sm
-}
+    .skip {
+      width: 100%;
+      display: flex;
+      height: 35px;
+       button {
+        flex: 1;
+        height: 100%;
+      }
+    }
 
-.cardButtons {
-  display: flex;
-  gap: 0.5rem; // gap-2
-}
-
-.btnPrev {
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  border: none;
-  background-color: #e5e7eb; // gray-200
-}
-
-.btnNext {
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  border: none;
-  background-color: #3b82f6; // blue-500
-  color: #fff;
-}
-
-.btnSkip {
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  border: none;
-  background: none;
-  color: #6b7280; // gray-500
+  }
 }

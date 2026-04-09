@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Step } from 'nextstepjs';
-import styles from './CustomCard.module.scss';
+import React from "react";
+import { Step } from "nextstepjs";
+import styles from "./CustomCard.module.scss";
+import Button from "../button/Button";
 
 interface CustomCardProps {
   step: Step;
@@ -35,24 +36,31 @@ const CustomCard = ({
       {arrow}
 
       <div className={styles.cardFooter}>
-        <div className={styles.stepCount}>
-          Step {currentStep + 1} of {totalSteps}
-        </div>
         <div className={styles.cardButtons}>
-          {currentStep > 0 && (
-            <button onClick={prevStep} className={styles.btnPrev}>
-              Previous
-            </button>
-          )}
-          <button onClick={nextStep} className={styles.btnNext}>
-            {currentStep === totalSteps - 1 ? 'Finish' : 'Next'}
-          </button>
+          <Button
+              onClick={prevStep}
+              children="Previous"
+              variant="secondary"
+              disabled={currentStep === 0}
+            />
+
+          <div className={styles.stepCount}>
+            {currentStep + 1} of {totalSteps}
+          </div>
+
+          <Button
+            onClick={nextStep}
+            children={currentStep === totalSteps - 1 ? "Finish" : "Next"}
+            variant="lessonCard"
+          />
+        </div>
+        {currentStep !== totalSteps - 1 && (
+          <div className={styles.skip}>
           {step.showSkip && skipTour && (
-            <button onClick={skipTour} className={styles.btnSkip}>
-              Skip
-            </button>
+            <Button children="Skip" onClick={skipTour} variant="secondary" />
           )}
         </div>
+        )}
       </div>
     </div>
   );

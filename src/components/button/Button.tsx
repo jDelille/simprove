@@ -4,6 +4,7 @@ import styles from "./Button.module.scss";
 type ButtonProps = {
   children: React.ReactNode;
   onClick?: () => void;
+  disabled?: boolean;
   variant:
     | "primary"
     | "secondary"
@@ -13,9 +14,13 @@ type ButtonProps = {
     | "lessonCard";
 };
 
-const Button: React.FC<ButtonProps> = ({ children, onClick, variant }) => {
+const Button: React.FC<ButtonProps> = ({ children, onClick, variant, disabled }) => {
   return (
-    <button className={`${styles.button} ${styles[variant]}`} onClick={onClick}>
+    <button
+      className={`${styles.button} ${styles[variant]}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

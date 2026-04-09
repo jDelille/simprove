@@ -18,6 +18,10 @@
   &:active {
     background-color: var(--primary-active);
   }
+
+  &:disabled {
+    cursor: default;
+  }
 }
 
 .primary {

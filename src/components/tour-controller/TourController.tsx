@@ -1,18 +1,27 @@
 "use client";
 
+import { Profile } from "@/types/profile";
 import { useNextStep } from "nextstepjs";
+import { useEffect } from "react";
 
-export default function TourController() {
+type TourControllerProps = {
+  profile: Profile;
+};
+
+export default function TourController({ profile }: TourControllerProps) {
   const { startNextStep } = useNextStep();
 
-  return (
-    <button
-      onClick={() => {
-        console.log("clicked");
-        startNextStep("welcomeTour");
-      }}
-    >
-      Start Tour
-    </button>
-  );
+  console.log(profile)
+
+  if (!profile.is_new_account) {
+    return;
+  }
+
+    useEffect(() => {
+    if (profile?.is_new_account) {
+      startNextStep("welcomeTour");
+    }
+  }, [profile]);
+
+  return null;
 }
