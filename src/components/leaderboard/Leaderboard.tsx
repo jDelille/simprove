@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import styles from "./Leaderboard.module.scss";
+import Avatar from "../avatar/Avatar";
+import Link from "next/link";
 
 type LeaderboardProps = {
   leaderboardData: any;
@@ -57,9 +59,15 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
 
         {filteredLeaderboard.map((player: any, index: number) => (
           <li key={player.id}>
-            <span className={styles.rank}>#{index + 1}</span>
-            <span className={styles.user}>{player?.users?.username}</span>
-            <span className={styles.points}>{player?.points} pts</span>
+            <Link
+              href={`/profile/${player.users.username}`}
+              className={styles.player}
+            >
+              <span className={styles.rank}>#{index + 1}</span>
+              <Avatar src={player?.users?.avatar_path} size="small" />
+              <span className={styles.user}>{player?.users?.username}</span>
+              <span className={styles.points}>{player?.points} pts</span>
+            </Link>
           </li>
         ))}
       </ul>

@@ -14,7 +14,7 @@ const UserRankWidget = ({ profile, userPoints }: UserRankWidgetProps) => {
   console.log(userPoints)
 
   return (
-    <div className={styles.userRankWidget}>
+    <div className={styles.userRankWidget} id="your-rank">
       <div className={styles.header}>
         <p>Your Rank</p>
         <div className={styles.timeframe}>weekly</div>

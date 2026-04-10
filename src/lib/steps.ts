@@ -7,7 +7,8 @@ export const steps: Tour[] = [
       {
         icon: "👋",
         title: "Welcome to Simprove!",
-        content: "This site is still in early development. Many features are coming soon, but here's a quick tour of the dashboard.",
+        content:
+          "This site is still in early development. Many features are coming soon, but here's a quick tour of the dashboard.",
         // selector: "#dashboard",
         side: "bottom",
         showControls: true,
@@ -58,6 +59,18 @@ export const steps: Tour[] = [
           "See where your shots are landing left or right of target. The slider shows your average miss pattern so you know where to focus.",
         selector: "#miss-tendency",
         side: "right",
+        showControls: true,
+        showSkip: true,
+        pointerPadding: 10,
+        pointerRadius: 10,
+      },
+      {
+        icon: "🏆",
+        title: "Your Points & Rank",
+        content:
+          "Track your points and rank across different time periods. Check out the leaderboard to see how you stack up against other users.",
+        selector: "#your-rank",
+        side: "left",
         showControls: true,
         showSkip: true,
         pointerPadding: 10,
