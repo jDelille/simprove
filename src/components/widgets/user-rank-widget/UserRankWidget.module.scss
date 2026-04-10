@@ -1,0 +1,96 @@
+@use "@/styles/mixins" as *;
+
+.userRankWidget {
+  @include widget();
+
+  .header {
+    @include widgetHeader();
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    .timeframe {
+      font-weight: 400;
+      font-size: 12px;
+      background-color: var(--green);
+      color: var(--greenText);
+      border: 1px solid var(--greenBorder);
+      border-radius: 22px;
+      padding: 3px 8px;
+      cursor: pointer;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    .top {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      .text {
+        display: flex;
+        flex-direction: column;
+
+        h3 {
+          font-weight: 500;
+          font-size: 14px;
+        }
+
+        p {
+          color: var(--lightgray);
+          font-size: 12px;
+        }
+      }
+    }
+
+    .bottom {
+        border-top: 1px solid var(--border);
+        padding-top: 1rem;
+        .pointsInfo {
+            display: flex;
+            gap: 1rem;
+
+            .box {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                background-color: var(--messageBg);
+                border: 1px solid var(--border);
+                padding: 10px;
+                border-radius: 6px;
+                font-size: 12px;
+                gap: 6px;
+
+                p {
+                    color: var(--lightgray);
+                }
+
+                h3 {
+                    font-size: 18px;
+                }
+
+                .weeklyPoints {
+                    color: var(--greenText);
+                }
+            }
+        }
+    }
+
+    .leaderboardLink {
+        color: var(--lightgray);
+        font-size: 12px;
+        text-align: center;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+
+        &:hover {
+            color: var(--text);
+        }
+    }
+  }
+}

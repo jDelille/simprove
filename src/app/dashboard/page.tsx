@@ -5,6 +5,7 @@ import { fetchGettingStartedCompletions } from "@/services/getting-started-compl
 import { fetchActiveLesson } from "@/services/lessons/fetchActiveLesson";
 import { fetchProfileInfo } from "@/services/profile-info/fetchProfileInfo";
 import { fetchSessions } from "@/services/sessions/fetchSessions";
+import { fetchUserPoints } from "@/services/user-points/fetchUserPoints";
 
 const DashboardPage = async () => {
   const supabase = await createSupabaseServer();
@@ -23,6 +24,7 @@ const DashboardPage = async () => {
     profileInfo,
     activeLesson,
     recentActivity,
+    userPoints,
   ] = user?.id
     ? await Promise.all([
         fetchSessions(user.id, supabase),
@@ -30,6 +32,7 @@ const DashboardPage = async () => {
         fetchProfileInfo(supabase),
         fetchActiveLesson(user.id, supabase),
         fetchRecentActivity(user.id, supabase),
+        fetchUserPoints(user.id, supabase),
       ])
     : [[], [], null];
 
@@ -66,6 +69,8 @@ const DashboardPage = async () => {
           gettingStartedCompletions={gettingStartedCompletions}
           activeLesson={activeLesson}
           recentActivity={recentActivity || []}
+          profile={userProfile}
+          userPoints={userPoints}
         />
       </div>
     </div>

@@ -18,6 +18,8 @@ import { GettingStartedCompletions } from "@/types/gettingStartedCompletions";
 import { ActiveLesson } from "@/types/activeLesson";
 import { RecentActivity } from "@/types/recentActivity";
 import { Shot } from "@/types/shot";
+import UserRankWidget from "../widgets/user-rank-widget/UserRankWidget";
+import { Profile } from "@/types/profile";
 
 type DashboardProps = {
   sessions: Session[];
@@ -25,6 +27,8 @@ type DashboardProps = {
   gettingStartedCompletions?: GettingStartedCompletions[];
   activeLesson?: any;
   recentActivity?: RecentActivity[];
+  profile: Profile;
+  userPoints: any;
 };
 
 const Dashboard = ({
@@ -33,6 +37,8 @@ const Dashboard = ({
   gettingStartedCompletions,
   activeLesson,
   recentActivity,
+  profile,
+  userPoints
 }: DashboardProps) => {
   const shots = sessions.flatMap((session) => session.shots);
 
@@ -88,6 +94,8 @@ const Dashboard = ({
   const hasCompletedGettingStarted = gettingStartedCompletions
     ? gettingStartedCompletions.length === 4
     : false;
+
+  console.log("userPoints in Dashboard:", userPoints);
 
   return (
     <div className={styles.dashboard}>
@@ -146,12 +154,6 @@ const Dashboard = ({
 
       {/* right side */}
       <div className={styles.column}>
-        <div className={styles.row}>
-          <RecentActivityWidget
-            userId={userId}
-            recentActivity={recentActivity}
-          />
-        </div>
         {!hasCompletedGettingStarted && (
           <div className={styles.row}>
             <GettingStartedWidget completions={gettingStartedCompletions} />
@@ -160,6 +162,10 @@ const Dashboard = ({
 
         <div className={styles.row}>
           <LessonPlanWidget userId={userId} activeLesson={activeLesson} />
+        </div>
+
+        <div className={styles.row}>
+          <UserRankWidget profile={profile} userPoints={userPoints} />
         </div>
       </div>
     </div>
