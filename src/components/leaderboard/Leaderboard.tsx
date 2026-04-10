@@ -58,8 +58,8 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
         {filteredLeaderboard.map((player: any, index: number) => (
           <li key={player.id}>
             <span className={styles.rank}>#{index + 1}</span>
-            <span className={styles.user}>{player.users.username}</span>
-            <span className={styles.points}>{player.points} pts</span>
+            <span className={styles.user}>{player?.users?.username}</span>
+            <span className={styles.points}>{player?.points} pts</span>
           </li>
         ))}
       </ul>

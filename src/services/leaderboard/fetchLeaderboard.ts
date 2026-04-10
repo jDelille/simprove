@@ -8,10 +8,13 @@ export const fetchLeaderboard = async (
     .from("leaderboard")
     .select(
       `
-            *,
-            users (
-                *
-            )`,
+  *,
+  users(
+    username,
+    avatar_path,
+    display_name
+  )
+`,
     )
     .order("points", { ascending: false });
 
