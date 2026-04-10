@@ -4,16 +4,21 @@ import { supabase as browserClient } from "@/lib/supabase/client";
 export const fetchLeaderboard = async (
   supabaseClient: SupabaseClient = browserClient,
 ) => {
-    const { data: leaderboardData, error } = await supabaseClient
-        .from("leaderboard")
-        .select("*")
-        .order("total_points", { ascending: false })
+  const { data: leaderboardData, error } = await supabaseClient
+    .from("leaderboard")
+    .select(
+      `
+            *,
+            users (
+                *
+            )`,
+    )
+    .order("points", { ascending: false });
 
-    if (error) {
-        console.error("Error fetching leaderboard data:", error);
-        return { leaderboardData: null, error };
-    }
+  if (error) {
+    console.error("Error fetching leaderboard data:", error);
+    return { leaderboardData: null, error };
+  }
 
-    return { leaderboardData, error: null };
-
+  return { leaderboardData, error: null };
 };
