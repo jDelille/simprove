@@ -4,7 +4,7 @@ import {useRouter } from "next/navigation";
 import styles from "./Session.module.scss";
 import { FaAngleLeft } from "react-icons/fa";
 import moment from "moment";
-import { MissTendencyWidget, SmallStatWidget } from "../widgets";
+import { AveragesGraphWidget, MissTendencyWidget, SmallStatWidget } from "../widgets";
 import ClubBreakdownWidget, {
   ShotRow,
 } from "../widgets/club-breakdown-widget/ClubBreakdownWidget";
@@ -14,6 +14,7 @@ import FaceAngleWidget from "../widgets/face-angle-widget/FaceAngleWidget";
 import { calculateSessionStats } from "@/lib/session-stats/sessionStats";
 import { Session as SessionTypes } from "@/types/session";
 import { Shot } from "@/types/shot";
+import SessionShotsGraphWidget from "../widgets/session-shots-graph-widget/SessionShotsGraphWidget";
 
 type SessionProps = {
   session: SessionTypes;
@@ -23,6 +24,8 @@ const Session: React.FC<SessionProps> = ({ session }) => {
   const router = useRouter();
 
   const [selectedClub, setSelectedClub] = useState<string>("ALL");
+
+  console.log(session)
 
   const filteredShots = useMemo(() => {
     if (!session?.shots) return [];
@@ -107,12 +110,15 @@ const Session: React.FC<SessionProps> = ({ session }) => {
             />
           </div>
           <div className={styles.row}>
-            <ClubBreakdownWidget data={tableData} />
+            <SessionShotsGraphWidget session={session} />
           </div>
           <div className={styles.row}>
+            <ClubBreakdownWidget data={tableData} />
+          </div>
+          {/* <div className={styles.row}>
             <MissTendencyWidget shots={filteredShots} />
             <FaceAngleWidget clubAverages={clubAverages} />
-          </div>
+          </div> */}
           <div className={styles.row}>{/* Session analysis */}</div>
         </div>
         <div className={styles.column}>

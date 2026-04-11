@@ -143,7 +143,7 @@ const Dashboard = ({
         </div>
 
         <div className={styles.row}>
-          <AveragesGraphWidget userId={userId} sessions={sessions} />
+          <AveragesGraphWidget sessions={sessions} />
         </div>
 
         <div className={styles.row}>

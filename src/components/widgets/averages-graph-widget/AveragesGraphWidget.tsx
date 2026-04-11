@@ -8,20 +8,16 @@ import { getClubAverages } from "@/lib/shots/averages";
 import Button from "@/components/button/Button";
 import { FaChartBar } from "react-icons/fa";
 import useModal from "@/hooks/useModal";
-import Modal from "@/components/modal/Modal";
-import UploadCsv from "@/components/upload-csv/UploadCsv";
 import { Session } from "@/types/session";
 
 type AveragesGraphWidgetProps = {
-  userId: string;
   sessions: Session[];
 };
 
 type MetricKey = "avgCarry" | "avgSpeed" | "avgOffline" | "avgSpin" | "count";
 
 const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
-  userId,
-  sessions
+  sessions,
 }) => {
   const [selectedMetric, setSelectedMetric] = useState<MetricKey>("avgCarry");
   const { openModal, modals, closeModal } = useModal();
@@ -76,9 +72,11 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
         height: 300,
         animation: false,
       },
+
       title: { text: "" },
       credits: { enabled: false },
       legend: { enabled: false },
+
       xAxis: {
         categories,
         lineWidth: 0,
@@ -90,6 +88,7 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
           },
         },
       },
+
       yAxis: {
         title: { text: undefined },
         gridLineWidth: 0,
@@ -102,16 +101,15 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
           },
         },
         plotLines: [
-          selectedMetric === "avgOffline"
-            && {
-                value: 0,
-                color: "transparent", // maybe add color line here to show center line for offline
-                width: 1,
-                zIndex: 3,
-              }
-           
-        ]
+          selectedMetric === "avgOffline" && {
+            value: 0,
+            color: "transparent", // maybe add color line here to show center line for offline
+            width: 1,
+            zIndex: 3,
+          },
+        ],
       },
+
       tooltip: {
         useHTML: true,
         backgroundColor: "transparent",
@@ -144,13 +142,15 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
         },
         formatter: function (this: Highcharts.Point) {
           const metricUnit = metric?.unit ? ` ${metric.unit}` : "";
+          const clubData = clubStatsArray.find((c) => c.club === this.name);
+
           return `
             <div class="${styles.tooltip}">
               <div class="${styles.tooltipClub}">${this.name}</div>
               <div class="${styles.tooltipValue}">
                 <ul>
                   <li>${metric?.label}: <span>${Number(this.y).toFixed(1)}${metricUnit}</span></li>
-                  <li>Total Shots: <span>${Number(this.y).toFixed(0)}</span></li>
+                  <li>Total Shots: <span>${Number(clubData?.count || 0).toFixed(0)}</span></li>
                 </ul>
               </div>
             </div>
@@ -159,7 +159,7 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
       },
       plotOptions: {
         column: {
-          borderRadius: { radius: 6, where: "end"},
+          borderRadius: { radius: 3, where: "end" },
           borderWidth: 0,
           animation: { duration: 800, easing: "easeOutBounce" },
         },
@@ -195,7 +195,7 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
       <div className={styles.header}>
         <div className={styles.text}>
           <p className={styles.selectedMetric}>{metric?.label}</p>
-          <span>Performance by club</span>
+          <span>Average performance by club</span>
         </div>
 
         <div className={styles.chartControls}>

@@ -1,0 +1,115 @@
+@use "@/styles/breakpoints" as bp;
+
+.graphContainer {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  width: 100%;
+  background-color: var(--bg);
+
+  .header {
+    padding-bottom: 1.5rem;
+    font-weight: 500;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    @include bp.mobile {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      span {
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--lightgray);
+      }
+    }
+
+    .chartControls {
+      background-color: var(--messageBg);
+      width: fit-content;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      border-radius: 6px;
+      gap: 5px;
+      padding: 5px;
+      @include bp.mobile {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .control,
+      .activeControl,
+      .selected {
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        width: fit-content;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        border-radius: 4px;
+      }
+
+      .activeControl {
+        background-color: var(--bg);
+        width: fit-content;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        box-shadow: 0 0.2rem 0.4rem #0000000d;
+        border-radius: 4px;
+      }
+
+      .control {
+        &:hover {
+          background-color: var(--secondaryBG);
+        }
+      }
+
+      .dropdown {
+        position: relative;
+        margin-right: 10px;
+      }
+
+      .selected {
+        width: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .menu {
+        position: absolute;
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        width: 70px;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem 0;
+        border-radius: 4px;
+        background-color: var(--messageBg);
+        border: 1px solid var(--border);
+        z-index: 8;
+        top: 36px;
+        left: -5px;
+        padding-bottom: 0;
+        padding-top: 0;
+
+        .item {
+            padding: 10px;
+        }
+      }
+    }
+  }
+}
