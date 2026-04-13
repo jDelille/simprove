@@ -29,6 +29,13 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
+
+      img {
+        object-fit: cover;
+        height: 32px;
+        width: 32px;
+        border-radius: 50%;
+      }
       .text {
         display: flex;
         flex-direction: column;
