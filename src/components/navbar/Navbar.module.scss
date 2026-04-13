@@ -18,6 +18,10 @@
     @include bp.mobile {
       padding: 0 1rem;
     }
+    @include bp.tablet {
+      padding: 0 1rem;
+    }
+    
     .logo {
       font-size: 22px;
       font-weight: 700;

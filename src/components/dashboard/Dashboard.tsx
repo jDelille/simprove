@@ -137,7 +137,7 @@ const Dashboard = ({
             value={profileMetrics.mostUsedClub || "N/A"}
             metric=""
             trend={null}
-            trendText={`${profileMetrics.mostUsedClubCount || 0} total shots`}
+            trendText={`${profileMetrics.mostUsedClubCount || 0} total shots with this club`}
             isEmpty={sessions.length === 0}
           />
         </div>

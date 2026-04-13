@@ -52,6 +52,8 @@ const Training: React.FC<TrainingProps> = ({
     setDrills(data);
   }
 
+  console.log("activePlan", activePlan);
+
   const handleStartPlan = async () => {
     if (!selectedPlan) return;
 
@@ -64,12 +66,8 @@ const Training: React.FC<TrainingProps> = ({
     const updatedActiveLesson = await fetchActiveLessonClient(userId);
     setActivePlanState(updatedActiveLesson);
 
-    console.log("Updated active lesson after starting plan:", updatedActiveLesson);
-
     closeModal("lessonPlanDetails");
   };
-
-  console.log(activePlan)
 
   const planBody = selectedPlan ? (
     <LessonModalBody
@@ -114,7 +112,7 @@ const Training: React.FC<TrainingProps> = ({
             onPlanClick={handlePlanClick}
             recommendedLessons={recommendedLessons}
             completedLessons={completedLessons}
-            hasActivePlan={activePlan.activePlan !== null}
+            hasActivePlan={activePlan.activeLesson !== null}
           />
         )}
         <h2 className={styles.sectionName}>Browse Plans</h2>

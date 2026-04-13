@@ -7,6 +7,10 @@
   @include bp.mobile {
     flex-direction: column;
   }
+
+  @include bp.smallLaptop {
+    flex-direction: column;
+  }
   .column {
     width: 75%;
     display: flex;
@@ -17,10 +21,19 @@
       width: 100%;
       order: 2;
     }
+    @include bp.smallLaptop {
+      width: 100%;
+      order: 2;
+    }
     &:nth-of-type(2) {
       width: 25%;
       order: 2;
       @include bp.mobile {
+        width: 100%;
+        order: 1;
+      }
+
+      @include bp.smallLaptop {
         width: 100%;
         order: 1;
       }
@@ -32,13 +45,21 @@
       @include bp.mobile {
         flex-direction: column;
       }
+      @include bp.smallLaptop {
+        flex-direction: column;
+      }
     }
 
     .statsRow {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
-      
+
       @include bp.mobile {
+        position: relative;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      @include bp.smallLaptop {
         position: relative;
         grid-template-columns: 1fr 1fr;
       }

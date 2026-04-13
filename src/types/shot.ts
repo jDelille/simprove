@@ -7,7 +7,7 @@ export type Shot = {
   club: string;
   decent: number;
   distanceToPin: string;
-  dynamicLoft: number | null;
+  dynamicloft: number | null;
   faceToPath: number;
   faceToTarget: number;
   hi: number;

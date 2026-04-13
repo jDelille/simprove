@@ -6,6 +6,7 @@ export type Averages = {
   avgOffline: number;
   avgSpin: number;
   avgfaceToTarget: number;
+  avgDynamicLoft: number;
   avgLaunchAngle: number;
   avgPeakHeight: number;
   avgDescent: number;
@@ -28,6 +29,7 @@ export function calculateAverages(shots: Shot[]): Averages {
       avgLaunchAngle: 0,
       avgPeakHeight: 0,
       avgDescent: 0,
+      avgDynamicLoft: 0,
       count: 0,
       mostUsedClub: undefined,
       mostUsedClubCount: undefined,
@@ -60,11 +62,21 @@ export function calculateAverages(shots: Shot[]): Averages {
     new Set(shots.map((shot) => shot.club).filter(Boolean)),
   ) as string[];
 
+  console.log("shots", shots);
+
+  console.log(
+  shots.map((s) => ({
+    dynamicloft: s.dynamicloft,
+    keys: Object.keys(s),
+  }))
+);
+
   const totals = shots.reduce(
     (acc, shot) => {
       acc.avgCarry += shot?.carry ?? 0;
       acc.avgSpeed += shot.ballSpeed ?? 0;
       acc.avgOffline += shot?.offline ?? 0;
+      acc.avgDynamicLoft += shot?.dynamicloft ?? 0;
       acc.avgSpin += shot?.backSpin ?? 0;
       acc.avgfaceToTarget += shot.faceToTarget ?? 0;
       acc.avgLaunchAngle += shot?.vla ?? 0;
@@ -83,6 +95,7 @@ export function calculateAverages(shots: Shot[]): Averages {
       avgCarry: 0,
       avgSpeed: 0,
       avgOffline: 0,
+      avgDynamicLoft: 0,
       avgSpin: 0,
       avgfaceToTarget: 0,
       avgLaunchAngle: 0,
@@ -101,6 +114,7 @@ export function calculateAverages(shots: Shot[]): Averages {
     avgCarry: totals.avgCarry / totals.count,
     avgSpeed: totals.avgSpeed / totals.count,
     avgOffline: totals.avgOffline / totals.count,
+    avgDynamicLoft: totals.avgDynamicLoft / totals.count,
     avgSpin: totals.avgSpin / totals.count,
     avgfaceToTarget: totals.avgfaceToTarget / totals.count,
     avgLaunchAngle: totals.avgLaunchAngle / totals.count,
@@ -126,6 +140,7 @@ export function getClubAverages(shots: Shot[]) {
         avgCarry: 0,
         avgSpeed: 0,
         avgOffline: 0,
+        avgDynamicLoft: 0,
         avgSpin: 0,
         avgfaceToTarget: 0,
         avgLaunchAngle: 0,
@@ -145,6 +160,7 @@ export function getClubAverages(shots: Shot[]) {
     club.avgCarry += shot.carry ?? 0;
     club.avgSpeed += shot.ballSpeed ?? 0;
     club.avgOffline += shot.offline ?? 0;
+    club.avgDynamicLoft += shot.dynamicloft ?? 0;
     club.avgSpin += shot.backSpin ?? 0;
     club.avgfaceToTarget += shot.faceToTarget ?? 0;
     club.avgLaunchAngle += shot.vla ?? 0;
@@ -157,6 +173,7 @@ export function getClubAverages(shots: Shot[]) {
     club.avgCarry /= club.count;
     club.avgSpeed /= club.count;
     club.avgOffline /= club.count;
+    club.avgDynamicLoft /= club.count;
     club.avgSpin /= club.count;
     club.avgfaceToTarget /= club.count;
     club.avgLaunchAngle /= club.count;

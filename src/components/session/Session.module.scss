@@ -52,6 +52,10 @@
     @include bp.mobile {
       flex-direction: column;
     }
+
+    @include bp.tablet {
+      flex-direction: column;
+    }
     .column {
       width: 75%;
       display: flex;
@@ -60,19 +64,29 @@
       @include bp.mobile {
         width: 100%;
       }
+
+      @include bp.tablet {
+        width: 100%;
+      }
+
       &:nth-of-type(2) {
         width: 25%;
         @include bp.mobile {
-        width: 100%;
-      }
+          width: 100%;
+        }
+
+        @include bp.tablet {
+          width: 100%;
+        }
       }
 
       .row {
         display: flex;
         gap: 1rem;
+        max-width: 100%;
         @include bp.mobile {
-        flex-direction: column;
-      }
+          flex-direction: column;
+        }
       }
 
       .statsRow {

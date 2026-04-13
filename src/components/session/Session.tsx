@@ -15,6 +15,7 @@ import { calculateSessionStats } from "@/lib/session-stats/sessionStats";
 import { Session as SessionTypes } from "@/types/session";
 import { Shot } from "@/types/shot";
 import SessionShotsGraphWidget from "../widgets/session-shots-graph-widget/SessionShotsGraphWidget";
+import ClubPerformanceWidget from "../widgets/club-performance-widget/ClubPerformanceWidget";
 
 type SessionProps = {
   session: SessionTypes;
@@ -24,8 +25,6 @@ const Session: React.FC<SessionProps> = ({ session }) => {
   const router = useRouter();
 
   const [selectedClub, setSelectedClub] = useState<string>("ALL");
-
-  console.log(session)
 
   const filteredShots = useMemo(() => {
     if (!session?.shots) return [];
@@ -40,6 +39,7 @@ const Session: React.FC<SessionProps> = ({ session }) => {
 
   const tableData: ShotRow[] = useMemo(() => {
     if (!filteredShots?.length) return [];
+    
 
     return Object.entries(clubAverages).map(([club, stats]) => ({
       id: club,
@@ -48,6 +48,7 @@ const Session: React.FC<SessionProps> = ({ session }) => {
       avgCarry: stats.avgCarry,
       ballSpeed: stats.avgSpeed,
       avgOffline: stats.avgOffline,
+      avgDynamicLoft: stats.avgDynamicLoft,
       avgBackSpin: stats.avgSpin,
       avgLaunch: stats.avgLaunchAngle,
       avgPeakHeight: stats.avgPeakHeight,
@@ -123,9 +124,8 @@ const Session: React.FC<SessionProps> = ({ session }) => {
         </div>
         <div className={styles.column}>
           {/* <div className={styles.row}>
-            <VsLastSessionWidget />
+            <ClubPerformanceWidget />
           </div> */}
-          <div className={styles.row}>{/* Shot distribution */}</div>
           <div className={styles.row}>{/* Vs lifetime average */}</div>
         </div>
       </div>

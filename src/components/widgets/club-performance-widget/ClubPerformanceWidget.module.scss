@@ -1,0 +1,66 @@
+@use "@/styles/mixins" as *;
+
+.clubPerformanceWidget {
+  @include widget();
+
+  .header {
+    @include widgetHeader();
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+    gap: 5px;
+    span {
+      color: var(--lightgray);
+      font-size: 12px;
+    }
+  }
+
+  .content {
+
+    .club {
+        padding-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+        color: var(--lightgray);
+        .clubName {
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--text);
+        }
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+
+      .item {
+        padding: 10px;
+        background-color: var(--messageBg);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .label {
+          text-transform: uppercase;
+          font-size: 10px;
+          color: var(--lightgray);
+        }
+
+        .value {
+          font-weight: 500;
+          font-size: 22px;
+
+          span {
+            font-weight: 400;
+            font-size: 12px;
+            color: var(--lightgray);
+          }
+        }
+      }
+    }
+  }
+}

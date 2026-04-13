@@ -1,4 +1,3 @@
-import { r } from "highcharts";
 import LessonCard from "../lesson-card/LessonCard";
 import styles from "./RecommendedPlans.module.scss";
 
