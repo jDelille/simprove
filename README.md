@@ -1,6 +1,21 @@
+<div align="center">
+
 # Simprove
 
-Your digital golf coach. Track, analyze, and improve your swing using simulator data.
+<img width="700" height="437" alt="site-pic" src="https://github.com/user-attachments/assets/caaab81b-e96e-4c65-98c0-caf5276cd1d8" />
+
+<p> Simprove is an online platform to track and analyze your golf simulator stats and trends. </p>
+<p> Simply export your session data from GsPro and upload to Simprove. </p>
+
+<div>
+  <img src="https://img.shields.io/badge/next%20js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" />
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/Claude-D97757?style=for-the-badge&logo=claude&logoColor=white" />
+  <img src="https://img.shields.io/badge/Supabase-181818?style=for-the-badge&logo=supabase&logoColor=white" />
+</div>
+
+</div>
 
 ## About
 Simprove lets golfers import data from their launch monitor, track stats over time, 
