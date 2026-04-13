@@ -35,8 +35,8 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
     "I4",
     "W5",
     "W3",
-    "3H",
-    "5H",
+    "H3",
+    "H5",
     "DR",
   ];
 
