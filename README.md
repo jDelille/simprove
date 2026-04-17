@@ -21,6 +21,9 @@
 Simprove lets golfers import data from their launch monitor, track stats over time, 
 and get AI-powered lesson recommendations based on their performance.
 
+## Upcomming Features
+Connect your GsPro account and import your round data to see how you're performing on a course
+
 ## Tech Stack
 - Next.js
 - TypeScript
