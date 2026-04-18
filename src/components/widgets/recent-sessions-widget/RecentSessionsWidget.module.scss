@@ -10,18 +10,16 @@
     .sessionList {
       display: flex;
       flex-direction: column;
-
+      gap: 1rem;
       .session {
         padding: 10px;
         display: flex;
         flex-wrap: wrap;
-        gap: 3px;
+
         cursor: pointer;
         border-radius: 6px;
-
-        &:hover {
-          background-color: var(--primaryHover);
-        }
+        background-color: var(--messageBg);
+        border: 1px solid var(--border);
         .icon {
           width: 37px;
           height: 37px;
@@ -36,7 +34,7 @@
           display: flex;
           width: 100%;
           flex-direction: column;
-          gap: 4px;
+          gap: 1rem;
           .name {
             font-weight: 500;
             font-size: 14px;
@@ -48,9 +46,6 @@
               color: var(--lightgray);
             }
           }
-        }
-
-        .bottom {
         }
 
         .sessionInfo {

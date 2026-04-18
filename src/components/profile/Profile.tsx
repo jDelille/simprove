@@ -12,6 +12,7 @@ import { Profile as ProfileTypes } from "@/types/profile";
 import { MyClubs } from "@/types/myClubs";
 import { Lesson } from "@/types/lesson";
 import UserRankWidget from "../widgets/user-rank-widget/UserRankWidget";
+import TopPerformingClubsWidget from "../widgets/top-performing-clubs-widget/TopPerformingClubsWidget";
 
 type ProfileProps = {
   userId: string;
@@ -39,8 +40,12 @@ const Profile: React.FC<ProfileProps> = ({
           <AchievementsWidgets userId={userId} badges={badges} />
         </div> */}
         <div className={styles.row}>
-          <RecentSessionsWidget sessions={sessions}/>
+          <TopPerformingClubsWidget sessions={sessions} />
         </div>
+        <div className={styles.row}>
+          <RecentSessionsWidget sessions={sessions} />
+        </div>
+
         <div className={styles.row}>
           <UserLessonsWidget lessons={lessons as any} />
         </div>

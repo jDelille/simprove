@@ -20,8 +20,6 @@ const SessionShotsGraphWidget = ({ session }: SessionShotsGraphWidgetProps) => {
 
   const clubs = Array.from(new Set(session.shots.map((shot) => shot.club)));
 
-  const club = clubs.find((c) => c === selectedClub);
-
   const shots = session.shots;
 
   const filteredShots = shots.filter((shot) => shot.club === selectedClub);

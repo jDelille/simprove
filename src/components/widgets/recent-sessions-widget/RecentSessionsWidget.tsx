@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import styles from "./RecentSessionsWidget.module.scss";
 import { calculateAverages } from "@/lib/shots/averages";
 import moment from "moment";
-import { MdGolfCourse } from "react-icons/md";
 import { Session } from "@/types/session";
 
 type RecentSessionsWidgetProps = {
@@ -29,10 +28,6 @@ const RecentSessionsWidget: React.FC<RecentSessionsWidgetProps> = ({
               return (
                 <li key={session.id}>
                   <div className={styles.session}>
-                    {/* <div className={styles.icon}>
-                      <MdGolfCourse color="var(--greenText)" size={20} />
-                    </div> */}
-
                     <div className={styles.top}>
                       <p className={styles.name}>
                         {session.session_name}{" "}
@@ -44,7 +39,7 @@ const RecentSessionsWidget: React.FC<RecentSessionsWidgetProps> = ({
                         <p>8 clubs</p>
                       </div>
                     </div>
-                    <div className={styles.bottom}>
+                    {/* <div className={styles.bottom}>
                       <div className={styles.averages}>
                         <p>
                           <strong>{averages.avgCarry.toFixed(1)}</strong> carry
@@ -57,7 +52,7 @@ const RecentSessionsWidget: React.FC<RecentSessionsWidgetProps> = ({
                           off
                         </p>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </li>
               );
