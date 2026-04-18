@@ -13,6 +13,7 @@ import { MyClubs } from "@/types/myClubs";
 import { Lesson } from "@/types/lesson";
 import UserRankWidget from "../widgets/user-rank-widget/UserRankWidget";
 import TopPerformingClubsWidget from "../widgets/top-performing-clubs-widget/TopPerformingClubsWidget";
+import { AveragesGraphWidget } from "../widgets";
 
 type ProfileProps = {
   userId: string;
@@ -41,6 +42,9 @@ const Profile: React.FC<ProfileProps> = ({
         </div> */}
         <div className={styles.row}>
           <TopPerformingClubsWidget sessions={sessions} />
+        </div>
+        <div className={styles.row}>
+          <AveragesGraphWidget sessions={sessions} />
         </div>
         <div className={styles.row}>
           <RecentSessionsWidget sessions={sessions} />

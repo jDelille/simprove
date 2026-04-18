@@ -2,7 +2,7 @@
 
 import {useRouter } from "next/navigation";
 import styles from "./Session.module.scss";
-import { FaAngleLeft } from "react-icons/fa";
+import { FaAngleLeft, FaChevronRight } from "react-icons/fa";
 import moment from "moment";
 import { AveragesGraphWidget, MissTendencyWidget, SmallStatWidget } from "../widgets";
 import ClubBreakdownWidget, {
@@ -65,15 +65,16 @@ const Session: React.FC<SessionProps> = ({ session }) => {
   return (
     <div className={styles.session}>
       <div className={styles.pageHeader}>
-        <div className={styles.backBtn} onClick={() => router.back()}>
-          <FaAngleLeft size={13.5} color="var(--lightgray)" />
-          Back to sessions
+        <div className={styles.backBtn}>
+          <button onClick={() => router.back()}>Sessions</button> <FaChevronRight size={8}/> {session.session_name}
         </div>
         <div className={styles.title}>
           <h1>{session?.session_name}</h1>
           <div className={styles.info}>
             <p>{sessionDate}</p>
-            <p>{session?.shots.length || 0} shots</p>
+            <p>-</p>
+            {/* <p>{session?.shots.length || 0} shots</p> */}
+            <p>Range Session</p>
           </div>
         </div>
       </div>

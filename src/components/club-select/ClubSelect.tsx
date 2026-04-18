@@ -34,7 +34,7 @@ const ClubSelect: React.FC<ClubSelectProps> = ({
         <div className={styles.dropdown}>
           <ul>
             {clubs.map((club) => (
-              <li className={styles.club} onClick={(e) => handleClubSelect(club, e)}>{club}</li>
+              <li className={styles.club} key={club} onClick={(e) => handleClubSelect(club, e)}>{club}</li>
             ))}
           </ul>
         </div>
