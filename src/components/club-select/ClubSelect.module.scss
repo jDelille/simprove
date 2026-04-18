@@ -1,20 +1,41 @@
 .clubSelect {
-  display: flex;
-  gap: 5px;
-  overflow-x: auto;
+  border: 1px solid var(--border);
+  background-color: var(--messageBg);
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  border-radius: 4px;
+  width: 100px;
 
-  li {
-    background-color: var(--messageBg);
-    border: 1px solid var(--border);
-    padding: 4px 12px;
-    border-radius: 22px;
-    font-size: 12px;
+  .selectedClub {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 12px;
     cursor: pointer;
   }
 
-  .selected{
-    background-color: var(--green);
-    color: var(--greenText);
-    border: 1px solid var(--greenBorder);
+  .dropdown {
+    padding: 8px 12px;
+    max-height: 200px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #e2e7ee transparent;
+    z-index: 999;
+    position: relative;
+    background-color: var(--messageBg);
+    ul {
+      li {
+        padding: 5px 0;
+        cursor: pointer;
+        color: var(--lightgray);
+
+        &:hover {
+          color: var(--text);
+        }
+      }
+    }
   }
 }

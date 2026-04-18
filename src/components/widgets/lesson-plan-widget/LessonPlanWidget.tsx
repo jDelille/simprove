@@ -44,19 +44,7 @@ const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({
       <div className={styles.header}>
         <p>Lesson Plan</p>
       </div>
-      {!isEmpty && (
-        <div className={styles.progressContainer}>
-          <div className={styles.progressBar}>
-            <div
-              className={styles.progress}
-              style={{ width: `${lessonProgress}%` }}
-            ></div>
-          </div>
-          <div className={styles.value}>
-            {lessonProgress.toFixed(0)}% complete
-          </div>
-        </div>
-      )}
+  
       {!isEmpty && (
         <div className={styles.content}>
           <ul>
@@ -84,6 +72,19 @@ const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({
               </div>
             </li>
           </ul>
+        </div>
+      )}
+          {!isEmpty && (
+        <div className={styles.progressContainer}>
+          <div className={styles.progressBar}>
+            <div
+              className={styles.progress}
+              style={{ width: `${lessonProgress || 2}%` }}
+            ></div>
+          </div>
+          <div className={styles.value}>
+            {lessonProgress.toFixed(0)}% complete
+          </div>
         </div>
       )}
       {isEmpty && (

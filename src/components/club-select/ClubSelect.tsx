@@ -8,7 +8,11 @@ type ClubSelectProps = {
   selectedClub: string;
 };
 
-const ClubSelect: React.FC<ClubSelectProps> = ({ clubs, setSelectedClub, selectedClub }) => {
+const ClubSelect: React.FC<ClubSelectProps> = ({
+  clubs,
+  setSelectedClub,
+  selectedClub,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const [openUp, setOpenUp] = useState(false);
@@ -19,19 +23,23 @@ const ClubSelect: React.FC<ClubSelectProps> = ({ clubs, setSelectedClub, selecte
     setIsOpen(false);
   };
 
-
   return (
-    <ul className={styles.clubSelect}>
-      {clubs.map((club) => (
-        <li
-          key={club}
-          className={selectedClub === club ? styles.selected : ""}
-          onClick={(e) => handleClubSelect(club, e)}
-        >
-          {club}
-        </li>
-      ))}
-    </ul>
+    <div className={styles.clubSelect}>
+      <div className={styles.selectedClub} onClick={() => setIsOpen(!isOpen)}>
+        <p>{selectedClub}</p>
+        <FaChevronDown />
+      </div>
+
+      {isOpen && (
+        <div className={styles.dropdown}>
+          <ul>
+            {clubs.map((club) => (
+              <li className={styles.club} onClick={(e) => handleClubSelect(club, e)}>{club}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
   );
 };
 
