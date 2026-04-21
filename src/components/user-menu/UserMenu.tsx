@@ -9,6 +9,7 @@ import { BsFileBarGraph } from "react-icons/bs";
 import { MdOutlineHelpOutline } from "react-icons/md";
 import { IoSunnyOutline } from "react-icons/io5";
 import { LuMoonStar } from "react-icons/lu";
+import { GrHelpBook } from "react-icons/gr";
 import { useTheme } from "@/context/ThemeContext";
 import { Profile } from "@/types/profile";
 import styles from "./UserMenu.module.scss";
@@ -65,6 +66,10 @@ const UserMenu: React.FC<UserMenuProps> = ({ onLogout, setOpenMenu, profile }) =
           <li onClick={() => handleLinkClick(`/profile/${profile?.username}`)}>
             Profile
             <FaRegUserCircle size={17} color="var(--lightgray)" />
+          </li>
+          <li onClick={() => handleLinkClick(`/guide`)}>
+            Guide
+            <GrHelpBook size={17} color="var(--lightgray)" />
           </li>
           <li onClick={() => handleLinkClick("/settings/edit-profile")}>
             Settings

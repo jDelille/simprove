@@ -8,9 +8,10 @@ import styles from "./UploadCsv.module.scss";
 
 type UploadCsvProps = {
   userId: string;
+  onClose: () => void;
 };
 
-const UploadCsv = ({ userId }: UploadCsvProps) => {
+const UploadCsv = ({ userId, onClose }: UploadCsvProps) => {
   const [sessionName, setSessionName] = useState("");
   const [sessionDate, setSessionDate] = useState(new Date().toISOString());
   const [fileInfo, setFileInfo] = useState<{
@@ -199,7 +200,7 @@ const UploadCsv = ({ userId }: UploadCsvProps) => {
       )}
 
       <div className={styles.buttons}>
-        <Button children="Cancel" onClick={() => {}} variant="secondary" />
+        <Button children="Cancel" onClick={onClose} variant="secondary" />
         <Button children="Upload" onClick={handleUpload} variant="lessonCard" />
       </div>
     </div>

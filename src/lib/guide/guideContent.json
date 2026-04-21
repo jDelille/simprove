@@ -1,0 +1,65 @@
+{
+  "guide": [
+    {
+      "id": 1,
+      "title": "Simprove User Guide",
+      "slug": "getting-started",
+      "description": "The Simprove User Guide contains general feature descriptions",
+      "sections": [
+        {
+          "id": "section1",
+          "title": "What is Simprove?",
+          "body": [
+            {
+              "type": "paragraph",
+              "content": "Simprove is a performance analysis platform designed to help golfers improve by turning simulator data into actionable insights."
+            },
+            {
+              "type": "paragraph",
+              "content": "Instead of looking at isolated numbers, Simprove helps you understand patterns in your game—like consistency, distance control, and ball striking—so you can practice with purpose and make better decisions on the course."
+            },
+            {
+              "type": "paragraph",
+              "content": "It works by taking session data from GSPro and organizing it into clear, easy-to-read metrics and trends."
+            }
+          ]
+        },
+        {
+          "id": "section2",
+          "title": "How Simprove Works",
+          "body": [
+            {
+              "type": "paragraph",
+              "content": "Simprove follows a simple workflow:"
+            },
+            {
+              "type": "list",
+              "content": [
+                "Play a practice session in GSPro",
+                "Export your session data",
+                "Upload the data into Simprove",
+                "Review your performance metrics and trends"
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": "Once your data is uploaded, Simprove automatically processes it and displays insights through your dashboard."
+            }
+          ]
+        }
+      ],
+      "navigation": {
+        "id": "nav1",
+        "type": "navigation",
+        "backText": "last thing",
+        "nextText": "Importing Data"
+      }
+    },
+    {
+      "id": 2,
+      "slug": "importing",
+      "title": "Importing Data",
+      "description": "Learn how to export and import your data"
+    }
+  ]
+}
