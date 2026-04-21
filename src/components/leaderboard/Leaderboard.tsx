@@ -22,8 +22,6 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
     (player: any) => player.period_type === period,
   );
 
-  console.log(filteredLeaderboard);
-
   return (
     <div className={styles.leaderboard}>
       <div className={styles.pageHeader}>

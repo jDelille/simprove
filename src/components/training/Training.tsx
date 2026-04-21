@@ -52,8 +52,6 @@ const Training: React.FC<TrainingProps> = ({
     setDrills(data);
   }
 
-  console.log("activePlan", activePlan);
-
   const handleStartPlan = async () => {
     if (!selectedPlan) return;
 

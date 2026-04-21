@@ -22,8 +22,7 @@ const ProfilePage = async () => {
         fetchSessions(user.id, supabase),
         fetchUserLessons(user.id, supabase),
         fetchProfileInfo(supabase),
-                fetchUserPoints(user.id, supabase),
-        
+        fetchUserPoints(user.id, supabase),
       ])
     : [[], [], null];
 

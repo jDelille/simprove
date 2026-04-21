@@ -11,8 +11,6 @@ type UserRankWidgetProps = {
 
 const UserRankWidget = ({ profile, userPoints }: UserRankWidgetProps) => {
 
-  console.log(userPoints)
-
   return (
     <div className={styles.userRankWidget} id="your-rank">
       <div className={styles.header}>

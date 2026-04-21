@@ -62,15 +62,6 @@ export function calculateAverages(shots: Shot[]): Averages {
     new Set(shots.map((shot) => shot.club).filter(Boolean)),
   ) as string[];
 
-  console.log("shots", shots);
-
-  console.log(
-  shots.map((s) => ({
-    dynamicloft: s.dynamicloft,
-    keys: Object.keys(s),
-  }))
-);
-
   const totals = shots.reduce(
     (acc, shot) => {
       acc.avgCarry += shot?.carry ?? 0;

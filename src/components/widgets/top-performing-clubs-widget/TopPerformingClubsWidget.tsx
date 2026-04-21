@@ -58,8 +58,6 @@ const TopPerformingClubsWidget = ({
     }))
     .sort((a, b) => Math.abs(a.avgAccuracy) - Math.abs(b.avgAccuracy));
 
-  console.log(clubs);
-
   return (
     <div className={styles.topPerformingClubsWidget}>
       <div className={styles.header}>

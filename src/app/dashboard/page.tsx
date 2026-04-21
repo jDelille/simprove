@@ -34,7 +34,7 @@ const DashboardPage = async () => {
         fetchRecentActivity(user.id, supabase),
         fetchUserPoints(user.id, supabase),
       ])
-    : [[], [], null];
+    : [[], [], null, null, [], null, null];
 
   // check if user has completed profile setup
   const userProfile = profileInfo?.profile;

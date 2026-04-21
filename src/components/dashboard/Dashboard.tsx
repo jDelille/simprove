@@ -20,6 +20,8 @@ import { RecentActivity } from "@/types/recentActivity";
 import { Shot } from "@/types/shot";
 import UserRankWidget from "../widgets/user-rank-widget/UserRankWidget";
 import { Profile } from "@/types/profile";
+import { useEffect } from "react";
+import GSProData from "../gspro/GSProData";
 
 type DashboardProps = {
   sessions: Session[];
@@ -38,7 +40,7 @@ const Dashboard = ({
   activeLesson,
   recentActivity,
   profile,
-  userPoints
+  userPoints,
 }: DashboardProps) => {
   const shots = sessions.flatMap((session) => session.shots);
 
@@ -95,8 +97,6 @@ const Dashboard = ({
     ? gettingStartedCompletions.length === 4
     : false;
 
-  console.log("userPoints in Dashboard:", userPoints);
-
   return (
     <div className={styles.dashboard}>
       {/* left side */}
@@ -140,6 +140,10 @@ const Dashboard = ({
             trendText={`${profileMetrics.mostUsedClubCount || 0} total shots with this club`}
             isEmpty={sessions.length === 0}
           />
+        </div>
+
+        <div className={styles.row}>
+          <GSProData />
         </div>
 
         <div className={styles.row}>
