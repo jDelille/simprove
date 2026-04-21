@@ -142,9 +142,9 @@ const Dashboard = ({
           />
         </div>
 
-        <div className={styles.row}>
+        {/* <div className={styles.row}>
           <GSProData />
-        </div>
+        </div> */}
 
         <div className={styles.row}>
           <AveragesGraphWidget sessions={sessions} />
