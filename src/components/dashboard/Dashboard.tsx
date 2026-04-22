@@ -5,7 +5,6 @@ import {
   AveragesGraphWidget,
   LessonPlanWidget,
   MissTendencyWidget,
-  RecentActivityWidget,
   SmallStatWidget,
 } from "../widgets";
 import { calculateProfileStats } from "@/lib/profile-stats/ProfileStats";
@@ -15,13 +14,11 @@ import SwingMetricsWidget from "../widgets/swing-metrics-widget/SwingMetricsWidg
 import GettingStartedWidget from "../widgets/getting-started-widget/GettingStartedWidget";
 import { Session } from "@/types/session";
 import { GettingStartedCompletions } from "@/types/gettingStartedCompletions";
-import { ActiveLesson } from "@/types/activeLesson";
 import { RecentActivity } from "@/types/recentActivity";
 import { Shot } from "@/types/shot";
 import UserRankWidget from "../widgets/user-rank-widget/UserRankWidget";
 import { Profile } from "@/types/profile";
-import { useEffect } from "react";
-import GSProData from "../gspro/GSProData";
+import LatestRoundWidget from "../widgets/latest-round-widget/LatestRoundWidget";
 
 type DashboardProps = {
   sessions: Session[];
@@ -31,6 +28,7 @@ type DashboardProps = {
   recentActivity?: RecentActivity[];
   profile: Profile;
   userPoints: any;
+  latestRound: any;
 };
 
 const Dashboard = ({
@@ -38,9 +36,9 @@ const Dashboard = ({
   userId,
   gettingStartedCompletions,
   activeLesson,
-  recentActivity,
   profile,
   userPoints,
+  latestRound,
 }: DashboardProps) => {
   const shots = sessions.flatMap((session) => session.shots);
 
@@ -142,10 +140,6 @@ const Dashboard = ({
           />
         </div>
 
-        {/* <div className={styles.row}>
-          <GSProData />
-        </div> */}
-
         <div className={styles.row}>
           <AveragesGraphWidget sessions={sessions} />
         </div>
@@ -161,6 +155,12 @@ const Dashboard = ({
         {!hasCompletedGettingStarted && (
           <div className={styles.row}>
             <GettingStartedWidget completions={gettingStartedCompletions} />
+          </div>
+        )}
+
+        {latestRound && (
+          <div className={styles.row}>
+            <LatestRoundWidget latestRound={latestRound} />
           </div>
         )}
 

@@ -15,6 +15,7 @@ import { FaChevronDown } from "react-icons/fa6";
 import { createClient } from "@/lib/supabase/client";
 import { Profile } from "@/types/profile";
 import RestartTourButton from "../tour-controller/RestartTourButton";
+import GSProSync from "../gspro/gspro-sync/GSProSync";
 
 type AuthAction = "login" | "signup" | "logout";
 
@@ -118,6 +119,13 @@ const Navbar: React.FC<NavbarProps> = ({ profile }) => {
                     onClick={() => openModal("upload")}
                   />
                 </div>
+                <div className={styles.syncBtnContainer}>
+                  <Button 
+                    variant="upload"
+                    children="Sync"
+                    onClick={() => openModal("sync")}
+                  />
+                </div>
                 <div
                   className={styles.userAvatar}
                   onClick={() => setOpenMenu(!openMenu)}
@@ -152,6 +160,14 @@ const Navbar: React.FC<NavbarProps> = ({ profile }) => {
         title="Upload your session data"
         body={<UploadCsv userId={profile?.id as string} onClose={() => closeModal("upload")} />}
         description="Upload a CSV file from your launch monitor software."
+      />
+
+      <Modal
+        isOpen={modals["sync"] || false}
+        onClose={() => closeModal("sync")}
+        title="Sync your GSPro Data"
+        body={<GSProSync userId={profile?.id as string} onClose={() => closeModal("sync")}/>}
+        description="Sync with GSPro Portal and import your round data"
       />
     </nav>
   );

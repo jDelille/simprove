@@ -1,0 +1,144 @@
+.gsproSync {
+  .disclaimer {
+    background-color: var(--green);
+    border: 1px solid var(--greenBorder);
+    color: var(--greenText);
+    padding: 10px;
+    border-radius: 6px;
+    display: flex;
+    font-size: 12px;
+    gap: 10px;
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      .links {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        div {
+          display: flex;
+          align-items: center;
+          gap: 3px;
+          position: relative;
+          left: -3px;
+          &:hover {
+            color: var(--chartGreen);
+            cursor: pointer;
+            
+          }
+        }
+      }
+    }
+  }
+
+  .pending {
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .title {
+        font-size: 12px;
+      }
+      .refreshBtn {
+        all: unset;
+        font-size: 12px;
+        cursor: pointer;
+      }
+    }
+
+    .pendingRounds {
+      border-radius: 6px;
+      font-size: 14px;
+
+      .empty {
+        text-align: center;
+        padding: 1rem 0;
+        color: var(--lightgray);
+      }
+    }
+
+    .filter {
+      font-size: 12px;
+
+      button {
+        all: unset;
+        border: 1px solid var(--grayBorder);
+        background-color: var(--gray);
+        color: var(--grayText);
+        padding: 4px 10px;
+        border-radius: 22px;
+        cursor: pointer;
+      }
+
+      .active {
+        border: 1px solid var(--greenBorder);
+        background-color: var(--green);
+        color: var(--greenText);
+      }
+    }
+
+    .rounds {
+      max-height: 355px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #e2e7ee transparent;
+      ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .round {
+        background-color: var(--messageBg);
+        border: 1px solid var(--border);
+        padding: 15px 10px;
+        border-radius: 6px;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        .select {
+          border: 1px solid var(--border);
+          background-color: var(--bg);
+          width: 18px;
+          height: 18px;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+
+        .roundInfo {
+          font-size: 12px;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          width: 100%;
+
+          .name {
+            font-size: 14px;
+            font-weight: 400;
+          }
+
+          .settings {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            justify-content: space-between;
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+  }
+}

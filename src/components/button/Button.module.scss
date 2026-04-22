@@ -44,10 +44,10 @@
 
 .upload {
   background-color: #f7d052;
-  padding: 7px 12px;
-  color: #000;
-  font-size: 12px;
-  font-weight: 600;
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
   &:hover {
     background-color: darken(#facd39, 10%);
   }

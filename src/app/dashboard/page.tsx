@@ -2,6 +2,7 @@ import Dashboard from "@/components/dashboard/Dashboard";
 import { createSupabaseServer } from "@/lib/supabase/server";
 import { fetchRecentActivity } from "@/services/activity/fetchRecentActivity";
 import { fetchGettingStartedCompletions } from "@/services/getting-started-completions/fetchGettingStartedCompletions";
+import { fetchLatestRound } from "@/services/gspro/fetchLatestRound";
 import { fetchActiveLesson } from "@/services/lessons/fetchActiveLesson";
 import { fetchProfileInfo } from "@/services/profile-info/fetchProfileInfo";
 import { fetchSessions } from "@/services/sessions/fetchSessions";
@@ -25,6 +26,7 @@ const DashboardPage = async () => {
     activeLesson,
     recentActivity,
     userPoints,
+    latestRound
   ] = user?.id
     ? await Promise.all([
         fetchSessions(user.id, supabase),
@@ -33,6 +35,7 @@ const DashboardPage = async () => {
         fetchActiveLesson(user.id, supabase),
         fetchRecentActivity(user.id, supabase),
         fetchUserPoints(user.id, supabase),
+        fetchLatestRound(user.id, supabase)
       ])
     : [[], [], null, null, [], null, null];
 
@@ -71,6 +74,7 @@ const DashboardPage = async () => {
           recentActivity={recentActivity || []}
           profile={userProfile}
           userPoints={userPoints}
+          latestRound={latestRound}
         />
       </div>
     </div>
