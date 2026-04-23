@@ -22,7 +22,11 @@ Simprove lets golfers import data from their launch monitor, track stats over ti
 and get AI-powered lesson recommendations based on their performance.
 
 ## Upcomming Features
-Connect your GsPro account and import your round data to see how you're performing on a course
+Using the GSPro Portal extension, sync your round data to Simprove.
+View your detailed round data include fairways hit, greens hit, sand saves, pars, birdies, bogeys, etc.
+Earn points based on round performance.
+Compete against others by trying to get the best score on a course.
+Compete course specific challenges.
 
 ## Tech Stack
 - Next.js
