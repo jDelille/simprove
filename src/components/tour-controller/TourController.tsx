@@ -3,7 +3,7 @@
 import { Profile } from "@/types/profile";
 import { usePathname } from "next/navigation";
 import { useNextStep } from "nextstepjs";
-import { useEffect } from "react";
+import react, { useEffect } from "react";
 
 type TourControllerProps = {
   profile: Profile;
