@@ -25,7 +25,7 @@ const LatestRoundWidget = ({ latestRound }: LatestRoundWidget) => {
           {latestRound.tee_type} tees · {latestRound.hole_count} holes · Par{" "}
           {latestRound.par}
         </p>
-        <Link href={`/rounds/${latestRound.round_key}`} className={styles.link}>View round</Link>
+        <Link href={`/round/${latestRound.round_key}`} className={styles.link}>View round</Link>
       </div>
     </div>
   );

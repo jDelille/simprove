@@ -1,0 +1,31 @@
+.round {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  padding-top: 2rem;
+  .pageHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    .backBtn {
+      font-size: 12px;
+      color: var(--lightgray);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      button {
+        all: unset;
+        font-weight: 500;
+        &:hover {
+          color: var(--accent);
+
+          svg {
+            fill: var(--accent);
+          }
+        }
+      }
+    }
+  }
+}

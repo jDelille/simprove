@@ -1,0 +1,75 @@
+.activities {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 2rem;
+
+  .pageHeader {
+    display: flex;
+    justify-content: space-between;
+    .title {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      h1 {
+        font-size: 26px;
+      }
+      p {
+        font-size: 14px;
+        color: var(--lightgray);
+      }
+    }
+
+    .controls {
+      ul {
+        display: flex;
+        height: 40px;
+        background-color: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 2px 5px;
+        li {
+          display: flex;
+          align-items: center;
+          padding: 0 15px;
+          font-size: 14px;
+          border-radius: 6px;
+          cursor: pointer;
+        }
+
+        .active {
+          background-color: var(--primaryHover);
+        }
+      }
+    }
+  }
+
+  .activitiesList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+
+    .month {
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      color: var(--lightgray);
+
+      .line {
+        flex: 1;
+        background-color: var(--border);
+        height: 1px;
+      }
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+  }
+}

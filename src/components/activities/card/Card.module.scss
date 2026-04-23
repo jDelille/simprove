@@ -1,0 +1,99 @@
+.card {
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--primaryHover);
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .roundIcon,
+    .sessionIcon {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+    }
+
+    .roundIcon {
+      background-color: var(--green);
+      border: 1px solid var(--greenBorder);
+    }
+
+    .sessionIcon {
+      background-color: var(--lightBlue);
+      border: 1px solid var(--blueBorder);
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      p {
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        .roundBadge,
+        .sessionBadge {
+          padding: 2px 4px;
+          border-radius: 4px;
+          text-transform: uppercase;
+          font-size: 10px;
+          font-weight: 600;
+        }
+
+        .roundBadge {
+          background-color: var(--green);
+          color: var(--greenText);
+          border: 1px solid var(--greenBorder);
+        }
+
+        .sessionBadge {
+          background-color: var(--lightBlue);
+          border: 1px solid var(--blueBorder);
+          color: var(--blueText);
+        }
+      }
+
+      span {
+        color: var(--lightgray);
+        font-size: 11px;
+      }
+    }
+
+    .stats {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      .stat {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100px;
+
+        span {
+          font-size: 10px;
+        }
+
+        p {
+          font-size: 14px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}

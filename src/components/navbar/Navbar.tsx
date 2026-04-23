@@ -50,9 +50,9 @@ const Navbar: React.FC<NavbarProps> = ({ profile }) => {
 
   const navLinks = [
     { href: "/dashboard", label: "Dashboard", key: 1 },
-    { href: "/sessions", label: "Sessions", key: 2 },
-    { href: "/training", label: "Training", key: 3 },
-    { href: `/profile/${profile?.username}`, label: "Profile", key: 4 },
+    { href: "/activities", label: "Activities", key: 3 },
+    { href: "/training", label: "Training", key: 4 },
+    { href: `/profile/${profile?.username}`, label: "Profile", key: 5 },
     // { href: "/community", label: "Community", key: 4 },
     // { href: "/challenges", label: "Challenges", key: 5 },
     // { href: "/about", label: "About", key: 6 },
