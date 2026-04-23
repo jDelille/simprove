@@ -21,6 +21,8 @@ const GSProSync = ({ onClose, userId }: GSProSyncProps) => {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [rawData, setRawData] = useState<any>(null);
 
+  console.log(selected);
+
   const fetchRounds = () => {
     const saved = localStorage.getItem(STORAGE_KEY);
     const savedRaw = localStorage.getItem("gsproRawData");
@@ -35,6 +37,7 @@ const GSProSync = ({ onClose, userId }: GSProSyncProps) => {
       .then((res) => res.json())
       .then((json) => {
         const incoming = json?.[0]?.Rounds_Rounds ?? [];
+        console.log(json);
         if (incoming.length > 0) {
           setRounds(incoming);
           setRawData(json[0]);
@@ -60,13 +63,72 @@ const GSProSync = ({ onClose, userId }: GSProSyncProps) => {
     });
   };
 
+  const scorecardByRound = new Map<string, any[]>();
+
+  rawData?.RoundScorecards?.forEach((row: any) => {
+    if (!scorecardByRound.has(row.roundKey)) {
+      scorecardByRound.set(row.roundKey, []);
+    }
+    scorecardByRound.get(row.roundKey)!.push(row);
+  });
+
   const handleImport = async () => {
     const toImport = displayedRounds.filter((r) => selected.has(r.roundKey));
+
+    const holeRows = toImport.flatMap((round) => {
+      const scorecardRows = scorecardByRound.get(round.roundKey) ?? [];
+
+      const courseRow = scorecardRows.find(
+        (s) => s.playerKey === null && s.rowLabel === "Blue",
+      );
+
+      const parRow = scorecardRows.find(
+        (s) => s.playerKey === null && s.rowLabel === "Par",
+      );
+
+      const indexRow = scorecardRows.find(
+        (s) => s.playerKey === null && s.rowLabel === "Index",
+      );
+
+      const playerRow = scorecardRows.find((s) => s.playerKey !== null);
+
+      if (!courseRow || !playerRow) return [];
+      return Array.from({ length: 18 }).map((_, i) => {
+        const hole = i + 1;
+
+        return {
+          round_key: round.roundKey,
+          hole_number: hole,
+
+          // tee distance
+          distance: courseRow?.holeValue?.[hole]
+            ? Number(courseRow.holeValue[hole])
+            : null,
+
+          // player strokes
+          strokes: playerRow?.holeValue?.[hole]
+            ? Number(playerRow.holeValue[hole])
+            : null,
+
+          // par per hole
+          par: parRow?.holeValue?.[hole]
+            ? Number(parRow.holeValue[hole])
+            : null,
+
+          // hole index (handicap ranking)
+          index: indexRow?.holeValue?.[hole]
+            ? Number(indexRow.holeValue[hole])
+            : null,
+        };
+      });
+    });
     await uploadGSProRound({
       userId,
       rounds: toImport,
       allScores: rawData?.RoundScores ?? [],
+      holes: holeRows,
     });
+
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem("gsproRawData");
     setRounds([]);

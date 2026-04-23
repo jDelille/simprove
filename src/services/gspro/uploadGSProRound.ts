@@ -4,10 +4,12 @@ export async function uploadGSProRound({
   userId,
   rounds,
   allScores,
+  holes,
 }: {
   userId: string;
   rounds: any[];
   allScores: any[];
+  holes: any[];
 }) {
   const { data: insertedRounds, error } = await supabase
     .from("rounds")
@@ -26,7 +28,7 @@ export async function uploadGSProRound({
         hidden_from_stats: r.hiddenFromStatsTF,
         round_key: r.roundKey,
         total: r.total,
-      })),
+      }))
     )
     .select();
 
@@ -35,7 +37,7 @@ export async function uploadGSProRound({
   const scoreInserts = insertedRounds
     .map((insertedRound) => {
       const score = allScores.find(
-        (s) => s.roundKey === insertedRound.round_key,
+        (s) => s.roundKey === insertedRound.round_key
       );
       if (!score) return null;
 
@@ -72,11 +74,42 @@ export async function uploadGSProRound({
     })
     .filter(Boolean);
 
-  if (scoreInserts.length > 0) {
+  if (scoreInserts.length) {
     const { error: scoreError } = await supabase
       .from("round_scores")
       .insert(scoreInserts);
 
     if (scoreError) throw scoreError;
+  }
+
+  const holeInserts = insertedRounds.flatMap((insertedRound) => {
+    const roundKey = insertedRound.round_key;
+
+    const roundHoles = holes.filter(
+      (h) => h.round_key === roundKey
+    );
+
+    if (!roundHoles.length) return [];
+
+    return roundHoles.map((h) => ({
+      round_id: insertedRound.id,
+      round_key: roundKey,
+      user_id: userId,
+
+      hole_number: h.hole_number,
+
+      strokes: h.strokes ?? null,
+      distance: h.distance ?? null,
+      par: h.par ?? null,
+      index: h.index ?? null,
+    }));
+  });
+
+  if (holeInserts.length) {
+    const { error: holeError } = await supabase
+      .from("round_holes")
+      .insert(holeInserts);
+
+    if (holeError) throw holeError;
   }
 }

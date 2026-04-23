@@ -102,6 +102,7 @@
         display: flex;
         gap: 1rem;
         align-items: center;
+        cursor: pointer;
         .select {
           border: 1px solid var(--border);
           background-color: var(--bg);
@@ -131,6 +132,12 @@
             width: 100%;
           }
         }
+      }
+
+      .selected {
+        background-color: var(--lightBlue);
+        color: var(--blueText);
+        border: 1px solid var(--blueBorder);
       }
     }
 

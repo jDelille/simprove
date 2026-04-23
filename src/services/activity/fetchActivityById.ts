@@ -1,7 +1,7 @@
 type ActivityType = "round" | "session";
 
 const ACTIVITY_QUERIES: Record<ActivityType, string> = {
-  round: "*, round_scores (*)",
+  round: "*, round_scores (*), round_holes (*)",
   session: "*",
 };
 
