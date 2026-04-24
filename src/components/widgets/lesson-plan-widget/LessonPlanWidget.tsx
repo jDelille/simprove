@@ -3,9 +3,9 @@
 import React from "react";
 import styles from "./LessonPlanWidget.module.scss";
 import Link from "next/link";
-import Button from "@/components/button/Button";
 import { useRouter } from "next/navigation";
 import { ActiveLesson } from "@/types/activeLesson";
+import Button from "@/components/ui/button/Button";
 
 type LessonPlanWidgetProps = {
   userId: string;

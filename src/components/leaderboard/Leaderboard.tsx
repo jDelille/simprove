@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import styles from "./Leaderboard.module.scss";
-import Avatar from "../avatar/Avatar";
 import Link from "next/link";
+import Avatar from "../ui/avatar/Avatar";
+import styles from "./Leaderboard.module.scss";
 
 type LeaderboardProps = {
   leaderboardData: any;

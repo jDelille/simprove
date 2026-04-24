@@ -2,9 +2,9 @@ import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { uploadSession } from "@/services/sessions/uploadSession";
-import Button from "../button/Button";
 import Papa from "papaparse";
 import styles from "./UploadCsv.module.scss";
+import Button from "../ui/button/Button";
 
 type UploadCsvProps = {
   userId: string;

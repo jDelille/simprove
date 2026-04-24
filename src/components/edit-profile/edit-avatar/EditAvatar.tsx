@@ -1,9 +1,9 @@
-import Avatar from "@/components/avatar/Avatar";
 import styles from "./EditAvatar.module.scss";
-import Button from "@/components/button/Button";
 import { useRef, useState } from "react";
 import { uploadProfilePicture } from "@/services/profile-picture/uploadProfilePicture";
 import { createClient } from "@/lib/supabase/client";
+import Avatar from "@/components/ui/avatar/Avatar";
+import Button from "@/components/ui/button/Button";
 
 type EditAvatarProps = {
   avatar?: string | null;

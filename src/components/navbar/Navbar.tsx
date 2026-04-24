@@ -5,17 +5,17 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "./Navbar.module.scss";
 import useModal from "@/hooks/useModal";
-import Modal from "../modal/Modal";
 import UploadCsv from "../upload-csv/UploadCsv";
-import Button from "../button/Button";
 import React, { useState } from "react";
 import UserMenu from "../user-menu/UserMenu";
-import Avatar from "../avatar/Avatar";
 import { FaChevronDown } from "react-icons/fa6";
 import { createClient } from "@/lib/supabase/client";
 import { Profile } from "@/types/profile";
 import RestartTourButton from "../tour-controller/RestartTourButton";
 import GSProSync from "../gspro/gspro-sync/GSProSync";
+import Button from "../ui/button/Button";
+import Avatar from "../ui/avatar/Avatar";
+import Modal from "../ui/modal/Modal";
 
 type AuthAction = "login" | "signup" | "logout";
 

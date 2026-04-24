@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import RecentSessionsWidget from "../widgets/recent-sessions-widget/RecentSessionsWidget";
 import styles from "./Profile.module.scss";
-import ProfileHeader from "../profile-header/ProfileHeader";
 import MyBag from "../my-bag/MyBag";
 import LifetimeAveragesWidget from "../widgets/lifetime-averages-widget/LifetimeAveragesWidget";
 import UserLessonsWidget from "../widgets/user-lessons-widget/UserLessonsWidget";
@@ -12,8 +11,9 @@ import { Profile as ProfileTypes } from "@/types/profile";
 import { MyClubs } from "@/types/myClubs";
 import { Lesson } from "@/types/lesson";
 import UserRankWidget from "../widgets/user-rank-widget/UserRankWidget";
-import TopPerformingClubsWidget from "../widgets/top-performing-clubs-widget/TopPerformingClubsWidget";
 import { AveragesGraphWidget } from "../widgets";
+import ProfileHeader from "./profile-header/ProfileHeader";
+import TopPerformingClubsWidget from "./widgets/top-performing-clubs-widget/TopPerformingClubsWidget";
 
 type ProfileProps = {
   userId: string;

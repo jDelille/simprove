@@ -6,14 +6,14 @@ import moment from "moment";
 import SessionCard from "../session-card/SessionCard";
 import { useState } from "react";
 import { calculateAverages } from "@/lib/shots/averages";
-import Button from "../button/Button";
 import { FaSquareMinus } from "react-icons/fa6";
 import { deleteSession } from "@/services/sessions/deleteSession";
 import usePopup from "@/hooks/usePopup";
-import Popup from "../popup/Popup";
 import { useQueryClient } from "@tanstack/react-query";
 import { Session } from "@/types/session";
 import { Profile } from "@/types/profile";
+import Button from "../ui/button/Button";
+import Popup from "../ui/popup/Popup";
 
 type SessionGroup = {
   date: string;

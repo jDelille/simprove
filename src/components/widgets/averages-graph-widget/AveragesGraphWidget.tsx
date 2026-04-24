@@ -5,10 +5,10 @@ import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 import styles from "./AveragesGraphWidget.module.scss";
 import { getClubAverages } from "@/lib/shots/averages";
-import Button from "@/components/button/Button";
 import { FaChartBar } from "react-icons/fa";
 import useModal from "@/hooks/useModal";
 import { Session } from "@/types/session";
+import Button from "@/components/ui/button/Button";
 
 type AveragesGraphWidgetProps = {
   sessions: Session[];

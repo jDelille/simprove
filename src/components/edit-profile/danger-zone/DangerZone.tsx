@@ -1,7 +1,6 @@
-import React from "react";
-import styles from "./DangerZone.module.scss";
-import Button from "@/components/button/Button";
 import { Profile } from "@/types/profile";
+import Button from "@/components/ui/button/Button";
+import styles from "./DangerZone.module.scss";
 
 type DangerZoneProps = {
   profile: Profile;

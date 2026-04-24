@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import styles from "./GSProSync.module.scss";
 import moment from "moment";
-import Button from "@/components/button/Button";
 import { uploadGSProRound } from "@/services/gspro/uploadGSProRound";
 import { MdInfoOutline } from "react-icons/md";
 import { FaLongArrowAltDown, FaLongArrowAltRight } from "react-icons/fa";
+import Button from "@/components/ui/button/Button";
 
 const STORAGE_KEY = "pendingRounds";
 

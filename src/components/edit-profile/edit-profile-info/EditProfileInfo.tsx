@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import styles from "./EditProfileInfo.module.scss";
 import { Profile } from "@/types/profile";
-import Button from "@/components/button/Button";
 import { uploadProfileInfo } from "@/services/profile-info/uploadProfileInfo";
+import styles from "./EditProfileInfo.module.scss";
+import Button from "@/components/ui/button/Button";
 
 type EditProfileInfoProps = {
   profile: Profile;

@@ -3,13 +3,13 @@
 import React from "react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import Avatar from "../avatar/Avatar";
 import { FaLocationDot } from "react-icons/fa6";
 import moment from "moment";
 import { GoPencil } from "react-icons/go";
 import styles from "./ProfileHeader.module.scss";
-import ContentTabs from "../content-tabs/ContentTabs";
 import { Profile } from "@/types/profile";
+import Avatar from "@/components/ui/avatar/Avatar";
+import ContentTabs from "@/components/content-tabs/ContentTabs";
 
 type ProfileHeaderProps = {
   userId: string;

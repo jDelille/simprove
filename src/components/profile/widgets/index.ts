@@ -1,0 +1,1 @@
+export { default as TopPerformingClubs} from './top-performing-clubs-widget/TopPerformingClubsWidget';

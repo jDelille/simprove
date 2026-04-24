@@ -1,6 +1,6 @@
+import Avatar from "@/components/ui/avatar/Avatar";
 import styles from "./UserRankWidget.module.scss";
 import { Profile } from "@/types/profile";
-import Avatar from "@/components/avatar/Avatar";
 import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa6";
 
@@ -10,7 +10,6 @@ type UserRankWidgetProps = {
 };
 
 const UserRankWidget = ({ profile, userPoints }: UserRankWidgetProps) => {
-
   return (
     <div className={styles.userRankWidget} id="your-rank">
       <div className={styles.header}>
@@ -35,7 +34,9 @@ const UserRankWidget = ({ profile, userPoints }: UserRankWidgetProps) => {
             </div>
             <div className={styles.box}>
               <p>this week</p>
-              <h3 className={styles.weeklyPoints}>+{userPoints?.weeklyPoints}</h3>
+              <h3 className={styles.weeklyPoints}>
+                +{userPoints?.weeklyPoints}
+              </h3>
             </div>
           </div>
         </div>

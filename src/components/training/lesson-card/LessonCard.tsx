@@ -1,7 +1,7 @@
-import Button from "@/components/button/Button";
-import styles from "./LessonCard.module.scss";
 import { FaStar } from "react-icons/fa";
 import { tagStyles } from "@/lib/tagStyles";
+import styles from "./LessonCard.module.scss";
+import Button from "@/components/ui/button/Button";
 
 type LessonCardProps = {
   plan: any;

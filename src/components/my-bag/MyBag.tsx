@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styles from "./MyBag.module.scss";
-import Button from "../button/Button";
 import usePopup from "@/hooks/usePopup";
-import Popup from "../popup/Popup";
 import { uploadGolfBag } from "@/services/golf-bag/uploadGolfBag";
 import { MyClubs } from "@/types/myClubs";
+import Button from "../ui/button/Button";
+import Popup from "../ui/popup/Popup";
 
 type MyBagProps = {
   userId: string;

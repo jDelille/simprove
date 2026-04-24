@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./EditLogin.module.scss";
-import Button from "@/components/button/Button";
 import { Profile } from "@/types/profile";
+import Button from "@/components/ui/button/Button";
+import styles from "./EditLogin.module.scss";
 
 type EditLoginProps = {
   profile: Profile;

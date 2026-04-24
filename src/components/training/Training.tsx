@@ -5,7 +5,7 @@ import ActivePlan from "./active-plan/ActivePlan";
 import RecommendedPlans from "./recommended-plans/RecommendedPlans";
 import BrowsePlans from "./browse-plans/BrowsePlans";
 import useModal from "@/hooks/useModal";
-import Modal from "../modal/Modal";
+import Modal from "../resuable/modal/Modal";
 import { act, useState } from "react";
 import { fetchLessonDrills } from "@/services/lessons/fetchLessonDrills";
 import LessonModalBody from "./lesson-modal-body/LessonModalBody";

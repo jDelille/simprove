@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "./LessonModalBody.module.scss";
 import { tagStyles } from "@/lib/tagStyles";
-import { FaChevronDown, FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import { IoCloseOutline } from "react-icons/io5";
-import Button from "@/components/button/Button";
+import styles from "./LessonModalBody.module.scss";
+import Button from "@/components/ui/button/Button";
 
 type LessonModalBodyProps = {
   selectedPlan: any;
