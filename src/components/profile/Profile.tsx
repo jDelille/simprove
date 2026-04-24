@@ -1,11 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import RecentSessionsWidget from "../widgets/recent-sessions-widget/RecentSessionsWidget";
 import styles from "./Profile.module.scss";
 import MyBag from "../my-bag/MyBag";
-import LifetimeAveragesWidget from "../widgets/lifetime-averages-widget/LifetimeAveragesWidget";
-import UserLessonsWidget from "../widgets/user-lessons-widget/UserLessonsWidget";
 import { Session } from "@/types/session";
 import { Profile as ProfileTypes } from "@/types/profile";
 import { MyClubs } from "@/types/myClubs";
@@ -13,7 +10,12 @@ import { Lesson } from "@/types/lesson";
 import UserRankWidget from "../widgets/user-rank-widget/UserRankWidget";
 import { AveragesGraphWidget } from "../widgets";
 import ProfileHeader from "./profile-header/ProfileHeader";
-import TopPerformingClubsWidget from "./widgets/top-performing-clubs-widget/TopPerformingClubsWidget";
+import {
+  LifetimeAveragesWidget,
+  RecentSessionsWidget,
+  TopPerformingClubsWidget,
+  UserLessonsWidget,
+} from "./widgets";
 
 type ProfileProps = {
   userId: string;
@@ -37,9 +39,6 @@ const Profile: React.FC<ProfileProps> = ({
   const overViewContent = (
     <div className={styles.content}>
       <div className={styles.column}>
-        {/* <div className={styles.row}>
-          <AchievementsWidgets userId={userId} badges={badges} />
-        </div> */}
         <div className={styles.row}>
           <TopPerformingClubsWidget sessions={sessions} />
         </div>
