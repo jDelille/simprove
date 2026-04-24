@@ -37,7 +37,6 @@ const GSProSync = ({ onClose, userId }: GSProSyncProps) => {
       .then((res) => res.json())
       .then((json) => {
         const incoming = json?.[0]?.Rounds_Rounds ?? [];
-        console.log(json);
         if (incoming.length > 0) {
           setRounds(incoming);
           setRawData(json[0]);

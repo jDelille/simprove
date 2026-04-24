@@ -1,0 +1,33 @@
+@use "@/styles/mixins" as *;
+
+.widget {
+  @include widget();
+
+  .header {
+    @include widgetHeader();
+
+    span {
+      font-size: 12px;
+      color: var(--lightgray);
+    }
+  }
+
+  .content {
+    .legend {
+      display: flex;
+      gap: 1rem;
+      .legendItem {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 12px;
+        color: var(--lightgray);
+        .legendDot {
+          width: 10px;
+          height: 10px;
+          border-radius: 2px;
+        }
+      }
+    }
+  }
+}

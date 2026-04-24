@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import moment from "moment";
 import ActivityStatWidget from "../widgets/activity-stat-widget/ActivityStatWidget";
 import styles from "./Activity.module.scss";
+import HoleByHoleWidget from "../widgets/hole-by-hole-widget/HoleByHoleWidget";
 
 type ActivityProps = {
   activity: any;
@@ -73,7 +74,7 @@ const Activity = ({ activity }: ActivityProps) => {
           </div>
           <div className={styles.score}>
             <p>{activity.total}</p>
-            <span>{formatOverPar((Number(activity.total) - activity.par))} vs {activity.par}</span>
+            {/* <span>{formatOverPar((Number(activity.total) - activity.par))} vs {activity.par}</span> */}
           </div>
         </div>
       </div>
@@ -136,11 +137,15 @@ const Activity = ({ activity }: ActivityProps) => {
           />
         </div>
         <div className={styles.row}>
-          <div className={styles.chart}></div>
+          <HoleByHoleWidget roundHoles={activity.round_holes} />
         </div>
         <div className={styles.row}>
           <div className={styles.chart}></div>
           <div className={styles.chart}></div>
+        </div>
+
+        <div className={styles.row}>
+
         </div>
       </div>
     </div>

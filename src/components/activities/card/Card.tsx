@@ -17,8 +17,6 @@ const Card = ({ item }: CardProps) => {
     clubs = [...new Set(item.shots.map((shot: Shot) => shot.club))];
     averages = calculateAverages(item.shots || []);
   }
-  console.log(item);
-
   const roundCard = (
     <div className={styles.content}>
       <div className={styles.roundIcon}>⛳</div>

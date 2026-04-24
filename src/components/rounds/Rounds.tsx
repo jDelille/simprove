@@ -6,8 +6,6 @@ type RoundsProps = {
 };
 
 const Rounds = ({ rounds }: RoundsProps) => {
-  console.log(rounds);
-
   return (
     <div className={styles.rounds}>
       <div className={styles.pageHeader}>

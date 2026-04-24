@@ -13,9 +13,6 @@ const ActivityPage = async ({ params, searchParams }: ActivityPageProps) => {
   const { id } = await params;
   const { type } = (await searchParams) as { type: ActivityType };
 
-  console.log("id:", id);
-  console.log("type:", type);
-
   if (!type) return null; // or redirect to 404
 
   const supabase = await createSupabaseServer();
