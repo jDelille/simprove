@@ -9,6 +9,7 @@ import { FaChartBar } from "react-icons/fa";
 import useModal from "@/hooks/useModal";
 import { Session } from "@/types/session";
 import Button from "@/components/ui/button/Button";
+import { IoInformationCircleOutline } from "react-icons/io5";
 
 type AveragesGraphWidgetProps = {
   sessions: Session[];
@@ -62,7 +63,7 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
     const seriesData = clubStatsArray.map((s) => ({
       name: s.club,
       y: s[selectedMetric] || 0,
-      color: "var(--chartBlue)",
+      color: "#29ba7e",
     }));
 
     return {
@@ -159,7 +160,7 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
       },
       plotOptions: {
         column: {
-          borderRadius: { radius: 3, where: "end" },
+          borderRadius: { radius: 6, where: "end" },
           borderWidth: 0,
           animation: { duration: 800, easing: "easeOutBounce" },
         },
@@ -190,11 +191,13 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
     };
   }, [selectedMetric, clubStatsArray, metric]);
 
+  console.log(sessions)
+
   return (
     <div className={styles.graphContainer} id="averages-graph">
       <div className={styles.header}>
         <div className={styles.text}>
-          <p className={styles.selectedMetric}>{metric?.label}</p>
+          <p className={styles.selectedMetric}>{metric?.label} <IoInformationCircleOutline /></p>
           <span>Average performance by club</span>
         </div>
 

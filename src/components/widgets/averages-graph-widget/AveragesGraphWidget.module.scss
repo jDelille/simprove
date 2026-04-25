@@ -23,6 +23,16 @@
       flex-direction: column;
       gap: 4px;
 
+      .selectedMetric {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+
+        svg {
+          cursor: pointer;
+        }
+      }
+
       span {
         font-size: 13px;
         font-weight: 400;
@@ -139,5 +149,7 @@
       }
     }
   }
+
+
 
 }

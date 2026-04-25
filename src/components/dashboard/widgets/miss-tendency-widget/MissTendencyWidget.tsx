@@ -8,6 +8,7 @@ import {
 } from "react-icons/hi";
 import ClubSelect from "@/components/club-select/ClubSelect";
 import { Shot } from "@/types/shot";
+import { IoInformationCircleOutline } from "react-icons/io5";
 
 type MissTendencyWidgetProps = {
   shots: Shot[];
@@ -80,7 +81,7 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
   return (
     <div className={styles.widget} id="miss-tendency">
       <div className={styles.header}>
-        <p>Miss Tendency</p>
+        <p>Miss Tendency <IoInformationCircleOutline /></p>
         <span>Offline · Face to target · Swing path</span>
       </div>
       {!isEmpty && (
@@ -94,10 +95,14 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
             <div className={styles.labels}>
               <p>
                 <HiOutlineArrowNarrowLeft />
-                Left miss
+                Left
+              </p>
+              <p className={styles.value}>
+                {" "}
+                {isEmpty ? "—" : avgOffline.toFixed(1)} yds
               </p>
               <p>
-                Right miss
+                Right
                 <HiOutlineArrowNarrowRight />
               </p>
             </div>
@@ -125,33 +130,42 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
                   height: 14,
                   borderRadius: "50%",
                   outline: "2px solid var(--accent)",
-                  background: isEmpty ? "var(--lightgray)" : "#195fa6",
+                  background: isEmpty ? "var(--lightgray)" : "var(--lightgray)",
                   border: "2px solid var(--bg)",
                 }}
               />
+            </div>
+
+            <div className={styles.marks}>
+              <div className={styles.mark}></div>
+              <div className={styles.mark}></div>
+              <div className={styles.mark}></div>
+              <div className={styles.mark}></div>
+              <div className={styles.mark}></div>
             </div>
           </div>
           <div className={styles.stats}>
             <div className={styles.stat}>
               <h3 style={isEmpty ? { color: "var(--lightgray)" } : undefined}>
-                {isEmpty ? "—" : avgOffline.toFixed(1)}
+                {isEmpty ? "—" : avgOffline.toFixed(1)} yds
               </h3>
-              <p>Offline (yds)</p>
+              <p>Offline</p>
             </div>
             <div className={styles.stat}>
               <h3 style={isEmpty ? { color: "var(--lightgray)" } : undefined}>
-                {isEmpty ? "—" : `${avgFace.toFixed(1)}°`}
+                {isEmpty ? "—" : `${avgFace.toFixed(1)} deg`}
               </h3>
               <p>Face to Target</p>
             </div>
             <div className={styles.stat}>
               <h3 style={isEmpty ? { color: "var(--lightgray)" } : undefined}>
-                {isEmpty ? "—" : `${swingPath.toFixed(1)}°`}
+                {isEmpty ? "—" : `${swingPath.toFixed(1)} deg`}
               </h3>
               <p>Swing Path</p>
             </div>
           </div>
           <div className={isEmpty ? styles.emptyMessage : styles.message}>
+            <p className={styles.title}>✦ AI analysis </p>
             <p>
               {isEmpty
                 ? "Your miss pattern analysis will appear here once you upload session data."
@@ -164,7 +178,8 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
       {isEmpty && (
         <div className={styles.emptyState}>
           <p>
-            Your miss tendency analysis will appear here once you upload session data.
+            Your miss tendency analysis will appear here once you upload session
+            data.
           </p>
         </div>
       )}

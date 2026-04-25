@@ -8,7 +8,6 @@ import {
   SmallStatWidget,
 } from "../widgets";
 import { calculateProfileStats } from "@/lib/profile-stats/ProfileStats";
-import UserRankWidget from "../widgets/user-rank-widget/UserRankWidget";
 import {
   GettingStartedCompletions,
   Profile,
@@ -17,10 +16,10 @@ import {
 } from "@/types";
 import {
   GettingStartedWidget,
-  LatestRoundWidget,
   SwingMetricsWidget,
 } from "./widgets";
 import { useDashboardData } from "@/hooks/useDashboardData";
+import UserWidget from "./widgets/user-widget/UserWidget";
 
 type DashboardProps = {
   sessions: Session[];
@@ -65,7 +64,7 @@ const Dashboard = (props: DashboardProps) => {
           />
 
           <SmallStatWidget
-            title="Sessions"
+            title="Activities"
             value={dashboardData.sessionsThisMonth}
             metric={" "} // sessions.length > 1 ? "sessions" : "session"
             trend={dashboardData.sessionsTrend.direction}
@@ -114,23 +113,18 @@ const Dashboard = (props: DashboardProps) => {
           </div>
         )}
 
-        {props.latestRound && (
-          <div className={styles.row}>
-            <LatestRoundWidget latestRound={props.latestRound} />
-          </div>
-        )}
+        <div className={styles.row}>
+          <UserWidget
+            profile={props.profile}
+            latestRound={props.latestRound}
+            userPoints={props.userPoints}
+          />
+        </div>
 
         <div className={styles.row}>
           <LessonPlanWidget
             userId={props.userId}
             activeLesson={props.activeLesson}
-          />
-        </div>
-
-        <div className={styles.row}>
-          <UserRankWidget
-            profile={props.profile}
-            userPoints={props.userPoints}
           />
         </div>
       </div>

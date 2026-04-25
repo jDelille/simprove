@@ -3,8 +3,8 @@
 
 .widget {
   @include widget();
-  max-height: 291px;
-  
+  padding: 0;
+
   position: relative;
   @include bp.mobile {
     max-height: none;
@@ -12,6 +12,23 @@
 
   .header {
     @include widgetHeader();
+    color: var(--text);
+    padding-bottom: 0.5rem;
+    padding: 1rem;
+
+    border-bottom: 1px solid var(--border);
+
+    p {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+
+      svg {
+        position: relative;
+        top: 1px;
+        cursor: pointer;
+      }
+    }
 
     span {
       color: var(--lightgray);
@@ -20,73 +37,62 @@
   }
 
   .content {
-    .clubs {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      li {
-        background-color: var(--messageBg);
-        padding: 4px 10px;
-        border-radius: 6px;
-        font-size: 12px;
-        font-weight: 500;
-        color: var(--lightgray);
-        border: 1px solid var(--border);
-        cursor: pointer;
-        &:hover {
-        background: var(--primaryHover);
-      }
-      }
-      .selected {
-        color: var(--text);
-      }
-    }
-
     .clubDetails {
-      padding-top: 5px;
       ul {
         li {
           display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 10px 0;
+          flex-direction: column;
+          padding: 10px 1rem;
           border-bottom: 1px solid var(--border);
+          gap: 7px;
           &:nth-last-child(1) {
             border-bottom: none;
           }
+          .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-          .metric {
-            width: 100%;
-            position: relative;
-            p {
-              font-size: 13px;
-              font-weight: 500;
+            .metric {
+              width: 100%;
+              position: relative;
+              p {
+                font-size: 13px;
+                font-weight: 500;
+              }
+
+              .valueLabel {
+                border-radius: 5px;
+                color: var(--lightgray);
+                line-height: 21px;
+                p {
+                  font-size: 11px;
+                  text-transform: uppercase;
+                }
+              }
             }
 
-            .valueLabel {
-              border-radius: 5px;
-              color: var(--lightgray);
-              line-height: 21px;
+            .value {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
               p {
-                font-size: 11px;
-                text-transform: uppercase;
+                font-size: 20px;
+                font-weight: 600;
               }
             }
           }
 
-          .value {
+          .labels {
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            p {
-              font-size: 20px;
-              font-weight: 600;
-            }
+            font-size: 10px;
+            justify-content: space-between;
+            color: var(--lightgray);
           }
         }
       }
     }
-    
+
     .emptyState {
       height: 100%;
       height: 173px;

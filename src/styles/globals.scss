@@ -60,7 +60,7 @@ html.light {
   --grayBorder: #e5e7eb;
 
   // chart colors
-  --chartBlue: #0062d1;
+  --chartBlue: #29ba7e;
   --chartBlueDark: #195fa6;
   --chartBlueLight: #b5d5f5;
   --chartLine: #15181c;
@@ -87,6 +87,13 @@ html.light {
   --bogey: #f5c842;
   --doubleBogey: #ef4444;
   --triplePlus: #db1a1a;
+
+   // zone
+  --zone-good: #e0f5f0; 
+  --zone-okay: #fef3d8; 
+  --zone-bad: #fde8e8; 
+
+  --track-bg: #f1f1f1;
 }
 
 html.dark {
@@ -142,7 +149,7 @@ html.dark {
   --grayBorder: #374151;
 
   // chart colors
-  --chartBlue: #0072f5;
+  --chartBlue: #29ba7e;
   --chartBlueDark: #195fa6;
   --chartBlueLight: #b5d5f5;
   --chartLine: #ffffff;
@@ -169,6 +176,13 @@ html.dark {
   --bogey: #f5c842;
   --doubleBogey: #ef4444;
   --triplePlus: #db1a1a;
+
+  // zone
+  --zone-good: #111114; // dark teal solid
+  --zone-okay: #111114; // dark amber solid
+  --zone-bad: #111114; // dark red solid
+
+  --track-bg: #1a1a1a;
 }
 
 body {

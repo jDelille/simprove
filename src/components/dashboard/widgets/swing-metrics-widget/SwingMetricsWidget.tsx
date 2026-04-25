@@ -4,9 +4,66 @@ import { useState } from "react";
 import styles from "./SwingMetricsWidget.module.scss";
 import ClubSelect from "@/components/club-select/ClubSelect";
 import { Shot } from "@/types/shot";
+import { IoInformationCircleOutline } from "react-icons/io5";
 
 type SwingMetricsWidgetProps = {
   shots: Shot[];
+};
+
+type RangeBarProps = {
+  value: number;
+  min: number;
+  max: number;
+  zones: {
+    from: number;
+    to: number;
+    color: string;
+  }[];
+};
+
+const RangeBar: React.FC<RangeBarProps> = ({ value, min, max, zones }) => {
+  const toPercent = (val: number) =>
+    Math.min(100, Math.max(0, ((val - min) / (max - min)) * 100));
+
+  return (
+    <div
+      style={{
+        position: "relative",
+        height: "5px",
+        background: "var(--messageBg)",
+        borderRadius: "999px",
+      }}
+    >
+      {zones.map((zone, i) => (
+        <div
+          key={i}
+          style={{
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            left: `${toPercent(zone.from)}%`,
+            width: `${toPercent(zone.to) - toPercent(zone.from)}%`,
+            background: zone.color,
+            borderRadius: "999px",
+            border: `1px solid var(--border)`
+          }}
+        />
+      ))}
+      <div
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: `${toPercent(value)}%`,
+          transform: "translate(-50%, -50%)",
+          width: "13px",
+          height: "13px",
+          borderRadius: "50%",
+          background: "var(--accent)",
+          border: "2px solid var(--accent)",
+        }}
+      />
+    </div>
+  );
 };
 
 const SwingMetricsWidget: React.FC<SwingMetricsWidgetProps> = ({ shots }) => {
@@ -87,7 +144,7 @@ const SwingMetricsWidget: React.FC<SwingMetricsWidgetProps> = ({ shots }) => {
   return (
     <div className={styles.widget} id="swing-metrics">
       <div className={styles.header}>
-        <p>Swing Metrics</p>
+        <p>Swing Metrics <IoInformationCircleOutline /></p>
         <span>Path · Face · Attack Angle</span>
       </div>
       <div className={styles.content}>
@@ -102,73 +159,125 @@ const SwingMetricsWidget: React.FC<SwingMetricsWidgetProps> = ({ shots }) => {
             <div className={styles.clubDetails}>
               <ul>
                 <li>
-                  <div className={styles.metric}>
-                    <p
-                      style={
-                        isEmpty ? { color: "var(--lightgray)" } : undefined
-                      }
-                    >
-                      Club Path
-                    </p>
-                    <div className={styles.valueLabel}>
-                      <p style={{ color: pathLabel(avgPath).color }}>
-                        {pathLabel(avgPath).text}
+                  <div className={styles.top}>
+                    <div className={styles.metric}>
+                      <p
+                        style={
+                          isEmpty ? { color: "var(--lightgray)" } : undefined
+                        }
+                      >
+                        Club Path
                       </p>
+                      <div className={styles.valueLabel}>
+                        <p style={{ color: pathLabel(avgPath).color }}>
+                          {pathLabel(avgPath).text}
+                        </p>
+                      </div>
                     </div>
+                    {!isEmpty && (
+                      <div className={styles.value}>
+                        <p style={{ color: pathLabel(avgPath).color }}>
+                          {avgPath.toFixed(1)}°
+                        </p>
+                      </div>
+                    )}
                   </div>
-                  {!isEmpty && (
-                    <div className={styles.value}>
-                      <p style={{ color: pathLabel(avgPath).color }}>
-                        {avgPath.toFixed(1)}°
-                      </p>
-                    </div>
-                  )}
+
+                  <RangeBar
+                    value={avgPath}
+                    min={-10}
+                    max={10}
+                    zones={[
+                      { from: -10, to: -2, color: "var(--zone-bad)" },
+                      { from: -2, to: 2, color: "var(--zone-okay)" },
+                      { from: 2, to: 10, color: "var(--zone-good)" },
+                    ]}
+                  />
+                  <div className={styles.labels}>
+                    <p>Closed</p>
+                    <p>Square</p>
+                    <p>Open</p>
+                  </div>
                 </li>
                 <li>
-                  <div className={styles.metric}>
-                    <p
-                      style={
-                        isEmpty ? { color: "var(--lightgray)" } : undefined
-                      }
-                    >
-                      Face Angle
-                    </p>
-                    <div className={styles.valueLabel}>
-                      <p style={{ color: faceLabel(avgFace).color }}>
-                        {faceLabel(avgFace).text}
+                  <div className={styles.top}>
+                    <div className={styles.metric}>
+                      <p
+                        style={
+                          isEmpty ? { color: "var(--lightgray)" } : undefined
+                        }
+                      >
+                        Face Angle
                       </p>
+                      <div className={styles.valueLabel}>
+                        <p style={{ color: faceLabel(avgFace).color }}>
+                          {faceLabel(avgFace).text}
+                        </p>
+                      </div>
                     </div>
+                    {!isEmpty && (
+                      <div className={styles.value}>
+                        <p style={{ color: faceLabel(avgFace).color }}>
+                          {avgFace.toFixed(1)}°
+                        </p>
+                      </div>
+                    )}
                   </div>
-                  {!isEmpty && (
-                    <div className={styles.value}>
-                      <p style={{ color: faceLabel(avgFace).color }}>
-                        {avgFace.toFixed(1)}°
-                      </p>
-                    </div>
-                  )}
+                  <RangeBar
+                    value={avgFace}
+                    min={-10}
+                    max={10}
+                    zones={[
+                      { from: -10, to: -2, color: "var(--zone-bad)" },
+                      { from: -2, to: 2, color: "var(--zone-okay)" },
+                      { from: 2, to: 10, color: "var(--zone-good)" },
+                    ]}
+                  />
+                  <div className={styles.labels}>
+                    <p>Closed</p>
+                    <p>Square</p>
+                    <p>Open</p>
+                  </div>
                 </li>
                 <li>
-                  <div className={styles.metric}>
-                    <p
-                      style={
-                        isEmpty ? { color: "var(--lightgray)" } : undefined
-                      }
-                    >
-                      Attack Angle
-                    </p>
-                    <div className={styles.valueLabel}>
-                      <p style={{ color: aoaLabel(avgAttack).color }}>
-                        {aoaLabel(avgAttack).text}
+                  <div className={styles.top}>
+                    <div className={styles.metric}>
+                      <p
+                        style={
+                          isEmpty ? { color: "var(--lightgray)" } : undefined
+                        }
+                      >
+                        Attack Angle
                       </p>
+                      <div className={styles.valueLabel}>
+                        <p style={{ color: aoaLabel(avgAttack).color }}>
+                          {aoaLabel(avgAttack).text}
+                        </p>
+                      </div>
                     </div>
+                    {!isEmpty && (
+                      <div className={styles.value}>
+                        <p style={{ color: aoaLabel(avgAttack).color }}>
+                          {avgAttack.toFixed(1)}°
+                        </p>
+                      </div>
+                    )}
                   </div>
-                  {!isEmpty && (
-                    <div className={styles.value}>
-                      <p style={{ color: aoaLabel(avgAttack).color }}>
-                        {avgAttack.toFixed(1)}°
-                      </p>
-                    </div>
-                  )}
+                  <RangeBar
+                    value={avgAttack}
+                    min={-10}
+                    max={10}
+                    zones={[
+                      { from: -10, to: -2, color: "var(--zone-bad)" },
+                      { from: -2, to: 2, color: "var(--zone-okay)" },
+                      { from: 2, to: 10, color: "var(--zone-good)" },
+                    ]}
+                  />
+                  <div className={styles.labels}>
+                    <p>Closed</p>
+                    <p>Square</p>
+                    <p>Open</p>
+                  </div>
                 </li>
               </ul>
             </div>

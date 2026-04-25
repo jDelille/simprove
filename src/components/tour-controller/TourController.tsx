@@ -16,7 +16,7 @@ export default function TourController({ profile }: TourControllerProps) {
   const isDashboardPage = pathname === "/dashboard";
 
   useEffect(() => {
-    if (profile?.is_new_account && isDashboardPage) {
+    if (profile?.is_new_account && !isDashboardPage) {
       startNextStep("welcomeTour");
     }
   }, [profile]);
