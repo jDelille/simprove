@@ -1,10 +1,9 @@
 "use client";
 
-import { Session } from "@/types/session";
-import styles from "./Activities.module.scss";
-import { Profile } from "@/types/profile";
-import Card from "./card/Card";
 import { useState } from "react";
+import { Profile, Session } from "@/types";
+import Card from "./card/Card";
+import styles from "./Activities.module.scss";
 
 type ActivitiesProps = {
   sessions: Session[];

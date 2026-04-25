@@ -5,8 +5,7 @@ import ActivePlan from "./active-plan/ActivePlan";
 import RecommendedPlans from "./recommended-plans/RecommendedPlans";
 import BrowsePlans from "./browse-plans/BrowsePlans";
 import useModal from "@/hooks/useModal";
-import Modal from "../resuable/modal/Modal";
-import { act, useState } from "react";
+import { useState } from "react";
 import { fetchLessonDrills } from "@/services/lessons/fetchLessonDrills";
 import LessonModalBody from "./lesson-modal-body/LessonModalBody";
 import { uploadLessonPlan } from "@/services/lessons/uploadLessonPlan";
@@ -14,6 +13,7 @@ import { createClient } from "@/lib/supabase/client";
 import { ActiveLesson } from "@/types/activeLesson";
 import { RecommendedLessons } from "@/types/recommendedLessons";
 import { fetchActiveLessonClient } from "@/lib/activeLesson";
+import Modal from "../ui/modal/Modal";
 
 type TrainingProps = {
   lessonPlans: any[];

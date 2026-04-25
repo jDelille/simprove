@@ -10,12 +10,10 @@ import ClubBreakdownWidget, {
 } from "../widgets/club-breakdown-widget/ClubBreakdownWidget";
 import { useMemo, useState } from "react";
 import { getClubAverages } from "@/lib/shots/averages";
-import FaceAngleWidget from "../widgets/face-angle-widget/FaceAngleWidget";
 import { calculateSessionStats } from "@/lib/session-stats/sessionStats";
 import { Session as SessionTypes } from "@/types/session";
 import { Shot } from "@/types/shot";
 import SessionShotsGraphWidget from "../widgets/session-shots-graph-widget/SessionShotsGraphWidget";
-import ClubPerformanceWidget from "../widgets/club-performance-widget/ClubPerformanceWidget";
 
 type SessionProps = {
   session: SessionTypes;

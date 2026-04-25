@@ -14,8 +14,6 @@ export const fetchActivityById = async (
   const table = type === "round" ? "rounds" : "sessions";
   const selectQuery = ACTIVITY_QUERIES[type];
 
-  if (!selectQuery) throw new Error(`Unsupported activity type: "${type}"`);
-
   const { data, error } = await supabaseClient
     .from(table)
     .select(selectQuery)
@@ -25,5 +23,35 @@ export const fetchActivityById = async (
 
   if (error) throw error;
 
-  return data;
+  if (type === "round") {
+    return data;
+  }
+  
+  if (!data.storage_path) {
+    return { ...data, shots: [] };
+  }
+
+  const { data: fileData, error: storageError } =
+    await supabaseClient.storage
+      .from("sessions")
+      .download(data.storage_path);
+
+  if (storageError) {
+    console.error("session storage error:", storageError);
+    return { ...data, shots: [], storageError: true };
+  }
+
+  const text = await fileData.text();
+  const parsed = JSON.parse(text);
+
+  const shots = (parsed.shots || []).map((shot: any) => ({
+    ...shot,
+    session_id: data.id,
+    sessionDate: data.created_at,
+  }));
+
+  return {
+    ...data,
+    shots,
+  };
 };

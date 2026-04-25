@@ -23,7 +23,7 @@ const Card = ({ item }: CardProps) => {
       <div className={styles.text}>
         <p>
           {item.course_name}{" "}
-          <span className={styles.roundBadge}>{item.type}</span>
+          {/* <span className={styles.roundBadge}>{item.type}</span> */}
         </p>
         <span>
           {moment(item.round_begin).format("MMM DD")} · {item.tee_type} tees ·{" "}
@@ -53,7 +53,7 @@ const Card = ({ item }: CardProps) => {
       <div className={styles.text}>
         <p>
           {item.session_name}{" "}
-          <span className={styles.sessionBadge}>{item.type}</span>
+          {/* <span className={styles.sessionBadge}>{item.type}</span> */}
         </p>
         <span>
           {" "}

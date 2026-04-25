@@ -1,41 +1,57 @@
-import { supabase as browserClient } from "@/lib/supabase/client";
-import { Shot } from "@/types/shot";
-import { SupabaseClient } from "@supabase/supabase-js";
+type ActivityType = "round" | "session";
 
-export const fetchSession = async (
-  sessionId: string,
-  supabaseClient: SupabaseClient = browserClient,
+const ACTIVITY_QUERIES: Record<ActivityType, string> = {
+  round: "*, round_scores (*), round_holes (*)",
+  session: "*",
+};
+
+export const fetchActivityById = async (
+  userId: string,
+  id: string,
+  type: ActivityType,
+  supabaseClient: any
 ) => {
-  const { data: session, error } = await supabaseClient
-    .from("sessions")
-    .select("*")
-    .eq("id", sessionId)
+  const table = type === "round" ? "rounds" : "sessions";
+  const selectQuery = ACTIVITY_QUERIES[type];
+
+  const { data, error } = await supabaseClient
+    .from(table)
+    .select(selectQuery)
+    .eq("user_id", userId)
+    .eq("id", id)
     .single();
 
-  if (error) {
-    console.error("fetchSession error:", error, "sessionId:", sessionId);
-    throw new Error("Failed to fetch session");
+  if (error) throw error;
+
+  if (type === "round") {
+    return data;
+  }
+  
+  if (!data.storage_path) {
+    return { ...data, shots: [] };
   }
 
-  if (!session.storage_path) return session;
-
-  const { data: fileData, error: storageError } = await supabaseClient.storage
-    .from("sessions")
-    .download(session.storage_path);
+  const { data: fileData, error: storageError } =
+    await supabaseClient.storage
+      .from("sessions")
+      .download(data.storage_path);
 
   if (storageError) {
-    console.error("fetchSession storage error:", storageError);
-    return { ...session, error: "Failed to fetch session data" };
+    console.error("session storage error:", storageError);
+    return { ...data, shots: [], storageError: true };
   }
 
   const text = await fileData.text();
   const parsed = JSON.parse(text);
 
-  const shotsWithSessionId = (parsed.shots || []).map((shot: Shot) => ({
+  const shots = (parsed.shots || []).map((shot: any) => ({
     ...shot,
-    session_id: session.id,
-    sessionDate: session.created_at,
+    session_id: data.id,
+    sessionDate: data.created_at,
   }));
 
-  return { ...session, shots: shotsWithSessionId };
+  return {
+    ...data,
+    shots,
+  };
 };

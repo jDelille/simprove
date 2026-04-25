@@ -1,4 +1,4 @@
-import Activity from "@/components/activity/Activity";
+import Activity from "@/components/activities/activity/Activity";
 import { createSupabaseServer } from "@/lib/supabase/server";
 import { fetchActivityById } from "@/services/activity/fetchActivityById";
 
@@ -23,13 +23,15 @@ const ActivityPage = async ({ params, searchParams }: ActivityPageProps) => {
   if (!user) return null;
 
   const [activity] = user?.id
-    ? await Promise.all([fetchActivityById(user.id, id, type, supabase)])
+    ? await Promise.all([
+        fetchActivityById(user.id, id, type, supabase),
+      ])
     : [[], []];
 
   return (
     <div className="page">
       <div className="page-content">
-        <Activity activity={activity} />
+        <Activity activityData={activity} />
       </div>
     </div>
   );

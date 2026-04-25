@@ -1,7 +1,7 @@
 import Session from "@/components/session/Session";
 import { createSupabaseServer } from "@/lib/supabase/server";
 import { fetchGettingStartedCompletions } from "@/services/getting-started-completions/fetchGettingStartedCompletions";
-import { fetchSession } from "@/services/sessions/fetchSession";
+import { fetchActivityById } from "@/services/sessions/fetchSession";
 
 const SessionPage = async ({ params }: { params: { id: string } }) => {
   const { id } = await params;
@@ -18,7 +18,7 @@ const SessionPage = async ({ params }: { params: { id: string } }) => {
   const [gettingStartedCompletions, session] = user?.id
     ? await Promise.all([
         fetchGettingStartedCompletions(user.id, supabase),
-        fetchSession(id, supabase),
+        // fetchActivityById(id, supabase),
       ])
     : [[], []];
 
@@ -36,7 +36,7 @@ const SessionPage = async ({ params }: { params: { id: string } }) => {
   return (
     <div className="page">
       <div className="page-content">
-        <Session session={session} />
+        {/* <Session session={session} /> */}
       </div>
     </div>
   );
