@@ -8,17 +8,19 @@ import {
   SmallStatWidget,
 } from "../widgets";
 import { calculateProfileStats } from "@/lib/profile-stats/ProfileStats";
-import { calculateTrend, formatTrend, groupByMonth } from "@/lib/stats/trends";
-import { getWeakestClubs } from "@/lib/stats/weakestClubs";
-import SwingMetricsWidget from "../widgets/swing-metrics-widget/SwingMetricsWidget";
-import GettingStartedWidget from "../widgets/getting-started-widget/GettingStartedWidget";
-import { Session } from "@/types/session";
-import { GettingStartedCompletions } from "@/types/gettingStartedCompletions";
-import { RecentActivity } from "@/types/recentActivity";
-import { Shot } from "@/types/shot";
 import UserRankWidget from "../widgets/user-rank-widget/UserRankWidget";
-import { Profile } from "@/types/profile";
-import LatestRoundWidget from "../widgets/latest-round-widget/LatestRoundWidget";
+import {
+  GettingStartedCompletions,
+  Profile,
+  RecentActivity,
+  Session,
+} from "@/types";
+import {
+  GettingStartedWidget,
+  LatestRoundWidget,
+  SwingMetricsWidget,
+} from "./widgets";
+import { useDashboardData } from "@/hooks/useDashboardData";
 
 type DashboardProps = {
   sessions: Session[];
@@ -31,69 +33,21 @@ type DashboardProps = {
   latestRound: any;
 };
 
-const Dashboard = ({
-  sessions,
-  userId,
-  gettingStartedCompletions,
-  activeLesson,
-  profile,
-  userPoints,
-  latestRound,
-}: DashboardProps) => {
-  const shots = sessions.flatMap((session) => session.shots);
+const Dashboard = (props: DashboardProps) => {
+  const shots = props.sessions.flatMap((session) => session.shots);
 
   const profileMetrics = calculateProfileStats({
-    userId: userId,
+    userId: props.userId,
     shots,
-    sessionLength: sessions.length,
+    sessionLength: props.sessions.length,
   });
 
-  const groupedSessions = groupByMonth(sessions);
-  const groupedShots = groupByMonth(shots);
-
-  const currentMonthKey = new Date().toLocaleString("default", {
-    month: "short",
-    year: "numeric",
+  const dashboardData = useDashboardData({
+    sessions: props.sessions,
+    gettingStartedCompletions: props.gettingStartedCompletions,
+    userId: props.userId,
+    shots,
   });
-  const lastMonthKey = new Date(
-    new Date().setMonth(new Date().getMonth() - 1),
-  ).toLocaleString("default", { month: "short", year: "numeric" });
-
-  const sessionsThisMonth =
-    groupedSessions[currentMonthKey]?.sessions.length || 0;
-  const sessionsLastMonth = groupedSessions[lastMonthKey]?.sessions.length || 0;
-
-  const sessionsTrend = calculateTrend(sessionsThisMonth, sessionsLastMonth);
-  const { text: sessionsTrendText, color: sessionsTrendColor } =
-    formatTrend(sessionsTrend);
-
-  const shotsThisMonth = groupedShots[currentMonthKey]?.sessions.length || 0;
-  const shotsLastMonth = groupedShots[lastMonthKey]?.sessions.length || 0;
-
-  const shotsTrend = calculateTrend(shotsThisMonth, shotsLastMonth);
-  const { text: shotsTrendText, color: shotsTrendColor } =
-    formatTrend(shotsTrend);
-
-  const longestThisMonth = Math.max(
-    ...(groupedShots[currentMonthKey]?.sessions.map(
-      (s: Shot) => s.carry ?? 0,
-    ) || [0]),
-  );
-  const longestLastMonth = Math.max(
-    ...(groupedShots[lastMonthKey]?.sessions.map((s: Shot) => s.carry ?? 0) || [
-      0,
-    ]),
-  );
-
-  const carryTrend = calculateTrend(longestThisMonth, longestLastMonth);
-  const { text: carryTrendText, color: carryTrendColor } =
-    formatTrend(carryTrend);
-
-  const weakestClubs = getWeakestClubs(shots);
-
-  const hasCompletedGettingStarted = gettingStartedCompletions
-    ? gettingStartedCompletions.length === 4
-    : false;
 
   return (
     <div className={styles.dashboard}>
@@ -104,30 +58,30 @@ const Dashboard = ({
             title="Total Shots"
             value={profileMetrics.count}
             metric="shots"
-            trend={shotsTrend.direction}
-            trendText={shotsTrendText}
-            trendColor={shotsTrendColor}
-            isEmpty={sessions.length === 0}
+            trend={dashboardData.shotsTrend.direction}
+            trendText={dashboardData.shotsTrendText}
+            trendColor={dashboardData.shotsTrendColor}
+            isEmpty={shots.length === 0}
           />
 
           <SmallStatWidget
             title="Sessions"
-            value={sessionsThisMonth}
+            value={dashboardData.sessionsThisMonth}
             metric={" "} // sessions.length > 1 ? "sessions" : "session"
-            trend={sessionsTrend.direction}
-            trendText={sessionsTrendText}
-            trendColor={sessionsTrendColor}
-            isEmpty={sessions.length === 0}
+            trend={dashboardData.sessionsTrend.direction}
+            trendText={dashboardData.sessionsTrendText}
+            trendColor={dashboardData.sessionsTrendColor}
+            isEmpty={shots.length === 0}
           />
 
           <SmallStatWidget
             title="Longest Carry"
             value={Number(profileMetrics.longestCarry?.toFixed(1)) || 0}
             metric="yds"
-            trend={carryTrend.direction}
-            trendText={carryTrendText}
-            trendColor={carryTrendColor}
-            isEmpty={sessions.length === 0}
+            trend={dashboardData.carryTrend.direction}
+            trendText={dashboardData.carryTrendText}
+            trendColor={dashboardData.carryTrendColor}
+            isEmpty={shots.length === 0}
           />
 
           <SmallStatWidget
@@ -136,12 +90,12 @@ const Dashboard = ({
             metric=""
             trend={null}
             trendText={`${profileMetrics.mostUsedClubCount || 0} total shots with this club`}
-            isEmpty={sessions.length === 0}
+            isEmpty={shots.length === 0}
           />
         </div>
 
         <div className={styles.row}>
-          <AveragesGraphWidget sessions={sessions} />
+          <AveragesGraphWidget sessions={props.sessions} />
         </div>
 
         <div className={styles.row}>
@@ -152,24 +106,32 @@ const Dashboard = ({
 
       {/* right side */}
       <div className={styles.column}>
-        {!hasCompletedGettingStarted && (
+        {!dashboardData.hasCompletedGettingStarted && (
           <div className={styles.row}>
-            <GettingStartedWidget completions={gettingStartedCompletions} />
+            <GettingStartedWidget
+              completions={props.gettingStartedCompletions}
+            />
           </div>
         )}
 
-        {latestRound && (
+        {props.latestRound && (
           <div className={styles.row}>
-            <LatestRoundWidget latestRound={latestRound} />
+            <LatestRoundWidget latestRound={props.latestRound} />
           </div>
         )}
 
         <div className={styles.row}>
-          <LessonPlanWidget userId={userId} activeLesson={activeLesson} />
+          <LessonPlanWidget
+            userId={props.userId}
+            activeLesson={props.activeLesson}
+          />
         </div>
 
         <div className={styles.row}>
-          <UserRankWidget profile={profile} userPoints={userPoints} />
+          <UserRankWidget
+            profile={props.profile}
+            userPoints={props.userPoints}
+          />
         </div>
       </div>
     </div>

@@ -3,6 +3,8 @@ import styles from "./SmallStatWidget.module.scss";
 import { FaArrowUp, FaArrowDown, FaMinus } from "react-icons/fa6";
 import { MdArrowOutward } from "react-icons/md";
 
+export type TrendDirection = "up" | "down" | "flat";
+
 type SmallStatWidgetProps = {
   title: string;
   value: string | number;
