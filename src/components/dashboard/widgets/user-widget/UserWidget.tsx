@@ -16,6 +16,7 @@ type UserWidgetProps = {
 };
 
 const UserWidget = ({ profile, latestRound, userPoints }: UserWidgetProps) => {
+
   return (
     <div className={styles.widget}>
       <div className={styles.header}></div>
@@ -65,7 +66,7 @@ const UserWidget = ({ profile, latestRound, userPoints }: UserWidgetProps) => {
               {latestRound.par}
             </p>
             <Link
-              href={`/round/${latestRound.round_key}`}
+              href={`/activities/${latestRound.id}?type=round`}
               className={styles.link}
             >
               View round <FiArrowUpRight size={12} />
