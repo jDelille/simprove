@@ -11,11 +11,12 @@ import UserMenu from "../user-menu/UserMenu";
 import { FaChevronDown } from "react-icons/fa6";
 import { createClient } from "@/lib/supabase/client";
 import { Profile } from "@/types/profile";
-import RestartTourButton from "../tour-controller/RestartTourButton";
 import GSProSync from "../gspro/gspro-sync/GSProSync";
 import Button from "../ui/button/Button";
 import Avatar from "../ui/avatar/Avatar";
 import Modal from "../ui/modal/Modal";
+import { LiaSyncAltSolid } from "react-icons/lia";
+import { GrUploadOption } from "react-icons/gr";
 
 type AuthAction = "login" | "signup" | "logout";
 
@@ -113,18 +114,10 @@ const Navbar: React.FC<NavbarProps> = ({ profile }) => {
             {profile && (
               <>
                 <div className={styles.uploadBtnContainer} id="upload-btn">
-                  <Button
-                    variant="lessonCard"
-                    children="Upload"
-                    onClick={() => openModal("upload")}
-                  />
+                  <GrUploadOption onClick={() => openModal("upload")} size={20} color="var(--lightgray)"/>
                 </div>
-                <div className={styles.syncBtnContainer}>
-                  <Button 
-                    variant="upload"
-                    children="Sync"
-                    onClick={() => openModal("sync")}
-                  />
+                <div className={styles.syncBtnContainer} id="sync-btn">
+                  <LiaSyncAltSolid onClick={() => openModal("sync")} size={20} color="var(--lightgray)"/>
                 </div>
                 <div
                   className={styles.userAvatar}

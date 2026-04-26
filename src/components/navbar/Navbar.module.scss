@@ -21,7 +21,7 @@
     @include bp.tablet {
       padding: 0 1rem;
     }
-    
+
     .logo {
       font-size: 22px;
       font-weight: 700;
@@ -77,6 +77,27 @@
 
       .uploadBtnContainer {
         margin-left: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          svg {
+            stroke: var(--text);
+          }
+        }
+      }
+
+      .syncBtnContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          svg {
+            stroke: var(--text);
+          }
+        }
       }
 
       .userAvatar {

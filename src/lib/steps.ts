@@ -65,18 +65,6 @@ export const steps: Tour[] = [
         pointerRadius: 10,
       },
       {
-        icon: "🏆",
-        title: "Your Points & Rank",
-        content:
-          "Track your points and rank across different time periods. Check out the leaderboard to see how you stack up against other users.",
-        selector: "#your-rank",
-        side: "left",
-        showControls: true,
-        showSkip: true,
-        pointerPadding: 10,
-        pointerRadius: 10,
-      },
-      {
         icon: "📚",
         title: "Your Lesson Plan",
         content:
@@ -89,11 +77,35 @@ export const steps: Tour[] = [
         pointerRadius: 10,
       },
       {
+        icon: "😄",
+        title: "Your Profile Overview",
+        content:
+          "Get a quick view at your profile and what you've been up to recently.",
+        selector: "#profile-overview",
+        side: "left",
+        showControls: true,
+        showSkip: true,
+        pointerPadding: 10,
+        pointerRadius: 10,
+      },
+      {
         icon: "📥",
         title: "Import a Session",
         content:
           "Click here to import your launch monitor data and start tracking your performance.",
         selector: "#upload-btn",
+        side: "bottom",
+        showControls: true,
+        showSkip: true,
+        pointerPadding: 10,
+        pointerRadius: 10,
+      },
+      {
+        icon: "⛳",
+        title: "Sync with GSPro Portal",
+        content:
+          "Click here to sync with GSPro Portal and import your rounds.",
+        selector: "#sync-btn",
         side: "bottom",
         showControls: true,
         showSkip: true,

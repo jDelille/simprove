@@ -18,7 +18,7 @@ type UserWidgetProps = {
 const UserWidget = ({ profile, latestRound, userPoints }: UserWidgetProps) => {
 
   return (
-    <div className={styles.widget}>
+    <div className={styles.widget} id="profile-overview">
       <div className={styles.header}></div>
 
       <div className={styles.content}>
