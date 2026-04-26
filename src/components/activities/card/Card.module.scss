@@ -108,7 +108,7 @@
         cursor: pointer;
 
         &:hover {
-          background-color: var(-primaryHover);
+          background-color: var(--primaryHover);
           svg {
             fill: var(--dangerText);
           }

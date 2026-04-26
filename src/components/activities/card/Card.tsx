@@ -21,8 +21,6 @@ const Card = ({ item, isDemoAccount}: CardProps) => {
   const router = useRouter();
   const { popups, openPopup, closePopup } = usePopup();
 
-  console.log(item.id);
-
   let clubs;
   let averages;
   if (item.type === "session") {
