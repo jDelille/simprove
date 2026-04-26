@@ -1,7 +1,8 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { supabase as browserClient } from "@/lib/supabase/client";
+import { uploadLeaderboard } from "../leaderboard/uploadLeaderboard";
 
-export const uploadUserPoints = async (
+export const awardUserPoints = async (
   userId: string,
   supabaseClient: SupabaseClient = browserClient,
   pointsToAdd: number
@@ -34,6 +35,8 @@ export const uploadUserPoints = async (
       console.error("Error updating user points:", upsertError);
       return { error: upsertError };
     }
+
+    await uploadLeaderboard(supabaseClient, pointsToAdd, userId)
 
     return { newPoints };
 };

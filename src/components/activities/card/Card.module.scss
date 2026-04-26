@@ -6,7 +6,7 @@
   cursor: pointer;
 
   &:hover {
-    background-color: var(--primaryHover);
+    // background-color: var(--primaryHover);
   }
 
   .content {
@@ -93,6 +93,65 @@
           font-size: 14px;
           font-weight: 500;
         }
+      }
+    }
+
+    .settings {
+      .delete {
+        width: 25px;
+        height: 25px;
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: var(-primaryHover);
+          svg {
+            fill: var(--dangerText);
+          }
+        }
+      }
+    }
+  }
+
+  .popupBody {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    .title {
+      font-size: 18px;
+      font-weight: 500;
+    }
+    .description {
+      font-size: 13px;
+      color: var(--lightgray);
+    }
+
+    .preview {
+      background-color: var(--messageBg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px;
+      margin-top: 1rem;
+      .name {
+        font-size: 14px;
+        font-weight: 500;
+      }
+      span {
+        color: var(--lightgray);
+        font-size: 11px;
+      }
+    }
+    .buttons {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+      height: 40px;
+      button {
+        width: 100%;
       }
     }
   }

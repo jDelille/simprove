@@ -58,6 +58,19 @@
   color: white;
 }
 
+.dangerOutline {
+  font-size: 14px;
+  border-radius: 6px;
+  background-color: var(--dangerBg);
+
+  border: 1px solid #ef4444;
+  color: #ef4444;
+
+  &:hover {
+    background-color: var(--dangerBg);
+  }
+}
+
 .secondaryDanger {
   background-color: transparent;
   color: #ef4444;

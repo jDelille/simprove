@@ -1,4 +1,7 @@
 import { supabase } from "@/lib/supabase/client";
+import { awardUserPoints } from "../user-points/uploadUserPoints";
+import { POINTS } from "@/lib/points/constants";
+import { uploadLeaderboard } from "../leaderboard/uploadLeaderboard";
 
 export async function uploadGSProRound({
   userId,
@@ -28,16 +31,22 @@ export async function uploadGSProRound({
         hidden_from_stats: r.hiddenFromStatsTF,
         round_key: r.roundKey,
         total: r.total,
-      }))
+      })),
     )
     .select();
 
   if (error) throw error;
 
+  // award user points for round upload
+  await awardUserPoints(userId, supabase, POINTS.round.upload);
+
+  // Update leaderboard with new points
+  // await uploadLeaderboard(supabase, POINTS.round.upload, userId);
+
   const scoreInserts = insertedRounds
     .map((insertedRound) => {
       const score = allScores.find(
-        (s) => s.roundKey === insertedRound.round_key
+        (s) => s.roundKey === insertedRound.round_key,
       );
       if (!score) return null;
 
@@ -85,9 +94,7 @@ export async function uploadGSProRound({
   const holeInserts = insertedRounds.flatMap((insertedRound) => {
     const roundKey = insertedRound.round_key;
 
-    const roundHoles = holes.filter(
-      (h) => h.round_key === roundKey
-    );
+    const roundHoles = holes.filter((h) => h.round_key === roundKey);
 
     if (!roundHoles.length) return [];
 

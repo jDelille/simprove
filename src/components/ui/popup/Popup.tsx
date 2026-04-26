@@ -24,9 +24,6 @@ const Popup: React.FC<PopupProps> = ({
   return (
     <div className={isDarkMode ? styles.overlayDark : styles.overlay}>
       <div className={styles.popup}>
-        <div className={styles.header}>
-          <h2>{title}</h2>
-        </div>
         {description && <p>{description}</p>}
         {body}
       </div>

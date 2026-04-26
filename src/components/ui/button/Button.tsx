@@ -3,7 +3,7 @@ import styles from "./Button.module.scss";
 
 type ButtonProps = {
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (e?: any) => void;
   disabled?: boolean;
   variant:
     | "primary"
@@ -11,6 +11,7 @@ type ButtonProps = {
     | "upload"
     | "secondaryDanger"
     | "danger"
+    | "dangerOutline"
     | "lessonCard";
 };
 

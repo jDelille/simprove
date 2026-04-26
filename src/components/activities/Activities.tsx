@@ -23,7 +23,7 @@ const groupByMonth = (sessions: Session[], rounds: any[]) => {
       type: "round" as const,
       date: r.round_begin,
     })),
-  ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   type ActivityItem = (typeof all)[number];
 
@@ -43,9 +43,15 @@ const groupByMonth = (sessions: Session[], rounds: any[]) => {
 
 const Activities = ({ sessions, rounds, profile }: ActivitiesProps) => {
   const [active, setActive] = useState<string>("All");
-  const grouped = groupByMonth(sessions, rounds);
+  
+  const filtered = groupByMonth(
+  active === "Rounds" ? [] : sessions,
+  active === "Sessions" ? [] : rounds,
+);
 
   const controls = ["All", "Rounds", "Sessions"];
+
+  console.log(profile)
 
   return (
     <div className={styles.activities}>
@@ -71,7 +77,7 @@ const Activities = ({ sessions, rounds, profile }: ActivitiesProps) => {
         </div>
       </div>
       <div className={styles.activitiesList}>
-        {Object.entries(grouped).map(([month, items]) => (
+        {Object.entries(filtered).map(([month, items]) => (
           <div key={month}>
             <div className={styles.month}>
               <p>{month}</p>
@@ -81,7 +87,7 @@ const Activities = ({ sessions, rounds, profile }: ActivitiesProps) => {
             <ul className={styles.list}>
               {items.map((item, index) => (
                 <li key={index}>
-                  <Card item={item} />
+                  <Card item={item} isDemoAccount={profile.is_demo_account} />
                 </li>
               ))}
             </ul>

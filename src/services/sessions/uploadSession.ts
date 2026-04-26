@@ -11,8 +11,9 @@ import { checkFirstSessionBadge } from "@/lib/badges/checkFirstSessionBadge";
 import { getActiveLessonId } from "@/lib/lessons/getActiveLessonId";
 import { getLessonDrills } from "@/lib/lessons/getLessonDrills";
 import { applySessionToLessonDrills } from "@/lib/lessons/applySessionToLessonDrills";
-import { uploadUserPoints } from "../user-points/uploadUserPoints";
+import { awardUserPoints } from "../user-points/uploadUserPoints";
 import { uploadLeaderboard } from "../leaderboard/uploadLeaderboard";
+import { POINTS } from "@/lib/points/constants";
 
 type UploadSessionProps = {
   userId: string;
@@ -96,13 +97,11 @@ export async function uploadSession({
   // Get active lessonId for user
   const activeLessonId = await getActiveLessonId(userId, supabase);
 
-  const newSessionPoints = 100;
-
   // Award user points for session upload
-  await uploadUserPoints(userId, supabase, newSessionPoints);
+  await awardUserPoints(userId, supabase, POINTS.session.upload);
 
   // Update leaderboard with new points
-  await uploadLeaderboard(supabase, newSessionPoints, userId);
+  // await uploadLeaderboard(supabase, POINTS.session.upload, userId);
 
   if (activeLessonId) {
     let sessionData: SessionData;

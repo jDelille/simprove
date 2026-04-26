@@ -39,6 +39,8 @@ const Round = ({ activityData }: RoundProps) => {
     return "E";
   };
 
+  console.log(scores)
+
   return (
     <>
       <div className={styles.title}>
@@ -104,12 +106,12 @@ const Round = ({ activityData }: RoundProps) => {
           />
           <ActivityStatWidget
             title="Bogey Avoidance"
-            value={`${((scores.bogey / hole_count) * 100).toFixed(0)}%`}
-            subText={`${scores.bogey} of ${hole_count} holes`}
+            value={`${(((scores.bogey + scores.double_bogey) / hole_count) * 100).toFixed(0)}%`}
+            subText={`${(scores.bogey + scores.double_bogey)} of ${hole_count} holes`}
           />
           <ActivityStatWidget
             title="Birdies vs Bogeys"
-            value={`${scores.birdie}B / ${scores.bogey}B+`}
+            value={`${scores.birdie}B / ${(scores.bogey + scores.double_bogey)}B+`}
             subText={
               scores.birdies > scores.bogey ? "More birdies" : "More bogies"
             }
