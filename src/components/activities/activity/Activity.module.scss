@@ -23,7 +23,7 @@
         all: unset;
         font-weight: 500;
         &:hover {
-          color: var(--accent);
+          color: var(--text);
 
           svg {
             fill: var(--accent);

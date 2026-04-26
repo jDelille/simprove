@@ -22,16 +22,18 @@
       }
       .text {
         display: flex;
-        flex-direction: column;
-
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
         h3 {
           font-weight: 500;
           font-size: 14px;
         }
 
         p {
-          color: var(--lightgray);
-          font-size: 12px;
+          color: var(--text);
+          font-size: 20px;
+          font-weight: 500;
         }
       }
     }

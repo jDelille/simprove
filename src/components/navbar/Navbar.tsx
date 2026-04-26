@@ -12,11 +12,11 @@ import { FaChevronDown } from "react-icons/fa6";
 import { createClient } from "@/lib/supabase/client";
 import { Profile } from "@/types/profile";
 import GSProSync from "../gspro/gspro-sync/GSProSync";
-import Button from "../ui/button/Button";
 import Avatar from "../ui/avatar/Avatar";
 import Modal from "../ui/modal/Modal";
 import { LiaSyncAltSolid } from "react-icons/lia";
 import { GrUploadOption } from "react-icons/gr";
+import { FaRegBell } from "react-icons/fa6";
 
 type AuthAction = "login" | "signup" | "logout";
 
@@ -113,8 +113,11 @@ const Navbar: React.FC<NavbarProps> = ({ profile }) => {
             )}
             {profile && (
               <>
+              <div className={styles.notificationContainer}>
+                <FaRegBell size={19} color="var(--lightgray)" />
+              </div>
                 <div className={styles.uploadBtnContainer} id="upload-btn">
-                  <GrUploadOption onClick={() => openModal("upload")} size={20} color="var(--lightgray)"/>
+                  <GrUploadOption onClick={() => openModal("upload")} size={18} color="var(--lightgray)"/>
                 </div>
                 <div className={styles.syncBtnContainer} id="sync-btn">
                   <LiaSyncAltSolid onClick={() => openModal("sync")} size={20} color="var(--lightgray)"/>

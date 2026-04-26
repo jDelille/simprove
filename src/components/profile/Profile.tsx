@@ -45,22 +45,22 @@ const Profile: React.FC<ProfileProps> = ({
         <div className={styles.row}>
           <AveragesGraphWidget sessions={sessions} />
         </div>
-        <div className={styles.row}>
+        {/* <div className={styles.row}>
           <RecentSessionsWidget sessions={sessions} />
         </div>
 
         <div className={styles.row}>
           <UserLessonsWidget lessons={lessons as any} />
-        </div>
+        </div> */}
       </div>
-      <div className={styles.column}>
+      {/* <div className={styles.column}>
         <div className={styles.row}>
           <UserRankWidget profile={user} userPoints={userPoints} />
         </div>
         <div className={styles.row}>
           <LifetimeAveragesWidget sessions={sessions} userId={userId} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 

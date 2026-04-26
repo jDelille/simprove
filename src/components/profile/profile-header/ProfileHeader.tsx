@@ -9,7 +9,7 @@ import { GoPencil } from "react-icons/go";
 import styles from "./ProfileHeader.module.scss";
 import { Profile } from "@/types/profile";
 import Avatar from "@/components/ui/avatar/Avatar";
-import ContentTabs from "@/components/content-tabs/ContentTabs";
+import ContentTabs from "../content-tabs/ContentTabs";
 
 type ProfileHeaderProps = {
   userId: string;

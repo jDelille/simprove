@@ -76,14 +76,26 @@
       }
 
       .uploadBtnContainer {
-        margin-left: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
+        margin-right: 10px;
 
         &:hover {
           svg {
             stroke: var(--text);
+          }
+        }
+      }
+
+      .notificationContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+        &:hover {
+          svg {
+            fill: var(--text);
           }
         }
       }
@@ -95,7 +107,7 @@
 
         &:hover {
           svg {
-            stroke: var(--text);
+            fill: var(--text);
           }
         }
       }
