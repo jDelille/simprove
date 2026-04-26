@@ -42,10 +42,10 @@ const UserWidget = ({ profile, latestRound, userPoints }: UserWidgetProps) => {
               style={
                 userPoints?.weeklyPoints === 0
                   ? { color: "var(--lightgray)" }
-                  : undefined
+                  : {color: "var(--accent)"}
               }
             >
-              +{userPoints?.weeklyPoints}
+              {userPoints?.weeklyPoints}
             </p>
           </div>
           <div className={styles.stat}>

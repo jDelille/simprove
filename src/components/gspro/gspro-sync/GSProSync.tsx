@@ -21,8 +21,6 @@ const GSProSync = ({ onClose, userId }: GSProSyncProps) => {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [rawData, setRawData] = useState<any>(null);
 
-  console.log(selected);
-
   const fetchRounds = () => {
     const saved = localStorage.getItem(STORAGE_KEY);
     const savedRaw = localStorage.getItem("gsproRawData");
@@ -76,11 +74,19 @@ const GSProSync = ({ onClose, userId }: GSProSyncProps) => {
 
     const holeRows = toImport.flatMap((round) => {
       const scorecardRows = scorecardByRound.get(round.roundKey) ?? [];
+      const teeLabels = [
+        "Blue",
+        "Green",
+        "Red",
+        "White",
+        "Gold",
+        "Black",
+        "Yellow",
+      ];
 
       const courseRow = scorecardRows.find(
-        (s) => s.playerKey === null && s.rowLabel === "Blue",
+        (s) => s.playerKey === null && teeLabels.includes(s.rowLabel),
       );
-
       const parRow = scorecardRows.find(
         (s) => s.playerKey === null && s.rowLabel === "Par",
       );
@@ -92,7 +98,15 @@ const GSProSync = ({ onClose, userId }: GSProSyncProps) => {
       const playerRow = scorecardRows.find((s) => s.playerKey !== null);
 
       if (!courseRow || !playerRow) return [];
-      return Array.from({ length: 18 }).map((_, i) => {
+
+      const holeCount = playerRow?.holeValue
+        ? Object.keys(playerRow.holeValue).filter(
+            (k) =>
+              playerRow.holeValue[k] !== null && playerRow.holeValue[k] !== "",
+          ).length
+        : 18;
+
+      return Array.from({ length: holeCount }).map((_, i) => {
         const hole = i + 1;
 
         return {

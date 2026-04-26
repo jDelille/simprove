@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { pendingRounds } from "@/lib/gspro/store";
 
-// Handles preflight CORS request (browser sends this FIRST)
 export async function OPTIONS() {
   return new Response(null, {
     status: 204,
@@ -13,7 +12,6 @@ export async function OPTIONS() {
   });
 }
 
-// Your actual API call
 export async function POST(req: Request) {
 
   try {

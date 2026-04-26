@@ -96,6 +96,8 @@ export async function uploadGSProRound({
 
     const roundHoles = holes.filter((h) => h.round_key === roundKey);
 
+    console.log(holes)
+
     if (!roundHoles.length) return [];
 
     return roundHoles.map((h) => ({

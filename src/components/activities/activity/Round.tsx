@@ -39,7 +39,7 @@ const Round = ({ activityData }: RoundProps) => {
     return "E";
   };
 
-  console.log(scores)
+  console.log(round_holes)
 
   return (
     <>
@@ -84,7 +84,7 @@ const Round = ({ activityData }: RoundProps) => {
           />
           <ActivityStatWidget
             title="Putts / Hole"
-            value={(scores.putts_value / hole_count).toFixed(2)}
+            value={(scores.putts_value / round_holes.length).toFixed(2)}
             subText={`Average`}
           />
           <ActivityStatWidget
@@ -106,8 +106,8 @@ const Round = ({ activityData }: RoundProps) => {
           />
           <ActivityStatWidget
             title="Bogey Avoidance"
-            value={`${(((scores.bogey + scores.double_bogey) / hole_count) * 100).toFixed(0)}%`}
-            subText={`${(scores.bogey + scores.double_bogey)} of ${hole_count} holes`}
+            value={`${(((scores.bogey + scores.double_bogey) / round_holes.length) * 100).toFixed(0)}%`}
+            subText={`${(scores.bogey + scores.double_bogey)} of ${round_holes.length} holes`}
           />
           <ActivityStatWidget
             title="Birdies vs Bogeys"

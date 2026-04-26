@@ -43,7 +43,7 @@ const Card = ({ item, isDemoAccount}: CardProps) => {
   const handleDeleteActivity = async (e: any) => {
     e.stopPropagation();
 
-    if (isDemoAccount) {
+    if (!isDemoAccount) {
       return;
     }
 
