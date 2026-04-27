@@ -16,7 +16,8 @@ export const fetchRecommndedLessons = async (
     .eq("user_id", userId);
 
   if (error) {
-    throw new Error("Failed to fetch recommended lessons");
+    console.error(error);
+    return [];
   }
 
   return recommendedLessons;

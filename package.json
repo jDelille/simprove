@@ -6,7 +6,8 @@
     "dev": "next dev -H 0.0.0.0 --webpack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.82.0",
@@ -36,6 +37,7 @@
     "zustand": "^5.0.11"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/node": "^20",
     "@types/papaparse": "^5.5.2",
     "@types/react": "^19",
@@ -43,6 +45,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.5"
   }
 }
