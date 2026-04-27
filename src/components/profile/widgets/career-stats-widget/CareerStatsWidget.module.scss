@@ -1,0 +1,35 @@
+@use "@/styles/mixins" as *;
+
+.widget {
+    @include widget();
+
+    padding: 0;
+
+    .header {
+        border-bottom: 1px solid var(--border);
+        padding: 1rem;
+        color: var(--lightgray);
+        text-transform: uppercase;
+        font-size: 12px;
+    }
+
+    ul {
+        li {
+            display: flex;
+            color: var(--lightgray);
+            justify-content: space-between;
+            padding: 10px 1rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 12px;
+
+            &:nth-last-child(1) {
+                border: none;
+            }
+
+            .value {
+                color: var(--text);
+                font-size: 14px;
+            }
+        }
+    }
+}

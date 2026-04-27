@@ -1,13 +1,21 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { supabase as browserClient } from "@/lib/supabase/client";
 import { Shot } from "@/types/shot";
+import { Session } from "@/types";
 
-export const fetchSessions = async (userId: string, supabaseClient: SupabaseClient = browserClient) => {
+export const fetchSessions = async (
+  userId: string,
+  supabaseClient: SupabaseClient = browserClient,
+): Promise<Session[]> => {
   const { data: sessionRows, error } = await supabaseClient
     .from("sessions")
     .select("*")
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
+
+    if (error || !sessionRows) {
+      return [];
+    }
 
   if (error) throw new Error("Failed to fetch sessions");
 
@@ -15,11 +23,13 @@ export const fetchSessions = async (userId: string, supabaseClient: SupabaseClie
     sessionRows.map(async (row) => {
       if (!row.storage_path) return row;
 
-      const { data: fileData, error: storageError } = await supabaseClient.storage
-        .from("sessions")
-        .download(row.storage_path);
+      const { data: fileData, error: storageError } =
+        await supabaseClient.storage
+          .from("sessions")
+          .download(row.storage_path);
 
-      if (storageError) return { ...row, error: "Failed to fetch session data" };
+      if (storageError)
+        return { ...row, error: "Failed to fetch session data" };
 
       const text = await fileData.text();
       const parsed = JSON.parse(text);
@@ -32,7 +42,7 @@ export const fetchSessions = async (userId: string, supabaseClient: SupabaseClie
           sessionDate: row.created_at,
         })),
       };
-    })
+    }),
   );
 
   return sessionsWithData;

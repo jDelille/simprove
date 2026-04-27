@@ -31,6 +31,13 @@
   }
 }
 
+.avatar.medium {
+  min-width: 50px;
+  max-width: 50px;
+  min-height: 50px;
+  max-height: 50px;
+}
+
 .avatar.large {
   min-width: 70px;
   max-width: 70px;

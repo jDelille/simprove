@@ -1,0 +1,119 @@
+@use "@/styles/mixins" as *;
+
+.widget {
+  @include widget();
+  padding: 0;
+
+  .top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 1rem;
+
+    .username {
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .date {
+      color: var(--lightgray);
+      font-size: 11px;
+    }
+
+    .userRank {
+      font-size: 16px;
+      margin-left: auto;
+    }
+  }
+
+  .social {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+
+    .stat {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      gap: 5px;
+
+      &:nth-last-child(1) {
+        border: none;
+      }
+
+      span {
+        font-size: 10px;
+        color: var(--lightgray);
+        text-transform: uppercase;
+      }
+
+      p {
+        font-size: 20px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .rank {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 7px;
+    border-bottom: 1px solid var(--border);
+
+    .labels {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--lightgray);
+
+      .currentRank {
+        color: var(--text);
+      }
+    }
+
+    .progressBar {
+      width: 100%;
+      height: 6px;
+      border-radius: 22px;
+      background-color: var(--messageBg);
+      border: 1px solid var(--border);
+
+      .fill {
+        background-color: var(--accent);
+        height: 100%;
+        border-radius: 22px;
+      }
+    }
+
+    .pointsLabel {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--lightgray);
+      font-size: 12px;
+    }
+
+    .pointsToNext {
+      color: var(--lightgray);
+      font-size: 12px;
+      padding-top: 5px;
+    }
+  }
+
+  .actions {
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+
+    button {
+      width: 100%;
+      height: 35px;
+    }
+  }
+}

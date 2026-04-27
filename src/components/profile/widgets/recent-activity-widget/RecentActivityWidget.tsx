@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import styles from "./RecentSessionsWidget.module.scss";
+import styles from "./RecentActivityWidget.module.scss";
 import { calculateAverages } from "@/lib/shots/averages";
 import moment from "moment";
 import { Session } from "@/types/session";
 
-type RecentSessionsWidgetProps = {
+type RecentActivityWidgetProps = {
   sessions: Session[];
 };
 
-const RecentSessionsWidget: React.FC<RecentSessionsWidgetProps> = ({
+const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = ({
   sessions
 }) => {
   const [selectedSessions, setSelectedSessions] = useState<string[]>([]);
@@ -39,20 +39,6 @@ const RecentSessionsWidget: React.FC<RecentSessionsWidgetProps> = ({
                         <p>8 clubs</p>
                       </div>
                     </div>
-                    {/* <div className={styles.bottom}>
-                      <div className={styles.averages}>
-                        <p>
-                          <strong>{averages.avgCarry.toFixed(1)}</strong> carry
-                        </p>
-                        <p>
-                          <strong>{averages.avgSpeed.toFixed(1)}</strong> mph
-                        </p>
-                        <p>
-                          <strong>{averages.avgOffline.toFixed(1)}</strong> yds
-                          off
-                        </p>
-                      </div>
-                    </div> */}
                   </div>
                 </li>
               );
@@ -66,4 +52,4 @@ const RecentSessionsWidget: React.FC<RecentSessionsWidgetProps> = ({
   );
 };
 
-export default RecentSessionsWidget;
+export default RecentActivityWidget;

@@ -1,4 +1,9 @@
-export const fetchUserLessons = async (userId: string, supabaseClient: any) => {
+import { Lesson } from "@/types";
+
+export const fetchUserLessons = async (
+  userId: string,
+  supabaseClient: any,
+): Promise<Lesson[]> => {
   const { data: userLessons, error } = await supabaseClient
     .from("user_lessons")
     .select(
@@ -16,8 +21,8 @@ export const fetchUserLessons = async (userId: string, supabaseClient: any) => {
 
   if (error) {
     console.error("Error fetching user lessons:", error);
-    return { error };
+    return [];
   }
 
-  return { userLessons };
+  return userLessons ?? [];
 };

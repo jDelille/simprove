@@ -3,3 +3,5 @@ export * from './recentActivity';
 export * from './shot';
 export * from './profile';
 export * from './gettingStartedCompletions';
+export * from './lesson';
+export * from './myClubs'

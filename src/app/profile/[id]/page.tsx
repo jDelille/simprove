@@ -1,11 +1,7 @@
 import Profile from "@/components/profile/Profile";
 import { createSupabaseServer } from "@/lib/supabase/server";
-import { fetchBadges } from "@/services/badges/fetchBadges";
 import { fetchGolfBag } from "@/services/golf-bag/fetchGolfBag";
-import { fetchUserLessons } from "@/services/lessons/fetchUserLessons";
-import { fetchProfileInfo } from "@/services/profile-info/fetchProfileInfo";
-import { fetchSessions } from "@/services/sessions/fetchSessions";
-import { fetchUserPoints } from "@/services/user-points/fetchUserPoints";
+import { getProfileData } from "@/services/profile/getProfileData";
 
 const ProfilePage = async () => {
   const supabase = await createSupabaseServer();
@@ -16,17 +12,14 @@ const ProfilePage = async () => {
 
   const myClubs = user?.id ? await fetchGolfBag(user.id, supabase) : [];
 
-  const [badges, sessions, lessons, profileInfo, userPoints] = user?.id
-    ? await Promise.all([
-        fetchBadges(supabase),
-        fetchSessions(user.id, supabase),
-        fetchUserLessons(user.id, supabase),
-        fetchProfileInfo(supabase),
-        fetchUserPoints(user.id, supabase),
-      ])
-    : [[], [], null];
+  const profileData = await getProfileData({
+    supabase: supabase,
+    userId: user?.id,
+  });
 
-  const userProfile = profileInfo?.profile;
+  if (!profileData) {
+    return <h1>404</h1>;
+  }
 
   return (
     <div className="page">
@@ -34,12 +27,11 @@ const ProfilePage = async () => {
         <Profile
           userId={user?.id || ""}
           myClubs={myClubs}
-          sessions={sessions}
-          lessons={lessons as any}
-          user={userProfile}
-          userPoints={userPoints}
-
-          // badges={badges}
+          sessions={profileData.sessions}
+          lessons={profileData.lessons}
+          user={profileData.info?.profile}
+          userPoints={profileData.userPoints}
+          rounds={profileData.rounds}
         />
       </div>
     </div>
