@@ -1,12 +1,6 @@
 import Dashboard from "@/components/dashboard/Dashboard";
 import { createSupabaseServer } from "@/lib/supabase/server";
-import { fetchRecentActivity } from "@/services/activity/fetchRecentActivity";
-import { fetchGettingStartedCompletions } from "@/services/getting-started-completions/fetchGettingStartedCompletions";
-import { fetchLatestRound } from "@/services/gspro/fetchLatestRound";
-import { fetchActiveLesson } from "@/services/lessons/fetchActiveLesson";
-import { fetchProfileInfo } from "@/services/profile-info/fetchProfileInfo";
-import { fetchSessions } from "@/services/sessions/fetchSessions";
-import { fetchUserPoints } from "@/services/user-points/fetchUserPoints";
+import { getDashboardData } from "@/services/dashboard/getDashboardData";
 
 const DashboardPage = async () => {
   const supabase = await createSupabaseServer();
@@ -19,25 +13,20 @@ const DashboardPage = async () => {
     return null;
   }
 
-  const [
-    sessions,
-    gettingStartedCompletions,
+  const dashboardData = await getDashboardData({
+    supabase: supabase,
+    userId: user.id,
+  });
+
+  const {
     profileInfo,
+    gettingStartedCompletions,
+    sessions,
     activeLesson,
     recentActivity,
     userPoints,
-    latestRound
-  ] = user?.id
-    ? await Promise.all([
-        fetchSessions(user.id, supabase),
-        fetchGettingStartedCompletions(user.id, supabase),
-        fetchProfileInfo(supabase),
-        fetchActiveLesson(user.id, supabase),
-        fetchRecentActivity(user.id, supabase),
-        fetchUserPoints(user.id, supabase),
-        fetchLatestRound(user.id, supabase)
-      ])
-    : [[], [], null, null, [], null, null];
+    latestRound,
+  } = dashboardData;
 
   // check if user has completed profile setup
   const userProfile = profileInfo?.profile;

@@ -1,8 +1,6 @@
 import Activities from "@/components/activities/Activities";
 import { createSupabaseServer } from "@/lib/supabase/server";
-import { fetchRounds } from "@/services/gspro/fetchRounds";
-import { fetchProfileInfo } from "@/services/profile-info/fetchProfileInfo";
-import { fetchSessions } from "@/services/sessions/fetchSessions";
+import { getActivitiesData } from "@/services/activities/getActivitiesData";
 
 const ActivitiesPage = async () => {
   const supabase = await createSupabaseServer();
@@ -15,18 +13,19 @@ const ActivitiesPage = async () => {
     return null;
   }
 
-  const [sessions, rounds, profileInfo] = await Promise.all([
-    fetchSessions(user.id, supabase),
-    fetchRounds(user.id, supabase),
-    fetchProfileInfo(supabase),
-  ]);
-
-  const profile = profileInfo?.profile;
+  const activitiesData = await getActivitiesData({
+    supabase: supabase,
+    userId: user.id,
+  });
 
   return (
     <div className="page">
       <div className="page-content">
-        <Activities sessions={sessions} rounds={rounds} profile={profile} />
+        <Activities
+          sessions={activitiesData.sessions}
+          rounds={activitiesData.rounds}
+          profile={activitiesData.profileInfo.profile}
+        />
       </div>
     </div>
   );

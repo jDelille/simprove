@@ -22,11 +22,7 @@ const ActivityPage = async ({ params, searchParams }: ActivityPageProps) => {
 
   if (!user) return null;
 
-  const [activity] = user?.id
-    ? await Promise.all([
-        fetchActivityById(user.id, id, type, supabase),
-      ])
-    : [[], []];
+  const activity = await fetchActivityById(user.id, id, type, supabase);
 
   return (
     <div className="page">

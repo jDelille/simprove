@@ -18,15 +18,13 @@ export async function GET(request: Request) {
 
   const userId = data.session.user.id;
 
-  // 1️⃣ Try to fetch profile
   let { data: profile } = await supabase
     .from("users")
     .select("*")
     .eq("id", userId)
     .single();
 
-  // 2️⃣ If profile doesn't exist, create a new row
-  if (!profile) {
+    if (!profile) {
     const { data: newProfile, error: insertError } = await supabase
       .from("users")
       .insert({
@@ -52,12 +50,9 @@ export async function GET(request: Request) {
   const needsOnboarding =
     !profile?.launch_monitor || !profile?.location || !profile?.display_name;
 
-
-  // Redirect to onboarding if needed
   if (needsOnboarding) {
     return NextResponse.redirect(`${origin}/auth/signup?step=3`);
   }
 
-  // Otherwise redirect to dashboard
   return NextResponse.redirect(`${origin}/dashboard`);
 }
