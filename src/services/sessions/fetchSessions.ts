@@ -3,25 +3,32 @@ import { supabase as browserClient } from "@/lib/supabase/client";
 import { Shot } from "@/types/shot";
 import { Session } from "@/types";
 
+type SessionWithShots = Session & {
+  shots: Shot[];
+};
+
 export const fetchSessions = async (
   userId: string,
   supabaseClient: SupabaseClient = browserClient,
-): Promise<Session[]> => {
+): Promise<SessionWithShots[]> => {
   const { data: sessionRows, error } = await supabaseClient
     .from("sessions")
     .select("*")
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
 
-    if (error || !sessionRows) {
-      return [];
-    }
-
-  if (error) throw new Error("Failed to fetch sessions");
-
+  if (error || !sessionRows) {
+    return [];
+  }
+  
   const sessionsWithData = await Promise.all(
     sessionRows.map(async (row) => {
-      if (!row.storage_path) return row;
+      if (!row.storage_path) {
+        return {
+          ...row,
+          shots: [],
+        };
+      }
 
       const { data: fileData, error: storageError } =
         await supabaseClient.storage

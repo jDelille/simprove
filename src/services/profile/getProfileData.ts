@@ -5,16 +5,16 @@
  * user points,
  * rounds,
  * sessions
- * badges
+ * achievements
  */
 
 import { SupabaseClient } from "@supabase/supabase-js";
-import { fetchBadges } from "../badges/fetchBadges";
 import { fetchSessions } from "../sessions/fetchSessions";
 import { fetchRounds } from "../gspro/fetchRounds";
 import { fetchUserLessons } from "../lessons/fetchUserLessons";
 import { fetchUserPoints } from "../user-points/fetchUserPoints";
 import { fetchProfileInfo } from "../profile-info/fetchProfileInfo";
+import { fetchAchievements } from "../achievments/fetchAchievements";
 
 type Props = {
   supabase: SupabaseClient;
@@ -26,9 +26,9 @@ export const getProfileData = async ({ supabase, userId }: Props) => {
     throw new Error("Missing userId");
   }
 
-  const [badges, sessions, rounds, lessons, info, userPoints] = userId
+  const [achievements, sessions, rounds, lessons, info, userPoints] = userId
     ? await Promise.all([
-        fetchBadges(supabase),
+        fetchAchievements(supabase),
         fetchSessions(userId, supabase),
         fetchRounds(userId, supabase),
         fetchUserLessons(userId, supabase),
@@ -38,7 +38,7 @@ export const getProfileData = async ({ supabase, userId }: Props) => {
     : [];
 
   return {
-     badges: badges ?? [],
+    achievements: achievements ?? [],
     sessions: sessions ?? [],
     rounds: rounds ?? [],
     lessons: lessons ?? [],

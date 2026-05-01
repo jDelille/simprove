@@ -9,4 +9,5 @@ export type Session = {
     shots: Shot[];
     storage_path: string;
     user_id: string;
+    sessionDate: string;
 }

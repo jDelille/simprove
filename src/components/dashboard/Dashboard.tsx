@@ -14,12 +14,10 @@ import {
   RecentActivity,
   Session,
 } from "@/types";
-import {
-  GettingStartedWidget,
-  SwingMetricsWidget,
-} from "./widgets";
+import { GettingStartedWidget, SwingMetricsWidget } from "./widgets";
 import { useDashboardData } from "@/hooks/useDashboardData";
 import UserWidget from "./widgets/user-widget/UserWidget";
+import { Round } from "@/types/round";
 
 type DashboardProps = {
   sessions: Session[];
@@ -30,6 +28,7 @@ type DashboardProps = {
   profile: Profile;
   userPoints: any;
   latestRound: any;
+  rounds: Round[];
 };
 
 const Dashboard = (props: DashboardProps) => {
@@ -43,10 +42,13 @@ const Dashboard = (props: DashboardProps) => {
 
   const dashboardData = useDashboardData({
     sessions: props.sessions,
+    rounds: props.rounds,
     gettingStartedCompletions: props.gettingStartedCompletions,
     userId: props.userId,
     shots,
   });
+
+  console.log(dashboardData);
 
   return (
     <div className={styles.dashboard}>
@@ -65,11 +67,11 @@ const Dashboard = (props: DashboardProps) => {
 
           <SmallStatWidget
             title="Activities"
-            value={dashboardData.sessionsThisMonth}
+            value={dashboardData.activitiesThisMonth}
             metric={" "} // sessions.length > 1 ? "sessions" : "session"
-            trend={dashboardData.sessionsTrend.direction}
-            trendText={dashboardData.sessionsTrendText}
-            trendColor={dashboardData.sessionsTrendColor}
+            trend={dashboardData.activityTrend.direction}
+            trendText={dashboardData.activityTrendText}
+            trendColor={dashboardData.activityTrendColor}
             isEmpty={shots.length === 0}
           />
 
@@ -118,6 +120,7 @@ const Dashboard = (props: DashboardProps) => {
             profile={props.profile}
             latestRound={props.latestRound}
             userPoints={props.userPoints}
+            activityCount={(props.sessions.length + props.rounds.length)}
           />
         </div>
 

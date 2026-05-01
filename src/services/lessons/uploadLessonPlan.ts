@@ -1,6 +1,6 @@
 import {  supabase } from "@/lib/supabase/client";
-import { awardBadge } from "../badges/awardBadge";
 import { SupabaseClient } from "@supabase/supabase-js";
+import { awardAchievement } from "../achievments/awardaAchievement";
 
 export async function uploadLessonPlan({
   userId,
@@ -67,7 +67,7 @@ export async function uploadLessonPlan({
     }
   }
 
-  await awardBadge(userId, "first_lesson", {
+  await awardAchievement(userId, "first_lesson", {
     title: "First Lesson Started",
     description: "Started your first lesson",
   });

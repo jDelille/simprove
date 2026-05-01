@@ -1,27 +1,27 @@
-import { awardBadge } from "@/services/badges/awardBadge";
+import { awardAchievement } from "@/services/achievments/awardaAchievement";
 import { SupabaseClient } from "@supabase/supabase-js";
 
-export const checkFirstSessionBadge = async (
+export const checkFirstSessionAchievement = async (
   userId: string,
   supabaseClient: SupabaseClient,
   isFirstSession: boolean,
 ): Promise<void> => {
   if (!isFirstSession) return;
 
-  const { data: badgeCheck, error } = await supabaseClient
-    .from("user_badges")
+  const { data: acheievementCheck, error } = await supabaseClient
+    .from("user_achievements")
     .select("*")
     .eq("user_id", userId)
-    .eq("badge_key", "first_session")
+    .eq("acheievement_key", "first_session")
     .maybeSingle();
 
   if (error) {
-    console.error("[checkFirstSessionBadge] error:", error);
+    console.error("[checkFirstSessionAcheievement] error:", error);
     return;
   }
 
-  if (!badgeCheck) {
-    await awardBadge(userId, "first_session", {
+  if (!acheievementCheck) {
+    await awardAchievement(userId, "first_session", {
       title: "First Session Logged",
       description: "Imported your first session",
     });

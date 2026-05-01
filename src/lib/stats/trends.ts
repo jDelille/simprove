@@ -31,30 +31,31 @@ export function calculateTrend(current: number, previous: number): Trend {
     current,
     previous,
     percentChange: Number(Math.abs(percent).toFixed(1)),
-    direction: percent > 0 ? "increase" : percent < 0 ? "decrease" : "none",
+    direction:
+      percent > 0 ? "increase" : percent < 0 ? "decrease" : "none",
   };
 }
 
-export function groupByMonth<
-  T extends { sessionDate?: string | Date } | { session_date?: string },
->(items: T[]): Record<string, { date: string; sessions: T[] }> {
-  return items.reduce(
-    (group, item) => {
-      const dateStr =
-        "sessionDate" in item
-          ? item.sessionDate
-          : "created_at" in item
-            ? item.created_at
-            : undefined;
-      if (!dateStr) return group;
+export function groupByMonth<T extends { sessionDate: string }>(
+  items: T[],
+): Record<string, { date: string; sessions: T[] }> {
+  return items.reduce((group, item) => {
+    if (!item?.sessionDate) return group;
 
-      const monthKey = moment(dateStr).format("MMM YYYY");
-      if (!group[monthKey]) group[monthKey] = { date: monthKey, sessions: [] };
-      group[monthKey].sessions.push(item);
-      return group;
-    },
-    {} as Record<string, { date: string; sessions: T[] }>,
-  );
+    const d = new Date(item.sessionDate);
+    const monthKey = `${d.getUTCFullYear()}-${d.getUTCMonth() + 1}`;
+
+    if (!group[monthKey]) {
+      group[monthKey] = {
+        date: monthKey,
+        sessions: [],
+      };
+    }
+
+    group[monthKey].sessions.push(item);
+
+    return group;
+  }, {} as Record<string, { date: string; sessions: T[] }>);
 }
 
 export function getShotsByMonth(shots: Shot[]) {
@@ -62,11 +63,11 @@ export function getShotsByMonth(shots: Shot[]) {
   const lastMonth = moment().subtract(1, "month");
 
   const shotsThisMonth = shots.filter((shot) =>
-    moment(shot.sessionDate).isSame(now, "month"),
+    moment(shot.sessionDate).isSame(now, "month")
   );
 
   const shotsLastMonth = shots.filter((shot) =>
-    moment(shot.sessionDate).isSame(lastMonth, "month"),
+    moment(shot.sessionDate).isSame(lastMonth, "month")
   );
 
   return {
@@ -95,8 +96,10 @@ export const formatTrend = (trend: {
         text: `${trend.percentChange}% decrease from last month`,
         color: "#c93c32",
       };
-    case "none":
     default:
-      return { text: "No changes", color: "var(--lightgray)" };
+      return {
+        text: "No changes",
+        color: "var(--lightgray)",
+      };
   }
 };

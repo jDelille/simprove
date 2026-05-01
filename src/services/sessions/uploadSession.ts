@@ -7,13 +7,12 @@ import { checkFirstSession } from "@/lib/sessions/checkFirstSession";
 import { uploadSessionToStorage } from "@/lib/sessions/uploadSessionToStorage";
 import { insertSession } from "@/lib/sessions/insertSession";
 import { handleFirstSessionOnboarding } from "@/lib/onboarding/handleFirstSessionOnboarding";
-import { checkFirstSessionBadge } from "@/lib/badges/checkFirstSessionBadge";
 import { getActiveLessonId } from "@/lib/lessons/getActiveLessonId";
 import { getLessonDrills } from "@/lib/lessons/getLessonDrills";
 import { applySessionToLessonDrills } from "@/lib/lessons/applySessionToLessonDrills";
 import { awardUserPoints } from "../user-points/uploadUserPoints";
-import { uploadLeaderboard } from "../leaderboard/uploadLeaderboard";
 import { POINTS } from "@/lib/points/constants";
+import { checkFirstSessionAchievement } from "@/lib/badges/checkFirstSessionBadge";
 
 type UploadSessionProps = {
   userId: string;
@@ -91,8 +90,8 @@ export async function uploadSession({
   // Handle first session onboarding
   await handleFirstSessionOnboarding(userId, supabase, isFirstSession);
 
-  // Check for first session badge
-  await checkFirstSessionBadge(userId, supabase, isFirstSession);
+  // Check for first session achievement
+  await checkFirstSessionAchievement(userId, supabase, isFirstSession);
 
   // Get active lessonId for user
   const activeLessonId = await getActiveLessonId(userId, supabase);

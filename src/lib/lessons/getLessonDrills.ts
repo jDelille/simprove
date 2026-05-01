@@ -1,4 +1,3 @@
-import { awardBadge } from "@/services/badges/awardBadge";
 import { SupabaseClient } from "@supabase/supabase-js";
 
 export const getLessonDrills = async (

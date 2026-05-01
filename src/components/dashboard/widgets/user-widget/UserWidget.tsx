@@ -13,9 +13,10 @@ type UserWidgetProps = {
   profile: Profile;
   latestRound: any;
   userPoints: any;
+  activityCount: number;
 };
 
-const UserWidget = ({ profile, latestRound, userPoints }: UserWidgetProps) => {
+const UserWidget = ({ profile, latestRound, userPoints, activityCount }: UserWidgetProps) => {
 
   return (
     <div className={styles.widget} id="profile-overview">
@@ -50,7 +51,7 @@ const UserWidget = ({ profile, latestRound, userPoints }: UserWidgetProps) => {
           </div>
           <div className={styles.stat}>
             <span>Activities</span>
-            <p>4</p>
+            <p>{activityCount || 0}</p>
           </div>
         </div>
 

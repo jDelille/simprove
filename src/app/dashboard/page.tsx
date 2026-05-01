@@ -26,6 +26,7 @@ const DashboardPage = async () => {
     recentActivity,
     userPoints,
     latestRound,
+    rounds
   } = dashboardData;
 
   // check if user has completed profile setup
@@ -64,6 +65,7 @@ const DashboardPage = async () => {
           profile={userProfile}
           userPoints={userPoints}
           latestRound={latestRound}
+          rounds={rounds}
         />
       </div>
     </div>

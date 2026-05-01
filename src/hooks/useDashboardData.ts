@@ -1,44 +1,59 @@
-import { calculateProfileStats } from "@/lib/profile-stats/ProfileStats";
-import {
-  calculateTrend,
-  formatTrend,
-  groupByMonth,
-  Trend,
-} from "@/lib/stats/trends";
-import { getWeakestClubs } from "@/lib/stats/weakestClubs";
+import { calculateTrend, formatTrend, groupByMonth } from "@/lib/stats/trends";
 import type { Session, Shot } from "@/types";
 
 type Params = {
   sessions: Session[];
+  rounds: any[];
   gettingStartedCompletions?: any[];
   userId: string;
   shots: Shot[];
 };
 
+type Activity = {
+  sessionDate: string;
+  type: "session" | "round";
+};
+
 export const useDashboardData = ({
   sessions,
+  rounds,
   gettingStartedCompletions,
   userId,
   shots,
 }: Params) => {
-  const groupedSessions = groupByMonth(sessions);
+  const sessionActivities = sessions.filter(Boolean).map((s) => ({
+    type: "session" as const,
+    sessionDate: s.created_at,
+  }));
+
+  const roundActivities = rounds.filter(Boolean).map((r) => ({
+    type: "round" as const,
+    sessionDate: r.created_at,
+  }));
+
+  const activities = [...sessionActivities, ...roundActivities];
+
+  console.log("activities:", activities);
+
+  const grouped = groupByMonth(activities);
   const groupedShots = groupByMonth(shots);
 
-  const currentMonthKey = new Date().toLocaleString("default", {
-    month: "short",
-    year: "numeric",
-  });
-  const lastMonthKey = new Date(
-    new Date().setMonth(new Date().getMonth() - 1),
-  ).toLocaleString("default", { month: "short", year: "numeric" });
+  const now = new Date();
+  const currentMonthKey = `${now.getUTCFullYear()}-${now.getUTCMonth() + 1}`;
 
-  const sessionsThisMonth =
-    groupedSessions[currentMonthKey]?.sessions.length || 0;
-  const sessionsLastMonth = groupedSessions[lastMonthKey]?.sessions.length || 0;
+  const last = new Date();
+  last.setMonth(last.getMonth() - 1);
+  const lastMonthKey = `${last.getUTCFullYear()}-${last.getUTCMonth() + 1}`;
 
-  const sessionsTrend = calculateTrend(sessionsThisMonth, sessionsLastMonth);
-  const { text: sessionsTrendText, color: sessionsTrendColor } =
-    formatTrend(sessionsTrend);
+  const activitiesThisMonth = grouped[currentMonthKey]?.sessions.length || 0;
+  const activitiesLastMonth = grouped[lastMonthKey]?.sessions.length || 0;
+
+  const activityTrend = calculateTrend(
+    activitiesThisMonth,
+    activitiesLastMonth,
+  );
+  const { text: activityTrendText, color: activityTrendColor } =
+    formatTrend(activityTrend);
 
   const shotsThisMonth = groupedShots[currentMonthKey]?.sessions.length || 0;
   const shotsLastMonth = groupedShots[lastMonthKey]?.sessions.length || 0;
@@ -62,7 +77,7 @@ export const useDashboardData = ({
   const { text: carryTrendText, color: carryTrendColor } =
     formatTrend(carryTrend);
 
-const hasCompletedGettingStarted = gettingStartedCompletions
+  const hasCompletedGettingStarted = gettingStartedCompletions
     ? gettingStartedCompletions.length === 4
     : false;
 
@@ -73,10 +88,11 @@ const hasCompletedGettingStarted = gettingStartedCompletions
     shotsTrend,
     shotsTrendColor,
     shotsTrendText,
-    sessionsThisMonth,
-    sessionsTrend,
-    sessionsTrendText,
-    sessionsTrendColor,
-    hasCompletedGettingStarted
+    hasCompletedGettingStarted,
+    activitiesThisMonth,
+    activitiesLastMonth,
+    activityTrend,
+    activityTrendText,
+    activityTrendColor,
   };
 };
