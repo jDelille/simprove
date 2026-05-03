@@ -2,6 +2,8 @@ import { supabase } from "@/lib/supabase/client";
 import { awardUserPoints } from "../user-points/uploadUserPoints";
 import { POINTS } from "@/lib/points/constants";
 import { uploadLeaderboard } from "../leaderboard/uploadLeaderboard";
+import { evaluateAchievementsFromRound } from "../achievments/evaluateAchievementsFromRound";
+import { awardAchievement } from "../achievments/awardAchievement";
 
 export async function uploadGSProRound({
   userId,
@@ -40,8 +42,16 @@ export async function uploadGSProRound({
   // award user points for round upload
   await awardUserPoints(userId, supabase, POINTS.round.upload);
 
-  // Update leaderboard with new points
-  // await uploadLeaderboard(supabase, POINTS.round.upload, userId);
+  // check achievements
+
+  const achievements = evaluateAchievementsFromRound(allScores);
+
+  for (const key of achievements) {
+    await awardAchievement(userId, key, {
+      title: "Achievement Unlocked",
+      description: `You unlocked ${key}`,
+    });
+  }
 
   const scoreInserts = insertedRounds
     .map((insertedRound) => {
@@ -95,8 +105,6 @@ export async function uploadGSProRound({
     const roundKey = insertedRound.round_key;
 
     const roundHoles = holes.filter((h) => h.round_key === roundKey);
-
-    console.log(holes)
 
     if (!roundHoles.length) return [];
 

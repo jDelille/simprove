@@ -10,7 +10,6 @@ type ActivityProps = {
   activityData: any;
 };
 const Activity = ({ activityData }: ActivityProps) => {
-  console.log("activity: ", activityData);
   const router = useRouter();
 
   const isRound = !!activityData.round_type;

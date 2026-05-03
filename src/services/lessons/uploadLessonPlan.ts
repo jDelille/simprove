@@ -1,6 +1,5 @@
-import {  supabase } from "@/lib/supabase/client";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { awardAchievement } from "../achievments/awardaAchievement";
+import { awardAchievement } from "../achievments/awardAchievement";
 
 export async function uploadLessonPlan({
   userId,

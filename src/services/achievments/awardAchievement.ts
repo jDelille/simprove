@@ -36,10 +36,11 @@ export async function awardAchievement(
 
   if (achievementError) {
     console.error(
-      `[awardachievement] achievement award error for achievement ${achievementKey}:`,
+      `[awardAchievement] achievement award error for achievement ${achievementKey}:`,
       achievementError,
     );
   }
+  
 
   await logActivity({
     type: "ACHIEVEMENT_EARNED",

@@ -1,0 +1,85 @@
+.achievements {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  .pageHeader {
+    display: flex;
+    justify-content: space-between;
+    .title {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      h1 {
+        font-size: 26px;
+      }
+      p {
+        font-size: 14px;
+        color: var(--lightgray);
+      }
+    }
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 1rem;
+    .card {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--border);
+      width: 100%;
+      padding: 10px;
+      border-radius: 4px;
+      background-color: var(--bg);
+      gap: 1rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--primary-hover);
+      }
+      .icon,
+      .unlocked {
+        max-width: 50px;
+        max-height: 50px;
+        border: 1px solid var(--border);
+        padding: 5px;
+        background-color: var(--messageBg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        img {
+          max-width: 35px;
+          max-height: 35px;
+        }
+      }
+
+      .unlocked {
+        background-color: var(--lightBlue);
+        border: 1px solid var(--blueBorder);
+      }
+
+      .name {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        h2 {
+          font-size: 14px;
+        }
+        p {
+            font-size: 12px;
+            color: var(--lightgray);
+        }
+      }
+
+      small {
+        color: var(--lightgray);
+        font-size: 11px;
+      }
+    }
+  }
+}

@@ -10,8 +10,7 @@ type HoleByHoleProps = {
 };
 
 const HoleByHoleWidget = ({ roundHoles }: HoleByHoleProps) => {
-  console.log(roundHoles);
-
+  
   const scoreColor = (strokes: number, par: number) => {
     const diff = strokes - par;
     if (diff <= -2) return "var(--eagle)";

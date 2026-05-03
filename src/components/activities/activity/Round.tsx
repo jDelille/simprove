@@ -11,6 +11,8 @@ type RoundProps = {
 const Round = ({ activityData }: RoundProps) => {
   const activity = useRound({ activity: activityData });
 
+  console.log(activity)
+
   const {
     scores,
     frontScore,
@@ -39,8 +41,6 @@ const Round = ({ activityData }: RoundProps) => {
     return "E";
   };
 
-  console.log(round_holes)
-
   return (
     <>
       <div className={styles.title}>
@@ -61,35 +61,35 @@ const Round = ({ activityData }: RoundProps) => {
         <div className={styles.row}>
           <ActivityStatWidget
             title="Fairways Hit"
-            value={scores.fairways_value_percent}
+            value={scores?.fairways_value_percent}
             metric="%"
-            subText={`${scores.fairways_value} / ${scores.fairways_target}`}
+            subText={`${scores?.fairways_value} / ${scores?.fairways_target}`}
           />
           <ActivityStatWidget
             title="Greens Hit"
-            value={scores.greens_value_percent}
+            value={scores?.greens_value_percent}
             metric="%"
-            subText={`${scores.greens_value} / ${scores.greens_target}`}
+            subText={`${scores?.greens_value} / ${scores?.greens_target}`}
           />
           <ActivityStatWidget
             title="Sand Saves"
-            value={scores.sand_saves_value_percent}
+            value={scores?.sand_saves_value_percent}
             metric="%"
-            subText={`${scores.sand_saves_value} / ${scores.sand_saves_target}`}
+            subText={`${scores?.sand_saves_value} / ${scores?.sand_saves_target}`}
           />
           <ActivityStatWidget
             title="Putts"
-            value={scores.putts_value}
-            subText={`Target ${scores.putts_target}`}
+            value={scores?.putts_value}
+            subText={`Target ${scores?.putts_target}`}
           />
           <ActivityStatWidget
             title="Putts / Hole"
-            value={(scores.putts_value / round_holes.length).toFixed(2)}
+            value={(scores?.putts_value / round_holes.length).toFixed(2)}
             subText={`Average`}
           />
           <ActivityStatWidget
             title="Longest Drive"
-            value={scores.driving_distance_longest.toFixed(1)}
+            value={scores?.driving_distance_longest.toFixed(1)}
             subText={"yards"}
           />
         </div>
@@ -106,14 +106,14 @@ const Round = ({ activityData }: RoundProps) => {
           />
           <ActivityStatWidget
             title="Bogey Avoidance"
-            value={`${(((scores.bogey + scores.double_bogey) / round_holes.length) * 100).toFixed(0)}%`}
-            subText={`${(scores.bogey + scores.double_bogey)} of ${round_holes.length} holes`}
+            value={`${(((scores?.bogey + scores?.double_bogey) / round_holes.length) * 100).toFixed(0)}%`}
+            subText={`${(scores?.bogey + scores?.double_bogey)} of ${round_holes.length} holes`}
           />
           <ActivityStatWidget
             title="Birdies vs Bogeys"
-            value={`${scores.birdie}B / ${(scores.bogey + scores.double_bogey)}B+`}
+            value={`${scores?.birdie}B / ${(scores?.bogey + scores?.double_bogey)}B+`}
             subText={
-              scores.birdies > scores.bogey ? "More birdies" : "More bogies"
+              scores?.birdies > scores?.bogey ? "More birdies" : "More bogies"
             }
           />
         </div>

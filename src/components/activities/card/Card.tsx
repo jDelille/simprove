@@ -119,15 +119,15 @@ const Card = ({ item, isDemoAccount}: CardProps) => {
       <div className={styles.stats}>
         <div className={styles.stat}>
           <span>GIR</span>
-          <p>{item.round_scores?.[0].greens_value_percent}%</p>
+          <p>{item.round_scores?.[0]?.greens_value_percent}%</p>
         </div>
         <div className={styles.stat}>
           <span>FIR</span>
-          <p>{item.round_scores?.[0].fairways_value_percent}%</p>
+          <p>{item.round_scores?.[0]?.fairways_value_percent}%</p>
         </div>
         <div className={styles.stat}>
           <span>PUTTS</span>
-          <p>{item.round_scores?.[0].putts_value}</p>
+          <p>{item.round_scores?.[0]?.putts_value}</p>
         </div>
       </div>
       <div className={styles.settings}>

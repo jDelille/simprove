@@ -1,4 +1,4 @@
-import { awardAchievement } from "@/services/achievments/awardaAchievement";
+import { awardAchievement } from "@/services/achievments/awardAchievement";
 import { SupabaseClient } from "@supabase/supabase-js";
 
 export const checkFirstSessionAchievement = async (

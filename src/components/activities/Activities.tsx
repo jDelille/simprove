@@ -49,9 +49,9 @@ const Activities = ({ sessions, rounds, profile }: ActivitiesProps) => {
   active === "Sessions" ? [] : rounds,
 );
 
-  const controls = ["All", "Rounds", "Sessions"];
+console.log(rounds)
 
-  console.log(profile)
+  const controls = ["All", "Rounds", "Sessions"];
 
   return (
     <div className={styles.activities}>

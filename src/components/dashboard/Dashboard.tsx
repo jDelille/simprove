@@ -48,8 +48,6 @@ const Dashboard = (props: DashboardProps) => {
     shots,
   });
 
-  console.log(dashboardData);
-
   return (
     <div className={styles.dashboard}>
       {/* left side */}

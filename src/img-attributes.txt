@@ -1,0 +1,18 @@
+four_of_a_kind: <a href="https://www.flaticon.com/free-icons/ace-cards" title="ace cards icons">Ace cards icons created by Md Tanvirul Haque - Flaticon</a>
+bogey_free: <a href="https://www.flaticon.com/free-icons/shield" title="shield icons">Shield icons created by redempticon - Flaticon</a>
+heat_check: <a href="https://www.flaticon.com/free-icons/fire" title="fire icons">Fire icons created by Freepik - Flaticon</a>
+took_my_medicine: <a href="https://www.flaticon.com/free-icons/drug" title="drug icons">Drug icons created by geotatah - Flaticon</a>
+the_golden_ratio: <a href="https://www.flaticon.com/free-icons/law" title="law icons">Law icons created by Freepik - Flaticon</a>
+gir_collector: <a href="https://www.flaticon.com/free-icons/golf-club" title="golf club icons">Golf club icons created by vectorsmarket15 - Flaticon</a>
+fir_collector: <a href="https://www.flaticon.com/free-icons/golf-course" title="golf course icons">Golf course icons created by Flat Icons - Flaticon</a>
+both_barrels: <a href="https://www.flaticon.com/free-icons/shotgun" title="shotgun icons">Shotgun icons created by Smashicons - Flaticon</a>
+golden_ferret: <a href="https://www.flaticon.com/free-icons/shotgun" title="shotgun icons">Shotgun icons created by Smashicons - Flaticon</a>
+26_and_done: <a href="https://www.flaticon.com/free-icons/putter" title="putter icons">Putter icons created by juicy_fish - Flaticon</a>
+grinder: <a href="https://www.flaticon.com/free-icons/sports-and-competition" title="sports and competition icons">Sports and competition icons created by Freepik - Flaticon</a>
+any_club_any_time: <a href="https://www.flaticon.com/free-icons/golf" title="golf icons">Golf icons created by Smashicons - Flaticon</a>
+now_thats_a_number:<a href="https://www.flaticon.com/free-icons/rocket" title="rocket icons">Rocket icons created by Pixel Buddha - Flaticon</a>
+night_owl: <a href="https://www.flaticon.com/free-icons/owl" title="owl icons">Owl icons created by Freepik - Flaticon</a>
+ace: <a href="https://www.flaticon.com/free-icons/hole-in-one" title="hole-in-one icons">Hole-in-one icons created by Freepik - Flaticon</a>
+ferret: <a href="https://www.flaticon.com/free-icons/zoology" title="zoology icons">Zoology icons created by Slamlabs - Flaticon</a>
+scratch_golfer:<a href="https://www.flaticon.com/free-icons/trophy" title="trophy icons">Trophy icons created by Maan Icons - Flaticon</a>
+thats_new: <a href="https://www.flaticon.com/free-icons/talent" title="talent icons">Talent icons created by Vector Stall - Flaticon</a>

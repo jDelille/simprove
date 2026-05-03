@@ -191,8 +191,6 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
     };
   }, [selectedMetric, clubStatsArray, metric]);
 
-  console.log(sessions)
-
   return (
     <div className={styles.graphContainer} id="averages-graph">
       <div className={styles.header}>

@@ -33,8 +33,6 @@ export const useDashboardData = ({
 
   const activities = [...sessionActivities, ...roundActivities];
 
-  console.log("activities:", activities);
-
   const grouped = groupByMonth(activities);
   const groupedShots = groupByMonth(shots);
 

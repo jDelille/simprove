@@ -14,7 +14,6 @@ type SessionProps = {
 
 const Session = ({ activityData }: SessionProps) => {
   const [selectedClub, setSelectedClub] = useState<string>("ALL");
-  console.log(activityData);
 
   const { session_name, session_date, shots } = activityData;
 
