@@ -2,7 +2,7 @@
 
 # Simprove
 
-<img width="700" height="437" alt="site-pic" src="https://github.com/user-attachments/assets/caaab81b-e96e-4c65-98c0-caf5276cd1d8" />
+<!-- <img width="700" height="437" alt="site-pic" src="https://github.com/user-attachments/assets/caaab81b-e96e-4c65-98c0-caf5276cd1d8" /> -->
 
 <p> Simprove is an online platform to track and analyze your golf simulator stats and trends. </p>
 <p> Simply export your session data from GsPro and upload to Simprove. </p>
