@@ -8,7 +8,7 @@ import { createSupabaseServer } from "@/lib/supabase/server";
 import { fetchProfileInfo } from "@/services/profile-info/fetchProfileInfo";
 import ClientTourWrapper from "@/components/tour-controller/ClientTourWrapper";
 import "@/styles/globals.scss";
-
+import { fetchNotifications } from "@/services/notifications/fetchNotifications";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -27,16 +27,15 @@ export default async function RootLayout({
 }>) {
   const supabase = await createSupabaseServer();
   const { profile } = await fetchProfileInfo(supabase);
+  const notifications = await fetchNotifications(profile.id, supabase);
 
   return (
     <html lang="en">
       <body className={`${inter.variable}`}>
         <ThemeProvider>
-          <Navbar profile={profile} />
+          <Navbar profile={profile} notifications={notifications}/>
           <Providers>
-            <ClientTourWrapper profile={profile}>
-              {children}
-            </ClientTourWrapper>
+            <ClientTourWrapper profile={profile}>{children}</ClientTourWrapper>
           </Providers>
           <Footer />
         </ThemeProvider>

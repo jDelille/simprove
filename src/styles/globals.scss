@@ -88,12 +88,14 @@ html.light {
   --doubleBogey: #e3483d;
   --triplePlus: #db1a1a;
 
-   // zone
-  --zone-good: #e0f5f0; 
-  --zone-okay: #fef3d8; 
-  --zone-bad: #fde8e8; 
+  // zone
+  --zone-good: #e0f5f0;
+  --zone-okay: #fef3d8;
+  --zone-bad: #fde8e8;
 
   --track-bg: #f1f1f1;
+
+  --notifDropdownShadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 html.dark {
@@ -170,7 +172,7 @@ html.dark {
   --primaryBtnHover: #cccccc;
 
   // stroke colors
- --eagle: #a78bfa;
+  --eagle: #a78bfa;
   --birdie: #29ba7e;
   --par: #e1e6ed;
   --bogey: #facd39;
@@ -183,6 +185,10 @@ html.dark {
   --zone-bad: #111114; // dark red solid
 
   --track-bg: #1a1a1a;
+
+  // box shadows
+
+  --notifDropdownShadow: rgba(0, 0, 0, 0.5) 0px 8px 24px;
 }
 
 body {

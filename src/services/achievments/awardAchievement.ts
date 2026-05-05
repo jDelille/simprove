@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase/client";
-import { logActivity } from "../activity/logActivity";
+import { logActivity } from "../notifications/logActivity";
 
 export async function awardAchievement(
   userId: string,
@@ -32,7 +32,11 @@ export async function awardAchievement(
 
   const { error: achievementError } = await supabase
     .from("user_achievements")
-    .insert({ user_id: userId, achievement_id: achievement.id, achievement_key: achievementKey });
+    .insert({
+      user_id: userId,
+      achievement_id: achievement.id,
+      achievement_key: achievementKey,
+    });
 
   if (achievementError) {
     console.error(
@@ -40,7 +44,6 @@ export async function awardAchievement(
       achievementError,
     );
   }
-  
 
   await logActivity({
     type: "ACHIEVEMENT_EARNED",

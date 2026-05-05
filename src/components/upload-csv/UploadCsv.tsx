@@ -147,6 +147,8 @@ const UploadCsv = ({ userId, onClose }: UploadCsvProps) => {
       console.error("Error uploading session:", error);
       throw error;
     }
+
+    onClose();
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

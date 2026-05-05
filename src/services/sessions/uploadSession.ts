@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase/client";
-import { logActivity } from "../activity/logActivity";
+import { logActivity } from "../notifications/logActivity";
 import { calculateAverages } from "@/lib/shots/averages";
 import { fetchAIRecommendedLessons } from "@/claude-ai/fetchAIRecommendedLessons";
 import { Shot } from "@/types/shot";
@@ -13,6 +13,11 @@ import { applySessionToLessonDrills } from "@/lib/lessons/applySessionToLessonDr
 import { awardUserPoints } from "../user-points/uploadUserPoints";
 import { POINTS } from "@/lib/points/constants";
 import { checkFirstSessionAchievement } from "@/lib/badges/checkFirstSessionBadge";
+import {
+  evaluateAchievementsFromRound,
+  evaluateAchievementsFromSession,
+} from "../achievments/evaluateAchievementsFromRound";
+import { awardAchievement } from "../achievments/awardAchievement";
 
 type UploadSessionProps = {
   userId: string;
@@ -85,6 +90,7 @@ export async function uploadSession({
     description: `Uploaded session "${sessionName}"`,
     entityId: dbSession.id,
     entityType: "session",
+    metadata: { sessionId: dbSession.id },
   });
 
   // Handle first session onboarding
@@ -92,6 +98,20 @@ export async function uploadSession({
 
   // Check for first session achievement
   await checkFirstSessionAchievement(userId, supabase, isFirstSession);
+
+  const sessionData = JSON.parse(jsonString);
+
+  const achievements = evaluateAchievementsFromSession(sessionData);
+
+  console.log(sessionData);
+  console.log(achievements);
+
+  for (const key of achievements) {
+    await awardAchievement(userId, key, {
+      title: "Achievement Unlocked",
+      description: `You unlocked ${key}`,
+    });
+  }
 
   // Get active lessonId for user
   const activeLessonId = await getActiveLessonId(userId, supabase);

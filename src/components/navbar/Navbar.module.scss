@@ -93,10 +93,26 @@
         align-items: center;
         justify-content: center;
         margin-right: 10px;
+        position: relative;
         &:hover {
-          svg {
+          .bellIcon {
             fill: var(--text);
           }
+        }
+
+        .dot {
+          position: absolute;
+          width: 13px;
+          height: 13px;
+          border-radius: 50%;
+          right: -3px;
+          top: -1px;
+          background-color: var(--accent);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 9px;
+          color: white;
         }
       }
 

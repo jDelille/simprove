@@ -17,16 +17,19 @@ import Modal from "../ui/modal/Modal";
 import { LiaSyncAltSolid } from "react-icons/lia";
 import { GrUploadOption } from "react-icons/gr";
 import { FaRegBell } from "react-icons/fa6";
+import NotificationsDropdown from "../notifications-dropdown/NotificationsDropdown";
 
 type AuthAction = "login" | "signup" | "logout";
 
 type NavbarProps = {
   profile: Profile | null;
+  notifications: any[];
 };
 
-const Navbar: React.FC<NavbarProps> = ({ profile }) => {
+const Navbar: React.FC<NavbarProps> = ({ profile, notifications }) => {
   const { openModal, modals, closeModal } = useModal();
   const [openMenu, setOpenMenu] = useState(false);
+  const [openNotifications, setOpenNotifications] = useState(false);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -49,14 +52,12 @@ const Navbar: React.FC<NavbarProps> = ({ profile }) => {
     setOpenMenu(false);
   };
 
+const hasNotifications = notifications.filter((n) => n.is_read).length;
   const navLinks = [
     { href: "/dashboard", label: "Dashboard", key: 1 },
     { href: "/activities", label: "Activities", key: 3 },
     { href: "/training", label: "Training", key: 4 },
     { href: `/profile/${profile?.username}`, label: "Profile", key: 5 },
-    // { href: "/community", label: "Community", key: 4 },
-    // { href: "/challenges", label: "Challenges", key: 5 },
-    // { href: "/about", label: "About", key: 6 },
   ];
 
   const hiddenPaths = ["/auth/login", "/auth/signup"];
@@ -67,6 +68,11 @@ const Navbar: React.FC<NavbarProps> = ({ profile }) => {
     .map((word: string) => word.charAt(0))
     .join("")
     .toUpperCase();
+
+  const handleOpenDropdown = async () => {
+    const isOpening = !openNotifications;
+    setOpenNotifications(isOpening);
+  };
 
   return (
     <nav className={styles.navbar} id="navbar">
@@ -113,14 +119,35 @@ const Navbar: React.FC<NavbarProps> = ({ profile }) => {
             )}
             {profile && (
               <>
-              <div className={styles.notificationContainer}>
-                <FaRegBell size={19} color="var(--lightgray)" />
-              </div>
+                <div className={styles.notificationContainer}>
+                  <FaRegBell
+                    size={19}
+                    color="var(--lightgray)"
+                    onClick={handleOpenDropdown}
+                    className={styles.bellIcon}
+                  />
+                  {hasNotifications < 1 && <div className={styles.dot}>{hasNotifications}</div>}
+
+                  {openNotifications && (
+                    <NotificationsDropdown
+                      notifications={notifications}
+                      userId={profile.id}
+                    />
+                  )}
+                </div>
                 <div className={styles.uploadBtnContainer} id="upload-btn">
-                  <GrUploadOption onClick={() => openModal("upload")} size={18} color="var(--lightgray)"/>
+                  <GrUploadOption
+                    onClick={() => openModal("upload")}
+                    size={18}
+                    color="var(--lightgray)"
+                  />
                 </div>
                 <div className={styles.syncBtnContainer} id="sync-btn">
-                  <LiaSyncAltSolid onClick={() => openModal("sync")} size={20} color="var(--lightgray)"/>
+                  <LiaSyncAltSolid
+                    onClick={() => openModal("sync")}
+                    size={20}
+                    color="var(--lightgray)"
+                  />
                 </div>
                 <div
                   className={styles.userAvatar}
@@ -154,7 +181,12 @@ const Navbar: React.FC<NavbarProps> = ({ profile }) => {
         isOpen={modals["upload"] || false}
         onClose={() => closeModal("upload")}
         title="Upload your session data"
-        body={<UploadCsv userId={profile?.id as string} onClose={() => closeModal("upload")} />}
+        body={
+          <UploadCsv
+            userId={profile?.id as string}
+            onClose={() => closeModal("upload")}
+          />
+        }
         description="Upload a CSV file from your launch monitor software."
       />
 
@@ -162,7 +194,12 @@ const Navbar: React.FC<NavbarProps> = ({ profile }) => {
         isOpen={modals["sync"] || false}
         onClose={() => closeModal("sync")}
         title="Sync your GSPro Data"
-        body={<GSProSync userId={profile?.id as string} onClose={() => closeModal("sync")}/>}
+        body={
+          <GSProSync
+            userId={profile?.id as string}
+            onClose={() => closeModal("sync")}
+          />
+        }
         description="Sync with GSPro Portal and import your round data"
       />
     </nav>

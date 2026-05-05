@@ -1,3 +1,27 @@
+function getSessionStats(session: any) {
+  const shots = session.shots ?? [];
+
+  const totalShots = shots.length;
+
+  const uniqueClubs = new Set(shots.map((s: any) => s.club)).size;
+
+  const maxCarry = Math.max(...shots.map((s: any) => s.carry || 0));
+
+  const avgCarry =
+    shots.reduce((sum: number, s: any) => sum + (s.carry || 0), 0) /
+    (totalShots || 1);
+
+  const startedAtHour = new Date(session.session_date).getHours();
+
+  return {
+    totalShots,
+    uniqueClubs,
+    maxCarry,
+    avgCarry,
+    startedAtHour,
+  };
+}
+
 export function evaluateAchievementsFromRound(stats: any) {
   const achievements: string[] = [];
 
@@ -60,24 +84,27 @@ export function evaluateAchievementsFromRound(stats: any) {
 }
 
 export function evaluateAchievementsFromSession(session: any) {
+  const stats = getSessionStats(session);
+
   const achievements: string[] = [];
 
-  if (session.totalShots >= 100) {
+  // Grinder (100+ shots)
+  if (stats.totalShots >= 100) {
     achievements.push("grinder");
   }
 
-  const uniqueClubs = new Set(session.shots.map((s: any) => s.club));
-  if (uniqueClubs.size >= 6) {
+  // Any Club, Any Time (6+ clubs)
+  if (stats.uniqueClubs >= 6) {
     achievements.push("any_club_any_time");
   }
 
-  const maxCarry = Math.max(...session.shots.map((s: any) => s.carry));
-  if (maxCarry >= 280) {
+  // Long carry
+  if (stats.maxCarry >= 280) {
     achievements.push("now_thats_a_number");
   }
 
-  const sessionHour = new Date(session.sessionDate).getHours();
-  if (sessionHour >= 22 || sessionHour < 4) {
+  // Night Owl
+  if (stats.startedAtHour >= 22) {
     achievements.push("night_owl");
   }
 

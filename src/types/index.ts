@@ -6,3 +6,4 @@ export * from './gettingStartedCompletions';
 export * from './lesson';
 export * from './myClubs'
 export * from './achievement';
+export * from './notification';

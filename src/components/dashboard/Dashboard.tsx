@@ -24,7 +24,6 @@ type DashboardProps = {
   userId: string;
   gettingStartedCompletions?: GettingStartedCompletions[];
   activeLesson?: any;
-  recentActivity?: RecentActivity[];
   profile: Profile;
   userPoints: any;
   latestRound: any;
@@ -47,6 +46,8 @@ const Dashboard = (props: DashboardProps) => {
     userId: props.userId,
     shots,
   });
+
+  console.log(props.rounds)
 
   return (
     <div className={styles.dashboard}>
