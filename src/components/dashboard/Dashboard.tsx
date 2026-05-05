@@ -11,7 +11,6 @@ import { calculateProfileStats } from "@/lib/profile-stats/ProfileStats";
 import {
   GettingStartedCompletions,
   Profile,
-  RecentActivity,
   Session,
 } from "@/types";
 import { GettingStartedWidget, SwingMetricsWidget } from "./widgets";

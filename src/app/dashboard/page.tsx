@@ -23,7 +23,6 @@ const DashboardPage = async () => {
     gettingStartedCompletions,
     sessions,
     activeLesson,
-    recentActivity,
     userPoints,
     latestRound,
     rounds
@@ -61,7 +60,6 @@ const DashboardPage = async () => {
           userId={user?.id || ""}
           gettingStartedCompletions={gettingStartedCompletions}
           activeLesson={activeLesson}
-          recentActivity={recentActivity || []}
           profile={userProfile}
           userPoints={userPoints}
           latestRound={latestRound}
