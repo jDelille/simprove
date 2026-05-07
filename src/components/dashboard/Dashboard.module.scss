@@ -35,6 +35,8 @@
       @include bp.mobile {
         width: 100%;
         order: 1;
+        position: relative;
+        top: 0;
       }
 
       // @include bp.smallLaptop {
