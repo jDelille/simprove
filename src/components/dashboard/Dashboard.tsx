@@ -8,15 +8,13 @@ import {
   SmallStatWidget,
 } from "../widgets";
 import { calculateProfileStats } from "@/lib/profile-stats/ProfileStats";
-import {
-  GettingStartedCompletions,
-  Profile,
-  Session,
-} from "@/types";
+import { GettingStartedCompletions, Profile, Session } from "@/types";
 import { GettingStartedWidget, SwingMetricsWidget } from "./widgets";
 import { useDashboardData } from "@/hooks/useDashboardData";
 import UserWidget from "./widgets/user-widget/UserWidget";
 import { Round } from "@/types/round";
+import StrokesGainedWidget from "../widgets/strokes-gained-widget/StrokesGainedWidget";
+import PlayerArchetypeWidget from "../widgets/player-archetype-widget/PlayerArchetypeWidget";
 
 type DashboardProps = {
   sessions: Session[];
@@ -46,7 +44,7 @@ const Dashboard = (props: DashboardProps) => {
     shots,
   });
 
-  console.log(props.rounds)
+  console.log(props.rounds);
 
   return (
     <div className={styles.dashboard}>
@@ -101,6 +99,12 @@ const Dashboard = (props: DashboardProps) => {
           <SwingMetricsWidget shots={shots} />
           <MissTendencyWidget shots={shots} />
         </div>
+        <div className={styles.row}>
+          <StrokesGainedWidget />
+        </div>
+        <div className={styles.row}>
+          <PlayerArchetypeWidget />
+        </div>
       </div>
 
       {/* right side */}
@@ -118,7 +122,7 @@ const Dashboard = (props: DashboardProps) => {
             profile={props.profile}
             latestRound={props.latestRound}
             userPoints={props.userPoints}
-            activityCount={(props.sessions.length + props.rounds.length)}
+            activityCount={props.sessions.length + props.rounds.length}
           />
         </div>
 

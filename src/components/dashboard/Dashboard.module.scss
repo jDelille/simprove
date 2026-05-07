@@ -4,6 +4,8 @@
   display: flex;
   gap: 1rem;
   padding-top: 2rem;
+  padding-bottom: 2rem;
+   align-items: flex-start;
   @include bp.mobile {
     flex-direction: column;
   }
@@ -28,6 +30,8 @@
     &:nth-of-type(2) {
       width: 25%;
       order: 2;
+      position: sticky;
+      top: 2rem;
       @include bp.mobile {
         width: 100%;
         order: 1;

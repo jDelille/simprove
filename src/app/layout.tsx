@@ -25,9 +25,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const supabase = await createSupabaseServer();
-  const { profile } = await fetchProfileInfo(supabase);
-  const notifications = await fetchNotifications(profile.id, supabase);
+const supabase = await createSupabaseServer();
+
+const { profile } = await fetchProfileInfo(supabase);
+
+let notifications: any[] = [];
+
+if (profile?.id) {
+  notifications = await fetchNotifications(profile.id, supabase);
+}
 
   return (
     <html lang="en">

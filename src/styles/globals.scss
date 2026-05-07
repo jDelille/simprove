@@ -82,11 +82,11 @@ html.light {
 
   // stroke colors
   --eagle: #a78bfa;
-  --birdie: #29ba7e;
-  --par: #e1e6ed;
-  --bogey: #facd39;
-  --doubleBogey: #e3483d;
-  --triplePlus: #db1a1a;
+  --birdie: #34d98f;
+  --par: #5ba3f5;
+  --bogey: #f5a422;
+  --doubleBogey: #f05151;
+  --triplePlus: #f05151;
 
   // zone
   --zone-good: #e0f5f0;
@@ -173,11 +173,11 @@ html.dark {
 
   // stroke colors
   --eagle: #a78bfa;
-  --birdie: #29ba7e;
-  --par: #e1e6ed;
-  --bogey: #facd39;
-  --doubleBogey: #e3483d;
-  --triplePlus: #db1a1a;
+  --birdie: #34d98f;
+  --par: #5ba3f5;
+  --bogey: #f5a422;
+  --doubleBogey: #f05151;
+  --triplePlus: #f05151;
 
   // zone
   --zone-good: #111114; // dark teal solid
@@ -203,7 +203,7 @@ body {
   color: var(--text);
   height: fit-content;
   max-width: 100vw;
-  overflow-x: hidden;
+  // overflow-x: hidden;
 
   .page-content,
   .profile-page-content {

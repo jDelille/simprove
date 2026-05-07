@@ -1,0 +1,68 @@
+@use "@/styles/mixins" as *;
+
+.strokesGainedWidget {
+  @include widget();
+
+  .header {
+    @include widgetHeader();
+
+    span {
+      color: var(--lightgray);
+      font-size: 12px;
+    }
+  }
+
+  .content {
+    display: flex;
+    gap: 1rem;
+    .area {
+      flex: 1;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 10px 1rem;
+      background-color: var(--messageBg);
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      span {
+        text-transform: uppercase;
+        color: var(--lightgray);
+        font-size: 10px;
+      }
+      .value {
+        font-size: 28px;
+        font-weight: 500;
+      }
+      .percent {
+        color: var(--lightgray);
+        font-size: 11px;
+        font-weight: 500;
+      }
+
+      .progressBar {
+        border: 1px solid var(--border);
+        width: 100%;
+        height: 5px;
+        border-radius: 22px;
+        background-color: var(--bg);
+
+        .fill {
+            background-color: var(--accent);
+            width: 55%;
+            height: 100%;
+            border-radius: 22px;
+        }
+      }
+    }
+  }
+
+  .leak {
+    padding: 15px 10px;
+    border-radius: 6px;
+    margin-top: 1rem;
+    background-color: var(--dangerBg);
+    color: var(--dangerText);
+    border: 1px solid var(--dangerBorder);
+    font-size: 12px;
+  }
+}
