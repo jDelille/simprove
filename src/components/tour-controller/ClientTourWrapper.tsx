@@ -6,6 +6,8 @@ import CustomCard from "./CustomCard";
 import { steps } from "@/lib/steps";
 import { Profile } from "@/types/profile";
 import { useTheme } from "@/context/ThemeContext";
+import { useState } from "react";
+import { TourContext } from "./TourContext";
 
 export default function ClientTourWrapper({
   children,
@@ -14,36 +16,35 @@ export default function ClientTourWrapper({
   children: React.ReactNode;
   profile: Profile | null;
 }) {
+  const [isTourActive, setIsTourActive] = useState(false); // ✅ MOVE UP
+
+  const { theme } = useTheme();
+  const isDarkMode = theme === "dark";
 
   if (!profile) {
     return <h1>{children}</h1>;
   }
 
   const TourCard = (props: CardComponentProps) => (
-    <CustomCard {...props} userId={profile?.id} isDemoAccount={profile.is_demo_account} />
+    <CustomCard
+      {...props}
+      userId={profile.id}
+      isDemoAccount={profile.is_demo_account}
+      setIsTourActive={setIsTourActive}
+    />
   );
 
-  const { theme } = useTheme();
-
-  const isDarkMode = theme === "dark";
-
   return (
-    <NextStepProvider>
-      <NextStep
-        steps={steps}
-        cardComponent={TourCard}
-        shadowRgb={isDarkMode ? "255, 255, 255" : "0, 0, 0"}
-        shadowOpacity={isDarkMode ? "0.15" : "0.2"}
-        cardTransition={{
-          ease: "easeOut",
-          duration: 0.4,
-          stiffness: 100,
-          damping: 10,
-        }}
-      >
-        <TourController profile={profile} />
-        {children}
-      </NextStep>
-    </NextStepProvider>
+    <TourContext.Provider value={{ isTourActive }}>
+      <NextStepProvider>
+        <NextStep steps={steps} cardComponent={TourCard}>
+          <TourController
+            profile={profile}
+            setIsTourActive={setIsTourActive}
+          />
+          {children}
+        </NextStep>
+      </NextStepProvider>
+    </TourContext.Provider>
   );
 }

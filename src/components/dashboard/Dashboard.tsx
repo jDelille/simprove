@@ -15,6 +15,9 @@ import UserWidget from "./widgets/user-widget/UserWidget";
 import { Round } from "@/types/round";
 import StrokesGainedWidget from "../widgets/strokes-gained-widget/StrokesGainedWidget";
 import PlayerArchetypeWidget from "../widgets/player-archetype-widget/PlayerArchetypeWidget";
+import ScoringDistributionWidget from "../widgets/scoring-distribution-widget/ScoringDistributionWidget";
+import { useEffect } from "react";
+import { useTour } from "../tour-controller/TourContext";
 
 type DashboardProps = {
   sessions: Session[];
@@ -28,6 +31,7 @@ type DashboardProps = {
 };
 
 const Dashboard = (props: DashboardProps) => {
+  const { isTourActive } = useTour();
   const shots = props.sessions.flatMap((session) => session.shots);
 
   const profileMetrics = calculateProfileStats({
@@ -44,12 +48,25 @@ const Dashboard = (props: DashboardProps) => {
     shots,
   });
 
+useEffect(() => {
+  if (isTourActive) {
+    document.body.classList.add("tour-active");
+  } else {
+    document.body.classList.remove("tour-active");
+
+    // hard reset layout
+    requestAnimationFrame(() => {
+      window.scrollTo(window.scrollX, window.scrollY);
+    });
+  }
+}, [isTourActive]);
+
   console.log(props.rounds);
 
   return (
     <div className={styles.dashboard}>
       {/* left side */}
-      <div className={styles.column}>
+      <div className={`${styles.column} ${styles.leftColumn}`}>
         <div className={styles.row + " " + styles.statsRow} id="stats-row">
           <SmallStatWidget
             title="Total Shots"
@@ -90,25 +107,25 @@ const Dashboard = (props: DashboardProps) => {
             isEmpty={shots.length === 0}
           />
         </div>
-
         <div className={styles.row}>
           <AveragesGraphWidget sessions={props.sessions} />
         </div>
-
         <div className={styles.row}>
           <SwingMetricsWidget shots={shots} />
           <MissTendencyWidget shots={shots} />
         </div>
         <div className={styles.row}>
-          <StrokesGainedWidget />
+          <StrokesGainedWidget rounds={props.rounds} />
         </div>
         <div className={styles.row}>
-          <PlayerArchetypeWidget />
+          <PlayerArchetypeWidget rounds={props.rounds} />
+          <ScoringDistributionWidget rounds={props.rounds} />
         </div>
       </div>
 
       {/* right side */}
-      <div className={styles.column}>
+      <div className={`${styles.column} ${styles.rightColumn}`}>
+        {" "}
         {!dashboardData.hasCompletedGettingStarted && (
           <div className={styles.row}>
             <GettingStartedWidget
@@ -116,7 +133,6 @@ const Dashboard = (props: DashboardProps) => {
             />
           </div>
         )}
-
         <div className={styles.row}>
           <UserWidget
             profile={props.profile}
@@ -125,7 +141,6 @@ const Dashboard = (props: DashboardProps) => {
             activityCount={props.sessions.length + props.rounds.length}
           />
         </div>
-
         <div className={styles.row}>
           <LessonPlanWidget
             userId={props.userId}

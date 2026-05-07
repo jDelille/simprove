@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Step } from "nextstepjs";
 import styles from "./CustomCard.module.scss";
 import { uploadProfileInfo } from "@/services/profile-info/uploadProfileInfo";
@@ -15,6 +15,7 @@ interface CustomCardProps {
   arrow: React.ReactNode;
   userId: string;
   isDemoAccount?: boolean;
+  setIsTourActive?: (isActive: boolean) => void;
 }
 
 const CustomCard = ({
@@ -26,7 +27,8 @@ const CustomCard = ({
   skipTour,
   arrow,
   userId,
-  isDemoAccount
+  isDemoAccount,
+  setIsTourActive
 }: CustomCardProps) => {
   const isFirst = currentStep === 0;
   const isLast = currentStep === totalSteps - 1;
@@ -36,6 +38,7 @@ const CustomCard = ({
       await uploadProfileInfo({ userId: userId, is_new_account: false });
     }
     nextStep();
+    setIsTourActive?.(false);
   };
 
   const handleSkip = async () => {
@@ -43,7 +46,27 @@ const CustomCard = ({
       await uploadProfileInfo({ userId: userId, is_new_account: false });
     }
     skipTour?.();
+    setIsTourActive?.(false);
   };
+
+  useEffect(() => {
+    const selector = step.selector as string | undefined;
+    if (!selector) return;
+
+    const el = document.querySelector(selector) as HTMLElement | null;
+    if (!el) return;
+
+    const rect = el.getBoundingClientRect();
+    const absoluteTop = window.scrollY + rect.top;
+
+    // adjust this value based on your sticky header/column offset
+    const offset = 120;
+
+    window.scrollTo({
+      top: absoluteTop - offset,
+      behavior: "smooth",
+    });
+  }, [step.selector]);
 
   return (
     <div className={styles.card}>

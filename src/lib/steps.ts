@@ -66,6 +66,42 @@ export const steps: Tour[] = [
       },
       {
         icon: "📚",
+        title: "Strokes Gained",
+        content:
+          "See how many strokes you've gained or lost in each area of your game. This is calculated using your shot data and the GSPro Portal course database.",
+        selector: "#strokes-gained",
+        side: "right",
+        showControls: true,
+        showSkip: true,
+        pointerPadding: 10,
+        pointerRadius: 10,
+      },
+      {
+        icon: "😄",
+        title: "Player Achetype",
+        content:
+          "Based on your shot data, we can classify your player archetype to help identify your strengths and weaknesses.",
+        selector: "#player-archetype",
+        side: "right",
+        showControls: true,
+        showSkip: true,
+        pointerPadding: 10,
+        pointerRadius: 10,
+      },
+      {
+        icon: "📥",
+        title: "Scoring Distribution",
+        content:
+          "See your scoring distribution and the number of eagles, birdies, pars, bogeys, and worse you've hit. This is a great way to track your progress over time.",
+        selector: "#scoring-distribution",
+        side: "right",
+        showControls: true,
+        showSkip: true,
+        pointerPadding: 10,
+        pointerRadius: 10,
+      },
+      {
+        icon: "📚",
         title: "Your Lesson Plan",
         content:
           "Your AI-generated training plan based on your swing data. Complete lessons to improve the areas that matter most to your game.",
@@ -103,8 +139,7 @@ export const steps: Tour[] = [
       {
         icon: "⛳",
         title: "Sync with GSPro Portal",
-        content:
-          "Click here to sync with GSPro Portal and import your rounds.",
+        content: "Click here to sync with GSPro Portal and import your rounds.",
         selector: "#sync-btn",
         side: "bottom",
         showControls: true,

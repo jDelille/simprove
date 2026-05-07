@@ -3,13 +3,17 @@
 import { Profile } from "@/types/profile";
 import { usePathname } from "next/navigation";
 import { useNextStep } from "nextstepjs";
-import react, { useEffect } from "react";
+import { useEffect } from "react";
 
 type TourControllerProps = {
   profile: Profile;
+  setIsTourActive: (isActive: boolean) => void;
 };
 
-export default function TourController({ profile }: TourControllerProps) {
+export default function TourController({
+  profile,
+  setIsTourActive,
+}: TourControllerProps) {
   const { startNextStep } = useNextStep();
   const pathname = usePathname();
 
@@ -17,9 +21,10 @@ export default function TourController({ profile }: TourControllerProps) {
 
   useEffect(() => {
     if (profile?.is_new_account && isDashboardPage) {
+      setIsTourActive(true);
       startNextStep("welcomeTour");
     }
-  }, [profile]);
+  }, [profile?.is_new_account, isDashboardPage]);
 
   return null;
 }

@@ -1,0 +1,53 @@
+@use "@/styles/mixins" as *;
+
+.scoringDistributionWidget {
+  @include widget();
+  max-height: 239px;
+
+  .header {
+    @include widgetHeader();
+  }
+
+  .content {
+    padding-top: 5px;
+    .category {
+      height: 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      p {
+        font-size: 12px;
+        width: 50px;
+        color: var(--lightgray);
+      }
+
+      .bar {
+        width: 100%;
+        background-color: var(--messageBg);
+        border: 1px solid var(--border);
+        height: 5px;
+        border-radius: 22px;
+
+        .fill {
+          width: 25%;
+          height: 100%;
+          background-color: var(--accent);
+          border-radius: 22px;
+        }
+      }
+
+      .value {
+        font-size: 12px;
+        width: 30px;
+        text-align: right;
+      }
+
+      .percentage {
+        color: var(--lightgray);
+        font-size: 11px;
+        width: 30px;
+        text-align: right;
+      }
+    }
+  }
+}

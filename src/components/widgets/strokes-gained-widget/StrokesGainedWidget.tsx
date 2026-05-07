@@ -1,53 +1,99 @@
 import React from "react";
 import styles from "./StrokesGainedWidget.module.scss";
+import { Round } from "@/types/round";
 
-const StrokesGainedWidget = () => {
-  return (
-    <div className={styles.strokesGainedWidget}>
+type StrokesGainedWidgetProps = {
+  rounds: Round[];
+};
+
+const StrokesGainedWidget = ({ rounds }: StrokesGainedWidgetProps) => {
+  
+  const scores = (rounds ?? [])
+  .map((r) => r.round_scores?.[0])
+  .filter(Boolean);
+
+  const avg = (arr: number[]) =>
+  arr.reduce((a, b) => a + b, 0) / arr.length;
+
+  const drivingSG =
+  (avg(scores.map(s => s.fairways_value_percent)) - 60) / 20;
+
+  const approachSG =
+  (avg(scores.map(s => s.greens_value_percent)) - 55) / 18;
+
+  const shortGameSG =
+  avg(scores.map(s => {
+    const penalties =
+      s.bogey + s.double_bogey * 1.5 + s.other * 2;
+
+    const bogeyAvoidance = Math.max(0, 100 - penalties * 8);
+
+    const shortGame =
+      s.sand_saves_value_percent * 0.7 +
+      bogeyAvoidance * 0.3;
+
+    return (shortGame - 60) / 20;
+  }));
+
+  const puttingSG =
+  avg(scores.map(s => {
+    const putts = s.putts_value;
+    const normalized =
+      100 - ((putts - 18) / 18) * 100;
+
+    return (normalized - 65) / 20;
+  }));
+
+  const data = [
+  { name: "Driving", value: drivingSG, percent: 55 },
+  { name: "Approach", value: approachSG, percent: 50 },
+  { name: "Short Game", value: shortGameSG, percent: 38 },
+  { name: "Putting", value: puttingSG, percent: 63 },
+];
+
+const weakest = data.reduce((min, curr) =>
+  curr.value < min.value ? curr : min
+);
+
+   return (
+    <div className={styles.strokesGainedWidget} id="strokes-gained">
       <div className={styles.header}>
         <p>Strokes Gained Estimate</p>
-        <span>See how many strokes each area of your game are costing you</span>
+        <span>
+          See how many strokes each area of your game is costing you
+        </span>
       </div>
 
       <div className={styles.content}>
-        <div className={styles.area}>
-          <span>Driving</span>
-          <p className={styles.value}>+0.4</p>
-          <div className={styles.progressBar}>
-            <div className={styles.fill}></div>
+        {data.map((area) => (
+          <div key={area.name} className={styles.area}>
+            <span>{area.name}</span>
+
+            <p className={styles.value}>
+              {area.value > 0 ? "+" : ""}
+              {area.value.toFixed(1)}
+            </p>
+
+            <div className={styles.progressBar}>
+              <div
+                className={styles.fill}
+                style={{
+                  width: `${Math.min(100, Math.abs(area.value) * 50)}%`,
+                }}
+              />
+            </div>
+
+            <p className={styles.percent}>
+              {area.percent}% baseline metric
+            </p>
           </div>
-          <p className={styles.percent}>55% fairways</p>
-        </div>
-        <div className={styles.area}>
-          <span>Approach</span>
-          <p className={styles.value}>+0.4</p>
-          <div className={styles.progressBar}>
-            <div className={styles.fill}></div>
-          </div>
-          <p className={styles.percent}>55% fairways</p>
-        </div>
-        <div className={styles.area}>
-          <span>Short Game</span>
-          <p className={styles.value}>+0.4</p>
-          <div className={styles.progressBar}>
-            <div className={styles.fill}></div>
-          </div>
-          <p className={styles.percent}>55% fairways</p>
-        </div>
-        <div className={styles.area}>
-          <span>Putting</span>
-          <p className={styles.value}>+0.4</p>
-          <div className={styles.progressBar}>
-            <div className={styles.fill}></div>
-          </div>
-          <p className={styles.percent}>55% fairways</p>
-        </div>
+        ))}
       </div>
 
       <div className={styles.leak}>
         <p>
-          Biggest leak: Approach play is costing an estimated{" "}
-          <strong>2.1 shots per round</strong>
+          Biggest leak: <strong>{weakest.name}</strong> is costing you{" "}
+          <strong>{Math.abs(weakest.value).toFixed(1)} strokes per round</strong>
         </p>
       </div>
     </div>
