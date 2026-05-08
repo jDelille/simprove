@@ -28,15 +28,19 @@ const CustomCard = ({
   arrow,
   userId,
   isDemoAccount,
-  setIsTourActive
+  setIsTourActive,
 }: CustomCardProps) => {
   const isFirst = currentStep === 0;
   const isLast = currentStep === totalSteps - 1;
+  const TOUR_STORAGE_KEY = "simprove-tour-completed";
 
   const handleFinish = async () => {
     if (!isDemoAccount) {
       await uploadProfileInfo({ userId: userId, is_new_account: false });
     }
+
+    localStorage.setItem(TOUR_STORAGE_KEY, "true");
+
     nextStep();
     setIsTourActive?.(false);
   };
@@ -45,6 +49,9 @@ const CustomCard = ({
     if (!isDemoAccount) {
       await uploadProfileInfo({ userId: userId, is_new_account: false });
     }
+
+    localStorage.setItem(TOUR_STORAGE_KEY, "true");
+
     skipTour?.();
     setIsTourActive?.(false);
   };

@@ -6,35 +6,25 @@ type DrillCardProps = {
 };
 
 const DrillCard: React.FC<DrillCardProps> = ({ drill }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const isCurrent = drill.is_active;
+  const isCurrent = drill.status === "active";
   const isCompleted = drill.status === "completed";
+
+  console.log(drill)
 
   return (
     <div
       className={
         isCurrent ? styles.drillCard + " " + styles.current : styles.drillCard
       }
-      onClick={() => setIsOpen(!isOpen)}
     >
       <div className={styles.drillInfo}>
         <div className={isCompleted ? styles.completed : styles.inactive}>
           {drill.drill_order}
         </div>
-        <p className={styles.drillName}>{drill.drill_name}</p>
+        <p className={styles.drillName}>{drill.drill_description}</p>
         {isCurrent && <p className={styles.currentArrow}>← Current</p>}
         <p className={styles.points}>{drill.points} pts</p>
       </div>
-
-      {isOpen && (
-        <div className={styles.drillDetails}>
-          <div className={styles.drillDescription}>
-            <div className={isCompleted ? styles.completed : styles.inactive}></div>
-            {drill.drill_description}
-            <div className={styles.points}>{drill.points}</div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

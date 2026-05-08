@@ -29,7 +29,6 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
           <h1>
             {period.charAt(0).toUpperCase() + period.slice(1)} Leaderboard
           </h1>
-          <p>STILL IN DEVELOPMENT</p>
         </div>
       </div>
 
@@ -55,7 +54,7 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
           </button>
         </div>
 
-        {filteredLeaderboard.map((player: any, index: number) => (
+        {/* {filteredLeaderboard.map((player: any, index: number) => (
           <li key={player.id}>
             <Link
               href={`/profile/${player.users.username}`}
@@ -67,7 +66,7 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
               <span className={styles.points}>{player?.points} pts</span>
             </Link>
           </li>
-        ))}
+        ))} */}
       </ul>
     </div>
   );

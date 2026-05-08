@@ -1,11 +1,9 @@
 .drillCard {
   width: 100%;
-  background-color: var(--messageBg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  background-color: var(--bg);
+  border-top: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  cursor: pointer;
   font-size: 13px;
   font-weight: 500;
   color: var(--lightgray);
@@ -73,10 +71,9 @@
 .completed,
 .inactive {
   background-color: var(--messageBg);
-  border: 1px solid var(--border);
+  border-top: 1px solid var(--border);
   width: 25px;
   height: 25px;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,7 +84,7 @@
 }
 
 .current {
-  background-color: var(--green);
-  color: var(--greenText);
-  border: 1px solid var(--greenBorder);
+  // background-color: var(--green);
+  // color: var(--greenText);
+  // border-top: 1px solid var(--greenBorder);
 }

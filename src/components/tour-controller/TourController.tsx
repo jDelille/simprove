@@ -20,7 +20,10 @@ export default function TourController({
   const isDashboardPage = pathname === "/dashboard";
 
   useEffect(() => {
-    if (profile?.is_new_account && isDashboardPage) {
+    const hasCompletedTour =
+      localStorage.getItem("simprove-tour-completed") === "true";
+
+    if (profile?.is_new_account && isDashboardPage && !hasCompletedTour) {
       setIsTourActive(true);
       startNextStep("welcomeTour");
     }

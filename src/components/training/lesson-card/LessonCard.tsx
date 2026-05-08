@@ -34,9 +34,9 @@ const LessonCard: React.FC<LessonCardProps> = ({
         </div>
         <h3 className={styles.lessonName}>{plan.lesson_name}</h3>
         <p className={styles.lessonDescription}>{plan.lesson_description}</p>
-        <div className={styles.notes}>
+        {/* <div className={styles.notes}>
           <p>{plan.reason}</p>
-        </div>
+        </div> */}
       </div>
 
       <div className={styles.footer}>

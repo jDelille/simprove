@@ -16,7 +16,7 @@ export default function ClientTourWrapper({
   children: React.ReactNode;
   profile: Profile | null;
 }) {
-  const [isTourActive, setIsTourActive] = useState(false); // ✅ MOVE UP
+  const [isTourActive, setIsTourActive] = useState(false);
 
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
