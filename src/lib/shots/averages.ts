@@ -1,3 +1,4 @@
+import { Round } from "@/types/round";
 import { Shot } from "@/types/shot";
 
 export type Averages = {
@@ -17,6 +18,16 @@ export type Averages = {
   peakBallSpeed?: number;
   clubsHit: string[];
 };
+
+export type RoundStats = {
+  totalRounds: number;
+  bestScore: number | undefined;
+  avgGIR: number;
+  avgFIR: number;
+  avgPutts: number;
+  longestDrive: number | undefined;
+};
+
 
 export function calculateAverages(shots: Shot[]): Averages {
   if (!shots.length) {
@@ -50,11 +61,15 @@ export function calculateAverages(shots: Shot[]): Averages {
     {} as Record<string, number>,
   );
 
-  const mostUsedClubName = Object.keys(mostUsedClub).reduce((a, b) =>
-    mostUsedClub[a] > mostUsedClub[b] ? a : b,
-  );
+  const mostUsedClubName = Object.keys(mostUsedClub).length
+    ? Object.keys(mostUsedClub).reduce((a, b) =>
+        mostUsedClub[a] > mostUsedClub[b] ? a : b,
+      )
+    : undefined;
 
-  const mostUsedClubCount = mostUsedClub[mostUsedClubName];
+  const mostUsedClubCount = mostUsedClubName
+    ? mostUsedClub[mostUsedClubName]
+    : undefined;
 
   const longestCarry = Math.max(...shots.map((shot) => shot?.carry ?? 0));
 
@@ -74,11 +89,6 @@ export function calculateAverages(shots: Shot[]): Averages {
       acc.avgPeakHeight += shot.peakHeight ?? 0;
       acc.avgDecent += shot.decent ?? 0;
       acc.count++;
-      acc.mostUsedClub = mostUsedClubName;
-      acc.mostUsedClubCount = mostUsedClubCount;
-      acc.longestCarry = longestCarry;
-      acc.peakBallSpeed = peakBallSpeed;
-      acc.clubsHit = clubsHit;
 
       return acc;
     },
@@ -121,61 +131,66 @@ export function calculateAverages(shots: Shot[]): Averages {
 }
 
 export function getClubAverages(shots: Shot[]) {
-  const clubData: Record<string, Averages> = {};
+  const grouped = shots.reduce((acc, shot) => {
+    if (!shot.club) return acc;
+    acc[shot.club] = acc[shot.club] ?? [];
+    acc[shot.club].push(shot);
+    return acc;
+  }, {} as Record<string, Shot[]>);
 
-  shots.forEach((shot) => {
-    if (!shot.club) return;
-
-    if (!clubData[shot.club]) {
-      clubData[shot.club] = {
-        avgCarry: 0,
-        avgSpeed: 0,
-        avgOffline: 0,
-        avgDynamicLoft: 0,
-        avgSpin: 0,
-        avgfaceToTarget: 0,
-        avgLaunchAngle: 0,
-        avgPeakHeight: 0,
-        avgDescent: 0,
-        count: 0,
-        mostUsedClub: shot.club,
-        mostUsedClubCount: 0,
-        longestCarry: 0,
-        peakBallSpeed: 0,
-        clubsHit: [],
-      };
-    }
-
-    const club = clubData[shot.club];
-
-    club.avgCarry += shot.carry ?? 0;
-    club.avgSpeed += shot.ballSpeed ?? 0;
-    club.avgOffline += shot.offline ?? 0;
-    club.avgDynamicLoft += shot.dynamicloft ?? 0;
-    club.avgSpin += shot.backSpin ?? 0;
-    club.avgfaceToTarget += shot.faceToTarget ?? 0;
-    club.avgLaunchAngle += shot.vla ?? 0;
-    club.avgPeakHeight += shot.peakHeight ?? 0;
-    club.avgDescent += shot.decent ?? 0;
-    club.count++;
-  });
-
-  Object.values(clubData).forEach((club) => {
-    club.avgCarry /= club.count;
-    club.avgSpeed /= club.count;
-    club.avgOffline /= club.count;
-    club.avgDynamicLoft /= club.count;
-    club.avgSpin /= club.count;
-    club.avgfaceToTarget /= club.count;
-    club.avgLaunchAngle /= club.count;
-    club.avgPeakHeight /= club.count;
-    club.avgDescent /= club.count;
-  });
-
-  return clubData;
+  return Object.fromEntries(
+    Object.entries(grouped).map(([club, shots]) => [club, calculateAverages(shots)])
+  );
 }
 
 export function calculatePercentChange(current: number, previous: number) {
   if (previous === 0) return current === 0 ? 0 : 100;
   return ((current - previous) / Math.abs(previous)) * 100;
+}
+
+export function calculateRoundStats(rounds: Round[]): RoundStats {
+  if (!rounds.length) {
+    return {
+      totalRounds: 0,
+      bestScore: undefined,
+      avgGIR: 0,
+      avgFIR: 0,
+      avgPutts: 0,
+      longestDrive: undefined,
+    };
+  }
+
+  const validRounds = rounds.filter(r => !r.hidden_from_stats);
+  const scores = validRounds.flatMap(r => r.round_scores);
+
+  const totals = rounds
+    .map(r => Number(r.total))
+    .filter(t => !isNaN(t) && t > 0);
+
+  const bestScore = totals.length ? Math.min(...totals) : undefined;
+
+  const longestDrive = scores.length
+    ? Math.max(...scores.map(s => s.driving_distance_longest))
+    : undefined;
+
+  const avgGIR = scores.length
+    ? scores.reduce((acc, s) => acc + s.greens_value / s.greens_target, 0) / scores.length
+    : 0;
+
+  const avgFIR = scores.length
+    ? scores.reduce((acc, s) => acc + s.fairways_value / s.fairways_target, 0) / scores.length
+    : 0;
+
+  const avgPutts = scores.length
+    ? scores.reduce((acc, s) => acc + s.putts_value, 0) / scores.length
+    : 0;
+
+  return {
+    totalRounds: validRounds.length,
+    bestScore,
+    avgGIR,
+    avgFIR,
+    avgPutts,
+    longestDrive,
+  };
 }

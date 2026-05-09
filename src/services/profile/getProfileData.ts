@@ -15,6 +15,7 @@ import { fetchUserLessons } from "../lessons/fetchUserLessons";
 import { fetchUserPoints } from "../user-points/fetchUserPoints";
 import { fetchProfileInfo } from "../profile-info/fetchProfileInfo";
 import { fetchAchievements } from "../achievments/fetchAchievements";
+import { calculateAverages, calculateRoundStats } from "@/lib/shots/averages";
 
 type Props = {
   supabase: SupabaseClient;
@@ -37,6 +38,10 @@ export const getProfileData = async ({ supabase, userId }: Props) => {
       ])
     : [];
 
+  const shots = sessions?.flatMap((s) => s.shots) ?? [];
+  const shotStats = calculateAverages(shots);
+  const roundStats = calculateRoundStats(rounds ?? []);
+
   return {
     achievements: achievements ?? [],
     sessions: sessions ?? [],
@@ -44,5 +49,10 @@ export const getProfileData = async ({ supabase, userId }: Props) => {
     lessons: lessons ?? [],
     info: info ?? null,
     userPoints: userPoints ?? [],
+     stats: {
+    ...shotStats,
+    ...roundStats,
+    totalSessions: sessions?.length ?? 0,
+  },
   };
 };

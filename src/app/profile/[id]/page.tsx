@@ -32,6 +32,7 @@ const ProfilePage = async () => {
           user={profileData.info?.profile}
           userPoints={profileData.userPoints}
           rounds={profileData.rounds}
+          stats={profileData.stats}
         />
       </div>
     </div>

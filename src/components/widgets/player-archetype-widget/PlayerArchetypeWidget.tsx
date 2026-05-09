@@ -11,7 +11,6 @@ type PlayerArchetypeWidgetProps = {
 
 const PlayerArchetypeWidget = ({ rounds }: PlayerArchetypeWidgetProps) => {
   const scores = rounds.map((round) => round.round_scores[0]);
-  console.log("scores", scores);
 
   const avgDriving =
     scores.reduce((sum, score) => {

@@ -7,6 +7,10 @@ import UserWidget from "./widgets/user-widget/UserWidget";
 import CareerStatsWidget from "./widgets/career-stats-widget/CareerStatsWidget";
 import { AveragesGraphWidget } from "../widgets";
 import { RecentActivityWidget, TopPerformingClubsWidget } from "./widgets";
+import { Round } from "@/types/round";
+import { Averages, RoundStats } from "@/lib/shots/averages";
+import PlayerArchetypeWidget from "../widgets/player-archetype-widget/PlayerArchetypeWidget";
+import ScoringDistributionWidget from "../widgets/scoring-distribution-widget/ScoringDistributionWidget";
 
 type ProfileProps = {
   userId: string;
@@ -15,7 +19,8 @@ type ProfileProps = {
   lessons: Lesson[];
   user: ProfileType;
   userPoints: any;
-  rounds: any[];
+  rounds: Round[];
+  stats: Averages & RoundStats & { totalSessions: number };
 };
 
 const Profile: React.FC<ProfileProps> = ({
@@ -25,7 +30,8 @@ const Profile: React.FC<ProfileProps> = ({
   lessons,
   user,
   userPoints,
-  rounds
+  rounds,
+  stats,
 }) => {
   return (
     <div className={styles.profile}>
@@ -35,7 +41,7 @@ const Profile: React.FC<ProfileProps> = ({
             <UserWidget user={user} />
           </div>
           <div className={styles.row}>
-            <CareerStatsWidget />
+            <CareerStatsWidget stats={stats} />
           </div>
         </div>
         <div className={styles.column}>
@@ -43,10 +49,14 @@ const Profile: React.FC<ProfileProps> = ({
             <AveragesGraphWidget sessions={sessions} />
           </div>
           <div className={styles.row}>
-            <RecentActivityWidget sessions={sessions}/>
+            <PlayerArchetypeWidget rounds={rounds} />
+            <ScoringDistributionWidget rounds={rounds} />
           </div>
           <div className={styles.row}>
-            <TopPerformingClubsWidget sessions={sessions}/>
+            <TopPerformingClubsWidget sessions={sessions} />
+          </div>
+          <div className={styles.row}>
+            <RecentActivityWidget sessions={sessions} />
           </div>
         </div>
       </div>
