@@ -13,23 +13,24 @@ type Props = {
 };
 
 
-export const getDashboardData = async ({supabase, userId}: Props) => {
+export const getDashboardData = async ({ supabase, userId }: Props) => {
+  const [
+    sessions,
+    gettingStartedCompletions,
+    profileInfo,
+    activeLesson,
+    userPoints,
+    latestRound,
+    rounds,
+  ] = await Promise.all([
+    fetchSessions(userId, supabase).catch((e) => { console.error('fetchSessions failed:', e); return []; }),
+    fetchGettingStartedCompletions(userId, supabase).catch((e) => { console.error('fetchGettingStartedCompletions failed:', e); return []; }),
+    fetchProfileInfo(supabase).catch((e) => { console.error('fetchProfileInfo failed:', e); return null; }),
+    fetchActiveLesson(userId, supabase).catch((e) => { console.error('fetchActiveLesson failed:', e); return null; }),
+    fetchUserPoints(userId, supabase).catch((e) => { console.error('fetchUserPoints failed:', e); return null; }),
+    fetchLatestRound(userId, supabase).catch((e) => { console.error('fetchLatestRound failed:', e); return null; }),
+    fetchRounds(userId, supabase).catch((e) => { console.error('fetchRounds failed:', e); return []; }),
+  ]);
 
-    const sessions = await fetchSessions(userId, supabase);
-    const gettingStartedCompletions = await fetchGettingStartedCompletions(userId, supabase);
-    const profileInfo = await fetchProfileInfo(supabase);
-    const activeLesson = await fetchActiveLesson(userId, supabase);
-    const userPoints = await fetchUserPoints(userId, supabase);
-    const latestRound = await fetchLatestRound(userId, supabase);
-    const rounds = await fetchRounds(userId, supabase);
-
-    return {
-        sessions,
-        gettingStartedCompletions,
-        profileInfo,
-        activeLesson,
-        userPoints,
-        latestRound,
-        rounds
-    };
-}
+  return { sessions, gettingStartedCompletions, profileInfo, activeLesson, userPoints, latestRound, rounds };
+};

@@ -118,9 +118,15 @@
       display: flex;
       gap: 1rem;
 
+      @include bp.mobile {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
       .chart {
         @include widget();
         height: 300px;
+
+     
       }
     }
   }

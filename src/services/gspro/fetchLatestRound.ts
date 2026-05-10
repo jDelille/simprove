@@ -4,7 +4,7 @@ export const fetchLatestRound = async (userId: string, supabaseClient: any) => {
     .eq("user_id", userId)
     .order("round_begin", { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
 
     if (error) throw error;
     return latestRound;

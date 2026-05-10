@@ -19,15 +19,18 @@ export default function TourController({
 
   const isDashboardPage = pathname === "/dashboard";
 
-  useEffect(() => {
-    const hasCompletedTour =
-      localStorage.getItem("simprove-tour-completed") === "true";
+useEffect(() => {
+  const hasCompletedTour =
+    localStorage.getItem("simprove-tour-completed") === "true";
 
-    if (profile?.is_new_account && isDashboardPage && !hasCompletedTour) {
+  if (profile?.is_new_account && isDashboardPage && !hasCompletedTour) {
+    performance.mark('DashboardPage'); // set mark before nextstepjs looks for it
+    setTimeout(() => {
       setIsTourActive(true);
       startNextStep("welcomeTour");
-    }
-  }, [profile?.is_new_account, isDashboardPage]);
+    }, 300); // give the dashboard time to fully mount
+  }
+}, [profile?.is_new_account, isDashboardPage]);
 
   return null;
 }

@@ -117,12 +117,12 @@ const Round = ({ activityData }: RoundProps) => {
             }
           />
         </div>
-        <div className={styles.row}>
+        <div className={styles.fullRow}>
           <HoleByHoleWidget roundHoles={round_holes} />
         </div>
         <div className={styles.row}>
-          <div className={styles.chart}></div>
-          <div className={styles.chart}></div>
+          <div className={styles.chart}>Coming soon</div>
+          <div className={styles.chart}>Coming soon</div>
         </div>
 
         <div className={styles.row}></div>
