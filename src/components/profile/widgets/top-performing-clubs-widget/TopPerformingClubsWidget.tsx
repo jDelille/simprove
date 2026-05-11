@@ -3,6 +3,8 @@
 import React, { useRef, useState } from "react";
 import styles from "./TopPerformingClubsWidget.module.scss";
 import { Session } from "@/types/session";
+import NoDataPlaceholderWidget from "@/components/ui/no-data-placeholder-widget/NoDataPlaceholderWidget";
+import { TbGolfOff } from "react-icons/tb";
 
 type TopPerformingClubsWidgetTypes = {
   sessions: Session[];
@@ -15,6 +17,24 @@ const TopPerformingClubsWidget = ({
   const [isDragging, setIsDragging] = useState(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
+  
+  const hasNoData = sessions.length === 0;
+
+  if (hasNoData) {
+    return (
+      <div className={styles.topPerformingClubsWidget}>
+        <div className={styles.header}>
+          <p>Top Performing Clubs</p>
+          <span>Last 12 Months</span>
+        </div>
+        <NoDataPlaceholderWidget
+          icon={<TbGolfOff size={30} color="var(--lightgray)" />}
+          title="No data yet"
+          message="Your top performing clubs will appear here once you upload session data."
+        />
+      </div>
+    );
+  }
 
   const onMouseDown = (e: React.MouseEvent) => {
     if (!listRef.current) return;

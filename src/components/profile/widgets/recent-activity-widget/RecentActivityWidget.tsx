@@ -5,6 +5,8 @@ import styles from "./RecentActivityWidget.module.scss";
 import { calculateAverages } from "@/lib/shots/averages";
 import moment from "moment";
 import { Session } from "@/types/session";
+import NoDataPlaceholderWidget from "@/components/ui/no-data-placeholder-widget/NoDataPlaceholderWidget";
+import { BsFillFileBarGraphFill } from "react-icons/bs";
 
 type RecentActivityWidgetProps = {
   sessions: Session[];
@@ -45,7 +47,11 @@ const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = ({
             })}
           </ul>
         ) : (
-          <p>No recent sessions found.</p>
+          <NoDataPlaceholderWidget
+            icon={<BsFillFileBarGraphFill size={30} color="var(--lightgray)" />}
+            title="No recent sessions"
+            message="Your recent sessions will appear here once you upload session data."
+          />
         )}
       </div>
     </div>

@@ -1,11 +1,10 @@
-import React from "react";
-import styles from "./PlayerArchetypeWidget.module.scss";
 import { Round } from "@/types/round";
 import { getArchetype } from "@/lib/archetypes/getArchetype";
 import { defaultArchetypes } from "@/lib/archetypes/defaultArchetypes";
 import { statColors } from "@/lib/colors/statColors";
-import Button from "@/components/ui/button/Button";
 import { BsPersonLinesFill } from "react-icons/bs";
+import NoDataPlaceholderWidget from "@/components/ui/no-data-placeholder-widget/NoDataPlaceholderWidget";
+import styles from "./PlayerArchetypeWidget.module.scss";
 
 type PlayerArchetypeWidgetProps = {
   rounds: Round[];
@@ -22,13 +21,11 @@ const PlayerArchetypeWidget = ({ rounds }: PlayerArchetypeWidgetProps) => {
           <p>Player Archetype</p>
         </div>
         <div className={styles.content}>
-            <div className={styles.noData}>
-              <BsPersonLinesFill color="var(--lightgray)" size={30}/>
-
-            <p className={styles.title}>Your archetype is waiting</p>
-            <p>Upload a round to discover how you're wired as a golfer.</p>
-
-          </div>
+          <NoDataPlaceholderWidget
+            icon={<BsPersonLinesFill size={30} color="var(--lightgray)" />}
+            title="No rounds played"
+            message="Your player archetype will be revealed once you upload round data."
+          />
         </div>
       </div>
     );

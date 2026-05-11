@@ -155,8 +155,4 @@
     padding-top: 0.75rem;
     text-align: center;
   }
-
-  .noData {
-    @include noDataWidgetContent();
-  }
 }

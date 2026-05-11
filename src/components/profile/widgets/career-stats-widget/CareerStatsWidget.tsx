@@ -33,19 +33,19 @@ const CareerStatsWidget = ({stats}: CareerStatsWidgetProps) => {
         </li>
         <li>
           <p>Longest Carry</p>
-          <p className={styles.value}>{stats.longestCarry?.toFixed(1)} yds</p>
+          <p className={styles.value}>{stats.longestCarry?.toFixed(1) || 0} yds</p>
         </li>
         <li>
           <p>Best ball speed</p>
-          <p className={styles.value}>{stats.peakBallSpeed?.toFixed(1)} mph</p>
+          <p className={styles.value}>{stats.peakBallSpeed?.toFixed(1) || 0} mph</p>
         </li>
         <li>
           <p>Most used club</p>
-          <p className={styles.value}>{stats.mostUsedClub}</p>
+          <p className={styles.value}>{stats.mostUsedClub || "N/A"}</p>
         </li>
         <li>
           <p>Best Score</p>
-          <p className={styles.value}>{stats.bestScore}</p>
+          <p className={styles.value}>{stats.bestScore || "N/A"}</p>
         </li>
         <li>
           <p>Avg GIR</p>

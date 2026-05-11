@@ -10,6 +10,7 @@ import ClubSelect from "@/components/club-select/ClubSelect";
 import { Shot } from "@/types/shot";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { GiArcheryTarget } from "react-icons/gi";
+import NoDataPlaceholderWidget from "@/components/ui/no-data-placeholder-widget/NoDataPlaceholderWidget";
 
 type MissTendencyWidgetProps = {
   shots: Shot[];
@@ -177,14 +178,11 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
       )}
 
       {isEmpty && (
-        <div className={styles.noData}>
-          <GiArcheryTarget size={30} color="var(--lightgray)" />
-          <p className={styles.title}>Missing in action</p>
-          <p>
-            Your miss tendency analysis will appear here once you upload session
-            data.
-          </p>
-        </div>
+        <NoDataPlaceholderWidget
+          icon={<GiArcheryTarget size={30} color="var(--lightgray)" />}
+          title="Missing in action"
+          message="Your miss tendency analysis will appear here once you upload session data."
+        />
       )}
     </div>
   );

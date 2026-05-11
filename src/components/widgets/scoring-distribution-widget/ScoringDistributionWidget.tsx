@@ -3,6 +3,7 @@ import styles from "./ScoringDistributionWidget.module.scss";
 import { Round } from "@/types/round";
 import Button from "@/components/ui/button/Button";
 import { RiBarChart2Fill } from "react-icons/ri";
+import NoDataPlaceholderWidget from "@/components/ui/no-data-placeholder-widget/NoDataPlaceholderWidget";
 
 type ScoringDistributionWidgetProps = {
   rounds: Round[];
@@ -29,12 +30,11 @@ const ScoringDistributionWidget = ({
           <p>Scoring Distribution</p>
         </div>
         <div className={styles.content}>
-          <div className={styles.noData}>
-            <RiBarChart2Fill color="var(--lightgray)" size={30}/>
-
-            <p className={styles.title}>Your scoring distribution is waiting</p>
-            <p>Upload a round to see how your scores break down across the board.</p>
-          </div>
+          <NoDataPlaceholderWidget
+            icon={<RiBarChart2Fill size={30} color="var(--lightgray)" />}
+            title="No rounds played"
+            message="Your scoring distribution will appear here once you upload round data."
+          />
         </div>
       </div>
     );

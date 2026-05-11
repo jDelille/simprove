@@ -2,10 +2,9 @@
 
 .recentSessionsWidget {
   @include widget();
-  padding: 0;
+  padding: 1rem;
   .header {
     @include widgetHeader();
-    padding: 1rem;
     color: var(--lightgray);
     font-size: 12px;
     text-transform: uppercase;

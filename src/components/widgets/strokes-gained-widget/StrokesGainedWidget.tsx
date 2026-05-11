@@ -3,6 +3,7 @@ import styles from "./StrokesGainedWidget.module.scss";
 import { Round } from "@/types/round";
 import Button from "@/components/ui/button/Button";
 import { FiUpload } from "react-icons/fi";
+import NoDataPlaceholderWidget from "@/components/ui/no-data-placeholder-widget/NoDataPlaceholderWidget";
 
 type StrokesGainedWidgetProps = {
   rounds: Round[];
@@ -31,14 +32,13 @@ const StrokesGainedWidget = ({ rounds }: StrokesGainedWidgetProps) => {
           </div>
         ))}
       </div>
-      <div className={styles.message}>
-        <FiUpload color="var(--lightgray)" size={30}/>
-
-        <p className={styles.title}>Upload a round to see where strokes are slipping</p>
-        <p>Your driving, approach, short game, and putting performance will be analyzed to show where you can improve.</p>
-      </div>
+      <NoDataPlaceholderWidget
+        icon={<FiUpload size={30} color="var(--lightgray)" />}
+        title="Upload a round to get started"
+        message="Your strokes gained estimate will appear here once you upload round data."
+      />
     </div>
-  );
+    );
   }
 
   const scores = (rounds ?? []).map((r) => r.round_scores?.[0]).filter(Boolean);
