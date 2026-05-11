@@ -87,8 +87,7 @@ const UserWidget = ({ profile, latestRound, userPoints, activityCount }: UserWid
         <div className={styles.streak}>
           <p>Your streak</p>
           <p className={styles.value}>
-            {" "}
-            <FaFire size={12} color="var(--dangerText)" /> 1 week
+            <FaFire size={12} color="var(--dangerText)" /> 0 weeks
           </p>
         </div>
 

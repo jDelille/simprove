@@ -3,7 +3,7 @@
 
 .widget {
   @include widget();
-  padding: 0;
+  padding: 1rem;
 
   position: relative;
   @include bp.mobile {
@@ -14,10 +14,6 @@
     @include widgetHeader();
     color: var(--text);
     padding-bottom: 0.5rem;
-    padding: 1rem;
-
-    border-bottom: 1px solid var(--border);
-
     p {
       display: flex;
       align-items: center;
@@ -93,18 +89,8 @@
       }
     }
 
-    .emptyState {
-      height: 100%;
-      height: 173px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      p {
-        width: 75%;
-        text-align: center;
-        line-height: 22px;
-        color: var(--lightgray);
-      }
+    .noData {
+      @include noDataWidgetContent();
     }
   }
 }

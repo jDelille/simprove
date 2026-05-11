@@ -225,11 +225,6 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
             Your {selectedMetric} by club will chart here once you upload a
             session with shot data.
           </p>
-          <Button
-            children="Upload a session"
-            variant="lessonCard"
-            onClick={() => openModal("upload")}
-          />
         </div>
       )}
     </div>

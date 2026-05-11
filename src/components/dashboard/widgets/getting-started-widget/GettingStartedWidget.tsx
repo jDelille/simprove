@@ -27,7 +27,7 @@ const GettingStartedWidget: React.FC<GettingStartedWidgetProps> = ({
       <div className={styles.progressBar}>
         <div
           className={styles.fill}
-          style={{ width: `${(completionCount / 4) * 100}%` }}
+          style={completionCount > 1 ? { width: `${(completionCount / 4) * 100}%` } : { width: "3%" }}
         ></div>
       </div>
 

@@ -48,18 +48,18 @@ const Dashboard = (props: DashboardProps) => {
     shots,
   });
 
-useEffect(() => {
-  if (isTourActive) {
-    document.body.classList.add("tour-active");
-  } else {
-    document.body.classList.remove("tour-active");
+  useEffect(() => {
+    if (isTourActive) {
+      document.body.classList.add("tour-active");
+    } else {
+      document.body.classList.remove("tour-active");
 
-    // hard reset layout
-    requestAnimationFrame(() => {
-      window.scrollTo(window.scrollX, window.scrollY);
-    });
-  }
-}, [isTourActive]);
+      // hard reset layout
+      requestAnimationFrame(() => {
+        window.scrollTo(window.scrollX, window.scrollY);
+      });
+    }
+  }, [isTourActive]);
 
   console.log(props.rounds);
 
@@ -125,14 +125,6 @@ useEffect(() => {
 
       {/* right side */}
       <div className={`${styles.column} ${styles.rightColumn}`}>
-        {" "}
-        {!dashboardData.hasCompletedGettingStarted && (
-          <div className={styles.row}>
-            <GettingStartedWidget
-              completions={props.gettingStartedCompletions}
-            />
-          </div>
-        )}
         <div className={styles.row}>
           <UserWidget
             profile={props.profile}
@@ -141,12 +133,21 @@ useEffect(() => {
             activityCount={props.sessions.length + props.rounds.length}
           />
         </div>
-        <div className={styles.row}>
-          <LessonPlanWidget
-            userId={props.userId}
-            activeLesson={props.activeLesson}
-          />
-        </div>
+        {!dashboardData.hasCompletedGettingStarted && (
+          <div className={styles.row}>
+            <GettingStartedWidget
+              completions={props.gettingStartedCompletions}
+            />
+          </div>
+        )}
+        {dashboardData.hasCompletedGettingStarted && (
+          <div className={styles.row}>
+            <LessonPlanWidget
+              userId={props.userId}
+              activeLesson={props.activeLesson}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

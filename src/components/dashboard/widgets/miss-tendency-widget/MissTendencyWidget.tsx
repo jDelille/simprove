@@ -9,6 +9,7 @@ import {
 import ClubSelect from "@/components/club-select/ClubSelect";
 import { Shot } from "@/types/shot";
 import { IoInformationCircleOutline } from "react-icons/io5";
+import { GiArcheryTarget } from "react-icons/gi";
 
 type MissTendencyWidgetProps = {
   shots: Shot[];
@@ -176,7 +177,9 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
       )}
 
       {isEmpty && (
-        <div className={styles.emptyState}>
+        <div className={styles.noData}>
+          <GiArcheryTarget size={30} color="var(--lightgray)" />
+          <p className={styles.title}>Missing in action</p>
           <p>
             Your miss tendency analysis will appear here once you upload session
             data.

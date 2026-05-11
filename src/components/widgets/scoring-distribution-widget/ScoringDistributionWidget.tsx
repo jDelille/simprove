@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./ScoringDistributionWidget.module.scss";
 import { Round } from "@/types/round";
+import Button from "@/components/ui/button/Button";
+import { RiBarChart2Fill } from "react-icons/ri";
 
 type ScoringDistributionWidgetProps = {
   rounds: Round[];
@@ -17,6 +19,26 @@ const ScoringDistributionWidget = ({
     "Double",
     "Triple+",
   ];
+
+  const hasNoRounds = rounds.length === 0;
+
+  if (hasNoRounds) {
+    return (
+      <div className={styles.scoringDistributionWidget} id="scoring-distribution">
+        <div className={styles.header}>
+          <p>Scoring Distribution</p>
+        </div>
+        <div className={styles.content}>
+          <div className={styles.noData}>
+            <RiBarChart2Fill color="var(--lightgray)" size={30}/>
+
+            <p className={styles.title}>Your scoring distribution is waiting</p>
+            <p>Upload a round to see how your scores break down across the board.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const scores = rounds.map((r) => r.round_scores?.[0]).filter(Boolean);
 

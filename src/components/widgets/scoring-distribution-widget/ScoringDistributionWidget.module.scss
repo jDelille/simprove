@@ -2,19 +2,20 @@
 
 .scoringDistributionWidget {
   @include widget();
-  max-height: 239px;
+  // max-height: 239px;
 
   .header {
     @include widgetHeader();
   }
 
   .content {
-    padding-top: 5px;
+    // padding-top: 5px;
     .category {
       height: 30px;
       display: flex;
       align-items: center;
       gap: 10px;
+      padding-top: 5px;
       p {
         font-size: 12px;
         width: 50px;
@@ -48,6 +49,9 @@
         width: 30px;
         text-align: right;
       }
+    }
+    .noData {
+      @include noDataWidgetContent();
     }
   }
 }

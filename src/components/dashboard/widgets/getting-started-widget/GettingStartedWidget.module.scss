@@ -10,15 +10,16 @@
   .progressBar {
     width: 100%;
     height: 6px;
-    background-color: var(--green);
-    border: 1px solid var(--greenBorder);
+    background-color: var(--messageBg);
+    border: 1px solid var(--border);
     border-radius: 22px;
     position: relative;
 
     .fill {
-      background-color: var(--greenText);
+      background-color: var(--accent);
       height: 100%;
       border-radius: 22px;
+      width: 2%;
     }
   }
 

@@ -4,12 +4,36 @@ import { Round } from "@/types/round";
 import { getArchetype } from "@/lib/archetypes/getArchetype";
 import { defaultArchetypes } from "@/lib/archetypes/defaultArchetypes";
 import { statColors } from "@/lib/colors/statColors";
+import Button from "@/components/ui/button/Button";
+import { BsPersonLinesFill } from "react-icons/bs";
 
 type PlayerArchetypeWidgetProps = {
   rounds: Round[];
 };
 
 const PlayerArchetypeWidget = ({ rounds }: PlayerArchetypeWidgetProps) => {
+
+  const hasNoRounds = rounds.length === 0;
+
+  if (hasNoRounds) {
+    return (
+      <div className={styles.playerArchetypeWidget} id="player-archetype">
+        <div className={styles.header}>
+          <p>Player Archetype</p>
+        </div>
+        <div className={styles.content}>
+            <div className={styles.noData}>
+              <BsPersonLinesFill color="var(--lightgray)" size={30}/>
+
+            <p className={styles.title}>Your archetype is waiting</p>
+            <p>Upload a round to discover how you're wired as a golfer.</p>
+
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const scores = rounds.map((round) => round.round_scores[0]);
 
   const avgDriving =

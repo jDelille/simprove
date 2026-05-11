@@ -25,10 +25,10 @@ const SmallStatWidget: React.FC<SmallStatWidgetProps> = (props) => {
       {props.isEmpty ? (
         <>
           <div className={styles.body}>
-            <span>No shots yet</span>
+            <h2>0</h2>
           </div>
           <div className={styles.empty}>
-            <span>Upload a session to begin</span>
+            <span>---</span>
           </div>
         </>
       ) : (

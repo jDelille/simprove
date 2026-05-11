@@ -126,7 +126,7 @@ const hasNotifications = notifications.filter((n) => n.is_read).length;
                     onClick={handleOpenDropdown}
                     className={styles.bellIcon}
                   />
-                  {hasNotifications < 1 && <div className={styles.dot}>{hasNotifications}</div>}
+                  {hasNotifications < 0 && <div className={styles.dot}>{hasNotifications}</div>}
 
                   {openNotifications && (
                     <NotificationsDropdown

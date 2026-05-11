@@ -23,7 +23,7 @@
     }
 
     .value {
-        margin-left: 1rem;
+      margin-left: 1rem;
     }
 
     .stats {
@@ -58,6 +58,10 @@
           }
         }
       }
+    }
+
+    .noData {
+      @include noDataWidgetContent();
     }
   }
 }

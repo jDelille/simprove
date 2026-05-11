@@ -5,6 +5,7 @@ import styles from "./SwingMetricsWidget.module.scss";
 import ClubSelect from "@/components/club-select/ClubSelect";
 import { Shot } from "@/types/shot";
 import { IoInformationCircleOutline } from "react-icons/io5";
+import { FiActivity } from "react-icons/fi";
 
 type SwingMetricsWidgetProps = {
   shots: Shot[];
@@ -285,7 +286,9 @@ const SwingMetricsWidget: React.FC<SwingMetricsWidgetProps> = ({ shots }) => {
         )}
 
         {isEmpty && (
-          <div className={styles.emptyState}>
+          <div className={styles.noData}>
+            <FiActivity size={30} color="var(--lightgray)" />
+            <p className={styles.title}>Swing and a miss</p>
             <p>
               Your swing metrics will appear here once you upload session data.
             </p>

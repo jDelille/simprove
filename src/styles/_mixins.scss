@@ -30,44 +30,75 @@
 }
 
 @mixin tags() {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 1rem;
-    .tag,
-    .beginnerTag,
-    .intermediateTag,
-    .advancedTag,
-    .singleTag,
-    .multiTag {
-      font-size: 10px;
-      background-color: var(--lightPurple);
-      border: 1px solid var(--purpleBorder);
-      color: var(--purple);
-      border-radius: 22px;
-      padding: 3px 8px;
-      font-weight: 500;
-    }
-    .beginnerTag {
-      background-color: var(--green);
-      border: 1px solid var(--greenBorder);
-      color: var(--greenText);
-    }
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1rem;
+  .tag,
+  .beginnerTag,
+  .intermediateTag,
+  .advancedTag,
+  .singleTag,
+  .multiTag {
+    font-size: 10px;
+    background-color: var(--lightPurple);
+    border: 1px solid var(--purpleBorder);
+    color: var(--purple);
+    border-radius: 22px;
+    padding: 3px 8px;
+    font-weight: 500;
+  }
+  .beginnerTag {
+    background-color: var(--green);
+    border: 1px solid var(--greenBorder);
+    color: var(--greenText);
+  }
 
-    .intermediateTag {
-      background-color: var(--lightYellow);
-      border: 1px solid var(--yellowBorder);
-      color: var(--yellowText);
-    }
+  .intermediateTag {
+    background-color: var(--lightYellow);
+    border: 1px solid var(--yellowBorder);
+    color: var(--yellowText);
+  }
 
-    .multiTag {
-      background-color: var(--lightBlue);
-      border: 1px solid var(--blueBorder);
-      color: var(--blueText);
-    }
+  .multiTag {
+    background-color: var(--lightBlue);
+    border: 1px solid var(--blueBorder);
+    color: var(--blueText);
+  }
 
-    .singleTag {
-      background-color: var(--gray);
-      border: 1px solid var(--grayBorder);
-      color: var(--grayText);
-    }
+  .singleTag {
+    background-color: var(--gray);
+    border: 1px solid var(--grayBorder);
+    color: var(--grayText);
+  }
+}
+
+// Dashboard widget mixins
+
+@mixin noDataWidgetContent() {
+  background-color: var(--secondaryBg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  .title {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--lightgray);
+    margin-top: 0.5rem;
+  }
+
+  p {
+    color: var(--lightgray);
+    font-size: 12px;
+    line-height: 21px;
+
+    text-align: center;
+  }
+
+  button {
+    margin-top: 1rem;
+  }
 }

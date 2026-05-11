@@ -1,67 +1,92 @@
 import React from "react";
 import styles from "./StrokesGainedWidget.module.scss";
 import { Round } from "@/types/round";
+import Button from "@/components/ui/button/Button";
+import { FiUpload } from "react-icons/fi";
 
 type StrokesGainedWidgetProps = {
   rounds: Round[];
 };
 
 const StrokesGainedWidget = ({ rounds }: StrokesGainedWidgetProps) => {
-  
-  const scores = (rounds ?? [])
-  .map((r) => r.round_scores?.[0])
-  .filter(Boolean);
+  const hasNoRounds = !rounds || rounds.length === 0;
+  const emptyAreas = ["Driving", "Approach", "Short Game", "Putting"];
 
-  const avg = (arr: number[]) =>
-  arr.reduce((a, b) => a + b, 0) / arr.length;
-
-  const drivingSG =
-  (avg(scores.map(s => s.fairways_value_percent)) - 60) / 20;
-
-  const approachSG =
-  (avg(scores.map(s => s.greens_value_percent)) - 55) / 18;
-
-  const shortGameSG =
-  avg(scores.map(s => {
-    const penalties =
-      s.bogey + s.double_bogey * 1.5 + s.other * 2;
-
-    const bogeyAvoidance = Math.max(0, 100 - penalties * 8);
-
-    const shortGame =
-      s.sand_saves_value_percent * 0.7 +
-      bogeyAvoidance * 0.3;
-
-    return (shortGame - 60) / 20;
-  }));
-
-  const puttingSG =
-  avg(scores.map(s => {
-    const putts = s.putts_value;
-    const normalized =
-      100 - ((putts - 18) / 18) * 100;
-
-    return (normalized - 65) / 20;
-  }));
-
-  const data = [
-  { name: "Driving", value: drivingSG, percent: 55 },
-  { name: "Approach", value: approachSG, percent: 50 },
-  { name: "Short Game", value: shortGameSG, percent: 38 },
-  { name: "Putting", value: puttingSG, percent: 63 },
-];
-
-const weakest = data.reduce((min, curr) =>
-  curr.value < min.value ? curr : min
-);
-
-   return (
+  if (hasNoRounds) {
+    return (
     <div className={styles.strokesGainedWidget} id="strokes-gained">
       <div className={styles.header}>
         <p>Strokes Gained Estimate</p>
-        <span>
-          See how many strokes each area of your game is costing you
-        </span>
+        <span>See how many strokes each area of your game is costing you</span>
+      </div>
+      <div className={styles.content}>
+        {emptyAreas.map((name) => (
+          <div key={name} className={styles.area}>
+            <span>{name}</span>
+            <p className={styles.value}>-</p>
+            <div className={styles.progressBar}>
+              <div className={styles.fill} style={{ width: "0%" }} />
+            </div>
+            <p className={styles.percent}>No data yet</p>
+          </div>
+        ))}
+      </div>
+      <div className={styles.message}>
+        <FiUpload color="var(--lightgray)" size={30}/>
+
+        <p className={styles.title}>Upload a round to see where strokes are slipping</p>
+        <p>Your driving, approach, short game, and putting performance will be analyzed to show where you can improve.</p>
+      </div>
+    </div>
+  );
+  }
+
+  const scores = (rounds ?? []).map((r) => r.round_scores?.[0]).filter(Boolean);
+
+  const avg = (arr: number[]) => arr.reduce((a, b) => a + b, 0) / arr.length;
+
+  const drivingSG =
+    (avg(scores.map((s) => s.fairways_value_percent)) - 60) / 20;
+
+  const approachSG = (avg(scores.map((s) => s.greens_value_percent)) - 55) / 18;
+
+  const shortGameSG = avg(
+    scores.map((s) => {
+      const penalties = s.bogey + s.double_bogey * 1.5 + s.other * 2;
+
+      const bogeyAvoidance = Math.max(0, 100 - penalties * 8);
+
+      const shortGame = s.sand_saves_value_percent * 0.7 + bogeyAvoidance * 0.3;
+
+      return (shortGame - 60) / 20;
+    }),
+  );
+
+  const puttingSG = avg(
+    scores.map((s) => {
+      const putts = s.putts_value;
+      const normalized = 100 - ((putts - 18) / 18) * 100;
+
+      return (normalized - 65) / 20;
+    }),
+  );
+
+  const data = [
+    { name: "Driving", value: drivingSG, percent: 55 },
+    { name: "Approach", value: approachSG, percent: 50 },
+    { name: "Short Game", value: shortGameSG, percent: 38 },
+    { name: "Putting", value: puttingSG, percent: 63 },
+  ];
+
+  const weakest = data.reduce((min, curr) =>
+    curr.value < min.value ? curr : min,
+  );
+
+  return (
+    <div className={styles.strokesGainedWidget} id="strokes-gained">
+      <div className={styles.header}>
+        <p>Strokes Gained Estimate</p>
+        <span>See how many strokes each area of your game is costing you</span>
       </div>
 
       <div className={styles.content}>
@@ -83,9 +108,7 @@ const weakest = data.reduce((min, curr) =>
               />
             </div>
 
-            <p className={styles.percent}>
-              {area.percent}% baseline metric
-            </p>
+            <p className={styles.percent}>{area.percent}% baseline metric</p>
           </div>
         ))}
       </div>
@@ -93,7 +116,9 @@ const weakest = data.reduce((min, curr) =>
       <div className={styles.leak}>
         <p>
           Biggest leak: <strong>{weakest.name}</strong> is costing you{" "}
-          <strong>{Math.abs(weakest.value).toFixed(1)} strokes per round</strong>
+          <strong>
+            {Math.abs(weakest.value).toFixed(1)} strokes per round
+          </strong>
         </p>
       </div>
     </div>
