@@ -8,6 +8,7 @@ import Link from "next/link";
 import { FaFire } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
 import { IoIosTimer } from "react-icons/io";
+import { getInitials } from "@/lib/getInitials";
 
 type UserWidgetProps = {
   profile: Profile;
@@ -17,6 +18,7 @@ type UserWidgetProps = {
 };
 
 const UserWidget = ({ profile, latestRound, userPoints, activityCount }: UserWidgetProps) => {
+  const initials = getInitials(profile && profile.display_name || "");
 
   return (
     <div className={styles.widget} id="profile-overview">
@@ -24,7 +26,7 @@ const UserWidget = ({ profile, latestRound, userPoints, activityCount }: UserWid
 
       <div className={styles.content}>
         <div className={styles.user}>
-          <Avatar src={profile.avatar_path} size="small" />
+          <Avatar src={profile.avatar_path} size="small" initials={initials} />
 
           <div className={styles.text}>
             <h3>{profile.username}</h3>

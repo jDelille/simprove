@@ -7,8 +7,10 @@ import Footer from "@/components/footer/Footer";
 import { createSupabaseServer } from "@/lib/supabase/server";
 import { fetchProfileInfo } from "@/services/profile-info/fetchProfileInfo";
 import ClientTourWrapper from "@/components/tour-controller/ClientTourWrapper";
-import "@/styles/globals.scss";
 import { fetchNotifications } from "@/services/notifications/fetchNotifications";
+import AnnouncementBar from "@/components/announcement-bar/AnnouncementBar";
+import "@/styles/globals.scss";
+import { getActivitiesData } from "@/services/activities/getActivitiesData";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -28,6 +30,8 @@ export default async function RootLayout({
 const supabase = await createSupabaseServer();
 
 const { profile } = await fetchProfileInfo(supabase);
+const { sessions, rounds } = await getActivitiesData({ supabase, userId: profile.id });
+const hasActivities = sessions.length > 0 || rounds.length > 0;
 
 let notifications: any[] = [];
 
@@ -40,6 +44,7 @@ if (profile?.id) {
       <body className={`${inter.variable}`}>
         <ThemeProvider>
           <Navbar profile={profile} notifications={notifications}/>
+          <AnnouncementBar hasActivities={hasActivities} />
           <Providers>
             <ClientTourWrapper profile={profile}>{children}</ClientTourWrapper>
           </Providers>

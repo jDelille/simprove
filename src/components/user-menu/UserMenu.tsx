@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { MdOutlineSpaceDashboard, MdOutlineLogout } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
@@ -17,12 +18,16 @@ import styles from "./UserMenu.module.scss";
 type UserMenuProps = {
   onLogout: () => void;
   setOpenMenu: (open: boolean) => void;
-  profile: Profile
+  profile: Profile;
 };
 
-const UserMenu: React.FC<UserMenuProps> = ({ onLogout, setOpenMenu, profile }) => {
+const UserMenu: React.FC<UserMenuProps> = ({
+  onLogout,
+  setOpenMenu,
+  profile,
+}) => {
   const router = useRouter();
-
+  const menuRef = useRef<HTMLDivElement | null>(null);
   const { theme, toggleTheme } = useTheme();
 
   const handleThemeToggle = () => {
@@ -34,8 +39,28 @@ const UserMenu: React.FC<UserMenuProps> = ({ onLogout, setOpenMenu, profile }) =
     setOpenMenu(false);
   };
 
+  useEffect(() => {
+    const el = menuRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          setOpenMenu(false);
+        }
+      },
+      {
+        threshold: 0.1,
+      },
+    );
+
+    observer.observe(el);
+
+    return () => observer.disconnect();
+  }, [setOpenMenu]);
+
   return (
-    <div className={styles.menu}>
+    <div ref={menuRef} className={styles.menu}>
       <ul>
         <div className={styles.name}>
           <p>{profile?.display_name}</p>
@@ -50,10 +75,10 @@ const UserMenu: React.FC<UserMenuProps> = ({ onLogout, setOpenMenu, profile }) =
             <MdOutlineSpaceDashboard size={18} color="var(--lightgray)" />
           </li>
           <li
-            onClick={() => handleLinkClick("/sessions")}
+            onClick={() => handleLinkClick("/activities")}
             className={styles.mobile}
           >
-            Sessions
+            Activities
             <BsFileBarGraph size={18} color="var(--lightgray)" />
           </li>
           <li

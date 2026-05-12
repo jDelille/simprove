@@ -25,6 +25,9 @@
         li {
           a {
             color: var(--lightgray);
+            &:hover {
+              text-decoration: underline;
+            }
           }
         }
       }

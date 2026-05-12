@@ -18,6 +18,7 @@ import { LiaSyncAltSolid } from "react-icons/lia";
 import { GrUploadOption } from "react-icons/gr";
 import { FaRegBell } from "react-icons/fa6";
 import NotificationsDropdown from "../notifications-dropdown/NotificationsDropdown";
+import { getInitials } from "@/lib/getInitials";
 
 type AuthAction = "login" | "signup" | "logout";
 
@@ -63,11 +64,7 @@ const hasNotifications = notifications.filter((n) => n.is_read).length;
   const hiddenPaths = ["/auth/login", "/auth/signup"];
   if (hiddenPaths.includes(pathname)) return null;
 
-  const initials = profile?.display_name
-    .split(/\s+/)
-    .map((word: string) => word.charAt(0))
-    .join("")
-    .toUpperCase();
+  const initials = getInitials(profile && profile.display_name || "");
 
   const handleOpenDropdown = async () => {
     const isOpening = !openNotifications;

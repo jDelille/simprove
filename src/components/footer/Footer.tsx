@@ -3,20 +3,20 @@ import styles from './Footer.module.scss';
 
 const Footer = () => {
     
-    // const links = ["Privacy Policy", "Terms of Service", "Contact Us", "Status"];
-
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
         <p>&copy; 2026 simprove. All rights reserved.</p>
         <div className={styles.links}>
-            {/* <ul>
-                {links.map((link) => (
-                    <li key={link}>
-                        <Link href="#">{link}</Link>
-                    </li>
-                ))}
-            </ul> */}
+            <ul>
+                <li>
+                  <Link href="https://github.com/jDelille/simprove" target="_blank" rel="noopener noreferrer">
+                    Github
+                  </Link>
+                </li>
+                <li>Version 1.0.0</li>
+                <li>Powered by GSPro data</li>
+            </ul>
         </div>
       </div>
     </footer>

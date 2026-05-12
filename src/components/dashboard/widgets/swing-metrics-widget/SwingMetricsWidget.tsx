@@ -146,7 +146,8 @@ const SwingMetricsWidget: React.FC<SwingMetricsWidgetProps> = ({ shots }) => {
   return (
     <div className={styles.widget} id="swing-metrics">
       <div className={styles.header}>
-        <p>Swing Metrics <IoInformationCircleOutline /></p>
+        <p>Swing Metrics</p>
+        {/* <IoInformationCircleOutline /> */}
         <span>Path · Face · Attack Angle</span>
       </div>
       <div className={styles.content}>

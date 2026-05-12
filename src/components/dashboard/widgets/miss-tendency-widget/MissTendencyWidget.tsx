@@ -83,7 +83,8 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
   return (
     <div className={styles.widget} id="miss-tendency">
       <div className={styles.header}>
-        <p>Miss Tendency <IoInformationCircleOutline /></p>
+        <p>Miss Tendency</p>
+        {/* <IoInformationCircleOutline /> */}
         <span>Offline · Face to target · Swing path</span>
       </div>
       {!isEmpty && (

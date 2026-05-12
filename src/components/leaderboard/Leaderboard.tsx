@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import Avatar from "../ui/avatar/Avatar";
 import styles from "./Leaderboard.module.scss";
 
 type LeaderboardProps = {
@@ -53,20 +51,6 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
             All Time
           </button>
         </div>
-
-        {/* {filteredLeaderboard.map((player: any, index: number) => (
-          <li key={player.id}>
-            <Link
-              href={`/profile/${player.users.username}`}
-              className={styles.player}
-            >
-              <span className={styles.rank}>#{index + 1}</span>
-              <Avatar src={player?.users?.avatar_path} size="small" />
-              <span className={styles.user}>{player?.users?.username}</span>
-              <span className={styles.points}>{player?.points} pts</span>
-            </Link>
-          </li>
-        ))} */}
       </ul>
     </div>
   );

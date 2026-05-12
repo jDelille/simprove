@@ -60,7 +60,6 @@ const EditProfileInfo: React.FC<EditProfileInfoProps> = ({ profile }) => {
       </div>
 
       <div className={styles.content}>
-        <div className={styles.row}>
           <div className={styles.inputGroup}>
             <label htmlFor="name">Display name</label>
             <input
@@ -82,7 +81,6 @@ const EditProfileInfo: React.FC<EditProfileInfoProps> = ({ profile }) => {
               onChange={handleChange}
             />
           </div>
-        </div>
 
         <div className={styles.inputGroup}>
           <label htmlFor="bio">Bio</label>
@@ -94,7 +92,6 @@ const EditProfileInfo: React.FC<EditProfileInfoProps> = ({ profile }) => {
           />
         </div>
 
-        <div className={styles.row}>
           <div className={styles.inputGroup}>
             <label htmlFor="location">Location</label>
             <input
@@ -116,7 +113,6 @@ const EditProfileInfo: React.FC<EditProfileInfoProps> = ({ profile }) => {
               onChange={handleChange}
             />
           </div>
-        </div>
 
         <div className={styles.row}>
           <Button variant="lessonCard" onClick={handleSave}>

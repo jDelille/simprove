@@ -36,6 +36,10 @@
   max-width: 50px;
   min-height: 50px;
   max-height: 50px;
+
+   .initials {
+    font-size: 18px;
+  }
 }
 
 .avatar.large {
@@ -43,4 +47,8 @@
   max-width: 70px;
   min-height: 70px;
   max-height: 70px;
+
+   .initials {
+    font-size: 20px;
+  }
 }

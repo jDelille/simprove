@@ -3,16 +3,19 @@ import { Profile } from "@/types";
 import Avatar from "@/components/ui/avatar/Avatar";
 import moment from "moment";
 import Button from "@/components/ui/button/Button";
+import { getInitials } from "@/lib/getInitials";
 
 type UserWidgetProps = {
   user: Profile;
 };
 
 const UserWidget = ({ user }: UserWidgetProps) => {
+    const initials = getInitials(user && user.display_name || "");
+  
   return (
     <div className={styles.widget}>
       <div className={styles.top}>
-        <Avatar src={user.avatar_path} size="medium" />
+        <Avatar src={user.avatar_path} size="medium" initials={initials} />
         <div className={styles.text}>
           <p className={styles.username}>{user.username}</p>
           <p className={styles.date}>

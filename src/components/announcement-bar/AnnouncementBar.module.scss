@@ -1,0 +1,63 @@
+@use "@/styles/breakpoints" as bp;
+
+.announcementBar {
+  background: var(--lightBlue);
+  border: 1px solid var(--blueBorder);
+  border-left: none;
+  border-right: none;
+  color: var(--blueText);
+  width: 100vw;
+  max-width: 100%;
+  min-height: 50px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 1rem;
+
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    @include bp.mobile() {
+      flex-direction: column;
+      text-align: center;
+      gap: 3px;
+    }
+    .text {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      @include bp.mobile() {
+        gap: 4px;
+      }
+      .announcementIcon {
+        width: 6px;
+        height: 6px;
+        background: var(--blueText);
+        border-radius: 50%;
+      }
+    }
+
+    .announcementButton {
+      all: unset;
+      color: var(--blueText);
+      border: none;
+      font-size: 13px;
+      cursor: pointer;
+      text-decoration: underline;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+  }
+
+  .close {
+    position: absolute;
+    right: 2rem;
+    cursor: pointer;
+  }
+}

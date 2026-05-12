@@ -195,7 +195,8 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
     <div className={styles.graphContainer} id="averages-graph">
       <div className={styles.header}>
         <div className={styles.text}>
-          <p className={styles.selectedMetric}>{metric?.label} <IoInformationCircleOutline /></p>
+          <p className={styles.selectedMetric}>{metric?.label} </p> 
+          {/* <IoInformationCircleOutline /> */}
           <span>Average performance by club</span>
         </div>
 
