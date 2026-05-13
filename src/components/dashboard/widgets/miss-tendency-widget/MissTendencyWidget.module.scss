@@ -58,7 +58,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 1rem;
+    padding-top: 1rem;
     .missLine {
       width: 100%;
       height: 7px;
@@ -130,9 +130,7 @@
     font-size: 12px;
     line-height: 21px;
     position: relative;
-    padding-left: 10px;
-    padding: 1rem;
-    padding-top: 0;
+    padding-top: 1rem;
     color: var(--lightgray);
     display: flex;
     flex-direction: column;

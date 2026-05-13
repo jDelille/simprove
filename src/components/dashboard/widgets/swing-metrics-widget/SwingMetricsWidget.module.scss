@@ -38,7 +38,8 @@
         li {
           display: flex;
           flex-direction: column;
-          padding: 10px 1rem;
+          padding-top: 10px;
+          padding-bottom: 4px;
           border-bottom: 1px solid var(--border);
           gap: 7px;
           &:nth-last-child(1) {

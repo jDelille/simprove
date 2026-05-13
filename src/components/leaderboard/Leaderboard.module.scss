@@ -136,7 +136,7 @@
     .leaderboardList {
       width: 75%;
       margin-top: 2rem;
-@include bp.mobile {
+      @include bp.mobile {
         width: 100%;
       }
       .leaderboardItem {

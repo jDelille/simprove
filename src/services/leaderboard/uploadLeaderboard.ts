@@ -31,25 +31,35 @@ export const uploadLeaderboard = async (
       .select("*")
       .eq("user_id", userId)
       .eq("period_type", period.type)
-      .eq("period_start", period.start)
+      .limit(1)
       .maybeSingle();
 
-    if (fetchError) {
-      console.error(
-        `Error fetching ${period.type} leaderboard entry:`,
-        fetchError,
+    console.log("existing", existing, "fetchError", fetchError);
+
+    if (existing) {
+      console.log(
+        "updating",
+        existing.id,
+        "current points",
+        existing.points,
+        "adding",
+        pointsToAdd,
       );
-      return { error: fetchError };
+    } else {
+      console.log("inserting new row for", period.type);
     }
 
     if (existing) {
-      const { error: updateError } = await supabaseClient
+      const { error: updateError, data: updateData } = await supabaseClient
         .from("leaderboard")
         .update({
           points: existing.points + pointsToAdd,
           updated_at: new Date().toISOString(),
         })
-        .eq("id", existing.id);
+        .eq("id", existing.id)
+        .select();
+
+      console.log("update result", updateData, updateError);
 
       if (updateError) {
         console.error(

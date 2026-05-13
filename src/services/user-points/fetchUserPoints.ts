@@ -22,13 +22,22 @@ export const fetchUserPoints = async (
     .select("points")
     .eq("user_id", userId)
     .eq("period_type", "weekly")
-    .eq("period_start", moment().startOf("week").toISOString())
+    .limit(1)
     .maybeSingle();
 
   if (weeklyError) {
     console.error("Error fetching weekly points:", weeklyError);
     return { totalPoints: null, weeklyPoints: null, error: weeklyError };
   }
+
+  const { data: debug } = await supabaseClient
+    .from("leaderboard")
+    .select("period_start, points")
+    .eq("user_id", userId)
+    .eq("period_type", "weekly");
+
+  console.log("weekly rows", debug);
+  console.log("moment start of week", moment().startOf("week").toISOString());
 
   return {
     totalPoints: totalPoints?.total_points ?? 0,

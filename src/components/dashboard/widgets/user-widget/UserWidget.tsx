@@ -9,6 +9,12 @@ import { FaFire } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
 import { IoIosTimer } from "react-icons/io";
 import { getInitials } from "@/lib/getInitials";
+import { GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
+import usePopup from "@/hooks/usePopup";
+import Popup from "@/components/ui/popup/Popup";
+import DailyPointsGame from "../../daily-points-game/DailyPointsGame";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type UserWidgetProps = {
   profile: Profile;
@@ -17,8 +23,62 @@ type UserWidgetProps = {
   activityCount: number;
 };
 
-const UserWidget = ({ profile, latestRound, userPoints, activityCount }: UserWidgetProps) => {
-  const initials = getInitials(profile && profile.display_name || "");
+const UserWidget = ({
+  profile,
+  latestRound,
+  userPoints,
+  activityCount,
+}: UserWidgetProps) => {
+  const initials = getInitials((profile && profile.display_name) || "");
+  const { popups, openPopup, closePopup } = usePopup();
+  const router = useRouter();
+
+  const getTimeUntilMidnight = () => {
+    const now = new Date();
+    const midnight = new Date();
+    midnight.setHours(24, 0, 0, 0);
+    const diff = midnight.getTime() - now.getTime();
+
+    const h = Math.floor(diff / 1000 / 60 / 60);
+    const m = Math.floor((diff / 1000 / 60) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+
+    return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  };
+
+  const [countdown, setCountdown] = useState("");
+
+  const handleDailyPointsClick = () => {
+    openPopup("dailyPoints");
+  };
+
+  const hasRolledToday = (lastRolledAt: string | null): boolean => {
+    if (!lastRolledAt) return false;
+    const last = new Date(lastRolledAt);
+    const now = new Date();
+    return (
+      last.getFullYear() === now.getFullYear() &&
+      last.getMonth() === now.getMonth() &&
+      last.getDate() === now.getDate()
+    );
+  };
+
+  useEffect(() => {
+    if (!hasRolledToday(profile.last_rolled_at)) return;
+    const interval = setInterval(() => {
+      setCountdown(getTimeUntilMidnight());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [profile.last_rolled_at]);
+
+  const dailyPointsPopupBody = (
+    <div className={styles.popupBody}>
+      <DailyPointsGame userId={profile.id} onComplete={() => {
+        router.refresh();
+        closePopup("dailyPoints");
+      }} />
+    </div>
+  );
 
   return (
     <div className={styles.widget} id="profile-overview">
@@ -45,7 +105,7 @@ const UserWidget = ({ profile, latestRound, userPoints, activityCount }: UserWid
               style={
                 userPoints?.weeklyPoints === 0
                   ? { color: "var(--lightgray)" }
-                  : {color: "var(--accent)"}
+                  : { color: "var(--accent)" }
               }
             >
               {userPoints?.weeklyPoints}
@@ -79,9 +139,11 @@ const UserWidget = ({ profile, latestRound, userPoints, activityCount }: UserWid
           <div className={styles.empty}>
             <p className={styles.title}>Latest Round</p>
             <div className={styles.message}>
-                <IoIosTimer size={18}/>
-                <p>Upload a round to see your latest performance here</p>
-                <button>Upload round <FiArrowUpRight size={12} /></button>
+              <IoIosTimer size={18} />
+              <p>Upload a round to see your latest performance here</p>
+              <button>
+                Upload round <FiArrowUpRight size={12} />
+              </button>
             </div>
           </div>
         )}
@@ -89,8 +151,22 @@ const UserWidget = ({ profile, latestRound, userPoints, activityCount }: UserWid
         <div className={styles.streak}>
           <p>Your streak</p>
           <p className={styles.value}>
-            <FaFire size={12} color="var(--dangerText)" /> 0 weeks
+            <FaFire size={12} color="var(--dangerText)" /> {profile.streak_current || 0} weeks
           </p>
+        </div>
+
+        <div className={styles.dailyPoints}>
+          {hasRolledToday(profile.last_rolled_at) ? (
+            <div className={styles.dailyPointsDisabled}>
+              <p>Daily reward</p>
+              <p className={styles.countdown}>{countdown}</p>
+            </div>
+          ) : (
+            <button onClick={handleDailyPointsClick}>
+              <GiPerspectiveDiceSixFacesOne size={15} />
+              Roll Daily Points
+            </button>
+          )}
         </div>
 
         <div className={styles.links}>
@@ -102,6 +178,12 @@ const UserWidget = ({ profile, latestRound, userPoints, activityCount }: UserWid
           </Link>
         </div>
       </div>
+
+      <Popup
+        isOpen={popups["dailyPoints"] || false}
+        title="Daily Points"
+        body={dailyPointsPopupBody}
+      />
     </div>
   );
 };

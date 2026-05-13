@@ -1,0 +1,153 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem 0;
+}
+
+.targetCard {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  text-align: center;
+}
+
+.targetLabel {
+  font-size: 12px;
+  color: var(--lightgray);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.targetYardage {
+  font-size: 36px;
+  font-weight: 500;
+}
+
+.targetUnit {
+  font-size: 13px;
+  color: var(--lightgray);
+  margin-top: 4px;
+}
+
+.currentVal {
+  font-size: 52px;
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  min-width: 120px;
+  text-align: center;
+}
+
+.currentUnit {
+  font-size: 13px;
+  color: var(--lightgray);
+  margin-top: -1rem;
+}
+
+.meterWrap {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meterTrack {
+  position: relative;
+  height: 28px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.meterFill {
+  height: 100%;
+  border-radius: 100px;
+  background: var(--text);
+  transition: none;
+}
+
+.meterTargetLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #E24B4A;
+  transform: translateX(-50%);
+}
+
+.meterLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--lightgray);
+  padding: 0 2px;
+}
+
+.phaseLabel {
+  font-size: 13px;
+  color: var(--lightgray);
+  min-height: 20px;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 18px;
+  color: var(--lightgray);
+  cursor: pointer;
+
+  &:hover { color: var(--text); }
+}
+
+.swingBtn {
+  all: unset;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px 48px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover { background: var(--bg); }
+  &:active { transform: scale(0.98); }
+  &:disabled { opacity: 0.4; cursor: not-allowed; }
+}
+
+.resultCard {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.resultFlavor {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.resultDiff {
+  font-size: 13px;
+  color: var(--lightgray);
+}
+
+.resultPts {
+  font-size: 13px;
+  color: var(--lightgray);
+
+  span {
+    font-weight: 500;
+    color: var(--text);
+  }
+}
