@@ -1,12 +1,15 @@
+@use "@/styles/breakpoints" as bp;
+
 .leaderboard {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   padding-top: 2rem;
+  padding-bottom: 2rem;
 
   .pageHeader {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     .title {
       display: flex;
       flex-direction: column;
@@ -19,63 +22,160 @@
         color: var(--lightgray);
       }
     }
+
+    ul {
+      display: flex;
+      height: 40px;
+      background-color: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px 5px;
+      li {
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+        font-size: 14px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      .active {
+        background-color: var(--primaryHover);
+      }
+    }
   }
 
-  .leaderboardList {
-    // border: 1px solid var(--border);
+  .content {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    .periodSelector {
+    .podium {
+      width: 50%;
       display: flex;
-      -webkit-box-pack: end;
-      justify-content: flex-end;
-      margin-bottom: 16px;
+      align-items: flex-end;
+      gap: 10px;
+
+      @include bp.mobile {
+        width: 100%;
+      }
+
+      .podiumBlockContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        width: 100%;
+        font-size: 13px;
+        font-weight: 500;
+
+        &:nth-child(1) {
+          order: 2;
+        }
+        &:nth-child(2) {
+          order: 1;
+        }
+        &:nth-child(3) {
+          order: 3;
+        }
+
+        .userWrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 5px;
+          padding: 10px 0;
+          width: 90%;
+          border-radius: 8px;
+          .rank {
+            font-size: 12px;
+            color: var(--lightgray);
+          }
+
+          &:hover {
+            background: var(--primaryHover);
+            cursor: pointer;
+          }
+        }
+
+        .podiumBlock {
+          width: 100%;
+          border-radius: 10px 10px 0 0;
+          padding: 10px 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: var(--bg);
+          border: 1px solid var(--border);
+          border-bottom: none;
+          gap: 5px;
+          font-weight: 600;
+          margin-top: 10px;
+          font-size: 16px;
+          transition: height 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+          height: 0;
+          overflow: hidden;
+          position: relative;
+        }
+      }
+
+      .mounted {
+        &:nth-child(1) .podiumBlock {
+          height: 175px;
+        }
+        &:nth-child(2) .podiumBlock {
+          height: 105px;
+        }
+        &:nth-child(3) .podiumBlock {
+          height: 75px;
+        }
+      }
     }
 
-    li {
-      .player {
+    .leaderboardList {
+      width: 75%;
+      margin-top: 2rem;
+@include bp.mobile {
+        width: 100%;
+      }
+      .leaderboardItem {
         display: flex;
         flex-direction: row;
         -webkit-box-align: center;
         align-items: center;
         -webkit-box-pack: justify;
-        justify-content: space-between;
-        padding-top: 12px;
-        padding-bottom: 12px;
         border-radius: 8px;
-        background-color: var(--messageBg);
-        padding: 1rem;
-        font-size: 13px;
-        font-weight: 500;
-        cursor: pointer;
-        color: var(--text);
-      }
+        padding: 12px 15px;
+        gap: 1rem;
+        &:hover {
+          background: var(--primaryHover);
+          cursor: pointer;
+        }
+        &:nth-of-type(odd) {
+          background-color: var(--bg);
+          &:hover {
+            background: var(--primaryHover);
+            cursor: pointer;
+          }
+        }
 
-      .rank {
-        width: 60px;
-        color: var(--lightgray);
-        font-weight: 500;
-      }
+        .username {
+          font-size: 13px;
+          font-weight: 500;
+          color: var(--text);
+        }
 
-      .user {
-        flex: 1 1 0%;
-        display: flex;
-        flex-direction: row;
-        -webkit-box-align: center;
-        align-items: center;
-        gap: 8px;
-        margin-left: 0.5rem;
-      }
-
-      .points {
-        width: 160px;
-        display: flex;
-        flex-direction: row;
-        -webkit-box-align: center;
-        align-items: center;
-        -webkit-box-pack: end;
-        justify-content: flex-end;
-        color: var(--text);
-        font-weight: 500;
+        .rank {
+          font-size: 13px;
+          color: var(--lightgray);
+          width: 30px;
+        }
+        .points {
+          margin-left: auto;
+          font-size: 13px;
+          font-weight: 500;
+        }
       }
     }
   }

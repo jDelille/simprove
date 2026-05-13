@@ -7,11 +7,12 @@
   background-color: var(--border);
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   img {
     object-fit: cover;
-    width: 100%;
     height: 100%;
-    border-radius: 50%;
+    width: 100%;
+    
   }
 
   .initials {
@@ -38,7 +39,7 @@
   max-height: 50px;
 
    .initials {
-    font-size: 18px;
+    font-size: 16px;
   }
 }
 

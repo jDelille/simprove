@@ -9,8 +9,8 @@ import { fetchProfileInfo } from "@/services/profile-info/fetchProfileInfo";
 import ClientTourWrapper from "@/components/tour-controller/ClientTourWrapper";
 import { fetchNotifications } from "@/services/notifications/fetchNotifications";
 import AnnouncementBar from "@/components/announcement-bar/AnnouncementBar";
-import "@/styles/globals.scss";
 import { getActivitiesData } from "@/services/activities/getActivitiesData";
+import "@/styles/globals.scss";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -27,24 +27,37 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-const supabase = await createSupabaseServer();
+  const supabase = await createSupabaseServer();
 
-const { profile } = await fetchProfileInfo(supabase);
-const { sessions, rounds } = await getActivitiesData({ supabase, userId: profile.id });
-const hasActivities = sessions.length > 0 || rounds.length > 0;
+  const { profile } = await fetchProfileInfo(supabase);
+  const userId = profile?.id;
 
-let notifications: any[] = [];
+  let sessions: any[] = [];
+  let rounds: any[] = [];
 
-if (profile?.id) {
-  notifications = await fetchNotifications(profile.id, supabase);
-}
+  if (userId) {
+    const data = await getActivitiesData({ supabase, userId });
+    sessions = data.sessions;
+    rounds = data.rounds;
+  }
+
+  const hasActivities = sessions.length > 0 || rounds.length > 0;
+
+  let notifications: any[] = [];
+
+  if (profile?.id) {
+    notifications = await fetchNotifications(profile.id, supabase);
+  }
 
   return (
     <html lang="en">
       <body className={`${inter.variable}`}>
         <ThemeProvider>
-          <Navbar profile={profile} notifications={notifications}/>
-          <AnnouncementBar hasActivities={hasActivities} />
+          <Navbar profile={profile} notifications={notifications} />
+          <AnnouncementBar
+            hasActivities={hasActivities}
+            isDemoAccount={profile?.is_demo_account}
+          />
           <Providers>
             <ClientTourWrapper profile={profile}>{children}</ClientTourWrapper>
           </Providers>
