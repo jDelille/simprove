@@ -23,29 +23,35 @@ const GSProSync = ({ onClose, userId, syncToken }: GSProSyncProps) => {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [rawData, setRawData] = useState<any>(null);
 
-  const fetchRounds = () => {
+  const fetchRounds = async () => {
     const saved = localStorage.getItem(STORAGE_KEY);
     const savedRaw = localStorage.getItem("gsproRawData");
 
+    // Instant UI hydration
     if (saved) {
       setRounds(JSON.parse(saved));
-      if (savedRaw) setRawData(JSON.parse(savedRaw));
-      return;
+
+      if (savedRaw) {
+        setRawData(JSON.parse(savedRaw));
+      }
     }
 
-    fetch("/api/gspro/ingest")
-      .then((res) => res.json())
-      .then((json) => {
-        const incoming = json?.[0]?.Rounds_Rounds ?? [];
-        if (incoming.length > 0) {
-          setRounds(incoming);
-          setRawData(json[0]);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(incoming));
-          localStorage.setItem("gsproRawData", JSON.stringify(json[0]));
-        }
-      });
-  };
+    // Fresh backend fetch
+    const res = await fetch("/api/gspro/ingest");
+    const json = await res.json();
 
+    const incoming = json?.[0]?.gsproData?.Rounds_Rounds ?? [];
+
+    if (incoming.length > 0) {
+      setRounds(incoming);
+      setRawData(setRawData(json[0].gsproData));
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(incoming));
+      localStorage.setItem("gsproRawData", JSON.stringify(json[0].gsproData));
+    }
+
+    console.log("Rounds state about to set:", incoming);
+  };
   useEffect(() => {
     fetchRounds();
   }, []);
@@ -160,7 +166,9 @@ const GSProSync = ({ onClose, userId, syncToken }: GSProSyncProps) => {
           <button
             onClick={() => navigator.clipboard.writeText(syncToken)}
             className={styles.copyBtn}
-          >Copy</button>
+          >
+            Copy
+          </button>
         </div>
         <div className={styles.tokenDescription}>
           <p>Paste this into the GSPro Sync extension to link your account.</p>

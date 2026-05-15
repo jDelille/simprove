@@ -7,3 +7,10 @@ export function setGSProData(data: any) {
 export function getGSProData() {
   return latestGSProData;
 }
+
+declare global {
+  var pendingRoundsStore: any[] | undefined;
+}
+
+export const pendingRounds =
+  global.pendingRoundsStore ?? (global.pendingRoundsStore = []);
