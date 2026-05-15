@@ -1,33 +1,71 @@
 .gsproSync {
-  .disclaimer {
-    background-color: var(--green);
+  .token {
+    border-radius: 6px;
+    padding: 10px;
+    background: var(--messageBg);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: var(--green);
     border: 1px solid var(--greenBorder);
     color: var(--greenText);
-    padding: 10px;
-    border-radius: 6px;
-    display: flex;
-    font-size: 12px;
-    gap: 10px;
+    .title {
+      font-size: 12px;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
 
-    .text {
+    .tokenCopy {
       display: flex;
-      flex-direction: column;
-      gap: 10px;
-      .links {
+      align-items: center;
+
+      .tokenValue {
+        font-size: 14px;
+        font-family: monospace;
+        background-color: var(--bg);
+        border: 1px solid var(--border);
+        padding: 10px;
+        border-radius: 6px;
+        word-break: break-all;
+        flex: 1;
+        height: 37px;
         display: flex;
         align-items: center;
-        gap: 1rem;
-        div {
-          display: flex;
-          align-items: center;
-          gap: 3px;
-          position: relative;
-          left: -3px;
-          &:hover {
-            color: var(--chartGreen);
-            cursor: pointer;
-            
-          }
+        color: var(--text);
+      }
+      .copyBtn {
+        all: unset;
+        font-size: 12px;
+        margin-left: 10px;
+        cursor: pointer;
+        background-color: var(--bg);
+        border: 1px solid var(--border);
+        color: var(--text);
+        height: 37px;
+        padding: 0 10px;
+        border-radius: 6px;
+
+        &:hover {
+          background-color: var(--primaryHover);
+        }
+      }
+    }
+
+    .tokenDescription {
+      font-size: 11px;
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+
+      p {
+        width: 80%;
+      }
+
+      a {
+        color: var(--text);
+        &:hover {
+          text-decoration: underline;
         }
       }
     }

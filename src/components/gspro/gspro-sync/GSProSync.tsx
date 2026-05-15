@@ -7,15 +7,17 @@ import { uploadGSProRound } from "@/services/gspro/uploadGSProRound";
 import { MdInfoOutline } from "react-icons/md";
 import { FaLongArrowAltDown, FaLongArrowAltRight } from "react-icons/fa";
 import Button from "@/components/ui/button/Button";
+import Link from "next/link";
 
 const STORAGE_KEY = "pendingRounds";
 
 type GSProSyncProps = {
   onClose: () => void;
   userId: string;
+  syncToken: string;
 };
 
-const GSProSync = ({ onClose, userId }: GSProSyncProps) => {
+const GSProSync = ({ onClose, userId, syncToken }: GSProSyncProps) => {
   const [rounds, setRounds] = useState<any[]>([]);
   const [hideIncomplete, setHideIncomplete] = useState(false);
   const [selected, setSelected] = useState<Set<string>>(new Set());
@@ -151,23 +153,20 @@ const GSProSync = ({ onClose, userId }: GSProSyncProps) => {
 
   return (
     <div className={styles.gsproSync}>
-      <div className={styles.disclaimer}>
-        <div className={styles.icon}>
-          <MdInfoOutline size={16} />
+      <div className={styles.token}>
+        <p className={styles.title}>Your Sync Token</p>
+        <div className={styles.tokenCopy}>
+          <p className={styles.tokenValue}>{syncToken}</p>
+          <button
+            onClick={() => navigator.clipboard.writeText(syncToken)}
+            className={styles.copyBtn}
+          >Copy</button>
         </div>
-        <div className={styles.text}>
-          <p>
-            Requires the GSPro Sync Chrome Extension. Visit the portal, click
-            sync, then refresh below.
-          </p>
-          <div className={styles.links}>
-            <div>
-              <FaLongArrowAltDown size={12} /> Download extension
-            </div>
-            <div>
-              <FaLongArrowAltRight size={12} /> GSPro Portal
-            </div>
-          </div>
+        <div className={styles.tokenDescription}>
+          <p>Paste this into the GSPro Sync extension to link your account.</p>
+          <Link href="#" target="_blank">
+            Get extension
+          </Link>
         </div>
       </div>
 

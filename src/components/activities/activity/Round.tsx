@@ -3,6 +3,8 @@ import styles from "./Activity.module.scss";
 import moment from "moment";
 import HoleByHoleWidget from "@/components/widgets/hole-by-hole-widget/HoleByHoleWidget";
 import { useRound } from "@/hooks/useRound";
+import RoundSummaryWidget from "@/components/widgets/round-summary-widget/RoundSummaryWidget";
+import ScoringDistributionWidget from "@/components/widgets/scoring-distribution-widget/ScoringDistributionWidget";
 
 type RoundProps = {
   activityData: any;
@@ -11,7 +13,7 @@ type RoundProps = {
 const Round = ({ activityData }: RoundProps) => {
   const activity = useRound({ activity: activityData });
 
-  console.log(activity)
+  console.log(activity);
 
   const {
     scores,
@@ -35,12 +37,6 @@ const Round = ({ activityData }: RoundProps) => {
     round_holes,
   } = activityData || {};
 
-  const formatOverPar = (val: number) => {
-    if (val > 0) return `+${val}`;
-    if (val < 0) return `${val}`;
-    return "E";
-  };
-
   return (
     <>
       <div className={styles.title}>
@@ -58,52 +54,57 @@ const Round = ({ activityData }: RoundProps) => {
       </div>
 
       <div className={styles.body}>
-        <div className={styles.row}>
-          <ActivityStatWidget
-            title="Fairways Hit"
-            value={scores?.fairways_value_percent}
-            metric="%"
-            subText={`${scores?.fairways_value} / ${scores?.fairways_target}`}
-          />
-          <ActivityStatWidget
-            title="Greens Hit"
-            value={scores?.greens_value_percent}
-            metric="%"
-            subText={`${scores?.greens_value} / ${scores?.greens_target}`}
-          />
-          <ActivityStatWidget
-            title="Sand Saves"
-            value={scores?.sand_saves_value_percent}
-            metric="%"
-            subText={`${scores?.sand_saves_value} / ${scores?.sand_saves_target}`}
-          />
-          <ActivityStatWidget
-            title="Putts"
-            value={scores?.putts_value}
-            subText={`Target ${scores?.putts_target}`}
-          />
-          <ActivityStatWidget
-            title="Putts / Hole"
-            value={(scores?.putts_value / round_holes.length).toFixed(2)}
-            subText={`Average`}
-          />
-          <ActivityStatWidget
-            title="Longest Drive"
-            value={scores?.driving_distance_longest.toFixed(1)}
-            subText={"yards"}
-          />
+        <div className={styles.column}>
+          <div className={styles.row}>
+            <ActivityStatWidget
+              title="Fairways Hit"
+              value={scores?.fairways_value_percent}
+              metric="%"
+              subText={`${scores?.fairways_value} / ${scores?.fairways_target}`}
+            />
+            <ActivityStatWidget
+              title="Greens Hit"
+              value={scores?.greens_value_percent}
+              metric="%"
+              subText={`${scores?.greens_value} / ${scores?.greens_target}`}
+            />
+            <ActivityStatWidget
+              title="Sand Saves"
+              value={scores?.sand_saves_value_percent}
+              metric="%"
+              subText={`${scores?.sand_saves_value} / ${scores?.sand_saves_target}`}
+            />
+            <ActivityStatWidget
+              title="Putts"
+              value={scores?.putts_value}
+              subText={`Target ${scores?.putts_target}`}
+            />
+            <ActivityStatWidget
+              title="Putts / Hole"
+              value={(scores?.putts_value / round_holes.length).toFixed(2)}
+              subText={`Average`}
+            />
+            <ActivityStatWidget
+              title="Longest Drive"
+              value={scores?.driving_distance_longest.toFixed(1)}
+              subText={"yards"}
+            />
+          </div>
+          <div className={styles.row}>
+            <HoleByHoleWidget roundHoles={round_holes} />
+          </div>
+          <div className={styles.row}>
+            <ScoringDistributionWidget rounds={[activityData]} />
+          </div>
         </div>
-        <div className={styles.row}>
-          <ActivityStatWidget
-            title="Front 9"
-            value={frontScore}
-            subText={`${formatOverPar(frontOverPar)} · par ${frontPar}`}
-          />
-          <ActivityStatWidget
-            title="Back 9"
-            value={backScore}
-            subText={`${formatOverPar(backOverPar)} · par ${backPar}`}
-          />
+        
+        <div className={styles.column}>
+          <div className={styles.row}>
+            <RoundSummaryWidget activity={activity} roundHoles={round_holes} />
+          </div>
+        </div>
+
+        {/* <div className={styles.row}>
           <ActivityStatWidget
             title="Bogey Avoidance"
             value={`${(((scores?.bogey + scores?.double_bogey) / round_holes.length) * 100).toFixed(0)}%`}
@@ -116,16 +117,16 @@ const Round = ({ activityData }: RoundProps) => {
               scores?.birdies > scores?.bogey ? "More birdies" : "More bogies"
             }
           />
-        </div>
-        <div className={styles.fullRow}>
+        </div> */}
+        {/* <div className={styles.fullRow}>
           <HoleByHoleWidget roundHoles={round_holes} />
         </div>
         <div className={styles.row}>
           <div className={styles.chart}>Coming soon</div>
           <div className={styles.chart}>Coming soon</div>
-        </div>
+        </div> */}
 
-        <div className={styles.row}></div>
+        {/* <div className={styles.row}></div> */}
       </div>
     </>
   );

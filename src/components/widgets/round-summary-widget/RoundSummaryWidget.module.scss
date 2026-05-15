@@ -1,0 +1,62 @@
+@use "@/styles/mixins" as mix;
+@use "@/styles/breakpoints" as bp;
+
+.roundSummaryWidget {
+  @include mix.widget();
+
+  .header {
+    @include mix.widgetHeader();
+    color: var(--text);
+    p {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    span {
+      color: var(--lightgray);
+      font-size: 12px;
+    }
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 5px;
+    }
+
+    .scores {
+        display: flex;
+        gap: 5px;
+    }
+
+    .gridCard {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--messageBg);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      flex: 1;
+
+      .label {
+        font-size: 11px;
+      }
+
+      .value {
+        font-size: 22px;
+        font-weight: 500;
+      }
+
+      .metric {
+        font-size: 11px;
+        color: var(--lightgray);
+      }
+    }
+  }
+}

@@ -16,4 +16,5 @@ export type Profile = {
     streak_current: number | null;
     streak_longest: number | null;
     streak_last_active_at: string | null;
+    sync_token: string;
 }

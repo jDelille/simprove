@@ -194,6 +194,7 @@ const hasNotifications = notifications.filter((n) => n.is_read).length;
         body={
           <GSProSync
             userId={profile?.id as string}
+            syncToken={profile?.sync_token || ""}
             onClose={() => closeModal("sync")}
           />
         }
