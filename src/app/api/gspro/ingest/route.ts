@@ -3,33 +3,32 @@ export const runtime = "nodejs";
 import { NextResponse } from "next/server";
 import { pendingRounds } from "@/lib/gspro/store";
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
+
+// ✅ Preflight request (Chrome extension triggers this)
 export async function OPTIONS() {
   return new Response(null, {
-    status: 204,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
-    },
+    status: 200,
+    headers: corsHeaders,
   });
 }
 
+// ✅ POST: receive data from extension
 export async function POST(req: Request) {
-
-  console.log("POST HIT", pendingRounds.length);
-
   try {
     const body = await req.json();
-    pendingRounds.push(body);
 
+    console.log("POST HIT", pendingRounds.length);
+
+    pendingRounds.push(body);
 
     return NextResponse.json(
       { success: true },
-      {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      },
+      { headers: corsHeaders }
     );
   } catch (err) {
     console.error("Ingest error:", err);
@@ -38,15 +37,15 @@ export async function POST(req: Request) {
       { success: false },
       {
         status: 500,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      },
+        headers: corsHeaders,
+      }
     );
   }
 }
 
-
+// ✅ GET: frontend polling
 export async function GET() {
-  return NextResponse.json(pendingRounds);
+  return NextResponse.json(pendingRounds, {
+    headers: corsHeaders,
+  });
 }
