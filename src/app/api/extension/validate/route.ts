@@ -75,7 +75,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // 4. Return session to extension
+    // 4 Return session to extension
     return NextResponse.json(
       {
         success: true,
