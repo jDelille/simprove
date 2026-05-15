@@ -16,6 +16,8 @@ export async function OPTIONS() {
 
 export async function POST(req: Request) {
 
+  console.log("POST HIT", pendingRounds.length);
+
   try {
     const body = await req.json();
     pendingRounds.push(body);
