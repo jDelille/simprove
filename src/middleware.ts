@@ -17,7 +17,9 @@ export async function middleware(request: NextRequest) {
           cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           );
+
           supabaseResponse = NextResponse.next({ request });
+
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, options)
           );
@@ -33,7 +35,7 @@ export async function middleware(request: NextRequest) {
   const protectedRoutes = [
     "/dashboard",
     "/settings",
-    "/sessions",
+    "/activities",
     "/training",
     "/profile",
   ];
@@ -48,19 +50,18 @@ export async function middleware(request: NextRequest) {
   }
 
   // Redirect logged-in users away from auth pages
-if (pathname.startsWith("/auth") && user) {
-  // Allow authenticated users to access onboarding
-  if (pathname.startsWith("/auth/signup")) {
-    return supabaseResponse;
+  if (pathname.startsWith("/auth") && user) {
+    if (pathname.startsWith("/auth/signup")) {
+      return supabaseResponse;
+    }
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
-  return NextResponse.redirect(new URL("/dashboard", request.url));
-}
 
   return supabaseResponse;
 }
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
