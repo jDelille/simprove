@@ -22,8 +22,6 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    console.log("POST HIT", pendingRounds.length);
-
     pendingRounds.push(body);
 
     return NextResponse.json(

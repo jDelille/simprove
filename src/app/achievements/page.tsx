@@ -3,7 +3,6 @@ import { createSupabaseServer } from "@/lib/supabase/server";
 import { fetchAchievements } from "@/services/achievments/fetchAchievements";
 import { fetchUserAchievements } from "@/services/achievments/fetchUserAchievements";
 import { fetchAllAchievementGlobalPercentages } from "@/services/achievments/getAchievmentStats";
-import React from "react";
 
 const AchievementsPage = async () => {
   const supabase = await createSupabaseServer();
@@ -21,8 +20,6 @@ const AchievementsPage = async () => {
     fetchUserAchievements(user.id),
     fetchAllAchievementGlobalPercentages()
   ]);
-
-  console.log(achievements)
 
   return (
     <div className="page">

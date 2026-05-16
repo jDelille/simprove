@@ -19,8 +19,6 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
   const trophyColors = ["#FFD700", "#C0C0C0", "#CD7F32"];
   const ordinals = ["1st", "2nd", "3rd"];
 
-  console.log(leaderboard);
-
   const handlePeriodChange = (newPeriod: string) => {
     setPeriod(newPeriod);
   };
@@ -29,8 +27,6 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
     .filter((player: any) => player.period_type === period)
     .sort((a: any, b: any) => b.points - a.points);
   const periods = ["weekly"];
-
-  console.log(filteredLeaderboard);
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 100);

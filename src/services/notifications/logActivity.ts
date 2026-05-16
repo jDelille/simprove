@@ -26,7 +26,7 @@ export async function logActivity({
   }
 
   const { error } = await supabase
-    .from('activity')
+    .from('notifications')
     .insert({
       user_id: userData.user.id,
       type,
@@ -38,7 +38,7 @@ export async function logActivity({
     })
 
   if (error) {
-    console.error("Error logging activity:", error)
+    console.error("Error logging notification:", error)
     throw error
   }
 }

@@ -60,8 +60,6 @@ const NotificationsDropdown = ({
 
   const unreadCount = notifications.filter((n) => !n.is_read).length;
 
-  console.log(notifications);
-
   const handleNotificationClick = async (id: string) => {
     await markNotificationsRead(userId);
     onMarkRead?.(id);

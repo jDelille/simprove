@@ -61,8 +61,6 @@ const Dashboard = (props: DashboardProps) => {
     }
   }, [isTourActive]);
 
-  console.log(props.rounds);
-
   return (
     <div className={styles.dashboard}>
       {/* left side */}

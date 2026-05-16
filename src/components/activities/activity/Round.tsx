@@ -13,8 +13,6 @@ type RoundProps = {
 const Round = ({ activityData }: RoundProps) => {
   const activity = useRound({ activity: activityData });
 
-  console.log(activity);
-
   const {
     scores,
     frontScore,

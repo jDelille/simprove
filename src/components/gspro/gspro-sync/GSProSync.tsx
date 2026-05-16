@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import styles from "./GSProSync.module.scss";
 import moment from "moment";
 import { uploadGSProRound } from "@/services/gspro/uploadGSProRound";
-import { MdInfoOutline } from "react-icons/md";
-import { FaLongArrowAltDown, FaLongArrowAltRight } from "react-icons/fa";
 import Button from "@/components/ui/button/Button";
 import Link from "next/link";
 
@@ -44,13 +42,11 @@ const GSProSync = ({ onClose, userId, syncToken }: GSProSyncProps) => {
 
     if (incoming.length > 0) {
       setRounds(incoming);
-      setRawData(setRawData(json[0].gsproData));
-
+      setRawData(json[0].gsproData);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(incoming));
       localStorage.setItem("gsproRawData", JSON.stringify(json[0].gsproData));
     }
 
-    console.log("Rounds state about to set:", incoming);
   };
   useEffect(() => {
     fetchRounds();
@@ -93,17 +89,17 @@ const GSProSync = ({ onClose, userId, syncToken }: GSProSyncProps) => {
       ];
 
       const courseRow = scorecardRows.find(
-        (s) => s.playerKey === null && teeLabels.includes(s.rowLabel),
+        (s) => s.playerKey === "" && teeLabels.includes(s.rowLabel),
       );
       const parRow = scorecardRows.find(
-        (s) => s.playerKey === null && s.rowLabel === "Par",
+        (s) => s.playerKey === "" && s.rowLabel === "Par",
       );
 
       const indexRow = scorecardRows.find(
-        (s) => s.playerKey === null && s.rowLabel === "Index",
+        (s) => s.playerKey === "" && s.rowLabel === "Index",
       );
 
-      const playerRow = scorecardRows.find((s) => s.playerKey !== null);
+      const playerRow = scorecardRows.find((s) => s.playerKey !== "");
 
       if (!courseRow || !playerRow) return [];
 

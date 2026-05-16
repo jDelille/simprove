@@ -35,29 +35,29 @@ const PlayerArchetypeWidget = ({ rounds }: PlayerArchetypeWidgetProps) => {
 
   const avgDriving =
     scores.reduce((sum, score) => {
-      return sum + score.fairways_value_percent;
+      return sum + score?.fairways_value_percent;
     }, 0) / scores.length;
 
   const avgApproach =
     scores.reduce((sum, score) => {
-      return sum + score.greens_value_percent;
+      return sum + score?.greens_value_percent;
     }, 0) / scores.length;
 
   const avgShortGame =
     scores.reduce((sum, score) => {
       const penalties =
-        score.bogey + score.double_bogey * 1.5 + score.other * 2;
+        score?.bogey + score?.double_bogey * 1.5 + score?.other * 2;
 
       const bogeyAvoidance = Math.max(0, 100 - penalties * 8);
 
       const shortGame =
-        score.sand_saves_value_percent * 0.7 + bogeyAvoidance * 0.3;
+        score?.sand_saves_value_percent * 0.7 + bogeyAvoidance * 0.3;
 
       return sum + shortGame;
     }, 0) / scores.length;
 
   const calculatePutting = (score: any) => {
-    const putts = score.putts_value;
+    const putts = score?.putts_value;
     const normalized = 100 - ((putts - 18) / 18) * 100;
     return Math.max(0, Math.min(100, normalized));
   };

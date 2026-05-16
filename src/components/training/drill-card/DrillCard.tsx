@@ -9,8 +9,6 @@ const DrillCard: React.FC<DrillCardProps> = ({ drill }) => {
   const isCurrent = drill.status === "active";
   const isCompleted = drill.status === "completed";
 
-  console.log(drill)
-
   return (
     <div
       className={

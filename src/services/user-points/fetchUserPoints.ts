@@ -1,6 +1,5 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { supabase as browserClient } from "@/lib/supabase/client";
-import moment from "moment";
 
 export const fetchUserPoints = async (
   userId: string,
@@ -29,15 +28,6 @@ export const fetchUserPoints = async (
     console.error("Error fetching weekly points:", weeklyError);
     return { totalPoints: null, weeklyPoints: null, error: weeklyError };
   }
-
-  const { data: debug } = await supabaseClient
-    .from("leaderboard")
-    .select("period_start, points")
-    .eq("user_id", userId)
-    .eq("period_type", "weekly");
-
-  console.log("weekly rows", debug);
-  console.log("moment start of week", moment().startOf("week").toISOString());
 
   return {
     totalPoints: totalPoints?.total_points ?? 0,

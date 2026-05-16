@@ -7,8 +7,6 @@ type CareerStatsWidgetProps = {
 };
 const CareerStatsWidget = ({stats}: CareerStatsWidgetProps) => {
 
-  console.log(stats);
-
   return (
     <div className={styles.widget}>
       <div className={styles.header}>

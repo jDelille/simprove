@@ -1,7 +1,6 @@
 import { supabase } from "@/lib/supabase/client";
 import { awardUserPoints } from "../user-points/uploadUserPoints";
 import { POINTS } from "@/lib/points/constants";
-import { uploadLeaderboard } from "../leaderboard/uploadLeaderboard";
 import { evaluateAchievementsFromRound } from "../achievments/evaluateAchievementsFromRound";
 import { awardAchievement } from "../achievments/awardAchievement";
 

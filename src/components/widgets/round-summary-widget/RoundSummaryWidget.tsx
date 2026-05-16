@@ -27,7 +27,6 @@ const RoundSummaryWidget = ({
   activity: any;
   roundHoles: any[];
 }) => {
-  console.log(roundHoles);
   const {
     scores,
     frontScore,
@@ -38,19 +37,25 @@ const RoundSummaryWidget = ({
     backOverPar,
   } = activity;
 
-  const bestHole = roundHoles.reduce((best, current) => {
-    const currentScore = current.strokes - current.par;
-    const bestScore = best.strokes - best.par;
+  const hasHoles = roundHoles.length > 0;
 
-    return currentScore < bestScore ? current : best;
-  });
+  const bestHole = hasHoles
+    ? roundHoles.reduce((best, current) => {
+        const currentScore = current.strokes - current.par;
+        const bestScore = best.strokes - best.par;
 
-  const worstHole = roundHoles.reduce((worst, current) => {
-    const currentScore = current.strokes - current.par;
-    const worstScore = worst.strokes - worst.par;
+        return currentScore < bestScore ? current : best;
+      })
+    : null;
 
-    return currentScore > worstScore ? current : worst;
-  });
+  const worstHole = hasHoles
+    ? roundHoles.reduce((worst, current) => {
+        const currentScore = current.strokes - current.par;
+        const worstScore = worst.strokes - worst.par;
+
+        return currentScore > worstScore ? current : worst;
+      })
+    : null;
 
   const getHoleLabel = (hole: any) => {
     const diff = hole.strokes - hole.par;
@@ -90,19 +95,20 @@ const RoundSummaryWidget = ({
         <div className={styles.grid}>
           <GridCard
             label="Best Hole"
-            value={`#${bestHole.hole_number}`}
-            metric={getHoleLabel(bestHole)}
+            value={bestHole ? `#${bestHole.hole_number}` : "-"}
+            metric={bestHole ? getHoleLabel(bestHole) : "No holes"}
             color="var(--birdie)"
           />
+
           <GridCard
             label="Worst Hole"
-            value={`#${worstHole.hole_number}`}
-            metric={getHoleLabel(worstHole)}
+            value={worstHole ? `#${worstHole.hole_number}` : "-"}
+            metric={worstHole ? getHoleLabel(worstHole) : "No holes"}
             color="var(--doubleBogey)"
           />
           <GridCard
             label="Longest Drive"
-            value={`${activity.scores.driving_distance_longest.toFixed(0)} yds`}
+            value={`${activity?.scores?.driving_distance_longest?.toFixed?.(0) ?? 0} yds`}
             metric="New Personal Best!"
           />
           <GridCard

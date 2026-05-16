@@ -103,9 +103,6 @@ export async function uploadSession({
 
   const achievements = evaluateAchievementsFromSession(sessionData);
 
-  console.log(sessionData);
-  console.log(achievements);
-
   for (const key of achievements) {
     await awardAchievement(userId, key, {
       title: "Achievement Unlocked",

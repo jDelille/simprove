@@ -34,21 +34,6 @@ export const uploadLeaderboard = async (
       .limit(1)
       .maybeSingle();
 
-    console.log("existing", existing, "fetchError", fetchError);
-
-    if (existing) {
-      console.log(
-        "updating",
-        existing.id,
-        "current points",
-        existing.points,
-        "adding",
-        pointsToAdd,
-      );
-    } else {
-      console.log("inserting new row for", period.type);
-    }
-
     if (existing) {
       const { error: updateError, data: updateData } = await supabaseClient
         .from("leaderboard")
@@ -58,8 +43,6 @@ export const uploadLeaderboard = async (
         })
         .eq("id", existing.id)
         .select();
-
-      console.log("update result", updateData, updateError);
 
       if (updateError) {
         console.error(
