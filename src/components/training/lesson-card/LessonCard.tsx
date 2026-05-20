@@ -44,7 +44,7 @@ const LessonCard: React.FC<LessonCardProps> = ({
         {!completedLessonIds?.includes(plan.lesson_id) ? (
           <Button
             variant="lessonCard"
-            children={"Start Plan"}
+            children={"Start lesson"}
             onClick={() => onPlanClick(plan)}
             disabled={hasActivePlan}
           />

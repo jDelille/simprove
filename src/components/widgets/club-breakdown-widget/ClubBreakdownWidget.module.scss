@@ -94,7 +94,6 @@
           font-size: 12px;
           font-weight: 500;
           color: var(--text);
-          cursor: pointer;
           &:nth-of-type(1) {
             min-width: 150px;
           }
@@ -116,7 +115,7 @@
         }
 
         .activeCell {
-          background-color: var(--activeCellBG);
+          // background-color: var(--activeCellBG);
         }
       }
     }

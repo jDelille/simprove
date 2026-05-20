@@ -1,0 +1,44 @@
+@use "@/styles/mixins" as *;
+
+.sessionScoreWidget {
+  @include widget();
+  max-height: fit-content;
+
+  .header {
+    @include widgetHeader();
+  }
+
+  .body {
+    .mainScore {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .ringWrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .ringArc {
+          transition:
+            stroke-dashoffset 0.9s cubic-bezier(0.4, 0, 0.2, 1),
+            stroke 0.3s ease;
+          stroke: var(--accent);
+        }
+      }
+
+      .breakdown {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+      }
+    }
+  }
+}

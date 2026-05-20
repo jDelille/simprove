@@ -102,8 +102,7 @@ const ClubBreakdownWidget: React.FC<ShotTableProps> = ({ data }) => {
       <div className={styles.header}>
         <p>Club Breakdown</p>
         <p className={styles.description}>
-          Avg stats per club this session · click a row to inspect miss tendency
-          below
+          Avg stats per club this session
         </p>
       </div>
       <div className={styles.shotTableContainer}>

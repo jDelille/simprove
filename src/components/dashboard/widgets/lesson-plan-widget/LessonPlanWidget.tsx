@@ -41,6 +41,8 @@ const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({
     }
   };
 
+  // console.log(lessonDrills)
+
   return (
     <div className={styles.widget} id="lesson-plan">
       <div className={styles.header}>
@@ -60,7 +62,7 @@ const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({
             {lessonDrills?.map((drill: any) => (
               <div className={styles.drill} key={drill.id}>
                 <div className={drillClass(drill.status)}></div>
-                <p>{drill.drill_description}</p>
+                <p>{drill.drill_name}</p>
               </div>
             ))}
           </div>
@@ -68,7 +70,7 @@ const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({
           <div className={styles.progressContainer}>
             <div className={styles.labels}>
               <p>Progress</p>
-              <p className={styles.progressText}>1 of 3 goals</p>
+              <p className={styles.progressText}>1 of {lessonDrills?.length || 0} goals</p>
             </div>
             <div className={styles.progressBar}>
               <div

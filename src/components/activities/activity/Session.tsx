@@ -7,6 +7,8 @@ import { useSession } from "@/hooks/useSession";
 import { SmallStatWidget } from "@/components/widgets";
 import SessionShotsGraphWidget from "@/components/widgets/session-shots-graph-widget/SessionShotsGraphWidget";
 import ClubBreakdownWidget from "@/components/widgets/club-breakdown-widget/ClubBreakdownWidget";
+import BagMapWidget from "@/components/widgets/bag-map-widget/BagMapWidget";
+import SessionScoreWidget from "@/components/widgets/session-score-widget/SessionScoreWidget";
 
 type SessionProps = {
   activityData: any;
@@ -15,7 +17,7 @@ type SessionProps = {
 const Session = ({ activityData }: SessionProps) => {
   const [selectedClub, setSelectedClub] = useState<string>("ALL");
 
-  
+  // console.log("Session activity data:", activityData);
 
   const { session_name, session_date, shots } = activityData;
 
@@ -70,10 +72,24 @@ const Session = ({ activityData }: SessionProps) => {
           <div className={styles.row}>
             <SessionShotsGraphWidget session={activityData} />
           </div>
+          {/* <div className={styles.row}>
+            Carry consistency
+          </div> */}
           <div className={styles.row}>
             <ClubBreakdownWidget data={activity.tableData} />
           </div>
           <div className={styles.row}>{/* Session analysis */}</div>
+        </div>
+        <div className={styles.column}>
+          {/* Session score */}
+          <div className={styles.row}>
+            <SessionScoreWidget shots={activityData.shots} />
+          </div>
+          {/* shot shape */}
+
+          {/* <div className={styles.row}>
+            <BagMapWidget shots={activityData.shots} />
+          </div> */}
         </div>
       </div>
     </>

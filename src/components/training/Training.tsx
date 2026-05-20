@@ -45,6 +45,8 @@ const Training: React.FC<TrainingProps> = ({
 
   const noRecommended = !recommendedLessons || recommendedLessons.length === 0;
 
+  // console.log(activePlan, "active plan");
+
   async function handlePlanClick(plan: any) {
     setSelectedPlan(plan);
     openModal("lessonPlanDetails");
@@ -54,7 +56,6 @@ const Training: React.FC<TrainingProps> = ({
 
   const handleStartPlan = async () => {
     if (!selectedPlan) return;
-
     await uploadLessonPlan({
       userId: userId,
       lessonId: selectedPlan.id,
@@ -110,7 +111,7 @@ const Training: React.FC<TrainingProps> = ({
             onPlanClick={handlePlanClick}
             recommendedLessons={recommendedLessons}
             completedLessons={completedLessons}
-            hasActivePlan={activePlan.activeLesson !== null}
+            hasActivePlan={activePlan?.activeLesson !== null}
           />
         )}
         <h2 className={styles.sectionName}>Browse Plans</h2>
@@ -120,7 +121,7 @@ const Training: React.FC<TrainingProps> = ({
           plans={lessonPlans as any[]}
           onPlanClick={handlePlanClick}
           completedLessons={completedLessons}
-          hasActivePlan={activePlan.activePlan !== null}
+          hasActivePlan={activePlan?.activeLesson !== null}
         />
       </div>
 
