@@ -43,16 +43,16 @@ const MissionCard: React.FC<MissionCardProps> = ({
         <div className={styles.goals}>
           <ul>
             {plan.lesson_drills?.map((drill: any, index: number) => (
-              <li key={index}>
-                <FaStar className={styles.star} />
-                {drill.drill_name}
-              </li>
+              <li key={index}>{drill.drill_name}</li>
             ))}
           </ul>
         </div>
       </div>
       <div className={styles.footer}>
-        {/* <p>{plan.lesson_difficulty}</p> */}
+        <div className={styles.points}>
+          {/* <FaStar className={styles.star} /> */}
+          <p>{plan.total_points} total pts</p>
+        </div>
         {!completedLessonIds?.includes(plan.lesson_id) ? (
           <Button
             variant="lessonCard"

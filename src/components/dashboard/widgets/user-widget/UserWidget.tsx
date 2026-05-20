@@ -173,8 +173,8 @@ const UserWidget = ({
           <Link href={"/leaderboard"}>
             View leaderboard <FiArrowUpRight size={12} />
           </Link>
-          <Link href={"/training"}>
-            Training log <FiArrowUpRight size={12} />
+          <Link href={"/missions"}>
+            Missions <FiArrowUpRight size={12} />
           </Link>
         </div>
       </div>

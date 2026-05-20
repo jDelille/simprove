@@ -37,6 +37,7 @@ const Missions: React.FC<MissionsProps> = ({
   const [activePlanState, setActivePlanState] = useState<any>(
     activeLesson ?? null,
   );
+  const [filter, setFilter] = useState<string>("All");
 
   const supabase = createClient();
 
@@ -45,7 +46,7 @@ const Missions: React.FC<MissionsProps> = ({
 
   const noRecommended = !recommendedLessons || recommendedLessons.length === 0;
 
-  // console.log(lessonPlans);
+  const filters = ["All", "Beginner", "Intermediate", "Advanced"];
 
   async function handlePlanClick(plan: any) {
     setSelectedPlan(plan);
@@ -97,17 +98,9 @@ const Missions: React.FC<MissionsProps> = ({
       </div>
       <div className={styles.column}>
         <div className={styles.row}>
-          <h2 className={styles.sectionName}>Your Active Mission</h2>
-          {!isEmpty ? (
-            <ActiveMission lesson={activePlan} />
-          ) : (
-            <p className={styles.emptyMessage}>
-              No active mission — pick one below to get started.
-            </p>
-          )}
+          {!isEmpty && <ActiveMission lesson={activePlan} />}
         </div>
         <div className={styles.row}>
-
           {recommendedLessons && !noRecommended && (
             <RecommendedPlans
               onPlanClick={handlePlanClick}
@@ -119,10 +112,15 @@ const Missions: React.FC<MissionsProps> = ({
 
           <h2 className={styles.sectionName}>Browse Missions</h2>
           <ul className={styles.filters}>
-            <li>All</li>
-            <li>Beginner</li>
-            <li>Intermediate</li>
-            <li>Advanced</li>
+            {filters.map((f) => (
+              <li
+                key={f}
+                className={`${styles.filter} ${filter === f ? styles.activeFilter : ""}`}
+                onClick={() => setFilter(f)}
+              >
+                {f}
+              </li>
+            ))}
           </ul>
 
           {/* browse plans */}
@@ -131,6 +129,7 @@ const Missions: React.FC<MissionsProps> = ({
             onPlanClick={handlePlanClick}
             completedLessons={completedLessons}
             hasActivePlan={activePlan?.activeLesson !== null}
+            filter={filter === "All" ? "" : filter}
           />
         </div>
       </div>

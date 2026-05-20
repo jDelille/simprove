@@ -1,4 +1,4 @@
-@use '@/styles/mixins' as *;
+@use "@/styles/mixins" as *;
 
 .planBody {
   display: flex;
@@ -70,30 +70,27 @@
     border-bottom: 1px solid var(--border);
   }
 
-  .focus,
-  .overview,
-  .drills {
+  .goals {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    padding-bottom: 10px;
     h3 {
       font-weight: 500;
       color: var(--lightgray);
       font-size: 12px;
       text-transform: uppercase;
     }
-    p {
-      font-size: 14px;
-      color: var(--text);
-      line-height: 21px;
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      li {
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
     }
-
-
-  }
-  .drills {
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 20px;
   }
 
   .footer {

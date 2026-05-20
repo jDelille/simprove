@@ -80,8 +80,8 @@ const MissionWidget: React.FC<LessonPlanWidgetProps> = ({
           </div>
           <div className={styles.lessonInfo}>
             <div className={styles.link}>
-              <Link href="/lesson">
-                View Lesson <FiArrowUpRight size={12} />
+              <Link href="/missions">
+                View Mission <FiArrowUpRight size={12} />
               </Link>
             </div>
           </div>
@@ -95,9 +95,9 @@ const MissionWidget: React.FC<LessonPlanWidgetProps> = ({
 
           <div className={styles.message}>
             <PiClipboardText size={18} />
-            <p>Get a personalized lesson plan based on your swing data</p>
+            <p>Get a personalized mission based on your swing data</p>
             <button onClick={() => router.push("/training")}>
-              Browse lesson plans <FiArrowUpRight size={12} />
+              Browse missions <FiArrowUpRight size={12} />
             </button>
           </div>
         </div>

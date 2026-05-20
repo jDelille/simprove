@@ -24,6 +24,7 @@ const LessonModalBody: React.FC<LessonModalBodyProps> = ({
   onClickStart,
   completedLessonIds,
 }) => {
+  console.log("Selected Plan:", selectedPlan);
   return (
     <div className={styles.planBody}>
       <div className={styles.tags}>
@@ -54,49 +55,19 @@ const LessonModalBody: React.FC<LessonModalBodyProps> = ({
         <p>{selectedPlan.lesson_description}</p>
       </div>
 
-      <div className={styles.focus}>
-        <h3>Focus</h3>
-        <p>{selectedPlan.notes}</p>
-      </div>
-      {/* <div className={styles.overview}>
-        <h3>What you'll work on </h3>
-        <p>{selectedPlan.notes}</p>
-      </div> */}
-      {/* <div className={styles.drills}>
-        <h3>Drills</h3>
-        {drills.map((drill: any) => (
-          <div
-            key={drill.id}
-            className={styles.drill}
-            onClick={() => setOpenDrills(!openDrills)}
-          >
-            <div className={styles.name}>
-              <div className={styles.order}>
-                <p>{drill.drill_order}</p>
-              </div>
-              <p className={styles.drillName}>
-                {drill.drill_name} <FaChevronDown />
-              </p>
-            </div>
-            {openDrills && (
-              <div className={styles.drillDetails}>
-                <p>{drill.drill_description}</p>
+      <div className={styles.goals}>
+        <h3>Goals</h3>
 
-                <div className={styles.details}>
-                  <div className={styles.detail}>
-                    <p>Target</p>
-                    <p>{drill.target_value}</p>
-                  </div>
-                  <div className={styles.detail}>
-                    <p>Metric</p>
-                    <p>{drill.metric}</p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
-      </div> */}
+        <ul>
+          {selectedPlan.lesson_drills.map((drill: any) => (
+            <li key={drill.drill_id}>
+               {drill.drill_name}
+            </li>
+          ))}
+        </ul>
+      </div>
+      {/* <FaStar size={12} /> */}
+
 
       <div className={styles.footer}>
         <p>{selectedPlan?.duration}</p>

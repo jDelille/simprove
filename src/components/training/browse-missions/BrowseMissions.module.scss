@@ -9,7 +9,7 @@
   flex-direction: column;
 
   .plans {
-    margin: 1rem 0;
+    margin-bottom: 1rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(436.66px, 1fr));
     gap: 1rem;
