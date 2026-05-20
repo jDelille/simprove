@@ -102,9 +102,9 @@ export const steps: Tour[] = [
       },
       {
         icon: "📚",
-        title: "Your Lesson Plan",
+        title: "Your Mission",
         content:
-          "Your AI-generated training plan based on your swing data. Complete lessons to improve the areas that matter most to your game.",
+          "Your AI-generated mission based on your swing data. Complete missions to improve the areas that matter most to your game.",
         selector: "#lesson-plan",
         side: "left",
         showControls: true,

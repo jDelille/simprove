@@ -5,6 +5,8 @@ export const tagStyles = (styles: Record<string, string>, tag: string) => {
     case "Advanced": return styles.advancedTag;
     case "single": return styles.singleTag;
     case "multi": return styles.multiTag;
+    case "course": return styles.courseTag;
+    case "range": return styles.rangeTag;
     default: return "";
   }
 };

@@ -1,4 +1,4 @@
-@use '@/styles/breakpoints' as bp;
+@use "@/styles/breakpoints" as bp;
 
 .browsePlans {
   width: 100%;
@@ -7,7 +7,6 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  // padding: 1rem 0;
 
   .plans {
     margin: 1rem 0;
@@ -20,6 +19,5 @@
     @include bp.mobile {
       grid-template-columns: 1fr;
     }
-
   }
 }

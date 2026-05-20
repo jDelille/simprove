@@ -1,9 +1,7 @@
 "use client";
 
-import styles from "./Training.module.scss";
-import ActivePlan from "./active-plan/ActivePlan";
+import styles from "./Missions.module.scss";
 import RecommendedPlans from "./recommended-plans/RecommendedPlans";
-import BrowsePlans from "./browse-plans/BrowsePlans";
 import useModal from "@/hooks/useModal";
 import { useState } from "react";
 import { fetchLessonDrills } from "@/services/lessons/fetchLessonDrills";
@@ -14,8 +12,10 @@ import { ActiveLesson } from "@/types/activeLesson";
 import { RecommendedLessons } from "@/types/recommendedLessons";
 import { fetchActiveLessonClient } from "@/lib/activeLesson";
 import Modal from "../ui/modal/Modal";
+import BrowseMissions from "./browse-missions/BrowseMissions";
+import ActiveMission from "./active-mission/ActiveMission";
 
-type TrainingProps = {
+type MissionsProps = {
   lessonPlans: any[];
   userId: string;
   activeLesson?: ActiveLesson;
@@ -23,7 +23,7 @@ type TrainingProps = {
   completedLessons?: any[];
 };
 
-const Training: React.FC<TrainingProps> = ({
+const Missions: React.FC<MissionsProps> = ({
   lessonPlans,
   userId,
   activeLesson,
@@ -45,7 +45,7 @@ const Training: React.FC<TrainingProps> = ({
 
   const noRecommended = !recommendedLessons || recommendedLessons.length === 0;
 
-  // console.log(activePlan, "active plan");
+  // console.log(lessonPlans);
 
   async function handlePlanClick(plan: any) {
     setSelectedPlan(plan);
@@ -76,7 +76,9 @@ const Training: React.FC<TrainingProps> = ({
       setOpenDrills={setOpenDrills}
       openDrills={openDrills}
       onClickStart={handleStartPlan}
-      completedLessonIds={completedLessons?.map((lesson) => lesson.lesson_id) || []}
+      completedLessonIds={
+        completedLessons?.map((lesson) => lesson.lesson_id) || []
+      }
     />
   ) : (
     <p>Loading...</p>
@@ -86,43 +88,51 @@ const Training: React.FC<TrainingProps> = ({
     <div className={styles.training}>
       <div className={styles.pageHeader}>
         <div className={styles.title}>
-          <h1>Training Plans</h1>
+          <h1>Missions</h1>
           <p>
             Complete tasks in your next session to earn points and level up your
             game.
           </p>
         </div>
       </div>
+      <div className={styles.column}>
+        <div className={styles.row}>
+          <h2 className={styles.sectionName}>Your Active Mission</h2>
+          {!isEmpty ? (
+            <ActiveMission lesson={activePlan} />
+          ) : (
+            <p className={styles.emptyMessage}>
+              No active mission — pick one below to get started.
+            </p>
+          )}
+        </div>
+        <div className={styles.row}>
 
-      <div className={styles.row}>
-        <h2 className={styles.sectionName}>Your Active Plan</h2>
-        {!isEmpty ? (
-          <ActivePlan lesson={activePlan} />
-        ) : (
-          <p className={styles.emptyMessage}>
-            No active plan — pick one below to get started.
-          </p>
-        )}
-      </div>
-      <div className={styles.row}>
-        {/* recommended plans */}
-        {recommendedLessons && !noRecommended && (
-          <RecommendedPlans
+          {recommendedLessons && !noRecommended && (
+            <RecommendedPlans
+              onPlanClick={handlePlanClick}
+              recommendedLessons={recommendedLessons}
+              completedLessons={completedLessons}
+              hasActivePlan={activePlan?.activeLesson !== null}
+            />
+          )}
+
+          <h2 className={styles.sectionName}>Browse Missions</h2>
+          <ul className={styles.filters}>
+            <li>All</li>
+            <li>Beginner</li>
+            <li>Intermediate</li>
+            <li>Advanced</li>
+          </ul>
+
+          {/* browse plans */}
+          <BrowseMissions
+            plans={lessonPlans as any[]}
             onPlanClick={handlePlanClick}
-            recommendedLessons={recommendedLessons}
             completedLessons={completedLessons}
             hasActivePlan={activePlan?.activeLesson !== null}
           />
-        )}
-        <h2 className={styles.sectionName}>Browse Plans</h2>
-
-        {/* browse plans */}
-        <BrowsePlans
-          plans={lessonPlans as any[]}
-          onPlanClick={handlePlanClick}
-          completedLessons={completedLessons}
-          hasActivePlan={activePlan?.activeLesson !== null}
-        />
+        </div>
       </div>
 
       <Modal
@@ -136,4 +146,4 @@ const Training: React.FC<TrainingProps> = ({
   );
 };
 
-export default Training;
+export default Missions;

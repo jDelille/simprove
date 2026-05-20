@@ -1,8 +1,8 @@
-import Training from "@/components/training/Training";
+import Missions from "@/components/training/Missions";
 import { createSupabaseServer } from "@/lib/supabase/server";
 import { getLessonPageData } from "@/services/lessons/getLessonPageData";
 
-const TrainingPage = async () => {
+const MissionsPage = async () => {
   const supabase = await createSupabaseServer();
 
   const {
@@ -24,7 +24,7 @@ const TrainingPage = async () => {
   return (
     <div className="page">
       <div className="page-content">
-        <Training
+        <Missions
           lessonPlans={lessonPlans}
           userId={user.id}
           activeLesson={activeLesson}
@@ -36,4 +36,4 @@ const TrainingPage = async () => {
   );
 };
 
-export default TrainingPage;
+export default MissionsPage;

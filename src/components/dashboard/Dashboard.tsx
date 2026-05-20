@@ -3,7 +3,7 @@
 import styles from "./Dashboard.module.scss";
 import {
   AveragesGraphWidget,
-  LessonPlanWidget,
+  MissionWidget,
   MissTendencyWidget,
   SmallStatWidget,
 } from "../widgets";
@@ -140,7 +140,7 @@ const Dashboard = (props: DashboardProps) => {
         )}
         {dashboardData.hasCompletedGettingStarted && (
           <div className={styles.row}>
-            <LessonPlanWidget
+            <MissionWidget
               userId={props.userId}
               activeLesson={props.activeLesson}
             />

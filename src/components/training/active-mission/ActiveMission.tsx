@@ -1,15 +1,15 @@
 "use client";
 
 import React from "react";
-import styles from "./ActivePlan.module.scss";
+import styles from "./ActiveMission.module.scss";
 import DrillCard from "../drill-card/DrillCard";
 import { ActiveLesson } from "@/types/activeLesson";
 
-type ActivePlanProps = {
+type ActiveMissionProps = {
   lesson: ActiveLesson | null;
 };
 
-const ActivePlan: React.FC<ActivePlanProps> = ({ lesson }) => {
+const ActiveMission: React.FC<ActiveMissionProps> = ({ lesson }) => {
 
   const lessonDetails = lesson?.lessonDetails;
   const lessonDrills = lesson?.drills;
@@ -48,4 +48,4 @@ const ActivePlan: React.FC<ActivePlanProps> = ({ lesson }) => {
   );
 };
 
-export default ActivePlan;
+export default ActiveMission;

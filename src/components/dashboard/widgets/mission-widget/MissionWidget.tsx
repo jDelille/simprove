@@ -1,11 +1,10 @@
 "use client";
 
 import React from "react";
-import styles from "./LessonPlanWidget.module.scss";
+import styles from "./MissionWidget.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ActiveLesson } from "@/types/activeLesson";
-import Button from "@/components/ui/button/Button";
 import { FiArrowUpRight } from "react-icons/fi";
 import { PiClipboardText } from "react-icons/pi";
 
@@ -14,7 +13,7 @@ type LessonPlanWidgetProps = {
   activeLesson?: ActiveLesson;
 };
 
-const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({
+const MissionWidget: React.FC<LessonPlanWidgetProps> = ({
   userId,
   activeLesson,
 }) => {
@@ -46,7 +45,7 @@ const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({
   return (
     <div className={styles.widget} id="lesson-plan">
       <div className={styles.header}>
-        <p>Lesson Plan</p>
+        <p>Mission</p>
       </div>
 
       {!isEmpty && (
@@ -58,7 +57,7 @@ const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({
             {lessonDetails?.lesson_description}
           </div>
           <div className={styles.drills}>
-            <p className={styles.label}>Drills</p>
+            <p className={styles.label}>Goals</p>
             {lessonDrills?.map((drill: any) => (
               <div className={styles.drill} key={drill.id}>
                 <div className={drillClass(drill.status)}></div>
@@ -107,4 +106,4 @@ const LessonPlanWidget: React.FC<LessonPlanWidgetProps> = ({
   );
 };
 
-export default LessonPlanWidget;
+export default MissionWidget;

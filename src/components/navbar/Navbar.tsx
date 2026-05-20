@@ -57,7 +57,7 @@ const hasNotifications = notifications.filter((n) => n.is_read).length;
   const navLinks = [
     { href: "/dashboard", label: "Dashboard", key: 1 },
     { href: "/activities", label: "Activities", key: 3 },
-    { href: "/training", label: "Training", key: 4 },
+    { href: "/missions", label: "Missions", key: 4 },
     { href: `/profile/${profile?.username}`, label: "Profile", key: 5 },
   ];
 

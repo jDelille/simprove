@@ -1,4 +1,4 @@
-import LessonCard from "../lesson-card/LessonCard";
+import LessonCard from "../mission-card/MissionCard";
 import styles from "./RecommendedPlans.module.scss";
 
 type RecommendedPlansProps = {
@@ -37,7 +37,7 @@ const RecommendedPlans: React.FC<RecommendedPlansProps> = ({
         <div className={styles.headerText}>
           <p>Recommended for you</p>
           <span>
-            Based on you recent sessions — these plans are hand-picked to help
+            Based on you recent sessions — these missions are hand-picked to help
             you improve the most.
           </span>
         </div>
@@ -50,6 +50,7 @@ const RecommendedPlans: React.FC<RecommendedPlansProps> = ({
             onPlanClick={onPlanClick}
             completedLessonIds={completedLessonIds}
             hasActivePlan={hasActivePlan}
+            isAiRecommended
           />
         ))}
       </div>

@@ -1,0 +1,63 @@
+@use "@/styles/mixins" as *;
+
+.training {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 2rem;
+  .pageHeader {
+    display: flex;
+    flex-direction: column;
+    .title {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      h1 {
+        font-size: 26px;
+      }
+      p {
+        font-size: 14px;
+        color: var(--lightgray);
+      }
+    }
+  }
+
+  .column {
+    width: 100%;
+    .row {
+      display: flex;
+      gap: 1rem;
+      flex-direction: column;
+      .sectionName {
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .filters {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        
+        li {
+          font-size: 12px;
+          color: var(--lightgray);
+          background-color: var(--bg);
+          padding: 6px 12px;
+          border-radius: 22px;
+          border: 1px solid var(--border);
+          cursor: pointer;
+          &.active {
+            color: var(--purple);
+            font-weight: 600;
+          }
+        }
+      }
+
+      .emptyMessage {
+        margin-top: 1rem;
+        font-style: italic;
+        font-size: 14px;
+      }
+    }
+  }
+}
