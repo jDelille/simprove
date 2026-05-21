@@ -1,19 +1,17 @@
 .activePlan {
   background-color: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 1rem;
   position: relative;
   overflow: hidden;
-
+  padding: 1rem;
   .badges {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 1rem;
-    padding-bottom: 0;
 
     .badge {
       width: fit-content;
@@ -49,8 +47,6 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    padding: 0 1rem;
-    padding-top: 0.75rem;
 
     .name {
       font-weight: 700;
@@ -59,14 +55,13 @@
     .description {
       font-size: 13px;
       color: var(--lightgray);
+      line-height: 21px;
     }
   }
 
   .duration {
     font-size: 12px;
-    margin-top: 1rem;
     color: var(--lightgray);
-    padding: 0 1rem;
 
     .labels {
       display: flex;
@@ -93,6 +88,11 @@
   .drills {
     display: flex;
     flex-direction: column;
-    margin-top: 1rem;
+  }
+
+  .cancel {
+    button {
+      width: 100%;
+    }
   }
 }

@@ -1,4 +1,4 @@
-import Missions from "@/components/training/Missions";
+import Missions from "@/components/missions/Missions";
 import { createSupabaseServer } from "@/lib/supabase/server";
 import { getLessonPageData } from "@/services/lessons/getLessonPageData";
 

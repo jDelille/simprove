@@ -20,8 +20,8 @@ const DrillCard: React.FC<DrillCardProps> = ({ drill }) => {
           {drill.drill_order}
         </div>
         <p className={styles.drillName}>{drill.drill_name}</p>
-        {isCurrent && <p className={styles.currentArrow}>← Current</p>}
-        <p className={styles.points}>{drill.points} pts</p>
+        {/* {isCurrent && <p className={styles.currentArrow}>← Current</p>} */}
+        {/* <p className={styles.points}>{drill.points} pts</p> */}
       </div>
     </div>
   );

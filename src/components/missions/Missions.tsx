@@ -96,41 +96,46 @@ const Missions: React.FC<MissionsProps> = ({
           </p>
         </div>
       </div>
-      <div className={styles.column}>
-        <div className={styles.row}>
-          {!isEmpty && <ActiveMission lesson={activePlan} />}
+
+      <div className={styles.body}>
+        <div className={styles.column}>
+          <div className={styles.row}>
+            {!isEmpty ? <ActiveMission lesson={activePlan} userId={userId} supabase={supabase} /> : <div>No mission yet</div>}
+          </div>
         </div>
-        <div className={styles.row}>
-          {recommendedLessons && !noRecommended && (
-            <RecommendedPlans
+        <div className={styles.column}>
+          <div className={styles.row}>
+            {recommendedLessons && !noRecommended && (
+              <RecommendedPlans
+                onPlanClick={handlePlanClick}
+                recommendedLessons={recommendedLessons}
+                completedLessons={completedLessons}
+                hasActivePlan={activePlan?.activeLesson !== null}
+              />
+            )}
+
+           <h2 className={styles.sectionName}>Browse Missions</h2>
+            <ul className={styles.filters}>
+              {filters.map((f) => (
+                <li
+                  key={f}
+                  className={`${styles.filter} ${filter === f ? styles.activeFilter : ""}`}
+                  onClick={() => setFilter(f)}
+                >
+                  {f}
+                </li>
+              ))}
+            </ul>
+
+            {/* browse plans */}
+            <BrowseMissions
+              plans={lessonPlans as any[]}
               onPlanClick={handlePlanClick}
-              recommendedLessons={recommendedLessons}
               completedLessons={completedLessons}
               hasActivePlan={activePlan?.activeLesson !== null}
+              filter={filter === "All" ? "" : filter}
             />
-          )}
-
-          <h2 className={styles.sectionName}>Browse Missions</h2>
-          <ul className={styles.filters}>
-            {filters.map((f) => (
-              <li
-                key={f}
-                className={`${styles.filter} ${filter === f ? styles.activeFilter : ""}`}
-                onClick={() => setFilter(f)}
-              >
-                {f}
-              </li>
-            ))}
-          </ul>
-
-          {/* browse plans */}
-          <BrowseMissions
-            plans={lessonPlans as any[]}
-            onPlanClick={handlePlanClick}
-            completedLessons={completedLessons}
-            hasActivePlan={activePlan?.activeLesson !== null}
-            filter={filter === "All" ? "" : filter}
-          />
+          </div>
         </div>
       </div>
 

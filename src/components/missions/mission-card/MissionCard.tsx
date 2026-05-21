@@ -48,11 +48,7 @@ const MissionCard: React.FC<MissionCardProps> = ({
           </ul>
         </div>
       </div>
-      <div className={styles.footer}>
-        <div className={styles.points}>
-          {/* <FaStar className={styles.star} /> */}
-          <p>{plan.total_points} total pts</p>
-        </div>
+      {/* <div className={styles.footer}>
         {!completedLessonIds?.includes(plan.lesson_id) ? (
           <Button
             variant="lessonCard"
@@ -63,7 +59,7 @@ const MissionCard: React.FC<MissionCardProps> = ({
         ) : (
           <p>Completed</p>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
