@@ -90,7 +90,7 @@ const MissionWidget: React.FC<LessonPlanWidgetProps> = ({
       {isEmpty && (
         <div className={styles.emptyMessage}>
           <div className={styles.title}>
-            <h3>No active plan</h3>
+            <h3>No active mission</h3>
           </div>
 
           <div className={styles.message}>

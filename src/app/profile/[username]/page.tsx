@@ -14,6 +14,14 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
   const decodedUsername = decodeURIComponent(username);
   const supabase = await createSupabaseServer();
 
+   const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return null;
+  }
+
   const { data: profile } = await supabase
     .from("users")
     .select("id")
@@ -31,15 +39,12 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
   const profileData = await getProfileData({
     supabase: supabase,
     userId: userId,
+    viewerId: user.id
   });
 
   if (!profileData) {
     return <h1>404</h1>;
   }
-
-  console.log("URL username:", username);
-  console.log("Resolved userId:", userId);
-  console.log("Loaded profile:", profileData.info?.profile?.username);
 
   return (
     <div className="page">
@@ -53,6 +58,8 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
           userPoints={profileData.userPoints}
           rounds={profileData.rounds}
           stats={profileData.stats}
+          social={profileData.social}
+          currentUserId={user.id}
         />
       </div>
     </div>

@@ -1,17 +1,69 @@
+"use client";
+
 import styles from "./UserWidget.module.scss";
 import { Profile } from "@/types";
 import Avatar from "@/components/ui/avatar/Avatar";
 import moment from "moment";
 import Button from "@/components/ui/button/Button";
 import { getInitials } from "@/lib/getInitials";
+import { useState } from "react";
+import { followUser, unfollowUser } from "@/services/follows/follows";
+import { supabase } from "@/lib/supabase/client";
+import { SocialData } from "@/types/socialData";
+import { useRouter } from "next/navigation";
 
 type UserWidgetProps = {
   user: Profile;
+  social: SocialData;
+  currentUserId: string;
 };
 
-const UserWidget = ({ user }: UserWidgetProps) => {
-    const initials = getInitials(user && user.display_name || "");
+const UserWidget = ({
+  user,
+  social,
+  currentUserId,
+}: UserWidgetProps) => {
+  const router = useRouter();
+  const initials = getInitials((user && user.display_name) || "");
+  const [following, setFollowing] = useState(social.isFollowing);
+  const [followers, setFollowers] = useState(social.followerCount || 0);
   
+  const isOwnProfile = currentUserId === user.id;
+
+  const handleFollowToggle = async () => {
+    if (!currentUserId) return;
+
+    console.log('here')
+
+    // unfollow
+    if (following) {
+      const result = await unfollowUser({
+        followerId: currentUserId,
+        followingId: user.id,
+        supabaseClient: supabase,
+      });
+
+      if (result.success) {
+        setFollowing(false);
+        setFollowers((prev: number) => prev - 1);
+      }
+
+      return;
+    }
+
+    // follow
+    const result = await followUser({
+      followerId: currentUserId,
+      followingId: user.id,
+      supabaseClient: supabase,
+    });
+
+    if (result.success) {
+      setFollowing(true);
+      setFollowers((prev: number) => prev + 1);
+    }
+  };
+
   return (
     <div className={styles.widget}>
       <div className={styles.top}>
@@ -27,11 +79,11 @@ const UserWidget = ({ user }: UserWidgetProps) => {
       <div className={styles.social}>
         <div className={styles.stat}>
           <span>Following</span>
-          <p>0</p>
+          <p>{social.followingCount}</p>
         </div>
         <div className={styles.stat}>
           <span>Followers</span>
-          <p>0</p>
+          <p>{followers}</p>
         </div>
         <div className={styles.stat}>
           <span>Rank</span>
@@ -60,9 +112,13 @@ const UserWidget = ({ user }: UserWidgetProps) => {
       </div>
 
       <div className={styles.actions}>
-        <Button
-          children={"Follow"}
-          onClick={() => console.log("clicked")}
+        {isOwnProfile ? (
+          <Button children="Edit Profile" variant="lessonCard" onClick={() => router.push("/settings/edit-profile")} />
+        ): (
+          <>
+          <Button
+          children={following ? "Unfollow" : "Follow"}
+          onClick={handleFollowToggle}
           variant="lessonCard"
         />
         <Button
@@ -70,6 +126,8 @@ const UserWidget = ({ user }: UserWidgetProps) => {
           onClick={() => console.log("clicked")}
           variant="secondary"
         />
+        </>
+        )}
       </div>
     </div>
   );

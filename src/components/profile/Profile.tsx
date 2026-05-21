@@ -11,6 +11,7 @@ import { Round } from "@/types/round";
 import { Averages, RoundStats } from "@/lib/shots/averages";
 import PlayerArchetypeWidget from "../widgets/player-archetype-widget/PlayerArchetypeWidget";
 import ScoringDistributionWidget from "../widgets/scoring-distribution-widget/ScoringDistributionWidget";
+import { SocialData } from "@/types/socialData";
 
 type ProfileProps = {
   userId: string;
@@ -21,6 +22,8 @@ type ProfileProps = {
   userPoints: any;
   rounds: Round[];
   stats: Averages & RoundStats & { totalSessions: number };
+  social: SocialData;
+  currentUserId: string;
 };
 
 const Profile: React.FC<ProfileProps> = ({
@@ -32,15 +35,20 @@ const Profile: React.FC<ProfileProps> = ({
   userPoints,
   rounds,
   stats,
+  social,
+  currentUserId
+
 }) => {
-
-
   return (
     <div className={styles.profile}>
       <div className={styles.content}>
         <div className={styles.column}>
           <div className={styles.row}>
-            <UserWidget user={user} />
+            <UserWidget
+              user={user}
+              social={social}
+              currentUserId={currentUserId}
+            />
           </div>
           <div className={styles.row}>
             <CareerStatsWidget stats={stats} />
