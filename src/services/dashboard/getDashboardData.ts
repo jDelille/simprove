@@ -25,7 +25,7 @@ export const getDashboardData = async ({ supabase, userId }: Props) => {
   ] = await Promise.all([
     fetchSessions(userId, supabase).catch((e) => { console.error('fetchSessions failed:', e); return []; }),
     fetchGettingStartedCompletions(userId, supabase).catch((e) => { console.error('fetchGettingStartedCompletions failed:', e); return []; }),
-    fetchProfileInfo(supabase).catch((e) => { console.error('fetchProfileInfo failed:', e); return null; }),
+    fetchProfileInfo({supabaseClient: supabase}).catch((e) => { console.error('fetchProfileInfo failed:', e); return null; }),
     fetchActiveLesson(userId, supabase).catch((e) => { console.error('fetchActiveLesson failed:', e); return null; }),
     fetchUserPoints(userId, supabase).catch((e) => { console.error('fetchUserPoints failed:', e); return null; }),
     fetchLatestRound(userId, supabase).catch((e) => { console.error('fetchLatestRound failed:', e); return null; }),

@@ -33,6 +33,8 @@ const Profile: React.FC<ProfileProps> = ({
   rounds,
   stats,
 }) => {
+
+
   return (
     <div className={styles.profile}>
       <div className={styles.content}>

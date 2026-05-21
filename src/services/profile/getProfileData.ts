@@ -33,7 +33,7 @@ export const getProfileData = async ({ supabase, userId }: Props) => {
         fetchSessions(userId, supabase),
         fetchRounds(userId, supabase),
         fetchUserLessons(userId, supabase),
-        fetchProfileInfo(supabase),
+        fetchProfileInfo({userId: userId, supabaseClient: supabase}),
         fetchUserPoints(userId, supabase),
       ])
     : [];

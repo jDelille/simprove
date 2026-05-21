@@ -3,29 +3,49 @@ import { createSupabaseServer } from "@/lib/supabase/server";
 import { fetchGolfBag } from "@/services/golf-bag/fetchGolfBag";
 import { getProfileData } from "@/services/profile/getProfileData";
 
-const ProfilePage = async () => {
+type ProfilePageProps = {
+  params: Promise<{
+    username: string;
+  }>;
+};
+
+const ProfilePage = async ({ params }: ProfilePageProps) => {
+  const { username } = await params;
+  const decodedUsername = decodeURIComponent(username);
   const supabase = await createSupabaseServer();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data: profile } = await supabase
+    .from("users")
+    .select("id")
+    .eq("username", decodedUsername)
+    .single();
 
-  const myClubs = user?.id ? await fetchGolfBag(user.id, supabase) : [];
+  if (!profile) {
+    return;
+  }
+
+  const userId = profile.id;
+
+  const myClubs = userId ? await fetchGolfBag(userId, supabase) : [];
 
   const profileData = await getProfileData({
     supabase: supabase,
-    userId: user?.id,
+    userId: userId,
   });
 
   if (!profileData) {
     return <h1>404</h1>;
   }
 
+  console.log("URL username:", username);
+  console.log("Resolved userId:", userId);
+  console.log("Loaded profile:", profileData.info?.profile?.username);
+
   return (
     <div className="page">
       <div className="profile-page-content">
         <Profile
-          userId={user?.id || ""}
+          userId={userId || ""}
           myClubs={myClubs}
           sessions={profileData.sessions}
           lessons={profileData.lessons}

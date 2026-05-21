@@ -12,7 +12,7 @@ export const getActivitiesData = async ({supabase, userId}: Props) => {
 
     const sessions = await fetchSessions(userId, supabase);
     const rounds = await fetchRounds(userId, supabase);
-    const profileInfo = await fetchProfileInfo(supabase);
+    const profileInfo = await fetchProfileInfo({supabaseClient: supabase});
 
     return {
         sessions,

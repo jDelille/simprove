@@ -14,7 +14,7 @@ const EditProfilePage = async () => {
   }
 
   const [profileInfo] = user?.id
-    ? await Promise.all([fetchProfileInfo(supabase)])
+    ? await Promise.all([fetchProfileInfo({supabaseClient: supabase})])
     : [null];
 
   const userProfile = profileInfo?.profile;

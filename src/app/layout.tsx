@@ -29,7 +29,7 @@ export default async function RootLayout({
 }>) {
   const supabase = await createSupabaseServer();
 
-  const { profile } = await fetchProfileInfo(supabase);
+  const { profile } = await fetchProfileInfo({supabaseClient: supabase});
   const userId = profile?.id;
 
   let sessions: any[] = [];

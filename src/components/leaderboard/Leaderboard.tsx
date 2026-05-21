@@ -6,6 +6,7 @@ import Avatar from "../ui/avatar/Avatar";
 import { getInitials } from "@/lib/getInitials";
 import { HiMiniTrophy } from "react-icons/hi2";
 import { FaCrown } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 type LeaderboardProps = {
   leaderboardData: any;
@@ -14,6 +15,8 @@ type LeaderboardProps = {
 const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
   const [period, setPeriod] = useState("weekly");
   const [mounted, setMounted] = useState(false);
+
+  const router = useRouter();
 
   const leaderboard = leaderboardData.leaderboardData;
   const trophyColors = ["#FFD700", "#C0C0C0", "#CD7F32"];
@@ -34,16 +37,16 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
   }, []);
 
   const getRank = (index: number, leaderboard: any[]) => {
-  const actualIndex = index + 3;
-  const points = leaderboard[actualIndex].points;
-  
-  // find the first occurrence of this points value
-  const firstIndex = leaderboard.findIndex(p => p.points === points);
-  const isTied = leaderboard.filter(p => p.points === points).length > 1;
-  
-  const rank = firstIndex + 1;
-  return isTied ? `T${rank}` : `#${rank}`;
-};
+    const actualIndex = index + 3;
+    const points = leaderboard[actualIndex].points;
+
+    // find the first occurrence of this points value
+    const firstIndex = leaderboard.findIndex((p) => p.points === points);
+    const isTied = leaderboard.filter((p) => p.points === points).length > 1;
+
+    const rank = firstIndex + 1;
+    return isTied ? `T${rank}` : `#${rank}`;
+  };
 
   return (
     <div className={styles.leaderboard}>
@@ -71,6 +74,7 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
             <div
               key={player.id}
               className={`${styles.podiumBlockContainer} ${mounted ? styles.mounted : ""}`}
+              onClick={() => router.push(`/profile/${player.username}`)}
             >
               {index === 0 && (
                 <FaCrown size={18} color="#FFD700" className={styles.crown} />
@@ -96,8 +100,14 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
 
         <div className={styles.leaderboardList}>
           {filteredLeaderboard.slice(3).map((player: any, index: number) => (
-            <div key={index} className={styles.leaderboardItem}>
-              <p className={styles.rank}>{getRank(index, filteredLeaderboard)}</p>
+            <div
+              key={index}
+              className={styles.leaderboardItem}
+              onClick={() => router.push(`/profile/${player.username}`)}
+            >
+              <p className={styles.rank}>
+                {getRank(index, filteredLeaderboard)}
+              </p>
               <p className={styles.username}>{player.username}</p>
               <p className={styles.points}>{player.points}</p>
             </div>
