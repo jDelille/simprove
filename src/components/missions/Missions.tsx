@@ -105,14 +105,14 @@ const Missions: React.FC<MissionsProps> = ({
         </div>
         <div className={styles.column}>
           <div className={styles.row}>
-            {recommendedLessons && !noRecommended && (
+            {/* {recommendedLessons && !noRecommended && (
               <RecommendedPlans
                 onPlanClick={handlePlanClick}
                 recommendedLessons={recommendedLessons}
                 completedLessons={completedLessons}
                 hasActivePlan={activePlan?.activeLesson !== null}
               />
-            )}
+            )} */}
 
            <h2 className={styles.sectionName}>Browse Missions</h2>
             <ul className={styles.filters}>
