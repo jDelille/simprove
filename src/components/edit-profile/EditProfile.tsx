@@ -9,6 +9,7 @@ import EditLogin from "./edit-login/EditLogin";
 import DangerZone from "./danger-zone/DangerZone";
 import Privacy from "./privacy/Privacy";
 import { Profile } from "@/types/profile";
+import { getInitials } from "@/lib/getInitials";
 
 type EditProfileProps = {
   profile: Profile;
@@ -16,13 +17,21 @@ type EditProfileProps = {
 
 const EditProfile = ({ profile }: EditProfileProps) => {
   const [selectedSection, setSelectedSection] = useState("Account");
+  const initials = getInitials((profile && profile.display_name) || "");
+  const color = profile?.avatar_color || "var(--border)";
 
   const renderSection = () => {
     switch (selectedSection) {
       case "Account":
         return (
           <>
-            <EditAvatar avatar={profile?.avatar_path} />
+            <EditAvatar
+              avatar={profile?.avatar_path}
+              userId={profile?.id}
+              initials={initials}
+              color={color}
+
+            />
             <EditProfileInfo profile={profile} />
             <EditLogin profile={profile} />
             <DangerZone profile={profile} />
@@ -55,9 +64,7 @@ const EditProfile = ({ profile }: EditProfileProps) => {
             />
           </div>
         </div>
-        <div className={styles.column}>
-          {renderSection()}
-        </div>
+        <div className={styles.column}>{renderSection()}</div>
       </div>
     </div>
   );

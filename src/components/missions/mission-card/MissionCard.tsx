@@ -18,8 +18,6 @@ const MissionCard: React.FC<MissionCardProps> = ({
   hasActivePlan = false,
   isAiRecommended = false,
 }) => {
-  // console.log(plan);
-
   return (
     <div className={styles.missionCard}>
       <div className={styles.tags}>
@@ -48,7 +46,7 @@ const MissionCard: React.FC<MissionCardProps> = ({
           </ul>
         </div>
       </div>
-      {/* <div className={styles.footer}>
+      <div className={styles.footer}>
         {!completedLessonIds?.includes(plan.lesson_id) ? (
           <Button
             variant="lessonCard"
@@ -59,7 +57,7 @@ const MissionCard: React.FC<MissionCardProps> = ({
         ) : (
           <p>Completed</p>
         )}
-      </div> */}
+      </div>
     </div>
   );
 };

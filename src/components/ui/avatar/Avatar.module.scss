@@ -1,55 +1,63 @@
 .avatar {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
   display: flex;
-  border: 1px solid var(--border);
-  background-color: var(--border);
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
   overflow: hidden;
+  // border: 1px solid var(--border);
+  position: relative;
+  flex-shrink: 0;
+
   img {
-    object-fit: cover;
-    height: 100%;
     width: 100%;
-    
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .initials {
-    font-size: 28px;
-    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    color: var(--text);
+    user-select: none;
   }
 }
 
-.avatar.small {
-  min-width: 32px;
-  max-width: 32px;
-  min-height: 32px;
-  max-height: 32px;
+/* Sizes */
+.xsmall {
+  width: 20px;
+  height: 20px;
 
   .initials {
-    font-size: 12px;
+    font-size: 10px;
   }
 }
 
-.avatar.medium {
-  min-width: 50px;
-  max-width: 50px;
-  min-height: 50px;
-  max-height: 50px;
+.small {
+  width: 32px;
+  height: 32px;
 
-   .initials {
+  .initials {
+    font-size: 14px;
+  }
+}
+
+.medium {
+  width: 50px;
+  height: 50px;
+
+  .initials {
     font-size: 16px;
   }
 }
 
-.avatar.large {
-  min-width: 70px;
-  max-width: 70px;
-  min-height: 70px;
-  max-height: 70px;
+.large {
+  width: 70px;
+  height: 70px;
 
-   .initials {
-    font-size: 20px;
+  .initials {
+    font-size: 24px;
   }
 }

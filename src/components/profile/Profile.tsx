@@ -24,6 +24,7 @@ type ProfileProps = {
   stats: Averages & RoundStats & { totalSessions: number };
   social: SocialData;
   currentUserId: string;
+  leaderboardPosition: any;
 };
 
 const Profile: React.FC<ProfileProps> = ({
@@ -36,7 +37,8 @@ const Profile: React.FC<ProfileProps> = ({
   rounds,
   stats,
   social,
-  currentUserId
+  currentUserId,
+  leaderboardPosition
 
 }) => {
   return (
@@ -48,6 +50,7 @@ const Profile: React.FC<ProfileProps> = ({
               user={user}
               social={social}
               currentUserId={currentUserId}
+              leaderboardPosition={leaderboardPosition}
             />
           </div>
           <div className={styles.row}>

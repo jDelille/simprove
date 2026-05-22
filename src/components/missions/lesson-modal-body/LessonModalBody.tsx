@@ -59,8 +59,8 @@ const LessonModalBody: React.FC<LessonModalBodyProps> = ({
         <h3>Goals</h3>
 
         <ul>
-          {selectedPlan.lesson_drills.map((drill: any) => (
-            <li key={drill.drill_id}>
+          {selectedPlan.lesson_drills.map((drill: any, index: number) => (
+            <li key={index}>
                {drill.drill_name}
             </li>
           ))}

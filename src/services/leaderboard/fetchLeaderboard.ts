@@ -12,6 +12,7 @@ export const fetchLeaderboard = async (
       username,
       display_name,
       avatar_path,
+      avatar_color,
       leaderboard(points, period_type)
     `);
 
@@ -30,6 +31,7 @@ export const fetchLeaderboard = async (
       username: user.username,
       display_name: user.display_name,
       avatar_path: user.avatar_path,
+      avatar_color: user.avatar_color,
       points: entry?.points ?? 0,
       period_type: period,
     };

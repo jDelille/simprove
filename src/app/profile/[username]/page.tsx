@@ -1,6 +1,7 @@
 import Profile from "@/components/profile/Profile";
 import { createSupabaseServer } from "@/lib/supabase/server";
 import { fetchGolfBag } from "@/services/golf-bag/fetchGolfBag";
+import { fetchUserLeaderboardPosition } from "@/services/leaderboard/fetchLeaderboardPosition";
 import { getProfileData } from "@/services/profile/getProfileData";
 
 type ProfilePageProps = {
@@ -35,6 +36,7 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
   const userId = profile.id;
 
   const myClubs = userId ? await fetchGolfBag(userId, supabase) : [];
+  const leaderboardPositon = await fetchUserLeaderboardPosition(profile.id, supabase);
 
   const profileData = await getProfileData({
     supabase: supabase,
@@ -60,6 +62,7 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
           stats={profileData.stats}
           social={profileData.social}
           currentUserId={user.id}
+          leaderboardPosition={leaderboardPositon}
         />
       </div>
     </div>

@@ -1,20 +1,31 @@
-import React from 'react'
+import React from "react";
 import styles from "./Avatar.module.scss";
 
 type AvatarProps = {
   src?: string | null;
-  size?: "small" | "medium" | "large";
+  size?: "xsmall" | "small" | "medium" | "large";
   initials?: string;
+  color?: string;
 };
 
-const Avatar: React.FC<AvatarProps> = ({src, size = "small", initials}) => {
+const Avatar: React.FC<AvatarProps> = ({
+  src,
+  size = "small",
+  initials,
+  color,
+}) => {
   return (
-    <div className={styles.avatar + " " + styles[size]} >
-      {src && <img src={src} alt="avatar" /> }
-      {!src && initials && <div className={styles.initials}>{initials}</div>}
+    <div
+      className={`${styles.avatar} ${styles[size]}`}
+      style={!src ? { backgroundColor: color || "#999" } : undefined}
+    >
+      {src ? (
+        <img src={src} alt="avatar" />
+      ) : (
+        initials && <span className={styles.initials}>{initials}</span>
+      )}
     </div>
-    
-  )
-}
+  );
+};
 
-export default Avatar
+export default Avatar;

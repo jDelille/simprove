@@ -21,6 +21,7 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
   const leaderboard = leaderboardData.leaderboardData;
   const trophyColors = ["#FFD700", "#C0C0C0", "#CD7F32"];
   const ordinals = ["1st", "2nd", "3rd"];
+  
 
   const handlePeriodChange = (newPeriod: string) => {
     setPeriod(newPeriod);
@@ -47,6 +48,8 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
     const rank = firstIndex + 1;
     return isTied ? `T${rank}` : `#${rank}`;
   };
+
+  console.log(filteredLeaderboard);
 
   return (
     <div className={styles.leaderboard}>
@@ -85,6 +88,7 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
                   src={player.avatar_path}
                   size="medium"
                   initials={getInitials(player.display_name)}
+                  color={player.avatar_color || "var(--border)"}
                 />
                 <p>{player.username}</p>
                 <p className={styles.rank}>{ordinals[index]}</p>
@@ -108,6 +112,12 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
               <p className={styles.rank}>
                 {getRank(index, filteredLeaderboard)}
               </p>
+              <Avatar
+                  src={player.avatar_path}
+                  size="xsmall"
+                  initials={getInitials(player.display_name)}
+                  color={player.avatar_color || "var(--border)"}
+                />
               <p className={styles.username}>{player.username}</p>
               <p className={styles.points}>{player.points}</p>
             </div>

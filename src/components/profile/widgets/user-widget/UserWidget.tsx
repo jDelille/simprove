@@ -16,12 +16,14 @@ type UserWidgetProps = {
   user: Profile;
   social: SocialData;
   currentUserId: string;
+  leaderboardPosition: any;
 };
 
 const UserWidget = ({
   user,
   social,
   currentUserId,
+  leaderboardPosition
 }: UserWidgetProps) => {
   const router = useRouter();
   const initials = getInitials((user && user.display_name) || "");
@@ -64,6 +66,8 @@ const UserWidget = ({
     }
   };
 
+  console.log(leaderboardPosition)
+
   return (
     <div className={styles.widget}>
       <div className={styles.top}>
@@ -87,7 +91,7 @@ const UserWidget = ({
         </div>
         <div className={styles.stat}>
           <span>Rank</span>
-          <p>#1</p>
+          <p className={styles.leaderboardPos}>{leaderboardPosition.position}</p>
         </div>
       </div>
 

@@ -32,6 +32,8 @@ const UserWidget = ({
   const initials = getInitials((profile && profile.display_name) || "");
   const { popups, openPopup, closePopup } = usePopup();
   const router = useRouter();
+  
+  const color = profile?.avatar_color || "var(--border)";
 
   const getTimeUntilMidnight = () => {
     const now = new Date();
@@ -86,7 +88,7 @@ const UserWidget = ({
 
       <div className={styles.content}>
         <div className={styles.user}>
-          <Avatar src={profile.avatar_path} size="small" initials={initials} />
+          <Avatar src={profile.avatar_path} size="small" initials={initials} color={color} />
 
           <div className={styles.text}>
             <h3>{profile.username}</h3>

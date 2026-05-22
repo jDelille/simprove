@@ -36,6 +36,8 @@ const Navbar: React.FC<NavbarProps> = ({ profile, notifications }) => {
   const router = useRouter();
   const supabase = createClient();
 
+  const color = profile?.avatar_color || "var(--border)";
+
   const handleAuthClick = async (type: AuthAction) => {
     if (type === "login") {
       router.push("/auth/login");
@@ -157,6 +159,7 @@ const hasNotifications = notifications.filter((n) => n.is_read).length;
                       src={profile?.avatar_path}
                       initials={initials}
                       size="small"
+                      color={color}
                     />
                   )}
                   <FaChevronDown size={16} color="var(--lightgray)" />

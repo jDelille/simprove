@@ -4,12 +4,16 @@ import { uploadProfilePicture } from "@/services/profile-picture/uploadProfilePi
 import { createClient } from "@/lib/supabase/client";
 import Avatar from "@/components/ui/avatar/Avatar";
 import Button from "@/components/ui/button/Button";
+import { deleteProfilePicture } from "@/services/profile-picture/deleteProfilePicture";
 
 type EditAvatarProps = {
   avatar?: string | null;
+  userId: string;
+  initials: string;
+  color: string;
 };
 
-const EditAvatar: React.FC<EditAvatarProps> = ({ avatar }) => {
+const EditAvatar: React.FC<EditAvatarProps> = ({ avatar, userId, initials, color }) => {
   const [preview, setPreview] = useState<string>();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -38,6 +42,14 @@ const EditAvatar: React.FC<EditAvatarProps> = ({ avatar }) => {
     });
   };
 
+  const handleRemove = async () => {
+    await deleteProfilePicture({
+      userId: userId,
+      avatarPath: avatar,
+      supabaseClient: supabase,
+    });
+  };
+
   return (
     <div className={styles.editAvatar}>
       <div className={styles.header}>
@@ -47,14 +59,16 @@ const EditAvatar: React.FC<EditAvatarProps> = ({ avatar }) => {
 
       <div className={styles.content}>
         <div className={styles.avatarContainer}>
-          <Avatar src={preview || avatar} size="large" />
+          <Avatar src={preview || avatar} size="large" initials={initials} color={color} />
         </div>
 
         <Button variant="lessonCard" onClick={handleClickUpload}>
           Upload photo
         </Button>
 
-        <Button variant="secondary">Remove</Button>
+        <Button variant="secondary" onClick={handleRemove}>
+          Remove
+        </Button>
 
         <input
           ref={fileInputRef}
