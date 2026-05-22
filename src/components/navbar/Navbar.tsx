@@ -60,7 +60,7 @@ const hasNotifications = notifications.filter((n) => n.is_read).length;
     { href: "/dashboard", label: "Dashboard", key: 1 },
     { href: "/activities", label: "Activities", key: 2 },
     { href: "/missions", label: "Missions", key: 3 },
-    { href: "/leaderboard", label: "Leaderboard", key: 4 },
+    // { href: "/leaderboard", label: "Leaderboard", key: 4 },
     // { href: "/community", label: "Community", key: 5 },
     { href: `/profile/${profile?.username}`, label: "Profile", key: 6 },
   ];
