@@ -49,7 +49,7 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
     return isTied ? `T${rank}` : `#${rank}`;
   };
 
-  console.log(filteredLeaderboard);
+  // console.log(filteredLeaderboard);
 
   return (
     <div className={styles.leaderboard}>
