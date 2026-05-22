@@ -82,10 +82,10 @@ const UserMenu: React.FC<UserMenuProps> = ({
             <BsFileBarGraph size={18} color="var(--lightgray)" />
           </li>
           <li
-            onClick={() => handleLinkClick("/training")}
+            onClick={() => handleLinkClick("/missions")}
             className={styles.mobile}
           >
-            Training
+            Missions
             <MdOutlineSchool size={18} color="var(--lightgray)" />
           </li>
           <li onClick={() => handleLinkClick(`/profile/${profile?.username}`)}>

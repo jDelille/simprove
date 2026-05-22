@@ -3,8 +3,7 @@
 
 .widget {
   @include widget();
-  padding: 1rem;
-
+  padding: 0;
   position: relative;
   @include bp.mobile {
     max-height: none;
@@ -13,7 +12,8 @@
   .header {
     @include widgetHeader();
     color: var(--text);
-    padding-bottom: 0.5rem;
+    padding: 1rem;
+    padding-bottom: 0.55rem;
     p {
       display: flex;
       align-items: center;
@@ -38,8 +38,7 @@
         li {
           display: flex;
           flex-direction: column;
-          padding-top: 10px;
-          padding-bottom: 4px;
+          padding: 1rem;
           border-bottom: 1px solid var(--border);
           gap: 7px;
           &:nth-last-child(1) {

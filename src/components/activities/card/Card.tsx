@@ -17,7 +17,7 @@ type CardProps = {
   item: Session | any;
   isDemoAccount: boolean;
 };
-const Card = ({ item, isDemoAccount}: CardProps) => {
+const Card = ({ item, isDemoAccount }: CardProps) => {
   const router = useRouter();
   const { popups, openPopup, closePopup } = usePopup();
 
@@ -105,16 +105,19 @@ const Card = ({ item, isDemoAccount}: CardProps) => {
 
   const roundCard = (
     <div className={styles.content}>
-      <div className={styles.roundIcon}>⛳</div>
-      <div className={styles.text}>
-        <p>
-          {item.course_name}{" "}
-          {/* <span className={styles.roundBadge}>{item.type}</span> */}
-        </p>
-        <span>
-          {moment(item.round_begin).format("MMM DD")} · {item.tee_type} tees ·{" "}
-          {item.hole_count} holes
-        </span>
+      <div className={styles.info}>
+        <div className={styles.roundIcon}>⛳</div>
+
+        <div className={styles.text}>
+          <p>
+            {item.course_name}
+            {/* <span className={styles.roundBadge}>{item.type}</span> */}
+          </p>
+          <span>
+            {moment(item.round_begin).format("MMM DD")} · {item.tee_type} tees ·{" "}
+            {item.hole_count} holes
+          </span>
+        </div>
       </div>
       <div className={styles.stats}>
         <div className={styles.stat}>
@@ -130,30 +133,30 @@ const Card = ({ item, isDemoAccount}: CardProps) => {
           <p>{item.round_scores?.[0]?.putts_value}</p>
         </div>
       </div>
-      <div className={styles.settings}>
         <div className={styles.delete}>
           <MdDeleteOutline
             color="var(--lightgray)"
             onClick={(e) => openDeletePopup(e)}
           />
         </div>
-      </div>
     </div>
   );
 
   const sessionCard = (
     <div className={styles.content}>
-      <div className={styles.sessionIcon}>🎯</div>
-      <div className={styles.text}>
-        <p>
-          {item.session_name}{" "}
-          {/* <span className={styles.sessionBadge}>{item.type}</span> */}
-        </p>
-        <span>
-          {" "}
-          {moment(item.session_date).format("MMM DD")} ·{" "}
-          {clubs?.map((club) => club).join(", ")}
-        </span>
+      <div className={styles.info}>
+        <div className={styles.sessionIcon}>🎯</div>
+        <div className={styles.text}>
+          <p>
+            {item.session_name}{" "}
+            {/* <span className={styles.sessionBadge}>{item.type}</span> */}
+          </p>
+          <span>
+            {" "}
+            {moment(item.session_date).format("MMM DD")} ·{" "}
+            {clubs?.map((club) => club).join(", ")}
+          </span>
+        </div>
       </div>
       <div className={styles.stats}>
         <div className={styles.stat}>
@@ -169,13 +172,11 @@ const Card = ({ item, isDemoAccount}: CardProps) => {
           <p>{averages?.avgOffline?.toFixed(0)}</p>
         </div>
       </div>
-      <div className={styles.settings}>
-        <div className={styles.delete}>
-          <MdDeleteOutline
-            color="var(--lightgray)"
-            onClick={(e) => openDeletePopup(e)}
-          />
-        </div>
+      <div className={styles.delete}>
+        <MdDeleteOutline
+          color="var(--lightgray)"
+          onClick={(e) => openDeletePopup(e)}
+        />
       </div>
     </div>
   );

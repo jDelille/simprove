@@ -8,7 +8,6 @@ import {
 } from "react-icons/hi";
 import ClubSelect from "@/components/club-select/ClubSelect";
 import { Shot } from "@/types/shot";
-import { IoInformationCircleOutline } from "react-icons/io5";
 import { GiArcheryTarget } from "react-icons/gi";
 import NoDataPlaceholderWidget from "@/components/ui/no-data-placeholder-widget/NoDataPlaceholderWidget";
 
@@ -68,17 +67,19 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
 
     const tip =
       face > 1.5
-        ? "try a stronger grip or earlier forearm rotation"
+        ? "Your face is staying open through impact. Focus on rotating the forearms earlier and feeling the logo on your glove turn down through the strike."
         : face < -1.5
-          ? "try a weaker grip or delayed forearm rotation"
+          ? "The clubface is shutting down too quickly. Feel more passive hand rotation through impact and maintain body rotation longer."
           : path < -2
-            ? "focus on swinging more in-to-out"
+            ? "Your swing path is moving too far out-to-in. Try feeling the club approach more from the inside with a shallower delivery."
             : path > 2
-              ? "focus on swinging more out-to-in"
-              : "contact is the main factor — focus on center strikes";
+              ? "Your path is getting too in-to-out. Feel the chest rotating earlier through impact to prevent the club from getting stuck behind you."
+              : "Strike quality is the biggest opportunity right now. Focus on centered contact and controlling low point.";
 
-    return `${missText} ${faceText} — ${tip}.`;
+    return `${missText} ${faceText}\n${tip}`;
   };
+
+  const message = getMissMessage(avgOffline, avgFace, swingPath).split("\n");
 
   return (
     <div className={styles.widget} id="miss-tendency">
@@ -168,12 +169,21 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
             </div>
           </div>
           <div className={isEmpty ? styles.emptyMessage : styles.message}>
-            <p className={styles.title}>✦ AI analysis </p>
-            <p>
-              {isEmpty
-                ? "Your miss pattern analysis will appear here once you upload session data."
-                : getMissMessage(avgOffline, avgFace, swingPath)}
-            </p>
+            <p className={styles.title}>✦ AI analysis</p>
+
+            <div className={styles.messageText}>
+              {isEmpty ? (
+                <p>
+                  Your miss pattern analysis will appear here once you upload
+                  session data.
+                </p>
+              ) : (
+                <>
+                  <span>{message[0]}</span>
+                  <span>{message[1]}</span>
+                </>
+              )}
+            </div>
           </div>
         </>
       )}

@@ -69,7 +69,9 @@ const MissionWidget: React.FC<LessonPlanWidgetProps> = ({
           <div className={styles.progressContainer}>
             <div className={styles.labels}>
               <p>Progress</p>
-              <p className={styles.progressText}>1 of {lessonDrills?.length || 0} goals</p>
+              <p className={styles.progressText}>
+                0 of {lessonDrills?.length || 0} goals
+              </p>
             </div>
             <div className={styles.progressBar}>
               <div

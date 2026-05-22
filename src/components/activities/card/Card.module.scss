@@ -1,76 +1,85 @@
+@use "@/styles/breakpoints" as bp;
+
 .card {
   background-color: var(--bg);
   border: 1px solid var(--border);
   padding: 1rem;
   border-radius: 8px;
   cursor: pointer;
-
-  &:hover {
-    // background-color: var(--primaryHover);
-  }
-
+  position: relative;
   .content {
     display: flex;
     align-items: center;
     gap: 1rem;
 
-    .roundIcon,
-    .sessionIcon {
-      width: 30px;
-      height: 30px;
+    @include bp.mobile {
+      // flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .info {
       display: flex;
       align-items: center;
-      justify-content: center;
-      border-radius: 4px;
-    }
+      gap: 1rem;
 
-    .roundIcon {
-      background-color: var(--green);
-      border: 1px solid var(--greenBorder);
-    }
-
-    .sessionIcon {
-      background-color: var(--lightBlue);
-      border: 1px solid var(--blueBorder);
-    }
-
-    .text {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-
-      p {
-        font-size: 14px;
-        font-weight: 500;
+      .roundIcon,
+      .sessionIcon {
+        width: 30px;
+        height: 30px;
         display: flex;
         align-items: center;
-        gap: 5px;
-
-        .roundBadge,
-        .sessionBadge {
-          padding: 2px 4px;
-          border-radius: 4px;
-          text-transform: uppercase;
-          font-size: 10px;
-          font-weight: 600;
-        }
-
-        .roundBadge {
-          background-color: var(--green);
-          color: var(--greenText);
-          border: 1px solid var(--greenBorder);
-        }
-
-        .sessionBadge {
-          background-color: var(--lightBlue);
-          border: 1px solid var(--blueBorder);
-          color: var(--blueText);
-        }
+        justify-content: center;
+        border-radius: 4px;
       }
 
-      span {
-        color: var(--lightgray);
-        font-size: 11px;
+      .roundIcon {
+        background-color: var(--green);
+        border: 1px solid var(--greenBorder);
+      }
+
+      .sessionIcon {
+        background-color: var(--lightBlue);
+        border: 1px solid var(--blueBorder);
+      }
+
+      .text {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        p {
+          font-size: 14px;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+
+          .roundBadge,
+          .sessionBadge {
+            padding: 2px 4px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-size: 10px;
+            font-weight: 600;
+          }
+
+          .roundBadge {
+            background-color: var(--green);
+            color: var(--greenText);
+            border: 1px solid var(--greenBorder);
+          }
+
+          .sessionBadge {
+            background-color: var(--lightBlue);
+            border: 1px solid var(--blueBorder);
+            color: var(--blueText);
+          }
+        }
+
+        span {
+          color: var(--lightgray);
+          font-size: 11px;
+        }
       }
     }
 
@@ -79,12 +88,21 @@
       display: flex;
       align-items: center;
       gap: 1rem;
+
+      @include bp.mobile() {
+        all: unset;
+        display: flex;
+        gap: 2rem;
+        display: none;
+      }
       .stat {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         width: 100px;
-
+        @include bp.mobile() {
+          width: fit-content;
+        }
         span {
           font-size: 10px;
         }
@@ -96,22 +114,20 @@
       }
     }
 
-    .settings {
-      .delete {
-        width: 25px;
-        height: 25px;
-        border: 1px solid var(--border);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 4px;
-        cursor: pointer;
+    .delete {
+      width: 25px;
+      height: 25px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      cursor: pointer;
 
-        &:hover {
-          background-color: var(--primaryHover);
-          svg {
-            fill: var(--dangerText);
-          }
+      &:hover {
+        background-color: var(--primaryHover);
+        svg {
+          fill: var(--dangerText);
         }
       }
     }

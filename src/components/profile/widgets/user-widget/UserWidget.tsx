@@ -11,6 +11,7 @@ import { followUser, unfollowUser } from "@/services/follows/follows";
 import { supabase } from "@/lib/supabase/client";
 import { SocialData } from "@/types/socialData";
 import { useRouter } from "next/navigation";
+import { profile } from "console";
 
 type UserWidgetProps = {
   user: Profile;
@@ -23,19 +24,19 @@ const UserWidget = ({
   user,
   social,
   currentUserId,
-  leaderboardPosition
+  leaderboardPosition,
 }: UserWidgetProps) => {
   const router = useRouter();
   const initials = getInitials((user && user.display_name) || "");
   const [following, setFollowing] = useState(social.isFollowing);
   const [followers, setFollowers] = useState(social.followerCount || 0);
-  
+
   const isOwnProfile = currentUserId === user.id;
 
   const handleFollowToggle = async () => {
     if (!currentUserId) return;
 
-    console.log('here')
+    console.log("here");
 
     // unfollow
     if (following) {
@@ -66,12 +67,12 @@ const UserWidget = ({
     }
   };
 
-  console.log(leaderboardPosition)
+  const color = user.avatar_color || "var(--border)"
 
   return (
     <div className={styles.widget}>
       <div className={styles.top}>
-        <Avatar src={user.avatar_path} size="medium" initials={initials} />
+        <Avatar src={user.avatar_path} size="medium" initials={initials} color={color} />
         <div className={styles.text}>
           <p className={styles.username}>{user.username}</p>
           <p className={styles.date}>
@@ -91,7 +92,9 @@ const UserWidget = ({
         </div>
         <div className={styles.stat}>
           <span>Rank</span>
-          <p className={styles.leaderboardPos}>{leaderboardPosition.position}</p>
+          <p className={styles.leaderboardPos}>
+            {leaderboardPosition.position}
+          </p>
         </div>
       </div>
 
@@ -117,20 +120,24 @@ const UserWidget = ({
 
       <div className={styles.actions}>
         {isOwnProfile ? (
-          <Button children="Edit Profile" variant="lessonCard" onClick={() => router.push("/settings/edit-profile")} />
-        ): (
-          <>
           <Button
-          children={following ? "Unfollow" : "Follow"}
-          onClick={handleFollowToggle}
-          variant="lessonCard"
-        />
-        <Button
-          children={"Message"}
-          onClick={() => console.log("clicked")}
-          variant="secondary"
-        />
-        </>
+            children="Edit Profile"
+            variant="lessonCard"
+            onClick={() => router.push("/settings/edit-profile")}
+          />
+        ) : (
+          <>
+            <Button
+              children={following ? "Unfollow" : "Follow"}
+              onClick={handleFollowToggle}
+              variant="lessonCard"
+            />
+            <Button
+              children={"Message"}
+              onClick={() => console.log("clicked")}
+              variant="secondary"
+            />
+          </>
         )}
       </div>
     </div>

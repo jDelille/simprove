@@ -1,5 +1,6 @@
 @use "@/styles/mixins" as *;
 @use "@/styles/breakpoints" as bp;
+
 .footer {
   height: 65px;
   border-top: 1px solid var(--border);
@@ -15,7 +16,9 @@
     color: var(--lightgray);
     justify-content: space-between;
     @include bp.mobile {
+      flex-direction: column;
       justify-content: center;
+      gap: 10px;
     }
 
     .links {
