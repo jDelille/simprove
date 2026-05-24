@@ -4,3 +4,4 @@ export type ActivityType =
   | 'LESSON_STARTED'
   | 'LESSON_COMPLETED'
   | 'CHALLENGE_COMPLETED'
+  | 'NEW_FOLLOW'

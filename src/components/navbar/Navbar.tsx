@@ -32,6 +32,8 @@ const Navbar: React.FC<NavbarProps> = ({ profile, notifications }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const [openNotifications, setOpenNotifications] = useState(false);
 
+  console.log(notifications)
+
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createClient();

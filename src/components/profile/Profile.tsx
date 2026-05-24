@@ -39,8 +39,8 @@ const Profile: React.FC<ProfileProps> = ({
   social,
   currentUserId,
   leaderboardPosition
-
 }) => {
+
   return (
     <div className={styles.profile}>
       <div className={styles.content}>

@@ -9,14 +9,16 @@ import { markNotificationsRead } from "@/services/notifications/markNotification
 import { useRouter } from "next/navigation";
 import { FaTrophy } from "react-icons/fa6";
 import { IoGolf } from "react-icons/io5";
+import { FaUserPlus } from "react-icons/fa";
 
-export type NotificationTab = "All" | "Activity" | "Achievements";
+export type NotificationTab = "All" | "Activity" | "Achievements" | "Social";
 
-const TABS: NotificationTab[] = ["All", "Activity", "Achievements"];
+const TABS: NotificationTab[] = ["All", "Activity", "Achievements", "Social"];
 
 const TAB_TYPE_MAP: Record<Exclude<NotificationTab, "All">, string[]> = {
   Achievements: ["achievement"],
   Activity: ["activity", "session"],
+  Social: ["follow"]
 };
 
 const NOTIFICATION_ICONS: Record<
@@ -32,6 +34,11 @@ const NOTIFICATION_ICONS: Record<
     icon: <IoGolf size={15} color="#3ecf8e" />,
     color: "#3ecf8e",
     bg: "rgba(62,207,142,0.1)",
+  },
+  follow: {
+    icon: <FaUserPlus size={15} color="#47d6e0" />,
+    color: "#47d6e0",
+    bg: "rgba(62, 197, 207, 0.1)",
   },
 };
 
@@ -120,9 +127,11 @@ const NotificationsDropdown = ({
                 </div>
                 <div className={styles.content}>
                   <p className={styles.itemTitle}>{n.title}</p>
-                  <span className={styles.itemDescription}>
-                    {n.description}
-                  </span>
+                  {n.entity_type !== "follow" && (
+                    <span className={styles.itemDescription}>
+                      {n.description}
+                    </span>
+                  )}
                   <span className={styles.timestamp}>
                     {moment(n.created_at).fromNow()}
                   </span>

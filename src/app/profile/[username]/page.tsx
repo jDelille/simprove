@@ -33,14 +33,14 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
     return;
   }
 
-  const userId = profile.id;
+  const profileId = profile.id;
 
-  const myClubs = userId ? await fetchGolfBag(userId, supabase) : [];
-  const leaderboardPositon = await fetchUserLeaderboardPosition(profile.id, supabase);
+  const myClubs = profileId ? await fetchGolfBag(profileId, supabase) : [];
+  const leaderboardPositon = await fetchUserLeaderboardPosition(profileId, supabase);
 
   const profileData = await getProfileData({
-    supabase: supabase,
-    userId: userId,
+    supabase,
+    userId: profileId,
     viewerId: user.id
   });
 
@@ -52,7 +52,7 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
     <div className="page">
       <div className="profile-page-content">
         <Profile
-          userId={userId || ""}
+          userId={profileId || ""}
           myClubs={myClubs}
           sessions={profileData.sessions}
           lessons={profileData.lessons}

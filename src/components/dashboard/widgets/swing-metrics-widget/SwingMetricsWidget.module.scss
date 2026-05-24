@@ -3,7 +3,7 @@
 
 .widget {
   @include widget();
-  padding: 0;
+  padding: 1rem;
   position: relative;
   @include bp.mobile {
     max-height: none;
@@ -12,8 +12,6 @@
   .header {
     @include widgetHeader();
     color: var(--text);
-    padding: 1rem;
-    padding-bottom: 0.55rem;
     p {
       display: flex;
       align-items: center;

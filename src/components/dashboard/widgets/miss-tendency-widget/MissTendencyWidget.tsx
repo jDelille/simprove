@@ -82,7 +82,11 @@ const MissTendencyWidget: React.FC<MissTendencyWidgetProps> = ({ shots }) => {
   const message = getMissMessage(avgOffline, avgFace, swingPath).split("\n");
 
   return (
-    <div className={styles.widget} id="miss-tendency">
+    <div
+      className={styles.widget}
+      id="miss-tendency"
+      style={isEmpty ? { height: "fit-content" } : { height: "370.8px" }}
+    >
       <div className={styles.header}>
         <p>Miss Tendency</p>
         {/* <IoInformationCircleOutline /> */}

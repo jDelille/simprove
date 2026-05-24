@@ -1,4 +1,5 @@
 import { SupabaseClient } from "@supabase/supabase-js";
+import { logActivity } from "../notifications/logActivity";
 
 type FollowProps = {
   followerId: string;
@@ -40,6 +41,20 @@ export const followUser = async ({
       error,
     };
   }
+
+  // Add notification
+  // const activityResult = await logActivity({
+  //   type: "NEW_FOLLOW",
+  //   title: `${followerId} followed you`,
+  //   description: "",
+  //   entityType: "follow",
+  //   entityId: followerId,
+  //   userId: followingId,
+  //   metadata: { followerId },
+  //   supabaseClient, // ← pass it through
+  // });
+
+  // console.log("Activity result:", activityResult);
 
   return {
     success: true,

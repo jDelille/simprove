@@ -176,13 +176,6 @@ const SignupForm = () => {
 
   const passwordStep = (
     <div className={styles.authForm}>
-      <h2 className={styles.brand}>{text.brand}</h2>
-      <div className={styles.progressBar}>
-        <div
-          className={styles.progressFill}
-          style={{ width: `${(step - 1) * 50}%` }}
-        ></div>
-      </div>
       <form
         className={styles.form}
         onSubmit={(e) => {
@@ -197,11 +190,7 @@ const SignupForm = () => {
             onClick={() => setStep(step - 1)}
             color="var(--lightgray)"
           />
-
-          <div className={styles.text}>
-            <p>Step 1 of 2</p>
-            <h3>Create a password</h3>
-          </div>
+          <h2 className={styles.title}>Enter your password</h2>
         </div>
         <div className={styles.inputGroup}>
           <label htmlFor="password">Password</label>
@@ -254,14 +243,6 @@ const SignupForm = () => {
 
   const userInfoStep = (
     <div className={styles.authForm}>
-      <h2 className={styles.brand}>{text.brand}</h2>
-
-      <div className={styles.progressBar}>
-        <div
-          className={styles.progressFill}
-          style={{ width: `${(step - 1) * 33.33}%` }}
-        ></div>
-      </div>
       <form
         className={styles.form}
         onSubmit={(e) => {
@@ -278,10 +259,7 @@ const SignupForm = () => {
             />
           )}
 
-          <div className={styles.text}>
-            <p>Step 2 of 2</p>
-            <h3>Tell us about yourself</h3>
-          </div>
+          <h2 className={styles.title}>Tell Us About Yourself</h2>
         </div>
         <div className={styles.inputGroup}>
           <label htmlFor="displayName">Display Name</label>

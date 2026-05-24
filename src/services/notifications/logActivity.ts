@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase/client'
 import { ActivityType } from '@/types/activity';
+import { SupabaseClient } from '@supabase/supabase-js';
 
 type LogActivityParams = {
   type: ActivityType;
@@ -8,6 +9,7 @@ type LogActivityParams = {
   entityId?: string;
   entityType?: string;
   metadata?: Record<string, any>;
+  userId?: string;
 }
 
 export async function logActivity({
@@ -16,19 +18,22 @@ export async function logActivity({
   description,
   entityId,
   entityType,
-  metadata = {}
-}: LogActivityParams) {
+  metadata = {},
+  userId,
+  supabaseClient, // ← add this
+}: LogActivityParams & { supabaseClient?: SupabaseClient }) {
 
-  const { data: userData } = await supabase.auth.getUser()
+  const client = supabaseClient ?? supabase;
+  const { data: userData } = await client.auth.getUser();
 
   if (!userData.user) {
-    throw new Error("User not authenticated")
+    throw new Error("User not authenticated");
   }
 
-  const { error } = await supabase
+  const { data, error } = await client  // ← capture data
     .from('notifications')
     .insert({
-      user_id: userData.user.id,
+      user_id: userId || userData.user.id,
       type,
       title,
       description,
@@ -36,9 +41,13 @@ export async function logActivity({
       entity_type: entityType ?? null,
       metadata
     })
+    .select()   // ← needed to get data back
+    .single();
 
   if (error) {
-    console.error("Error logging notification:", error)
-    throw error
+    console.error("Error logging notification:", error);
+    throw error;
   }
+
+  return { data }; // ← return it
 }
