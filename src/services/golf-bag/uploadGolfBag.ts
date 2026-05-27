@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 
 type UploadGolfBagProps = {
   userId: string;
@@ -17,6 +17,8 @@ type GolfBag = {
   average_yards: number;
   created_at: string;
 };
+
+const supabase = createClient();
 
 export async function uploadGolfBag({
   userId,

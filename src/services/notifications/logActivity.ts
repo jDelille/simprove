@@ -1,6 +1,6 @@
-import { supabase } from '@/lib/supabase/client'
 import { ActivityType } from '@/types/activity';
 import { SupabaseClient } from '@supabase/supabase-js';
+import { createClient } from "@/lib/supabase/client";
 
 type LogActivityParams = {
   type: ActivityType;
@@ -11,6 +11,8 @@ type LogActivityParams = {
   metadata?: Record<string, any>;
   userId?: string;
 }
+
+const supabase = createClient();
 
 export async function logActivity({
   type,

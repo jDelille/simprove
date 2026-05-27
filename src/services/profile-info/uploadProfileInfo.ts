@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 
 type UploadProfileInfoParams = {
   userId: string;
@@ -9,6 +9,8 @@ type UploadProfileInfoParams = {
   location?: string;
   is_new_account?: boolean;
 };
+
+const supabase = createClient();
 
 export async function uploadProfileInfo({
   userId,

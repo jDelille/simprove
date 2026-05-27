@@ -1,5 +1,7 @@
-import { supabase } from "@/lib/supabase/client";
 import imageCompression from "browser-image-compression";
+import { createClient } from "@/lib/supabase/client";
+
+const supabase = createClient();
 
 export async function uploadProfilePicture({
   userId,

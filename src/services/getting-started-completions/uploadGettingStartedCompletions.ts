@@ -1,9 +1,11 @@
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 
 type UploadGettingStartedCompletionsParams = {
   userId: string;
   step: number;
 };
+
+const supabase = createClient();
 
 export async function uploadGettingStartedCompletions({
   userId,

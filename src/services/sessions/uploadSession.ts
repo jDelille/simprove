@@ -1,4 +1,3 @@
-import { supabase } from "@/lib/supabase/client";
 import { logActivity } from "../notifications/logActivity";
 import { calculateAverages } from "@/lib/shots/averages";
 import { fetchAIRecommendedLessons } from "@/claude-ai/fetchAIRecommendedLessons";
@@ -13,11 +12,11 @@ import { applySessionToLessonDrills } from "@/lib/lessons/applySessionToLessonDr
 import { awardUserPoints } from "../user-points/uploadUserPoints";
 import { POINTS } from "@/lib/points/constants";
 import { checkFirstSessionAchievement } from "@/lib/badges/checkFirstSessionBadge";
-import {
-  evaluateAchievementsFromRound,
-  evaluateAchievementsFromSession,
-} from "../achievments/evaluateAchievementsFromRound";
+import { evaluateAchievementsFromSession } from "../achievments/evaluateAchievementsFromRound";
 import { awardAchievement } from "../achievments/awardAchievement";
+import { createClient } from "@/lib/supabase/client";
+
+const supabase = createClient();
 
 type UploadSessionProps = {
   userId: string;
@@ -114,7 +113,7 @@ export async function uploadSession({
   const activeLessonId = await getActiveLessonId(userId, supabase);
 
   // Award user points for session upload
-  await awardUserPoints(userId, supabase, POINTS.session.upload);
+  await awardUserPoints(userId, POINTS.session.upload, supabase);
 
   // Update leaderboard with new points
   // await uploadLeaderboard(supabase, POINTS.session.upload, userId);

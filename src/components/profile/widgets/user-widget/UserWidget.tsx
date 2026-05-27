@@ -8,10 +8,9 @@ import Button from "@/components/ui/button/Button";
 import { getInitials } from "@/lib/getInitials";
 import { useState } from "react";
 import { followUser, unfollowUser } from "@/services/follows/follows";
-import { supabase } from "@/lib/supabase/client";
 import { SocialData } from "@/types/socialData";
 import { useRouter } from "next/navigation";
-import { profile } from "console";
+import { createClient } from "@/lib/supabase/client";
 
 type UserWidgetProps = {
   user: Profile;
@@ -19,6 +18,8 @@ type UserWidgetProps = {
   currentUserId: string;
   leaderboardPosition: any;
 };
+
+const supabase = createClient();
 
 const UserWidget = ({
   user,

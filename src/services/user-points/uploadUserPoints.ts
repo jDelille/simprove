@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 export const awardUserPoints = async (
   userId: string,
   pointsToAdd: number,
-  supabaseClient?: SupabaseClient
+  supabaseClient?: SupabaseClient,
 ) => {
   const supabase = supabaseClient ?? createClient();
 
@@ -24,15 +24,13 @@ export const awardUserPoints = async (
   const currentPoints = existingPoints?.total_points ?? 0;
   const newPoints = currentPoints + pointsToAdd;
 
-  const { error: upsertError } = await supabase
-    .from("user_points")
-    .upsert(
-      {
-        user_id: userId,
-        total_points: newPoints,
-      },
-      { onConflict: "user_id" }
-    );
+  const { error: upsertError } = await supabase.from("user_points").upsert(
+    {
+      user_id: userId,
+      total_points: newPoints,
+    },
+    { onConflict: "user_id" },
+  );
 
   if (upsertError) {
     console.error("Error updating user points:", upsertError);
@@ -49,7 +47,7 @@ export const awardUserPoints = async (
       .eq("id", userId);
   }
 
-  await uploadLeaderboard(supabase, pointsToAdd, userId);
+  await uploadLeaderboard(pointsToAdd, userId, supabase);
 
   return { newPoints };
 };

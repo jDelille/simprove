@@ -1,8 +1,10 @@
-import { supabase } from "@/lib/supabase/client";
 import { awardUserPoints } from "../user-points/uploadUserPoints";
 import { POINTS } from "@/lib/points/constants";
 import { evaluateAchievementsFromRound } from "../achievments/evaluateAchievementsFromRound";
 import { awardAchievement } from "../achievments/awardAchievement";
+import { createClient } from "@/lib/supabase/client";
+
+const supabase = createClient();
 
 export async function uploadGSProRound({
   userId,
@@ -39,7 +41,7 @@ export async function uploadGSProRound({
   if (error) throw error;
 
   // award user points for round upload
-  await awardUserPoints(userId, supabase, POINTS.round.upload);
+  await awardUserPoints(userId, POINTS.round.upload, supabase);
 
   // check achievements
 

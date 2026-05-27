@@ -1,5 +1,7 @@
-import { supabase } from "@/lib/supabase/client";
 import { logActivity } from "../notifications/logActivity";
+import { createClient } from "@/lib/supabase/client";
+
+const supabase = createClient();
 
 export async function awardAchievement(
   userId: string,

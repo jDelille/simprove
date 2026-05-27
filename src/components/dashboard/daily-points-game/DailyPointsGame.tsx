@@ -3,7 +3,7 @@ import styles from "./DailyPointsGame.module.scss";
 import Button from "@/components/ui/button/Button";
 import usePopup from "@/hooks/usePopup";
 import { awardUserPoints } from "@/services/user-points/uploadUserPoints";
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 import { updateLastRolled } from "@/services/profile/updateLastRollDate";
 import { IoClose } from "react-icons/io5";
 import { updateStreak } from "@/services/profile/updateStreak";
@@ -35,7 +35,12 @@ type DailyPointsGameProps = {
   userId: string;
 };
 
-const DailyPointsGame = ({ userId, onComplete }: DailyPointsGameProps & { onComplete: () => void }) => {
+const supabase = createClient();
+
+const DailyPointsGame = ({
+  userId,
+  onComplete,
+}: DailyPointsGameProps & { onComplete: () => void }) => {
   const [running, setRunning] = useState(false);
   const [value, setValue] = useState(0);
   const [phase, setPhase] = useState("Hit swing to start");
@@ -53,7 +58,6 @@ const DailyPointsGame = ({ userId, onComplete }: DailyPointsGameProps & { onComp
   const dirRef = useRef(1);
   const startTs = useRef<number | null>(null);
   const lastTs = useRef<number | null>(null);
-
 
   const tick = (ts: number) => {
     if (!startTs.current) startTs.current = ts;
@@ -114,7 +118,7 @@ const DailyPointsGame = ({ userId, onComplete }: DailyPointsGameProps & { onComp
     if (!result) return;
 
     await Promise.all([
-      awardUserPoints(userId, supabase, result.pts),
+      awardUserPoints(userId, result.pts, supabase),
       updateLastRolled(userId, supabase),
       updateStreak(userId, supabase),
     ]);
@@ -123,7 +127,6 @@ const DailyPointsGame = ({ userId, onComplete }: DailyPointsGameProps & { onComp
     closePopup("dailyPoints");
   };
 
- 
   const targetPct = (TARGET / MAX) * 100;
   const valuePct = (value / MAX) * 100;
   const diffStr = result
@@ -136,7 +139,10 @@ const DailyPointsGame = ({ userId, onComplete }: DailyPointsGameProps & { onComp
 
   return (
     <div className={styles.wrap}>
-        <IoClose className={styles.closeBtn} onClick={() => closePopup("dailyPoints")} />
+      <IoClose
+        className={styles.closeBtn}
+        onClick={() => closePopup("dailyPoints")}
+      />
       <div className={styles.targetCard}>
         <p className={styles.targetLabel}>Today's target</p>
         <p className={styles.targetYardage}>{TARGET}</p>

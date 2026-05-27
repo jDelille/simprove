@@ -1,4 +1,6 @@
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
+
+const supabase = createClient();
 
 export async function fetchAllAchievementGlobalPercentages() {
   const { data: completedRows, error } = await supabase
