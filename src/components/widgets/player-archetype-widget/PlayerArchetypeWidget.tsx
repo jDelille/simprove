@@ -79,7 +79,7 @@ const PlayerArchetypeWidget = ({ rounds }: PlayerArchetypeWidgetProps) => {
   return (
     <div className={styles.playerArchetypeWidget} id="player-archetype">
       <div className={styles.header}>
-        <p>Player Archetype</p>
+        <p>Overall Attribute Breakdown</p>
       </div>
       <div className={styles.content}>
         <p className={styles.archetypeName}>{archetype.name}</p>

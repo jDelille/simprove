@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/context/ThemeContext";
-import Navbar from "@/components/navbar/Navbar";
 import { Providers } from "./providers";
-import Footer from "@/components/footer/Footer";
 import { createSupabaseServer } from "@/lib/supabase/server";
 import { fetchProfileInfo } from "@/services/profile-info/fetchProfileInfo";
-import ClientTourWrapper from "@/components/tour-controller/ClientTourWrapper";
 import { fetchNotifications } from "@/services/notifications/fetchNotifications";
-import AnnouncementBar from "@/components/announcement-bar/AnnouncementBar";
 import { getActivitiesData } from "@/services/activities/getActivitiesData";
+import ClientTourWrapper from "@/components/tour-controller/ClientTourWrapper";
+import AppShell from "./(shell)/AppShell";
 import "@/styles/globals.scss";
 
 const inter = Inter({
@@ -29,7 +27,7 @@ export default async function RootLayout({
 }>) {
   const supabase = await createSupabaseServer();
 
-  const { profile } = await fetchProfileInfo({supabaseClient: supabase});
+  const { profile } = await fetchProfileInfo({ supabaseClient: supabase });
   const userId = profile?.id;
 
   let sessions: any[] = [];
@@ -53,15 +51,11 @@ export default async function RootLayout({
     <html lang="en">
       <body className={`${inter.variable}`}>
         <ThemeProvider>
-          <Navbar profile={profile} notifications={notifications} />
-          <AnnouncementBar
-            hasActivities={hasActivities}
-            isDemoAccount={profile?.is_demo_account}
-          />
           <Providers>
-            <ClientTourWrapper profile={profile}>{children}</ClientTourWrapper>
+            <ClientTourWrapper profile={profile}>
+              <AppShell>{children}</AppShell>
+            </ClientTourWrapper>
           </Providers>
-          <Footer />
         </ThemeProvider>
       </body>
     </html>

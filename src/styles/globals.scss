@@ -12,7 +12,7 @@
 html.light {
   --bg: #fff;
   --secondaryBg: #fafafa;
-  --messageBg: #F7F7F7;
+  --messageBg: #f7f7f7;
   --text: #030712;
   --border: #ebeef4;
   --lightgray: #4a5565;
@@ -238,6 +238,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.guide-page {
+  background-color: var(--secondaryBg);
+  color: var(--text);
+  height: fit-content;
+  min-height: 100vh;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  padding: 1rem;
+  gap: 3rem;
 }
 
 .ClubBreakdownWidget-module-scss-module__0GQQFW__shotTableContainer

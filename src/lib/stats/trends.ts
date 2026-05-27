@@ -88,12 +88,12 @@ export const formatTrend = (trend: {
   switch (trend.direction) {
     case "increase":
       return {
-        text: `${trend.percentChange}% increase from last month`,
+        text: `+${trend.percentChange}% from last month`,
         color: "var(--accent)",
       };
     case "decrease":
       return {
-        text: `${trend.percentChange}% decrease from last month`,
+        text: `-${trend.percentChange}% from last month`,
         color: "#c93c32",
       };
     default:

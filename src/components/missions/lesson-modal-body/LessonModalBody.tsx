@@ -24,7 +24,7 @@ const LessonModalBody: React.FC<LessonModalBodyProps> = ({
   onClickStart,
   completedLessonIds,
 }) => {
-  console.log("Selected Plan:", selectedPlan);
+  // console.log("Selected Plan:", selectedPlan);
   return (
     <div className={styles.planBody}>
       <div className={styles.tags}>

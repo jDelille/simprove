@@ -92,7 +92,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
             Profile
             <FaRegUserCircle size={17} color="var(--lightgray)" />
           </li>
-          <li onClick={() => handleLinkClick(`/guide`)}>
+          <li onClick={() => handleLinkClick(`/guide/getting-started/overview`)}>
             Guide
             <GrHelpBook size={17} color="var(--lightgray)" />
           </li>

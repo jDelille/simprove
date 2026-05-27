@@ -1,71 +1,62 @@
+@use "@/styles/breakpoints" as bp;
+
 .sidebar {
-  height: 100vh;
-  width: 260px;
-  padding-top: 3rem;
-  .version {
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 5px;
-
-    .text {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      p {
-        font-size: 14px;
-        font-weight: 600;
-      }
-
-      span {
-        font-size: 11px;
-        color: var(--lightgray);
-      }
-    }
-
-    .icon {
-      background-color: var(--lightBlue);
-      color: var(--blueText);
-      outline: 1px solid var(--blueBorder);
-      border-radius: 6px;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+  height: 80vh;
+  width: 300px;
+  position: sticky;
+  top: 2rem;
+  padding: 0 1rem;
+  @include bp.mobile() {
+    display: none;
   }
-  .group {
+  .nav {
     display: flex;
     flex-direction: column;
-    margin-bottom: 2rem;
 
-    h4 {
-      font-size: 14px;
-      font-weight: 500;
-      margin-bottom: 8px;
+    .section {
+      padding-bottom: 1rem;
     }
 
-    ul {
+    .sectionLabel {
+      all: unset;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 500;
+      height: 30px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .sectionList {
       display: flex;
       flex-direction: column;
-      padding-inline: 0.125rem;
-      li {
-        font-size: 14px;
-        cursor: pointer;
-        color: var(--lightgray);
+      gap: 5px;
+      position: relative;
+    }
 
-        .link {
-          height: 28px;
-          display: flex;
-          align-items: center;
+    .link {
+      font-size: 13px;
+      color: var(--lightgray);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      height: 30px;
+      font-weight: 400;
+      padding: 0 5px;
+      border-radius: 6px;
 
-          &:hover {
-            color: var(--text);
-          }
-        }
+      &:hover {
+        background: var(--primaryHover);
+        color: var(--text);
       }
+    }
+
+    .active {
+        color: var(--text);
     }
   }
 }

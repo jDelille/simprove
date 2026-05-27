@@ -101,7 +101,7 @@ const Dashboard = (props: DashboardProps) => {
             value={profileMetrics.mostUsedClub || "N/A"}
             metric=""
             trend={null}
-            trendText={`${profileMetrics.mostUsedClubCount || 0} total shots with this club`}
+            trendText={`${profileMetrics.mostUsedClubCount || 0} total shots`}
             isEmpty={shots.length === 0}
           />
         </div>

@@ -78,7 +78,7 @@ export const steps: Tour[] = [
       },
       {
         icon: "😄",
-        title: "Player Achetype",
+        title: "Overall Attribute Breakdown",
         content:
           "Based on your shot data, we can classify your player archetype to help identify your strengths and weaknesses.",
         selector: "#player-archetype",

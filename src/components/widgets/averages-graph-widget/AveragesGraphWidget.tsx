@@ -44,10 +44,10 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
   // Define labels + units
   const controls: { key: MetricKey; label: string; unit?: string }[] = [
     { key: "avgCarry", label: "Carry", unit: "yds" },
-    { key: "avgSpeed", label: "Ball Speed", unit: "mph" },
+    { key: "avgSpeed", label: "Speed", unit: "mph" },
     { key: "avgOffline", label: "Offline", unit: "yds" },
-    { key: "avgSpin", label: "Back Spin", unit: "rpm" },
-    { key: "count", label: "Total Shots" },
+    { key: "avgSpin", label: "Spin", unit: "rpm" },
+    { key: "count", label: "Shots" },
   ];
 
   const metric = controls.find((c) => c.key === selectedMetric);

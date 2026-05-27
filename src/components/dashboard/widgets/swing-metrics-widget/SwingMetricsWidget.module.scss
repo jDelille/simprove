@@ -3,14 +3,17 @@
 
 .widget {
   @include widget();
-  padding: 1rem;
+  padding: 0;
   position: relative;
+  height: 370.8px;
   @include bp.mobile {
     max-height: none;
   }
 
   .header {
     @include widgetHeader();
+    padding: 1rem;
+    padding-bottom: 0.5rem;
     color: var(--text);
     p {
       display: flex;

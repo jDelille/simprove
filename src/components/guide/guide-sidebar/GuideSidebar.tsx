@@ -1,63 +1,86 @@
-import React from "react";
-import guide from "@/lib/guide/guideContent.json";
+"use client";
+
 import styles from "./GuideSidebar.module.scss";
-import { FiTag } from "react-icons/fi";
+import Link from "next/link";
+import { guides } from "@/lib/guides";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { FaAngleDown } from "react-icons/fa6";
 
-type GuideSidebarProps = {
-  setId: (path: string) => void;
-  slug: string;
-};
+const GuideSidebar = () => {
+  const pathname = usePathname();
 
-const GuideSidebar = ({ setId, slug }: GuideSidebarProps) => {
-  const navGroups = [
-    {
-      id: "getting_started",
-      label: "Getting started",
-      links: [
-        { id: 1, title: "User Guide", href: "user-guide", slug: "getting-started" },
-        { id: 2, title: "Importing Data", href: "importing", slug: "importing" },
-        { id: 3, title: "Setup", href: "setup", slug: "setup" },
-      ],
+  const initialOpen = guides.reduce(
+    (acc, section) => {
+      acc[section.slug] = true;
+      return acc;
     },
-    // {
-    //   id: "dashboard",
-    //   label: "Dashboard",
-    //   links: [
-    //     { id: 4, title: "Your Data", href: "#your_data" },
-    //     { id: 5, title: "Setup", href: "#setup" },
-    //   ],
-    // },
-  ];
+    {} as Record<string, boolean>,
+  );
+
+  const [openSections, setOpenSections] =
+    useState<Record<string, boolean>>(initialOpen);
+
+  const toggleSection = (slug: string) => {
+    setOpenSections((prev) => ({
+      ...prev,
+      [slug]: !prev[slug],
+    }));
+  };
 
   return (
-    <div className={styles.sidebar}>
-      <div className={styles.version}>
-        <div className={styles.icon}><FiTag size={16} /></div>
-        <div className={styles.text}>
-          <p>Latest Version</p>
-          <span>Beta 1.0.7</span>
-        </div>
-      </div>
-      {navGroups.map((group) => (
-        <div className={styles.group} key={group.id}>
-          <h4>{group.label}</h4>
-          <ul>
-            <li>
-              {group.links.map((link) => (
-                <div
-                  key={link.id}
-                  className={styles.link}
-                  onClick={() => setId(link.href)}
-                  style={slug === link.slug ? { color: "var(--text)" } : undefined}
-                >
-                  {link.title}
-                </div>
-              ))}
+    <aside className={styles.sidebar}>
+      <nav className={styles.nav}>
+        <ul>
+          {guides.map((section) => (
+            <li key={section.slug} className={styles.section}>
+              <button
+                className={`${styles.sectionLabel} ${
+                  openSections[section.slug] ? styles.open : ""
+                }`}
+                onClick={() => toggleSection(section.slug)}
+              >
+                {section.section}
+
+                <FaAngleDown
+                  className={styles.chevron}
+                  size={10}
+                  style={{
+                    transform: openSections[section.slug]
+                      ? "rotate(180deg)"
+                      : "rotate(0deg)",
+                    transition: "transform 0.2s ease",
+                  }}
+                />
+              </button>
+
+              {openSections[section.slug] && (
+                <ul className={styles.sectionList}>
+                  {section.links.map((link) => {
+                    const href = `/guide/${section.slug}/${link.slug}`;
+
+                    const isActive = pathname === href;
+
+                    return (
+                      <li key={link.slug}>
+                        <Link
+                          href={href}
+                          className={`${styles.link} ${
+                            isActive ? styles.active : ""
+                          }`}
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
             </li>
-          </ul>
-        </div>
-      ))}
-    </div>
+          ))}
+        </ul>
+      </nav>
+    </aside>
   );
 };
 

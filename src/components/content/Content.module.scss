@@ -1,0 +1,145 @@
+@use "@/styles/breakpoints" as bp;
+
+.content {
+  margin-top: 1rem;
+  font-size: 15px;
+  width: 70%;
+  min-height: 85vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  @include bp.mobile() {
+    width: 100%;
+  }
+  .description {
+    line-height: 24px;
+    padding-bottom: 1rem;
+  }
+
+  .row {
+    padding: 1rem 0;
+
+    h2 {
+      font-weight: 600;
+      padding-bottom: 1rem;
+    }
+
+    p {
+      line-height: 21px;
+    }
+
+    .cardGrid {
+      display: flex;
+      gap: 1rem;
+
+      @include bp.mobile() {
+        flex-direction: column;
+      }
+
+      .card {
+        background-color: var(--bg);
+        border: 1px solid var(--border);
+        padding: 1rem;
+        font-size: 14px;
+        border-radius: 12px;
+        p {
+          padding-top: 5px;
+        }
+        ul {
+          list-style-type: square !important;
+
+      
+        }
+
+        a {
+          color: var(--accent);
+        }
+      }
+
+      h3 {
+        font-weight: 500;
+      }
+    }
+
+    ul,
+    ol {
+      padding: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      list-style-type: disc;
+      padding-top: 0.5rem;
+
+      strong {
+        font-weight: 600;
+      }
+
+      li {
+        line-height: 24px;
+      }
+    }
+
+    .disclaimer {
+      background: var(--green);
+      border: 1px solid var(--greenBorder);
+      color: var(--text);
+      padding: 10px 10px;
+      border-radius: 12px;
+      display: flex;
+      gap: 0.75rem;
+      font-size: 14px;
+      line-height: 24px;
+    }
+
+    .imageContainer {
+      width: 100%;
+      height: auto;
+      margin-top: 1rem;
+      max-height: 450px;
+      display: flex;
+      .image {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  .footer {
+    width: 100%;
+    margin-top: auto;
+    padding-top: 2rem;
+    position: relative;
+    display: flex;
+    gap: 1rem;
+
+    .navigate,
+    .navigateBack {
+      border: 1px solid var(--border);
+      flex: 1;
+      color: var(--text);
+      padding: 1rem;
+      height: 75px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      position: relative;
+      gap: 5px;
+      span {
+        font-size: 12px;
+        color: var(--lightgray);
+      }
+
+      .text {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    .navigateBack {
+      .text {
+        align-items: flex-end;
+      }
+    }
+  }
+}
