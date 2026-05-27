@@ -3,10 +3,9 @@ import styles from "./CareerStatsWidget.module.scss";
 import { Averages, RoundStats } from "@/lib/shots/averages";
 
 type CareerStatsWidgetProps = {
-  stats: Averages & RoundStats & { totalSessions: number };
+  stats: Averages & RoundStats & { totalSessions: number; totalPoints: number };
 };
-const CareerStatsWidget = ({stats}: CareerStatsWidgetProps) => {
-
+const CareerStatsWidget = ({ stats }: CareerStatsWidgetProps) => {
   return (
     <div className={styles.widget}>
       <div className={styles.header}>
@@ -27,15 +26,19 @@ const CareerStatsWidget = ({stats}: CareerStatsWidgetProps) => {
         </li>
         <li>
           <p>Total points</p>
-          <p className={styles.value}>0</p>
+          <p className={styles.value}>{stats.totalPoints || 0} </p>
         </li>
         <li>
           <p>Longest Carry</p>
-          <p className={styles.value}>{stats.longestCarry?.toFixed(1) || 0} yds</p>
+          <p className={styles.value}>
+            {stats.longestCarry?.toFixed(1) || 0} yds
+          </p>
         </li>
         <li>
           <p>Best ball speed</p>
-          <p className={styles.value}>{stats.peakBallSpeed?.toFixed(1) || 0} mph</p>
+          <p className={styles.value}>
+            {stats.peakBallSpeed?.toFixed(1) || 0} mph
+          </p>
         </li>
         <li>
           <p>Most used club</p>

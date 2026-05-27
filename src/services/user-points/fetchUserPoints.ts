@@ -1,9 +1,11 @@
+import { createClient } from "@/lib/supabase/client";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { supabase as browserClient } from "@/lib/supabase/client";
+
+const supabase = createClient();
 
 export const fetchUserPoints = async (
   userId: string,
-  supabaseClient: SupabaseClient = browserClient,
+  supabaseClient: SupabaseClient = supabase,
 ) => {
   const { data: totalPoints, error: totalError } = await supabaseClient
     .from("user_points")

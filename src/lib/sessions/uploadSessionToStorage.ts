@@ -1,5 +1,4 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { supabase as browserClient } from "@/lib/supabase/client";
 
 export const uploadSessionToStorage = async (
   supabaseClient: SupabaseClient,

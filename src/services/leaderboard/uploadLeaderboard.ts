@@ -1,9 +1,11 @@
+import { createClient } from "@/lib/supabase/client";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { supabase as browserClient } from "@/lib/supabase/client";
 import moment from "moment";
 
+const supabase = createClient();
+
 export const uploadLeaderboard = async (
-  supabaseClient: SupabaseClient = browserClient,
+  supabaseClient: SupabaseClient = supabase,
   pointsToAdd: number,
   userId: string,
 ) => {

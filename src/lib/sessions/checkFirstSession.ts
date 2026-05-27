@@ -1,9 +1,11 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { supabase as browserClient } from "@/lib/supabase/client";
+import { createClient } from "../supabase/client";
+
+const supabase = createClient();
 
 export const checkFirstSession = async (
   userId: string,
-  supabaseClient: SupabaseClient = browserClient,
+  supabaseClient: SupabaseClient = supabase,
 ): Promise<boolean> => {
   const { data, error } = await supabaseClient
     .from("sessions")

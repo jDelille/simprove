@@ -1,15 +1,17 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { supabase as browserClient } from "@/lib/supabase/client";
 import { Shot } from "@/types/shot";
 import { Session } from "@/types";
+import { createClient } from "@/lib/supabase/client";
 
 type SessionWithShots = Session & {
   shots: Shot[];
 };
 
+const supabase = createClient();
+
 export const fetchSessions = async (
   userId: string,
-  supabaseClient: SupabaseClient = browserClient,
+  supabaseClient: SupabaseClient = supabase,
 ): Promise<SessionWithShots[]> => {
   const { data: sessionRows, error } = await supabaseClient
     .from("sessions")
@@ -20,7 +22,7 @@ export const fetchSessions = async (
   if (error || !sessionRows) {
     return [];
   }
-  
+
   const sessionsWithData = await Promise.all(
     sessionRows.map(async (row) => {
       if (!row.storage_path) {

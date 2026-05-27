@@ -1,14 +1,15 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { supabase as browserClient, supabase } from "@/lib/supabase/client";
 import { uploadLeaderboard } from "../leaderboard/uploadLeaderboard";
 import { getRankFromPoints } from "@/lib/points/getRankFromPoints";
+import { createClient } from "@/lib/supabase/client";
+
+const supabase = createClient();
 
 export const awardUserPoints = async (
   userId: string,
-  supabaseClient: SupabaseClient = browserClient,
   pointsToAdd: number,
+  supabaseClient: SupabaseClient = supabase,
 ) => {
-  // Fetch current points
   const { data: existingPoints, error: fetchError } = await supabaseClient
     .from("user_points")
     .select("total_points")
@@ -20,36 +21,35 @@ export const awardUserPoints = async (
     return { error: fetchError };
   }
 
-  const currentPoints = existingPoints?.total_points || 0;
-
-  // Increment points
+  const currentPoints = existingPoints?.total_points ?? 0;
   const newPoints = currentPoints + pointsToAdd;
 
-  // Upsert the new points value
-  const { data, error: upsertError } = await supabaseClient
+  const { error: upsertError } = await supabaseClient
     .from("user_points")
     .upsert(
-      { user_id: userId, total_points: newPoints },
-      { onConflict: "user_id" },
-    )
-    .select()
-    .maybeSingle();
+      {
+        user_id: userId,
+        total_points: newPoints,
+      },
+      {
+        onConflict: "user_id",
+      },
+    );
 
   if (upsertError) {
     console.error("Error updating user points:", upsertError);
     return { error: upsertError };
   }
 
-  const newTotal = currentPoints + pointsToAdd;
-  const newRank = getRankFromPoints(newTotal);
   const oldRank = getRankFromPoints(currentPoints);
+  const newRank = getRankFromPoints(newPoints);
 
   if (newRank.rank !== oldRank.rank) {
-  await supabase
-    .from('users')
-    .update({ rank: newRank.rank })
-    .eq('id', userId);
-}
+    await supabaseClient
+      .from("users")
+      .update({ rank: newRank.rank })
+      .eq("id", userId);
+  }
 
   await uploadLeaderboard(supabaseClient, pointsToAdd, userId);
 

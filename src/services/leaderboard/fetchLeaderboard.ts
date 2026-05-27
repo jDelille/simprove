@@ -1,13 +1,13 @@
+import { createClient } from "@/lib/supabase/client";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { supabase as browserClient } from "@/lib/supabase/client";
+
+const supabase = createClient();
 
 export const fetchLeaderboard = async (
-  supabaseClient: SupabaseClient = browserClient,
-  period: string = "weekly"
+  supabaseClient: SupabaseClient = supabase,
+  period: string = "weekly",
 ) => {
-  const { data, error } = await supabaseClient
-    .from("users")
-    .select(`
+  const { data, error } = await supabaseClient.from("users").select(`
       id,
       username,
       display_name,
@@ -22,9 +22,7 @@ export const fetchLeaderboard = async (
   }
 
   const leaderboardData = (data ?? []).map((user) => {
-    const entry = user.leaderboard?.find(
-      (l: any) => l.period_type === period
-    );
+    const entry = user.leaderboard?.find((l: any) => l.period_type === period);
 
     return {
       id: user.id,
