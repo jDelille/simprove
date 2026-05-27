@@ -1,13 +1,13 @@
-import { createClient } from "@/lib/supabase/client";
 import { SupabaseClient } from "@supabase/supabase-js";
-
-const supabase = createClient();
+import { createClient } from "@/lib/supabase/client";
 
 export const fetchGettingStartedCompletions = async (
   userId: string,
-  supabaseClient: SupabaseClient = supabase
+  supabaseClient?: SupabaseClient
 ) => {
-  const { data: completions, error } = await supabaseClient
+  const supabase = supabaseClient ?? createClient();
+
+  const { data: completions, error } = await supabase
     .from("getting_started_completions")
     .select("*")
     .eq("user_id", userId);

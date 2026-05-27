@@ -3,14 +3,14 @@ import { uploadLeaderboard } from "../leaderboard/uploadLeaderboard";
 import { getRankFromPoints } from "@/lib/points/getRankFromPoints";
 import { createClient } from "@/lib/supabase/client";
 
-const supabase = createClient();
-
 export const awardUserPoints = async (
   userId: string,
   pointsToAdd: number,
-  supabaseClient: SupabaseClient = supabase,
+  supabaseClient?: SupabaseClient
 ) => {
-  const { data: existingPoints, error: fetchError } = await supabaseClient
+  const supabase = supabaseClient ?? createClient();
+
+  const { data: existingPoints, error: fetchError } = await supabase
     .from("user_points")
     .select("total_points")
     .eq("user_id", userId)
@@ -24,16 +24,14 @@ export const awardUserPoints = async (
   const currentPoints = existingPoints?.total_points ?? 0;
   const newPoints = currentPoints + pointsToAdd;
 
-  const { error: upsertError } = await supabaseClient
+  const { error: upsertError } = await supabase
     .from("user_points")
     .upsert(
       {
         user_id: userId,
         total_points: newPoints,
       },
-      {
-        onConflict: "user_id",
-      },
+      { onConflict: "user_id" }
     );
 
   if (upsertError) {
@@ -44,14 +42,14 @@ export const awardUserPoints = async (
   const oldRank = getRankFromPoints(currentPoints);
   const newRank = getRankFromPoints(newPoints);
 
-  if (newRank.rank !== oldRank.rank) {
-    await supabaseClient
+  if (oldRank.rank !== newRank.rank) {
+    await supabase
       .from("users")
       .update({ rank: newRank.rank })
       .eq("id", userId);
   }
 
-  await uploadLeaderboard(supabaseClient, pointsToAdd, userId);
+  await uploadLeaderboard(supabase, pointsToAdd, userId);
 
   return { newPoints };
 };

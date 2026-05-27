@@ -1,13 +1,13 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { createClient } from "../supabase/client";
-
-const supabase = createClient();
+import { createClient } from "@/lib/supabase/client";
 
 export const checkFirstSession = async (
   userId: string,
-  supabaseClient: SupabaseClient = supabase,
+  supabaseClient?: SupabaseClient,
 ): Promise<boolean> => {
-  const { data, error } = await supabaseClient
+  const supabase = supabaseClient ?? createClient();
+
+  const { data, error } = await supabase
     .from("sessions")
     .select("id")
     .eq("user_id", userId)

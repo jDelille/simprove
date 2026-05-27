@@ -7,19 +7,20 @@ type SessionWithShots = Session & {
   shots: Shot[];
 };
 
-const supabase = createClient();
-
 export const fetchSessions = async (
   userId: string,
-  supabaseClient: SupabaseClient = supabase,
+  supabaseClient?: SupabaseClient,
 ): Promise<SessionWithShots[]> => {
-  const { data: sessionRows, error } = await supabaseClient
+  const supabase = supabaseClient ?? createClient();
+
+  const { data: sessionRows, error } = await supabase
     .from("sessions")
     .select("*")
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
 
   if (error || !sessionRows) {
+    console.error("Error fetching sessions:", error);
     return [];
   }
 
@@ -33,12 +34,17 @@ export const fetchSessions = async (
       }
 
       const { data: fileData, error: storageError } =
-        await supabaseClient.storage
+        await supabase.storage
           .from("sessions")
           .download(row.storage_path);
 
-      if (storageError)
-        return { ...row, error: "Failed to fetch session data" };
+      if (storageError || !fileData) {
+        console.error("Failed to fetch session data:", storageError);
+        return {
+          ...row,
+          shots: [],
+        };
+      }
 
       const text = await fileData.text();
       const parsed = JSON.parse(text);

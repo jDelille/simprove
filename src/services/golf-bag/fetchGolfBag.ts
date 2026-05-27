@@ -1,13 +1,13 @@
-import { createClient } from "@/lib/supabase/client";
 import { SupabaseClient } from "@supabase/supabase-js";
-
-const supabase = createClient();
+import { createClient } from "@/lib/supabase/client";
 
 export const fetchGolfBag = async (
   userId: string,
-  supabaseClient: SupabaseClient = supabase,
+  supabaseClient?: SupabaseClient,
 ) => {
-  const { data: golfBagRows, error } = await supabaseClient
+  const supabase = supabaseClient ?? createClient();
+
+  const { data: golfBagRows, error } = await supabase
     .from("club_bag")
     .select("*")
     .eq("user_id", userId)
@@ -15,5 +15,5 @@ export const fetchGolfBag = async (
 
   if (error) throw new Error("Failed to fetch golf bag");
 
-  return golfBagRows;
+  return golfBagRows ?? [];
 };

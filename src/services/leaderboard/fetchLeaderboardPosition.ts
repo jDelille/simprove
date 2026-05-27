@@ -1,14 +1,14 @@
-import { createClient } from "@/lib/supabase/client";
 import { SupabaseClient } from "@supabase/supabase-js";
-
-const supabase = createClient();
+import { createClient } from "@/lib/supabase/client";
 
 export const fetchUserLeaderboardPosition = async (
   userId: string,
-  supabaseClient: SupabaseClient = supabase,
-  period: string = "weekly"
+  period: string = "weekly",
+  supabaseClient?: SupabaseClient,
 ) => {
-  const { data, error } = await supabaseClient
+  const supabase = supabaseClient ?? createClient();
+
+  const { data, error } = await supabase
     .from("users")
     .select(`
       id,
@@ -25,7 +25,6 @@ export const fetchUserLeaderboardPosition = async (
     };
   }
 
-  // Match leaderboard page behavior
   const leaderboard = (data ?? []).map((user) => {
     const entry = user.leaderboard?.find(
       (l: any) => l.period_type === period
@@ -37,10 +36,8 @@ export const fetchUserLeaderboardPosition = async (
     };
   });
 
-  // Sort descending by points
   leaderboard.sort((a, b) => b.points - a.points);
 
-  // Assign ranks with tie handling
   let currentRank = 0;
   let previousPoints: number | null = null;
 
@@ -56,7 +53,6 @@ export const fetchUserLeaderboardPosition = async (
     };
   });
 
-  // Find user
   const userEntry = ranked.find(
     (entry) => entry.user_id === String(userId)
   );

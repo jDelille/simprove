@@ -1,13 +1,13 @@
-import { createClient } from "@/lib/supabase/client";
 import { SupabaseClient } from "@supabase/supabase-js";
-
-const supabase = createClient();
+import { createClient } from "@/lib/supabase/client";
 
 export const fetchUserPoints = async (
   userId: string,
-  supabaseClient: SupabaseClient = supabase,
+  supabaseClient?: SupabaseClient,
 ) => {
-  const { data: totalPoints, error: totalError } = await supabaseClient
+  const supabase = supabaseClient ?? createClient();
+
+  const { data: totalPoints, error: totalError } = await supabase
     .from("user_points")
     .select("*")
     .eq("user_id", userId)
@@ -15,20 +15,27 @@ export const fetchUserPoints = async (
 
   if (totalError) {
     console.error("Error fetching user points:", totalError);
-    return { userPoints: null, error: totalError };
+    return {
+      totalPoints: 0,
+      weeklyPoints: 0,
+      error: totalError,
+    };
   }
 
-  const { data: weeklyPoints, error: weeklyError } = await supabaseClient
+  const { data: weeklyPoints, error: weeklyError } = await supabase
     .from("leaderboard")
     .select("points")
     .eq("user_id", userId)
     .eq("period_type", "weekly")
-    .limit(1)
     .maybeSingle();
 
   if (weeklyError) {
     console.error("Error fetching weekly points:", weeklyError);
-    return { totalPoints: null, weeklyPoints: null, error: weeklyError };
+    return {
+      totalPoints: totalPoints?.total_points ?? 0,
+      weeklyPoints: 0,
+      error: weeklyError,
+    };
   }
 
   return {

@@ -1,14 +1,14 @@
-import { createClient } from "@/lib/supabase/client";
 import { SupabaseClient } from "@supabase/supabase-js";
+import { createClient } from "@/lib/supabase/client";
 import moment from "moment";
 
-const supabase = createClient();
-
 export const uploadLeaderboard = async (
-  supabaseClient: SupabaseClient = supabase,
   pointsToAdd: number,
   userId: string,
+  supabaseClient?: SupabaseClient,
 ) => {
+  const supabase = supabaseClient ?? createClient();
+
   const periods = [
     {
       type: "weekly",
@@ -28,7 +28,7 @@ export const uploadLeaderboard = async (
   ];
 
   for (const period of periods) {
-    const { data: existing, error: fetchError } = await supabaseClient
+    const { data: existing, error: fetchError } = await supabase
       .from("leaderboard")
       .select("*")
       .eq("user_id", userId)
@@ -36,15 +36,19 @@ export const uploadLeaderboard = async (
       .limit(1)
       .maybeSingle();
 
+    if (fetchError) {
+      console.error(`Error fetching ${period.type} entry:`, fetchError);
+      return { error: fetchError };
+    }
+
     if (existing) {
-      const { error: updateError, data: updateData } = await supabaseClient
+      const { error: updateError } = await supabase
         .from("leaderboard")
         .update({
           points: existing.points + pointsToAdd,
           updated_at: new Date().toISOString(),
         })
-        .eq("id", existing.id)
-        .select();
+        .eq("id", existing.id);
 
       if (updateError) {
         console.error(
@@ -54,7 +58,7 @@ export const uploadLeaderboard = async (
         return { error: updateError };
       }
     } else {
-      const { error: insertError } = await supabaseClient
+      const { error: insertError } = await supabase
         .from("leaderboard")
         .insert({
           user_id: userId,
