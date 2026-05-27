@@ -2,8 +2,8 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
 
 export const fetchLeaderboard = async (
-  period: string = "weekly",
   supabaseClient?: SupabaseClient,
+  period: string = "weekly",
 ) => {
   const supabase = supabaseClient ?? createClient();
 

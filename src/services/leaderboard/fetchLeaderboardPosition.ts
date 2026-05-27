@@ -3,8 +3,8 @@ import { createClient } from "@/lib/supabase/client";
 
 export const fetchUserLeaderboardPosition = async (
   userId: string,
-  period: string = "weekly",
   supabaseClient?: SupabaseClient,
+  period: string = "weekly",
 ) => {
   const supabase = supabaseClient ?? createClient();
 

@@ -13,9 +13,10 @@ type ProfilePageProps = {
 const ProfilePage = async ({ params }: ProfilePageProps) => {
   const { username } = await params;
   const decodedUsername = decodeURIComponent(username);
+
   const supabase = await createSupabaseServer();
 
-   const {
+  const {
     data: { user },
   } = await supabase.auth.getUser();
 
@@ -30,19 +31,20 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
     .single();
 
   if (!profile) {
-    return;
+    return <h1>404</h1>;
   }
 
   const profileId = profile.id;
 
-  const myClubs = profileId ? await fetchGolfBag(profileId, supabase) : [];
-  const leaderboardPositon = await fetchUserLeaderboardPosition(profileId, supabase);
-
-  const profileData = await getProfileData({
-    supabase,
-    userId: profileId,
-    viewerId: user.id
-  });
+  const [myClubs, leaderboardPosition, profileData] = await Promise.all([
+    fetchGolfBag(profileId, supabase),
+    fetchUserLeaderboardPosition(profileId, supabase),
+    getProfileData({
+      supabase,
+      userId: profileId,
+      viewerId: user.id,
+    }),
+  ]);
 
   if (!profileData) {
     return <h1>404</h1>;
@@ -62,7 +64,7 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
           stats={profileData.stats}
           social={profileData.social}
           currentUserId={user.id}
-          leaderboardPosition={leaderboardPositon}
+          leaderboardPosition={leaderboardPosition}
         />
       </div>
     </div>
