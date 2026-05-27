@@ -3,7 +3,7 @@ import styles from "./CareerStatsWidget.module.scss";
 import { Averages, RoundStats } from "@/lib/shots/averages";
 
 type CareerStatsWidgetProps = {
-  stats: Averages & RoundStats & { totalSessions: number; totalPoints: number };
+  stats: Averages & RoundStats & { totalSessions: number; totalPoints: number; };
 };
 const CareerStatsWidget = ({ stats }: CareerStatsWidgetProps) => {
   return (

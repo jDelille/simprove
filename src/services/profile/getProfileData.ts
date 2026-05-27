@@ -89,7 +89,7 @@ export const getProfileData = async ({ supabase, userId, viewerId }: Props) => {
       ...shotStats,
       ...roundStats,
       totalSessions: sessions?.length ?? 0,
-      ...userPoints
+      totalPoints: userPoints?.totalPoints ?? 0
     },
   };
 };

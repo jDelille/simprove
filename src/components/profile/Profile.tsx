@@ -21,7 +21,7 @@ type ProfileProps = {
   user: ProfileType;
   userPoints: any;
   rounds: Round[];
-  stats: Averages & RoundStats & { totalSessions: number };
+  stats: Averages & RoundStats & { totalSessions: number; totalPoints: number };
   social: SocialData;
   currentUserId: string;
   leaderboardPosition: any;
