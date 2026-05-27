@@ -18,7 +18,7 @@ export default async function GuidePage({
 
   return (
     <div className="guide-page">
-      <GuideSidebar currentSlug={slug} />
+      <GuideSidebar  />
       <GuideContent guide={guide} />
     </div>
   );
