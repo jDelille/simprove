@@ -16,14 +16,22 @@ export const guides: GuideSection[] = [
     slug: "getting-started",
     links: [
       { label: "Overview", slug: "overview", component: "Overview" },
-      { label: "Recording Your First Session", slug: "first-session", component: "FirstSession" },
+      {
+        label: "Recording Your First Session",
+        slug: "first-session",
+        component: "FirstSession",
+      },
     ],
   },
   {
     section: "How to Import",
     slug: "import",
     links: [
-      { label: "Manual Import", slug: "manual-import", component: "ManualImport" },
+      {
+        label: "Manual Import",
+        slug: "manual-import",
+        component: "ManualImport",
+      },
       { label: "Sync Import", slug: "sync-import", component: "SyncImport" },
     ],
   },

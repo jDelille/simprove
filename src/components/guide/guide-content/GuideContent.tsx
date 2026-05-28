@@ -2,8 +2,13 @@ import React from "react";
 import styles from "./GuideContent.module.scss";
 import { guideComponents } from "@/lib/guideComponent";
 
+type Guide = {
+  label: string;
+  component: keyof typeof guideComponents;
+};
+
 type GuideContentProps = {
-  guide: any;
+  guide: Guide;
 };
 
 const GuideContent = ({ guide }: GuideContentProps) => {
@@ -12,6 +17,9 @@ const GuideContent = ({ guide }: GuideContentProps) => {
   if (!Component) {
     return <div className={styles.guideContent}>Missing component</div>;
   }
+
+  console.log("guide.component:", guide.component);
+  console.log("available:", Object.keys(guideComponents));
 
   return (
     <div className={styles.guideContent}>

@@ -19,7 +19,7 @@ export default async function GuidePage({
   return (
     <div className="guide-page">
       <GuideSidebar />
-      <GuideContent guide={guide} />
+      {/* <GuideContent guide={guide} /> */}
     </div>
   );
 }
