@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
-import { guides } from "@/lib/guides";
 import GuideSidebar from "@/components/guide/guide-sidebar/GuideSidebar";
 import GuideContent from "@/components/guide/guide-content/GuideContent";
+import { guides } from "@/lib/guides";
 
 export default async function GuidePage({
   params,
@@ -18,7 +18,7 @@ export default async function GuidePage({
 
   return (
     <div className="guide-page">
-      <GuideSidebar  />
+      <GuideSidebar />
       <GuideContent guide={guide} />
     </div>
   );

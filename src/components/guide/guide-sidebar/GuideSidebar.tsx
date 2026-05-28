@@ -2,10 +2,10 @@
 
 import styles from "./GuideSidebar.module.scss";
 import Link from "next/link";
-import { guides } from "@/lib/guides";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { FaAngleDown } from "react-icons/fa6";
+import { guides } from "@/lib/guides";
 
 const GuideSidebar = () => {
   const pathname = usePathname();
