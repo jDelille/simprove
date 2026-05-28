@@ -2,13 +2,14 @@
 
 .recentSessionsWidget {
   @include widget();
-  padding: 1rem;
+  padding: 0;
   .header {
     @include widgetHeader();
     color: var(--lightgray);
     font-size: 12px;
     text-transform: uppercase;
     font-weight: 400;
+    padding: 1rem;
   }
 
   .content {
@@ -21,7 +22,7 @@
         flex-wrap: wrap;
         cursor: pointer;
         border-top: 1px solid var(--border);
-        
+
         .icon {
           width: 37px;
           height: 37px;

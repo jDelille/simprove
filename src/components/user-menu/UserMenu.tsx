@@ -108,9 +108,9 @@ const UserMenu: React.FC<UserMenuProps> = ({
               <LuMoonStar size={18} color="var(--lightgray)" />
             )}
           </li>
-          <li onClick={() => handleLinkClick("/about")}>
+          {/* <li onClick={() => handleLinkClick("/about")}>
             About <MdOutlineHelpOutline size={18} color="var(--lightgray)" />
-          </li>
+          </li> */}
           <li onClick={onLogout}>
             Logout <MdOutlineLogout size={18} color="var(--lightgray)" />
           </li>

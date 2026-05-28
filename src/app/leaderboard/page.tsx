@@ -13,20 +13,15 @@ const LeaderboardPage = async () => {
     return null;
   }
 
-  const [leaderboardData] = user?.id
-    ? await Promise.all([
-        fetchLeaderboard(supabase),
-    ])
-    : [];
+  const leaderboardData = await fetchLeaderboard(supabase)
 
-    return (
-        <div className="page">
-            <div className="page-content">
-                <Leaderboard leaderboardData={leaderboardData} />
-            </div>
-        </div>
-    )
-
+  return (
+    <div className="page">
+      <div className="page-content">
+        <Leaderboard leaderboardData={leaderboardData} />
+      </div>
+    </div>
+  );
 };
 
 export default LeaderboardPage;

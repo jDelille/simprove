@@ -33,6 +33,10 @@
         display: flex;
         gap: 1rem;
 
+        @include bp.mobile() {
+          flex-direction: column;
+        }
+
       }
     }
   }

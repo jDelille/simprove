@@ -26,7 +26,7 @@ const CareerStatsWidget = ({ stats }: CareerStatsWidgetProps) => {
         </li>
         <li>
           <p>Total points</p>
-          <p className={styles.value}>{stats.totalPoints || 0} </p>
+          <p className={styles.value}>{stats.totalPoints || 0} pts </p>
         </li>
         <li>
           <p>Longest Carry</p>
