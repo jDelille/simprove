@@ -7,7 +7,6 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineSchool } from "react-icons/md";
 import { FaRegUserCircle } from "react-icons/fa";
 import { BsFileBarGraph } from "react-icons/bs";
-import { MdOutlineHelpOutline } from "react-icons/md";
 import { IoSunnyOutline } from "react-icons/io5";
 import { LuMoonStar } from "react-icons/lu";
 import { GrHelpBook } from "react-icons/gr";

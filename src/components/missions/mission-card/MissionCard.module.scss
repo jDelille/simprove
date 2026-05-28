@@ -13,7 +13,7 @@
   padding: 1rem;
   @include bp.mobile {
     width: 100%;
-    height: 250px;
+    height: fit-content;
   }
 
   .tags {

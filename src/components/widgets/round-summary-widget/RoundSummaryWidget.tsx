@@ -37,23 +37,27 @@ const RoundSummaryWidget = ({
     backOverPar,
   } = activity;
 
+  const sortedHoles = [...roundHoles].sort((a, b) => a.index - b.index);
+
   const hasHoles = roundHoles.length > 0;
 
-  const bestHole = hasHoles
-    ? roundHoles.reduce((best, current) => {
-        const currentScore = current.strokes - current.par;
-        const bestScore = best.strokes - best.par;
+  const getScoreDiff = (hole: any) => {
+    if (!hole) return 999;
+    if (typeof hole.strokes !== "number" || typeof hole.par !== "number")
+      return 999;
 
-        return currentScore < bestScore ? current : best;
+    return hole.strokes - hole.par;
+  };
+
+  const bestHole = hasHoles
+    ? sortedHoles.reduce((best, current) => {
+        return getScoreDiff(current) < getScoreDiff(best) ? current : best;
       })
     : null;
 
   const worstHole = hasHoles
-    ? roundHoles.reduce((worst, current) => {
-        const currentScore = current.strokes - current.par;
-        const worstScore = worst.strokes - worst.par;
-
-        return currentScore > worstScore ? current : worst;
+    ? sortedHoles.reduce((worst, current) => {
+        return getScoreDiff(current) > getScoreDiff(worst) ? current : worst;
       })
     : null;
 
@@ -81,7 +85,7 @@ const RoundSummaryWidget = ({
     return "E";
   };
 
-  const birdieCount = roundHoles.filter(
+  const birdieCount = sortedHoles.filter(
     (hole) => hole.strokes - hole.par === -1,
   ).length;
 

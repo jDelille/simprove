@@ -1,4 +1,5 @@
 @use "@/styles/mixins" as *;
+@use "@/styles/breakpoints" as bp;
 
 .widget {
   @include widget();
@@ -17,6 +18,9 @@
     .legend {
       display: flex;
       gap: 1rem;
+      @include bp.mobile() {
+        flex-direction: column;
+      }
       .legendItem {
         display: flex;
         align-items: center;
@@ -27,6 +31,44 @@
           width: 10px;
           height: 10px;
           border-radius: 2px;
+        }
+      }
+    }
+
+    .tooltip {
+      background-color: var(--popupBg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      width: 220px;
+      transform: translateY(-10px);
+      .tooltipClub {
+        border-bottom: 1px solid var(--border);
+        padding: 10px 1rem;
+        font-size: 22px;
+        font-weight: 600;
+      }
+      .tooltipValue {
+        font-size: 14px;
+        padding: 1rem;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        ul {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          li {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            span {
+              color: var(--accent);
+              font-weight: 500;
+            }
+          }
         }
       }
     }

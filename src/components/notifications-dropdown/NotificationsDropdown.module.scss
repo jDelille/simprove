@@ -15,9 +15,16 @@
   box-shadow: var(--notifDropdownShadow);
 
   @include bp.mobile {
-    width: 90vw;
+    position: fixed;
+    width: 100vw;
+    top: 62px;
+    left: 50%;
+    transform: translateX(-50%);
     right: auto;
-    left: -51vw;
+    background: var(--bg);
+    border-radius: 0;
+    border-top: none;
+    box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.3);
   }
   .header {
     padding: 10px 1rem;
@@ -25,6 +32,10 @@
     flex-direction: column;
     gap: 1rem;
     border-bottom: 1px solid var(--border);
+
+    @include bp.mobile {
+      padding: 1rem 1.5rem;
+    }
 
     .top {
       display: flex;
@@ -101,6 +112,9 @@
       font-size: 12px;
       cursor: pointer;
       border-bottom: 1px solid var(--border);
+      @include bp.mobile {
+        padding: 1rem 1.5rem;
+      }
       &:nth-last-child(1) {
         border-bottom: none;
       }
@@ -179,6 +193,10 @@
     border-left: none;
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
+
+    @include bp.mobile() {
+      background: var(--bg);
+    }
     a {
       color: var(--accent);
       font-size: 11px;

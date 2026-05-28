@@ -6,7 +6,7 @@ import Link from "next/link";
 import styles from "./Navbar.module.scss";
 import useModal from "@/hooks/useModal";
 import UploadCsv from "../upload-csv/UploadCsv";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserMenu from "../user-menu/UserMenu";
 import { FaChevronDown } from "react-icons/fa6";
 import { createClient } from "@/lib/supabase/client";
@@ -55,7 +55,10 @@ const Navbar: React.FC<NavbarProps> = ({ profile, notifications }) => {
     setOpenMenu(false);
   };
 
-const hasNotifications = notifications.filter((n) => n.is_read).length;
+  const unreadCount = notifications.filter((n) => !n.is_read).length;
+
+  console.log(unreadCount);
+
   const navLinks = [
     { href: "/dashboard", label: "Dashboard", key: 1 },
     { href: "/activities", label: "Activities", key: 2 },
@@ -68,12 +71,28 @@ const hasNotifications = notifications.filter((n) => n.is_read).length;
   const hiddenPaths = ["/auth/login", "/auth/signup"];
   if (hiddenPaths.includes(pathname)) return null;
 
-  const initials = getInitials(profile && profile.display_name || "");
+  const initials = getInitials((profile && profile.display_name) || "");
 
   const handleOpenDropdown = async () => {
     const isOpening = !openNotifications;
     setOpenNotifications(isOpening);
   };
+
+  useEffect(() => {
+    if (!openNotifications) return;
+
+    let lastY = window.scrollY;
+
+    const handleScroll = () => {
+      if (window.scrollY > lastY) {
+        setOpenNotifications(false);
+      }
+      lastY = window.scrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [openNotifications]);
 
   return (
     <nav className={styles.navbar} id="navbar">
@@ -127,7 +146,9 @@ const hasNotifications = notifications.filter((n) => n.is_read).length;
                     onClick={handleOpenDropdown}
                     className={styles.bellIcon}
                   />
-                  {hasNotifications < 0 && <div className={styles.dot}>{hasNotifications}</div>}
+                  {unreadCount > 0 && (
+                    <div className={styles.dot}>{unreadCount}</div>
+                  )}
 
                   {openNotifications && (
                     <NotificationsDropdown

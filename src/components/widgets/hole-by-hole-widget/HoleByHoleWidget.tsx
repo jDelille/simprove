@@ -10,7 +10,6 @@ type HoleByHoleProps = {
 };
 
 const HoleByHoleWidget = ({ roundHoles }: HoleByHoleProps) => {
-  
   const scoreColor = (strokes: number, par: number) => {
     const diff = strokes - par;
     if (diff <= -2) return "var(--eagle)";
@@ -30,12 +29,25 @@ const HoleByHoleWidget = ({ roundHoles }: HoleByHoleProps) => {
     { label: "Triple+", color: "var(--triplePlus)" },
   ];
 
+  const toParColor = (diff: number) => {
+  if (diff <= -2) return "var(--eagle)";
+  if (diff === -1) return "var(--birdie)";
+  if (diff === 0) return "var(--par)";
+  if (diff === 1) return "var(--bogey)";
+  if (diff === 2) return "var(--doubleBogey)";
+  return "var(--triplePlus)";
+};
+
   const chartOptions = useMemo(() => {
+    const sorted = [...roundHoles].sort(
+      (a, b) => a.hole_number - b.hole_number,
+    );
+    console.log(sorted);
     return {
       chart: {
         type: "column",
         backgroundColor: "transparent",
-        height: 300,
+        height: 250,
         animation: false,
       },
       title: { text: "" },
@@ -43,7 +55,7 @@ const HoleByHoleWidget = ({ roundHoles }: HoleByHoleProps) => {
       legend: { enabled: false },
 
       xAxis: {
-        categories: roundHoles.map((r) => r.hole_number),
+        categories: sorted.map((r) => r.hole_number),
         lineWidth: 0,
         tickLength: 0,
         labels: {
@@ -70,12 +82,55 @@ const HoleByHoleWidget = ({ roundHoles }: HoleByHoleProps) => {
       series: [
         {
           type: "column",
-          data: roundHoles.map((r) => ({
+          data: sorted.map((r) => ({
             y: r.strokes,
             color: scoreColor(r.strokes, r.par),
+            hole: r.hole_number,
+            par: r.par,
+            strokes: r.strokes,
+            diff: r.strokes - r.par,
           })),
         },
       ],
+      tooltip: {
+        useHTML: true,
+        backgroundColor: "transparent",
+        borderWidth: 0,
+        shadow: false,
+        padding: 0,
+
+        formatter: function (this: any) {
+          const diff = this.point.diff;
+          const hole = this.point.hole;
+          const par = this.point.par;
+          const strokes = this.point.strokes;
+
+          let label = "Par";
+          if (diff <= -2) label = "Eagle or better";
+          else if (diff === -1) label = "Birdie";
+          else if (diff === 1) label = "Bogey";
+          else if (diff === 2) label = "Double Bogey";
+          else if (diff >= 3) label = "Triple+";
+
+          const diffText = diff > 0 ? `+${diff}` : diff === 0 ? "E" : `${diff}`;
+
+          return `
+      <div class="${styles.tooltip}">
+        <div class="${styles.tooltipClub}">
+          Hole ${hole}
+        </div>
+
+        <div class="${styles.tooltipValue}">
+          <ul>
+            <li>Score: <span style="color:${toParColor(diff)}">${strokes}</span></li>
+            <li>Par: <span>${par}</span></li>
+            <li>To Par: <span style="color:${toParColor(diff)}">${diffText} (${label})</span></li>
+          </ul>
+        </div>
+      </div>
+    `;
+        },
+      },
     };
   }, [roundHoles]);
 
