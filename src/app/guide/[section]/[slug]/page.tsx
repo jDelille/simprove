@@ -18,14 +18,17 @@ export default async function GuidePage({
 
   return (
     <div className="guide-page">
-      {/* <GuideSidebar /> */}
+      <GuideSidebar />
       <GuideContent guide={guide} />
     </div>
   );
 }
 
 export function generateStaticParams() {
-  return guides
-    .flatMap((section) => section.links)
-    .map((link) => ({ slug: link.slug }));
+  return guides.flatMap((section) =>
+    section.links.map((link) => ({
+      section: section.slug,
+      slug: link.slug,
+    }))
+  );
 }
