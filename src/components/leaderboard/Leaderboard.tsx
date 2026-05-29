@@ -58,7 +58,7 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
           <h1>Leaderboard</h1>
           <p>Ranked by total points</p>
         </div>
-        <ul className={styles.leaderboardList}>
+        {/* <ul className={styles.leaderboardList}>
           {periods.map((p) => (
             <li
               key={p}
@@ -68,7 +68,7 @@ const Leaderboard = ({ leaderboardData }: LeaderboardProps) => {
               {p.charAt(0).toUpperCase() + p.slice(1)}
             </li>
           ))}
-        </ul>
+        </ul> */}
       </div>
 
       <div className={styles.content}>
