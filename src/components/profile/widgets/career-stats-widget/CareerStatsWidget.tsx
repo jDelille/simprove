@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./CareerStatsWidget.module.scss";
-import { Averages, RoundStats } from "@/lib/shots/averages";
+import { Averages } from "@/types/averages";
+import { RoundStats } from "@/types/roundStats";
 
 type CareerStatsWidgetProps = {
   stats: Averages & RoundStats & { totalSessions: number; totalPoints: number; };
