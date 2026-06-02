@@ -242,42 +242,48 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
         <>
           <HighchartsReact highcharts={Highcharts} options={chartOptions} />
           <div className={styles.controls}>
-            <div
-              className={styles.control}
-              style={
-                activeControl === "lifetime" ? { color: "var(--text)" } : {}
-              }
-              onClick={() => setActiveControl("lifetime")}
-            >
-              <p>Lifetime</p>
-            </div>
-            <div
-              className={styles.control}
-              style={
-                activeControl === "last30Days" ? { color: "var(--text)" } : {}
-              }
-              onClick={() => setActiveControl("last30Days")}
-            >
-              <p>Last 30 Days</p>
-            </div>
-            <div
-              className={styles.control}
-              style={activeControl === "latest" ? { color: "var(--text)" } : {}}
-              onClick={() => setActiveControl("latest")}
-            >
-              <p>Latest Session</p>
-            </div>
-
-            <div className={styles.control}>
-              <p>Compare</p>
-              <div className={styles.upgradeIcon}>
-                <FaLock size={10} color="black" />
+            <div className={styles.row}>
+              <div
+                className={styles.control}
+                style={
+                  activeControl === "lifetime" ? { color: "var(--text)" } : {}
+                }
+                onClick={() => setActiveControl("lifetime")}
+              >
+                <p>Lifetime</p>
+              </div>
+              <div
+                className={styles.control}
+                style={
+                  activeControl === "last30Days" ? { color: "var(--text)" } : {}
+                }
+                onClick={() => setActiveControl("last30Days")}
+              >
+                <p>Last 30 Days</p>
+              </div>
+              <div
+                className={styles.control}
+                style={
+                  activeControl === "latest" ? { color: "var(--text)" } : {}
+                }
+                onClick={() => setActiveControl("latest")}
+              >
+                <p>Latest Session</p>
               </div>
             </div>
-            <div className={styles.control}>
-              <p>Ai Analysis</p>
-              <div className={styles.upgradeIcon}>
-                <FaLock size={10} color="black" />
+
+            <div className={styles.row}>
+              <div className={styles.control}>
+                <p>Compare</p>
+                <div className={styles.upgradeIcon}>
+                  <FaLock size={10} color="black" />
+                </div>
+              </div>
+              <div className={styles.control}>
+                <p>Ai Analysis</p>
+                <div className={styles.upgradeIcon}>
+                  <FaLock size={10} color="black" />
+                </div>
               </div>
             </div>
           </div>
