@@ -55,6 +55,9 @@ const Activities = ({ sessions, rounds, profile }: ActivitiesProps) => {
     active === "Sessions" ? [] : rounds,
   );
 
+  console.log("sessions", sessions);
+  console.log("rounds", rounds);
+
   const controls = ["All", "Rounds", "Sessions"];
 
   const hasNoActivities = sessions.length === 0 && rounds.length === 0;

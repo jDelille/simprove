@@ -57,8 +57,6 @@ const Navbar: React.FC<NavbarProps> = ({ profile, notifications }) => {
 
   const unreadCount = notifications.filter((n) => !n.is_read).length;
 
-  console.log(unreadCount);
-
   const navLinks = [
     { href: "/dashboard", label: "Dashboard", key: 1 },
     { href: "/activities", label: "Activities", key: 2 },

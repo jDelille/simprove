@@ -18,6 +18,8 @@ import PlayerArchetypeWidget from "../widgets/player-archetype-widget/PlayerArch
 import ScoringDistributionWidget from "../widgets/scoring-distribution-widget/ScoringDistributionWidget";
 import { useEffect } from "react";
 import { useTour } from "../tour-controller/TourContext";
+import Takeaway from "./takeaway/Takeaway";
+import { getDashboardWidgets } from "@/services/dashboard/getDashboardWidgets";
 
 type DashboardProps = {
   sessions: Session[];
@@ -28,6 +30,7 @@ type DashboardProps = {
   userPoints: any;
   latestRound: any;
   rounds: Round[];
+  takeaway: any;
 };
 
 const Dashboard = (props: DashboardProps) => {
@@ -48,13 +51,21 @@ const Dashboard = (props: DashboardProps) => {
     shots,
   });
 
+  const dashboardWidgetsData = getDashboardWidgets(
+    props.takeaway,
+    profileMetrics,
+    shots,
+    props.sessions
+  );
+
+  console.log(dashboardWidgetsData)
+
   useEffect(() => {
     if (isTourActive) {
       document.body.classList.add("tour-active");
     } else {
       document.body.classList.remove("tour-active");
 
-      // hard reset layout
       requestAnimationFrame(() => {
         window.scrollTo(window.scrollX, window.scrollY);
       });
@@ -65,44 +76,36 @@ const Dashboard = (props: DashboardProps) => {
     <div className={styles.dashboard}>
       {/* left side */}
       <div className={`${styles.column} ${styles.leftColumn}`}>
+        {props.sessions.length > 0 && (
+          <div className={styles.row}>
+          <Takeaway takeaway={props.takeaway} />
+        </div>
+        )}
         <div className={styles.row + " " + styles.statsRow} id="stats-row">
           <SmallStatWidget
-            title="Total Shots"
-            value={profileMetrics.count}
-            metric="shots"
-            trend={dashboardData.shotsTrend.direction}
-            trendText={dashboardData.shotsTrendText}
-            trendColor={dashboardData.shotsTrendColor}
+            title="Primary Miss"
+            value={profileMetrics.primaryMiss.label}
+            trendText={dashboardWidgetsData.primaryMiss.value.avgMiss.toFixed(1) + " yds offline"}
             isEmpty={shots.length === 0}
           />
-
           <SmallStatWidget
-            title="Activities"
-            value={dashboardData.activitiesThisMonth}
-            metric={" "} // sessions.length > 1 ? "sessions" : "session"
-            trend={dashboardData.activityTrend.direction}
-            trendText={dashboardData.activityTrendText}
-            trendColor={dashboardData.activityTrendColor}
+            title="Miss Cause"
+            value={dashboardWidgetsData.missCause.value}
+            trendText={dashboardWidgetsData.missCause.trendText}
             isEmpty={shots.length === 0}
           />
-
           <SmallStatWidget
-            title="Longest Carry"
-            value={Number(profileMetrics.longestCarry?.toFixed(1)) || 0}
-            metric="yds"
-            trend={dashboardData.carryTrend.direction}
-            trendText={dashboardData.carryTrendText}
-            trendColor={dashboardData.carryTrendColor}
+            title="Swing Trend"
+            value={dashboardWidgetsData.swingTrend.value}
+            trendText={dashboardWidgetsData.swingTrend.trendText}
             isEmpty={shots.length === 0}
           />
-
           <SmallStatWidget
-            title="Most Used Club"
-            value={profileMetrics.mostUsedClub || "N/A"}
-            metric=""
-            trend={null}
-            trendText={`${profileMetrics.mostUsedClubCount || 0} total shots`}
+            title="Focus Area"
+            value={dashboardWidgetsData.focusArea.value}
+            trendText={dashboardWidgetsData.focusArea.trendText}
             isEmpty={shots.length === 0}
+            link="/missions"
           />
         </div>
         <div className={styles.row}>

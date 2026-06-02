@@ -96,6 +96,12 @@
     }
   }
 
+  .empty {
+    padding: 1rem;
+    font-size: 14px;
+    text-align: center;
+  }
+
   ul {
     max-height: 350px;
     overflow-y: auto;
@@ -178,7 +184,7 @@
     }
 
     .unread {
-      background-color: var(--lightBlue);
+      // background-color: var(--lightBlue);
     }
   }
 

@@ -1,33 +1,7 @@
+import { Averages } from "@/types/averages";
 import { Round } from "@/types/round";
+import { RoundStats } from "@/types/roundStats";
 import { Shot } from "@/types/shot";
-
-export type Averages = {
-  avgCarry: number;
-  avgSpeed: number;
-  avgOffline: number;
-  avgSpin: number;
-  avgfaceToTarget: number;
-  avgDynamicLoft: number;
-  avgLaunchAngle: number;
-  avgPeakHeight: number;
-  avgDescent: number;
-  count: number;
-  mostUsedClub?: string;
-  mostUsedClubCount?: number;
-  longestCarry?: number;
-  peakBallSpeed?: number;
-  clubsHit: string[];
-};
-
-export type RoundStats = {
-  totalRounds: number;
-  bestScore: number | undefined;
-  avgGIR: number;
-  avgFIR: number;
-  avgPutts: number;
-  longestDrive: number | undefined;
-};
-
 
 export function calculateAverages(shots: Shot[]): Averages {
   if (!shots.length) {
@@ -41,6 +15,7 @@ export function calculateAverages(shots: Shot[]): Averages {
       avgPeakHeight: 0,
       avgDescent: 0,
       avgDynamicLoft: 0,
+      avgPath: 0,
       count: 0,
       mostUsedClub: undefined,
       mostUsedClubCount: undefined,
@@ -88,6 +63,7 @@ export function calculateAverages(shots: Shot[]): Averages {
       acc.avgLaunchAngle += shot?.vla ?? 0;
       acc.avgPeakHeight += shot.peakHeight ?? 0;
       acc.avgDecent += shot.decent ?? 0;
+      acc.avgPath += shot.path ?? 0;
       acc.count++;
 
       return acc;
@@ -108,6 +84,7 @@ export function calculateAverages(shots: Shot[]): Averages {
       longestCarry: longestCarry,
       peakBallSpeed: peakBallSpeed,
       clubsHit: clubsHit,
+      avgPath: 0,
     },
   );
 
@@ -121,6 +98,7 @@ export function calculateAverages(shots: Shot[]): Averages {
     avgLaunchAngle: totals.avgLaunchAngle / totals.count,
     avgPeakHeight: totals.avgPeakHeight / totals.count,
     avgDescent: totals.avgDecent / totals.count,
+    avgPath: totals.avgPath / totals.count,
     count: totals.count,
     mostUsedClub: totals.mostUsedClub,
     mostUsedClubCount: totals.mostUsedClubCount,
@@ -131,22 +109,25 @@ export function calculateAverages(shots: Shot[]): Averages {
 }
 
 export function getClubAverages(shots: Shot[]) {
-  const grouped = shots.reduce((acc, shot) => {
-    if (!shot.club) return acc;
-    acc[shot.club] = acc[shot.club] ?? [];
-    acc[shot.club].push(shot);
-    return acc;
-  }, {} as Record<string, Shot[]>);
+  const grouped = shots.reduce(
+    (acc, shot) => {
+      if (!shot.club) return acc;
+      acc[shot.club] = acc[shot.club] ?? [];
+      acc[shot.club].push(shot);
+      return acc;
+    },
+    {} as Record<string, Shot[]>,
+  );
 
   return Object.fromEntries(
-    Object.entries(grouped).map(([club, shots]) => [club, calculateAverages(shots)])
+    Object.entries(grouped).map(([club, shots]) => [
+      club,
+      calculateAverages(shots),
+    ]),
   );
 }
 
-export function calculatePercentChange(current: number, previous: number) {
-  if (previous === 0) return current === 0 ? 0 : 100;
-  return ((current - previous) / Math.abs(previous)) * 100;
-}
+
 
 export function calculateRoundStats(rounds: Round[]): RoundStats {
   if (!rounds.length) {
@@ -160,25 +141,27 @@ export function calculateRoundStats(rounds: Round[]): RoundStats {
     };
   }
 
-  const validRounds = rounds.filter(r => !r.hidden_from_stats);
-  const scores = validRounds.flatMap(r => r.round_scores);
+  const validRounds = rounds.filter((r) => !r.hidden_from_stats);
+  const scores = validRounds.flatMap((r) => r.round_scores);
 
   const totals = rounds
-    .map(r => Number(r.total))
-    .filter(t => !isNaN(t) && t > 0);
+    .map((r) => Number(r.total))
+    .filter((t) => !isNaN(t) && t > 0);
 
   const bestScore = totals.length ? Math.min(...totals) : undefined;
 
   const longestDrive = scores.length
-    ? Math.max(...scores.map(s => s.driving_distance_longest))
+    ? Math.max(...scores.map((s) => s.driving_distance_longest))
     : undefined;
 
   const avgGIR = scores.length
-    ? scores.reduce((acc, s) => acc + s.greens_value / s.greens_target, 0) / scores.length
+    ? scores.reduce((acc, s) => acc + s.greens_value / s.greens_target, 0) /
+      scores.length
     : 0;
 
   const avgFIR = scores.length
-    ? scores.reduce((acc, s) => acc + s.fairways_value / s.fairways_target, 0) / scores.length
+    ? scores.reduce((acc, s) => acc + s.fairways_value / s.fairways_target, 0) /
+      scores.length
     : 0;
 
   const avgPutts = scores.length

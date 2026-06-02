@@ -1,15 +1,14 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
+import { getClubAverages } from "@/lib/shots/averages";
+import { FaChartBar } from "react-icons/fa";
+import { Session } from "@/types/session";
+import { FaLock } from "react-icons/fa";
+import useModal from "@/hooks/useModal";
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 import styles from "./AveragesGraphWidget.module.scss";
-import { getClubAverages } from "@/lib/shots/averages";
-import { FaChartBar } from "react-icons/fa";
-import useModal from "@/hooks/useModal";
-import { Session } from "@/types/session";
-import Button from "@/components/ui/button/Button";
-import { IoInformationCircleOutline } from "react-icons/io5";
 
 type AveragesGraphWidgetProps = {
   sessions: Session[];
@@ -22,6 +21,7 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
 }) => {
   const [selectedMetric, setSelectedMetric] = useState<MetricKey>("avgCarry");
   const { openModal, modals, closeModal } = useModal();
+  const [activeControl, setActiveControl] = useState<string>("lifetime");
 
   const isEmpty = sessions.length === 0;
 
@@ -41,6 +41,28 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
     "DR",
   ];
 
+  const filteredSessions = useMemo(() => {
+    if (activeControl === "latest") {
+      const latestSession = [...sessions].sort(
+        (a, b) =>
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+      )[0];
+
+      return latestSession ? [latestSession] : [];
+    }
+
+    if (activeControl === "last30Days") {
+      const cutoff = new Date();
+      cutoff.setDate(cutoff.getDate() - 30);
+
+      return sessions.filter(
+        (session) => new Date(session.created_at) >= cutoff,
+      );
+    }
+
+    return sessions; // lifetime
+  }, [sessions, activeControl]);
+
   // Define labels + units
   const controls: { key: MetricKey; label: string; unit?: string }[] = [
     { key: "avgCarry", label: "Carry", unit: "yds" },
@@ -52,7 +74,9 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
 
   const metric = controls.find((c) => c.key === selectedMetric);
 
-  const clubStats = getClubAverages(sessions.flatMap((s: any) => s.shots));
+  const clubStats = getClubAverages(
+    filteredSessions.flatMap((s: any) => s.shots),
+  );
 
   const clubStatsArray = Object.entries(clubStats)
     .map(([club, stats]) => ({ club, ...stats }))
@@ -195,7 +219,7 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
     <div className={styles.graphContainer} id="averages-graph">
       <div className={styles.header}>
         <div className={styles.text}>
-          <p className={styles.selectedMetric}>{metric?.label} </p> 
+          <p className={styles.selectedMetric}>{metric?.label} </p>
           {/* <IoInformationCircleOutline /> */}
           <span>Average performance by club</span>
         </div>
@@ -215,7 +239,49 @@ const AveragesGraphWidget: React.FC<AveragesGraphWidgetProps> = ({
         </div>
       </div>
       {!isEmpty ? (
-        <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+        <>
+          <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+          <div className={styles.controls}>
+            <div
+              className={styles.control}
+              style={
+                activeControl === "lifetime" ? { color: "var(--text)" } : {}
+              }
+              onClick={() => setActiveControl("lifetime")}
+            >
+              <p>Lifetime</p>
+            </div>
+            <div
+              className={styles.control}
+              style={
+                activeControl === "last30Days" ? { color: "var(--text)" } : {}
+              }
+              onClick={() => setActiveControl("last30Days")}
+            >
+              <p>Last 30 Days</p>
+            </div>
+            <div
+              className={styles.control}
+              style={activeControl === "latest" ? { color: "var(--text)" } : {}}
+              onClick={() => setActiveControl("latest")}
+            >
+              <p>Latest Session</p>
+            </div>
+
+            <div className={styles.control}>
+              <p>Compare</p>
+              <div className={styles.upgradeIcon}>
+                <FaLock size={10} color="black" />
+              </div>
+            </div>
+            <div className={styles.control}>
+              <p>Ai Analysis</p>
+              <div className={styles.upgradeIcon}>
+                <FaLock size={10} color="black" />
+              </div>
+            </div>
+          </div>
+        </>
       ) : (
         <div className={styles.emptyState}>
           <div className={styles.emptyStateIcon}>

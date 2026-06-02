@@ -5,7 +5,7 @@
   @include widget();
   padding: 0;
   position: relative;
-  height: 370.8px;
+  max-height: 370.8px;
   @include bp.mobile {
     max-height: none;
   }

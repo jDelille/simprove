@@ -1,0 +1,33 @@
+.takeaway {
+  padding: 1rem;
+  border-radius: 8px;
+  background: var(--green);
+  border: 1px solid var(--greenBorder);
+  color: var(--text);
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+
+  .icon {
+    background: var(--greenIconBG);
+    width: fit-content;
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px solid var(--greenBorder);
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    span {
+      color: var(--greenText);
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+    p {
+        font-size: 14px;
+    }
+  }
+}

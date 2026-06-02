@@ -43,9 +43,9 @@ const Card = ({ item, isDemoAccount }: CardProps) => {
   const handleDeleteActivity = async (e: any) => {
     e.stopPropagation();
 
-    if (isDemoAccount) {
-      return;
-    }
+    // if (isDemoAccount) {
+    //   return;
+    // }
 
     try {
       if (item.round_begin) {
@@ -96,7 +96,7 @@ const Card = ({ item, isDemoAccount }: CardProps) => {
         />
         <Button
           onClick={(e) => handleDeleteActivity(e)}
-          children={"N/A for demo"}
+          children={!isDemoAccount ? "N/A in demo" : "Delete"}
           variant="dangerOutline"
         />
       </div>
