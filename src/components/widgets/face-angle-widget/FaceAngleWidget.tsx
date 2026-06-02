@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./FaceAngleWidget.module.scss";
-import { Averages } from "@/lib/shots/averages";
+import { Averages } from "@/types/averages";
 
 type FaceAngleWidgetProps = {
   clubAverages?: Record<string, Averages>;
