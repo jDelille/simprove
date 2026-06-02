@@ -8,10 +8,11 @@ import CareerStatsWidget from "./widgets/career-stats-widget/CareerStatsWidget";
 import { AveragesGraphWidget } from "../widgets";
 import { RecentActivityWidget, TopPerformingClubsWidget } from "./widgets";
 import { Round } from "@/types/round";
-import { Averages, RoundStats } from "@/lib/shots/averages";
 import PlayerArchetypeWidget from "../widgets/player-archetype-widget/PlayerArchetypeWidget";
 import ScoringDistributionWidget from "../widgets/scoring-distribution-widget/ScoringDistributionWidget";
 import { SocialData } from "@/types/socialData";
+import { Averages } from "@/types/averages";
+import { RoundStats } from "@/types/roundStats";
 
 type ProfileProps = {
   userId: string;
